@@ -1,0 +1,51 @@
+{
+    "id": "aov",
+    "title": "Age of Vikings",
+    "description": "Age of Vikings by Chaosium Inc for Foundry VTT",
+    
+    "authors": [
+      {
+        "name": "Dangermouse",
+        "discord": "dangermouse67"
+      }
+    ],
+
+    "version": "13.1",
+    "compatibility": {
+      "minimum": 12,
+      "verified": "13.338"
+    },
+
+    "esmodules": ["module/aov.mjs"],
+    "styles": ["styles/aov.css"],
+    "languages": [
+      {
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+      }
+    ],
+    "packs": [],
+    "packFolders": [],
+    "gridDistance": 5,
+    "gridUnits": "ft",
+    "primaryTokenAttribute": "health",
+    "secondaryTokenAttribute": "power",
+
+    "media": [
+      {
+        "type": "setup",
+        "url": "systems/boilerplate/assets/anvil-impact.png",
+        "thumbnail": "systems/boilerplate/assets/anvil-impact.png"
+      }
+    ],
+
+    "socket": false,
+    "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
+    "download": "This must link to a .zip file of the current version",
+    "url": "Replace this with a link to your public repository",
+    "license": "LICENSE.txt",
+    "readme": "README.md",
+    "bugs": "Replace this with a link to file issues or tickets",
+    "changelog": "CHANGELOG.md"
+  }
