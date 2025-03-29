@@ -2,7 +2,13 @@
     "id": "aov",
     "title": "Age of Vikings",
     "description": "Age of Vikings by Chaosium Inc for Foundry VTT",
-    
+
+    "version": "13.1",
+    "compatibility": {
+      "minimum": 12,
+      "verified": "13.338"
+    },    
+
     "authors": [
       {
         "name": "Dangermouse",
@@ -10,14 +16,8 @@
       }
     ],
 
-    "version": "13.1",
-    "compatibility": {
-      "minimum": 12,
-      "verified": "13.338"
-    },
-
-    "esmodules": ["module/aov.mjs"],
-    "styles": ["styles/aov.css"],
+    "esmodules": ["aov.mjs"],
+    "styles": ["css/aov.css"],
     "languages": [
       {
         "lang": "en",
@@ -27,25 +27,30 @@
     ],
     "packs": [],
     "packFolders": [],
-    "gridDistance": 5,
-    "gridUnits": "ft",
-    "primaryTokenAttribute": "health",
+
+    "documentTypes": {
+      "Actor": {
+        "character": {
+          "htmlFields": ["notes"]
+        }
+      }      
+    },  
+
+    "grid":{
+      "distance": 5,
+      "units": "ft"
+    }, 
+
+    "primaryTokenAttribute": "hp",
     "secondaryTokenAttribute": "power",
 
-    "media": [
-      {
-        "type": "setup",
-        "url": "systems/boilerplate/assets/anvil-impact.png",
-        "thumbnail": "systems/boilerplate/assets/anvil-impact.png"
-      }
-    ],
+    "socket": true,
 
-    "socket": false,
-    "manifest": "Replace this with a link to the /latest release system.json so people can receive updates after they've installed the system",
-    "download": "This must link to a .zip file of the current version",
+    "manifest": "https://github.com/Genii-Locorum/aov/releases/latest/download/system.json",
+    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.1/system.zip",
     "url": "https://github.com/Genii-Locorum/aov",
     "license": "LICENSE.txt",
     "readme": "README.md",
-    "bugs": "https://github.com/Genii-Locorum/aov/issues",
-    "changelog": "CHANGELOG.md"
+    "changelog": "CHANGELOG.md",
+    "bugs": "https://github.com/Genii-Locorum/aov/issues"
   }

@@ -1,0 +1,39 @@
+
+
+
+.aov .sheet-header .profile-img {
+    flex: 0 0 100px;
+    height: 100px;
+    margin-right: 10px;
+  }
+
+
+
+.app .header-button.edit-cid-warning,
+.application .window-header .header-control.edit-cid-warning {
+  color: red;
+}
+
+.aov .cid-editor {
+  a.copy-to-clipboard {
+    flex: 0 0 20px;
+    align-self: center;
+    text-align: right;
+  }
+
+  fieldset.item-sheet-properties {
+    label {
+      height: auto;
+      white-space: break-spaces;
+    }
+
+    span.warning {
+      outline: 2px dashed rgba(255, 100, 0, 0.3);
+      background-color: rgba(255, 100, 0, 0.3);
+    }
+
+    td.shorttext {
+      text-align: center;
+    }
+  }
+}
