@@ -10,7 +10,7 @@ export class AOVActor extends Actor {
   prepareDerivedData() {
     const actorData = this;
     const systemData = actorData.system;
-    const flags = actorData.flags.Aov || {};
+    const flags = actorData.flags.aov || {};
   
     //Prepare data for different actor types
     this._prepareCharacterData(actorData);

@@ -1,5 +1,5 @@
-export default class AovDataModel extends foundry.abstract.TypeDataModel {
-  toPlainObject() {
-    return {...this};
+export default class AOVDataModel extends foundry.abstract.TypeDataModel {
+    toPlainObject() {
+      return {...this};
+    }
   }
-}

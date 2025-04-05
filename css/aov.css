@@ -2,12 +2,14 @@
 
 
 .aov .sheet-header .profile-img {
-    flex: 0 0 100px;
-    height: 100px;
-    margin-right: 10px;
-  }
+  flex: 0 0 100px;
+  height: 100px;
+}
 
-
+.aov .sheet-header .item-img {
+  flex: 0 0 60px;
+  height: 60px;
+}
 
 .app .header-button.edit-cid-warning,
 .application .window-header .header-control.edit-cid-warning {
@@ -37,3 +39,18 @@
     }
   }
 }
+
+.aov .char-notes {
+  padding: 5px;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+.aov .item-header {
+  display: grid;
+  margin: 0px 0px 10px 0px;
+  row-gap: 0px;
+  column-gap: 10px;
+  grid-template-columns: 496px 60px;
+}
+

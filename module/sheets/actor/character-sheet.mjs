@@ -1,13 +1,12 @@
-import { CIDEditor } from "../../cid/cid-editor.mjs";
-const { api, sheets } = foundry.applications;
+import { AoVActorSheet} from "./actor-sheet.mjs"
 
-export class AovCharacterSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
+export class AoVCharacterSheet extends AoVActorSheet {
   constructor (options = {}) {
     super(options)
   }
   
   static DEFAULT_OPTIONS = {
-    classes: ['aov', 'actor'],
+    classes: ['aov', 'sheet', 'actor'],
     position: {
       width: 600,
       height: 520
@@ -19,7 +18,7 @@ export class AovCharacterSheet extends api.HandlebarsApplicationMixin(sheets.Act
     },
     actions: {
       onEditImage: this._onEditImage,
-      editCid: AovCharacterSheet.#onEditCid
+      editCid: this._onEditCid
     }
   }
 
@@ -42,38 +41,10 @@ export class AovCharacterSheet extends api.HandlebarsApplicationMixin(sheets.Act
     }
   }  
 
-  async _renderFrame(options) {
-    const frame = await super._renderFrame(options);
-    //define button
-    const sheetCID = this.actor.flags?.Aov?.cidFlag;
-    const noId = (typeof sheetCID === 'undefined' || typeof sheetCID.id === 'undefined' || sheetCID.id === '')
-    //add button
-    const label = game.i18n.localize("AOV.CIDFlag.id");
-    const cidEditor = `<button type="button" class="header-control icon fa-solid fa-fingerprint ${noId ? 'edit-cid-warning' : 'edit-cid-exisiting'}"
-        data-action="editCid" data-tooltip="${label}" aria-label="${label}"></button>`;
-    let el = this.window.close;
-    while(el.previousElementSibling.localName === 'button') {
-      el = el.previousElementSibling;
-    }
-    el.insertAdjacentHTML("beforebegin", cidEditor);
-    return frame;
-  }
-
   async _prepareContext (options) {
     // if we had a base class, do this then mergeObject
     // let context = await super._prepareContext(options);
-    let context = {
-      editable: this.isEditable,
-      owner: this.document.isOwner,
-      limited: this.document.limited,
-      actor: this.actor,
-      system: this.actor.system,
-      flag: this.actor.flags,
-      isGM: game.user.isGM,
-      fields: this.document.schema.fields,
-      config: CONFIG.AOV,
-      tabs: this._getTabs(options.parts),
-    }
+    let context = await super._prepareContext(options)
 
     // this could be moved to a helper, review boilerplate code
     context.tabs = {
@@ -103,23 +74,17 @@ export class AovCharacterSheet extends api.HandlebarsApplicationMixin(sheets.Act
  /** @override */
  async _preparePartContext(partId, context) {
     switch (partId) {
-      case 'features':
-      case 'spells':
-      case 'gear':
+      case 'attributes':
         context.tab = context.tabs[partId];
         break;
-      case 'biography':
+      case 'description':
         context.tab = context.tabs[partId];
-        // Enrich biography info for display
-        // Enrichment turns text like `[[/r 1d20]]` into buttons
-        context.enrichedNotes = await TextEditor.enrichHTML(
-          this.actor.system.notes,
+        context.enrichedDescription = await TextEditor.enrichHTML(
+          this.actor.system.description,
           {
-            // Whether to show secret blocks in the finished html
+            async: true,
             secrets: this.document.isOwner,
-            // Data to fill in for inline rolls
             rollData: this.actor.getRollData(),
-            // Relative UUID resolution
             relativeTo: this.actor,
           }
         );
@@ -127,6 +92,27 @@ export class AovCharacterSheet extends api.HandlebarsApplicationMixin(sheets.Act
     }
     return context;
   }
+
+  /**
+   * Activate event listeners using the prepared sheet HTML
+   */
+  _onRender (context, _options) {
+    // Everything below here is only needed if the sheet is editable
+    if (!context.editable) return;
+
+    // pure Javascript, no jQuery
+    this.element.querySelectorAll('.actor-toggle').forEach(n => n.addEventListener("dblclick", this.#onActorToggle.bind(this)));
+  }
+
+
+  //Handle Actor Toggles
+  async #onActorToggle (event){
+  }
+
+
+  //Handle Actor's Items
+  _prepareItems(context) {
+  }  
 
   _getTabs(parts) {
     // If you have sub-tabs this is necessary to change
@@ -166,35 +152,4 @@ export class AovCharacterSheet extends api.HandlebarsApplicationMixin(sheets.Act
       return tabs;
     }, {});
   }
-
-  _prepareItems(context) {
-
-  }  
-
-  //Edit Image
-  static async _onEditImage(event, target) {
-    const attr = target.dataset.edit;
-    const current = foundry.utils.getProperty(this.document, attr);
-    const { img } =
-      this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
-      {};
-    const fp = new foundry.applications.apps.FilePicker({
-      current,
-      type: 'image',
-      redirectToRoot: img ? [img] : [],
-      callback: (path) => {
-        this.document.update({ [attr]: path });
-      },
-      top: this.position.top + 40,
-      left: this.position.left + 10,
-    });
-    return fp.browse();
-  }
-
-    // handle editCid action
-    static #onEditCid(event) {
-        event.stopPropagation(); // Don't trigger other events
-        if ( event.detail > 1 ) return; // Ignore repeated clicks
-        new CIDEditor(this.actor, {}).render(true, { focus: true })
-      }
 }    

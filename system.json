@@ -30,9 +30,10 @@
 
     "documentTypes": {
       "Actor": {
-        "character": {
-          "htmlFields": ["notes"]
-        }
+        "character": {"htmlFields": ["description","gmNotes"]}
+      },
+      "Item": {
+        "gear": {"htmlFields": ["description","gmNotes"]}
       }      
     },  
 

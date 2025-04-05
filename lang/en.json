@@ -9,6 +9,18 @@
       "app": "APP"
       },
 
+    "Actor": {
+      "hp": "Hit Points",
+      "power": "Power"
+    },  
+
+    "attributes": "Attributes",
+    "CopyToClipboard": "Copy to clipboard",
+    "description": "Description",
+    "details": "Details",
+    "gmNotes": "GM Notes",
+    "gmTab": "GM Tab",
+
 
 
     "CIDFlag": {
@@ -28,20 +40,21 @@
       "language": "Language",
       "link": "Link",
       "key": "Chaosium ID (CID)",
+      "new": "- Custom System ID - ",
       "others": "Other documents with this CID and language (excluding documents in other actors and items)",
       "priorShrt": "Priority",
       "priority": "Chaosium ID Priority",
       "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The Chaosium ID should use the English translation of the {type} to support localization across all languages.",
       "title": "Edit Chaosium ID (CID)"
-    },
-
-    "CopyToClipboard": "Copy to clipboard"
-
+    }
   },
 
   "TYPES": {
     "Actor": {
       "character": "Character"
+    },
+    "Item": {
+      "gear": "Gear"
     }
   }
 }

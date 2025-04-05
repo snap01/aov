@@ -6,11 +6,11 @@ import { AOVUtilities } from '../apps/utilities.mjs'
 
 export class CID {
   static init () {
-    CONFIG.Actor.compendiumIndexFields.push('flags.Aov.cidFlag')
-    CONFIG.Item.compendiumIndexFields.push('flags.Aov.cidFlag')
-    CONFIG.JournalEntry.compendiumIndexFields.push('flags.Aov.cidFlag')
-    // CONFIG.Macro.compendiumIndexFields.push('flags.Aov.cidFlag')
-    CONFIG.RollTable.compendiumIndexFields.push('flags.Aov.cidFlag')
+    CONFIG.Actor.compendiumIndexFields.push('flags.aov.cidFlag')
+    CONFIG.Item.compendiumIndexFields.push('flags.aov.cidFlag')
+    CONFIG.JournalEntry.compendiumIndexFields.push('flags.aov.cidFlag')
+    // CONFIG.Macro.compendiumIndexFields.push('flags.aov.cidFlag')
+    CONFIG.RollTable.compendiumIndexFields.push('flags.aov.cidFlag')
     game.system.api = {
       cid: CID
     }
@@ -69,7 +69,7 @@ export class CID {
    * @returns string
    */
   static guessGroupFromDocument (document) {
-    return CID.guessGroupFromKey(document.flags?.Aov?.cidFlag?.id)
+    return CID.guessGroupFromKey(document.flags?.aov?.cidFlag?.id)
   }
 
   /**
@@ -90,7 +90,7 @@ export class CID {
       const found = await CID.fromCIDRegexBest({ cidRegExp: CID.makeGroupRegEx(cids), type: 'i', lang, langFallback, showLoading })
       const all = []
       for (const cid of cids) {
-        const item = found.find(i => i.flags.Aov.cidFlag.id === cid)
+        const item = found.find(i => i.flags.aov.cidFlag.id === cid)
         if (item) {
           all.push(item)
         }
@@ -98,7 +98,7 @@ export class CID {
       if (all.length < cids.length) {
         const notmissing = []
         for (const doc of all) {
-          notmissing.push(doc.flags.Aov.cidFlag.id)
+          notmissing.push(doc.flags.aov.cidFlag.id)
         }
         ui.notifications.warn(game.i18n.format('AOV.CIDFlag.error.documents-not-found', { cids: cids.filter(x => !notmissing.includes(x)).join(', '), lang}))
       }
@@ -120,7 +120,7 @@ export class CID {
     if (typeof CIDKeys[cid] !== 'undefined') {
       itemName = CIDKeys[cid]
     }
-    return (typeof list.filter === 'undefined' ? Object.values(list) : list).filter(i => i.flags?.Aov?.cidFlag?.id === cid || (itemName !== '' && itemName === i.name))
+    return (typeof list.filter === 'undefined' ? Object.values(list) : list).filter(i => i.flags?.aov?.cidFlag?.id === cid || (itemName !== '' && itemName === i.name))
   }
 
   /**
@@ -314,7 +314,7 @@ export class CID {
   static filterBestCID (documents) {
     const bestMatchDocuments = new Map()
     for (const doc of documents) {
-      const docCID = doc.getFlag('Aov', 'cidFlag')?.id
+      const docCID = doc.getFlag('aov', 'cidFlag')?.id
       if (docCID) {
         const currentDoc = bestMatchDocuments.get(docCID)
         if (typeof currentDoc === 'undefined') {
@@ -331,9 +331,9 @@ export class CID {
         }
 
         // Prefer highest priority
-        let docPriority = parseInt(doc.getFlag('Aov', 'cidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
+        let docPriority = parseInt(doc.getFlag('aov', 'cidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
         docPriority = isNaN(docPriority) ? Number.MIN_SAFE_INTEGER : docPriority
-        let existingPriority = parseInt(currentDoc.getFlag('Aov', 'cidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
+        let existingPriority = parseInt(currentDoc.getFlag('aov', 'cidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
         existingPriority = isNaN(existingPriority) ? Number.MIN_SAFE_INTEGER : existingPriority
         const preferPriority = docPriority >= existingPriority
         if (!preferPriority) {
@@ -358,9 +358,9 @@ export class CID {
     }
     const bestMatchDocuments = new Map()
     for (const doc of documents) {
-      const docCID = doc.getFlag('Aov', 'cidFlag')?.id
+      const docCID = doc.getFlag('aov', 'cidFlag')?.id
       if (docCID) {
-        let docPriority = parseInt(doc.getFlag('Aov', 'cidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
+        let docPriority = parseInt(doc.getFlag('aov', 'cidFlag')?.priority ?? Number.MIN_SAFE_INTEGER, 10)
         docPriority = isNaN(docPriority) ? Number.MIN_SAFE_INTEGER : docPriority
         const key = docCID + '/' + (isNaN(docPriority) ? Number.MIN_SAFE_INTEGER : docPriority)
 
@@ -370,8 +370,8 @@ export class CID {
           continue
         }
 
-        const docLang = doc.getFlag('Aov', 'cidFlag')?.lang ?? 'en'
-        const existingLang = currentDoc?.getFlag('Aov', 'cidFlag')?.lang ?? 'en'
+        const docLang = doc.getFlag('aov', 'cidFlag')?.lang ?? 'en'
+        const existingLang = currentDoc?.getFlag('aov', 'cidFlag')?.lang ?? 'en'
         if (existingLang === 'en' && existingLang !== docLang) {
           bestMatchDocuments.set(key, doc)
         }
@@ -405,7 +405,7 @@ export class CID {
     const gameProperty = CID.getGameProperty(`${type}..`)
 
     const candidateDocuments = game[gameProperty]?.filter((d) => {
-      const cidFlag = d.getFlag('Aov', 'cidFlag')
+      const cidFlag = d.getFlag('aov', 'cidFlag')
       if (typeof cidFlag === 'undefined') {
         return false
       }
@@ -451,7 +451,7 @@ export class CID {
           await pack.getIndex()
         }
         const indexInstances = pack.index.filter((i) => {
-          const cidFlag = i.flags?.Aov?.cidFlag
+          const cidFlag = i.flags?.aov?.cidFlag
           if (typeof cidFlag === 'undefined') {
             return false
           }
@@ -465,7 +465,7 @@ export class CID {
               lang,
             })
             ui.notifications.error(msg)
-            console.log('Aov |', msg, index)
+            console.log('aov |', msg, index)
             throw new Error()
           } else {
             candidateDocuments.push(document)
@@ -483,8 +483,8 @@ export class CID {
    */
   static compareCIDPrio (a, b) {
     return (
-      b.getFlag('Aov', 'cidFlag')?.priority -
-      a.getFlag('Aov', 'cidFlag')?.priority
+      b.getFlag('aov', 'cidFlag')?.priority -
+      a.getFlag('aov', 'cidFlag')?.priority
     )
   }
 
@@ -497,7 +497,7 @@ export class CID {
     const gameProperty = CID.gamePropertyLookup[type]
     if (!gameProperty) {
       ui.notifications.warn(game.i18n.format('AOV.CIDFlag.error.incorrect.type'))
-      console.log('Aov | ', cid)
+      console.log('aov | ', cid)
       throw new Error()
     }
     return gameProperty
@@ -525,7 +525,7 @@ export class CID {
     const documentType = CID.documentNameLookup[type]
     if (!documentType) {
       ui.notifications.warn(game.i18n.format('AOV.CIDFlag.error.incorrect.type'))
-      console.log('Aov | ', cid)
+      console.log('aov | ', cid)
       throw new Error()
     }
     return documentType

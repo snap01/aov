@@ -1,6 +1,6 @@
-import AovActorBase from "./base-actor.mjs";
+import AOVActorBaseModel from "./base-actor-model.mjs";
 
-export default class AovCharacter extends AovActorBase {
+export default class AOVCharacterModel extends AOVActorBaseModel {
 
   static defineSchema() {
     const fields = foundry.data.fields;

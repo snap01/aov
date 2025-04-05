@@ -1,6 +1,6 @@
-import AovDataModel from "./base-model.mjs";
+import AOVDataModel from "../base-model.mjs";
 
-export default class AovActorBase extends AovDataModel {
+export default class AOVActorBaseModel extends AOVDataModel {
 
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -16,7 +16,8 @@ export default class AovActorBase extends AovDataModel {
       max: new fields.NumberField({ ...requiredInteger, initial: 5 })
     });
 
-    schema.notes = new fields.StringField({ required: true, blank: true }); 
+    schema.description = new fields.StringField({ required: true, blank: true }); 
+    schema.gmNotes = new fields.StringField({ required: true, blank: true }); 
 
     // Iterate over ability names and create a new SchemaField for each.
     schema.abilities = new fields.SchemaField(Object.keys(CONFIG.AOV.abilities).reduce((obj, ability) => {

@@ -1,9 +1,10 @@
-import { AOVActor } from "./module/actor/actor.mjs";
+import { AOVActor } from "./module/documents/actor.mjs";
+import { AOVItem } from "./module/documents/item.mjs";
 import { AOV } from "./module/setup/config.mjs";
 import { registerSettings } from './module/settings/register-settings.mjs'
 import { handlebarsHelper } from './module/setup/handlebar-helpers.mjs';
-import * as models from './module/data/_module.mjs';
 import { AOVHooks } from './module/hooks/index.mjs'
+import * as models from './module/data/_module.mjs';
 
 
 
@@ -12,7 +13,8 @@ Hooks.once('init', async function() {
 
   //Add classes to global game object
   game.aov = {
-    AOVActor
+    AOVActor,
+    AOVItem
   }
 
 
@@ -25,12 +27,17 @@ Hooks.once('init', async function() {
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = AOVActor;
+  CONFIG.Item.documentClass = AOVItem;
+
 
   //Declare Data Models
   CONFIG.Actor.dataModels = {
-    character: models.AovCharacter,
+    character: models.AOVCharacterModel,
   }
- 
+  CONFIG.Item.dataModels = {
+    gear: models.AOVGearModel,
+  }
+
 });  
 
 //Remove certain Items types from the list of options to create under the items menu
