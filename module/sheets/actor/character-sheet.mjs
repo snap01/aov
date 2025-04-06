@@ -23,27 +23,16 @@ export class AoVCharacterSheet extends AoVActorSheet {
   }
 
   static PARTS = {
-    header: {
-      template: "systems/aov/templates/actor/character.header.hbs"
-    },
-    tabs: {
-      template: 'templates/generic/tab-navigation.hbs',
-    },
-    // each tab gets its own template
-    attributes: {
-      template: 'systems/aov/templates/actor/character.attributes.hbs'
-    },
-    description: {
-      template: 'systems/aov/templates/actor/character.description.hbs'
-    },
-    gmTab: {
-      template: 'systems/aov/templates/actor/character.gmtab.hbs'
-    }
+    header: {template: 'systems/aov/templates/actor/character.header.hbs'},
+    tabs: {template: 'systems/aov/templates/generic/tab-navigation.hbs'},
+      attributes: {template: 'systems/aov/templates/actor/character.attributes.hbs'},
+      description: {template: 'systems/aov/templates/actor/character.description.hbs'},
+      gmTab: {template: 'systems/aov/templates/actor/character.gmtab.hbs'}
   }  
 
   async _prepareContext (options) {
     // if we had a base class, do this then mergeObject
-    // let context = await super._prepareContext(options);
+
     let context = await super._prepareContext(options)
 
     // this could be moved to a helper, review boilerplate code
@@ -152,4 +141,5 @@ export class AoVCharacterSheet extends AoVActorSheet {
       return tabs;
     }, {});
   }
+
 }    

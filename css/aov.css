@@ -1,5 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+/* Default Colours etc */
+:root {
+  --primary-font-colour: black;
+  --secondary-font-colour: rgba(68, 7, 4, 1);
+  --primary-back-colour:grey;
+  --secondary-back-colour: lightgrey;
+  --primary-font: "Roboto";
+}
 
+.aov .actor {
+  font-family: var(--primary-font);
+  color: var(--primary-font-colour);
+}
 
 .aov .sheet-header .profile-img {
   flex: 0 0 100px;
@@ -53,4 +66,16 @@
   column-gap: 10px;
   grid-template-columns: 496px 60px;
 }
+
+
+/* SETTINGS  */
+.aov .settingNote {
+  flex: 0 0 100%;
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-16);
+  color: var(--secondary-font-colour);
+  margin: 3px 0;
+}
+
+
 

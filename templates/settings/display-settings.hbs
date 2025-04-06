@@ -1,0 +1,45 @@
+<div class="aov settingsForm flexcol" autocomplete="off">
+    <h2 class="bold">{{localize 'AOV.Settings.displayOptions'}}</h2>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.primaryFontColour'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input class="centre" name="primaryFontColour" type="text" value="{{optSet.primaryFontColour.value}}"/>
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.primaryFontColourHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.secondaryFontColour'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input class="centre" name="secondaryFontColour" type="text" value="{{optSet.secondaryFontColour.value}}"/>
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.secondaryFontColourHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.primaryBackColour'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input class="centre" name="primaryBackColour" type="text" value="{{optSet.primaryBackColour.value}}"/>
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.primaryBackColourHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.secondaryBackColour'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input class="centre" name="secondaryBackColour" type="text" value="{{optSet.secondaryBackColour.value}}"/>
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.secondaryBackColourHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.primaryFont'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <file-picker name="primaryFont" type="font" value="{{optSet.primaryFont.value}}"></file-picker>
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.primaryFontHint'}}</p>
+    </div>
+    
+    <br>
+  </div>

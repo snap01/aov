@@ -5,6 +5,7 @@ import { registerSettings } from './module/settings/register-settings.mjs'
 import { handlebarsHelper } from './module/setup/handlebar-helpers.mjs';
 import { AOVHooks } from './module/hooks/index.mjs'
 import * as models from './module/data/_module.mjs';
+import { AoVCharacterSheet } from "./module/sheets/actor/character-sheet.mjs";
 
 
 
@@ -53,3 +54,5 @@ Hooks.on("renderDialog", (dialog, html) => {
 
 
 AOVHooks.listen()
+
+Hooks.on('renderActorSheetV2', AoVCharacterSheet.renderSheet)

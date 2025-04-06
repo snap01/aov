@@ -1,4 +1,4 @@
 // Global Hooks 
 export function listen () {
-    Hooks.on('renderActorSheet', async (data, html, options) => {})
+    Hooks.on('renderActorSheetV2', async (data, html, options) => {})
 }
