@@ -1,62 +1,33 @@
 //CHAOSIUM ID EDITOR
 import { AOV } from '../setup/config.mjs'
 import { AOVUtilities } from '../apps/utilities.mjs'
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api 
 
-export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
-
-  static DEFAULT_OPTIONS = {
-    tag: 'form',
-    name: "cidEditor",
-    classes: ['aov', 'dialog', 'cid-editor'],
-    form: {
-      handler: CIDEditor._updateObject,
+export class CIDEditor extends FormApplication {
+  static get defaultOptions () {
+    return foundry.utils.mergeObject(super.defaultOptions, {
+      classes: ['aov', 'dialog', 'cid-editor'],
+      template: 'systems/aov/templates/cid/cid-editor.hbs',
+      width: 900,
+      height: 'auto',
+      title: 'AOV.CIDFlag.title',
       closeOnSubmit: false,
       submitOnClose: true,
-      submitOnChange: true,
-    } ,
-    position: {
-      width: 900,
-      height: "auto",
-    },
-    actions: {
-      copyToClip: CIDEditor.copyToClip,
-      guess: CIDEditor.guessID,
-    },
-
-
-
-    window: {
-      title: 'AOV.CIDFlag.title',
-      contentClasses: ["standard-form"],  
-    }
-  }  
-
-  get title() {
-    return `${game.i18n.localize(this.options.window.title)}`;
+      submitOnChange: true
+    })
   }
 
-  static PARTS = {
-    form: {template: 'systems/aov/templates/cid/cid-editor.hbs'},
-  }
+  async getData () {
+    const sheetData = super.getData()
 
-
-
-  async _prepareContext (options) {
-
-
-    this.document = this.options.document
-
-    const sheetData = await super._prepareContext()
-  
-    sheetData.objtype = this.document.type
-    sheetData.objid = this.document.id
-    sheetData.objuuid = this.document.uuid
     sheetData.supportedLanguages = CONFIG.supportedLanguages
-    sheetData.isEditable = this.document.sheet.isEditable
-    sheetData.guessCode = game.system.api.cid.guessId(this.document)
-    sheetData.idPrefix = game.system.api.cid.getPrefix(this.document)
-    sheetData.cidFlag = this.document.flags?.aov?.cidFlag
+
+    this.options.editable = this.object.sheet.isEditable
+
+    sheetData.guessCode = game.system.api.cid.guessId(this.object)
+    sheetData.idPrefix = game.system.api.cid.getPrefix(this.object)
+
+    sheetData.cidFlag = this.object.flags?.aov?.cidFlag
+
     sheetData.id = sheetData.cidFlag?.id || ''
     sheetData.lang = sheetData.cidFlag?.lang || game.i18n.lang
     sheetData.priority = sheetData.pidFlag?.priority || 0
@@ -65,13 +36,11 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
     const prefix = new RegExp('^' + AOVUtilities.quoteRegExp(sheetData.idPrefix))
     sheetData.existingKeys = Object.keys(CIDKeys).reduce((obj, k) => {
       if (k.match(prefix)) {
-        obj.push({ key:k, name: CIDKeys[k] })
+        obj.push({ k, name: CIDKeys[k] })
       }
       return obj
     }, []).sort(AOVUtilities.sortByNameKey)
-    if (sheetData.existingKeys.length > 0) {
-      sheetData.existingKeys.unshift({key:"new", name: game.i18n.localize('AOV.CIDFlag.new')})
-    }
+
     sheetData.isSystemID = (typeof CIDKeys[sheetData.id] !== 'undefined')
     const match = sheetData.id.match(/^([^\\.]+)\.([^\\.]*)\.(.+)/)
     sheetData._existing = (match && typeof match[3] !== 'undefined' ? match[3] : '')
@@ -129,68 +98,46 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
     return sheetData
   }
 
-_onRender (context, options) {
-  if (this.element.querySelector('input[name=_existing')) {
-  this.element.querySelector('input[name=_existing').addEventListener("change", function (e) {
-    const obj = $(this)
-    const prefix = obj.data('prefix')
-    let value = obj.val()
-    if (value !== '') {
-      value = prefix + AOVUtilities.toKebabCase(value)
-    }
-    let target = document.querySelector('input[name=id]');
-    target.value = value
-  })
-}
-
-
-  if (this.element.querySelector('select[name=known]')) {
-  this.element.querySelector('select[name=known]').addEventListener("change", function (e) {
-    const obj = $(this)
-    html.find('input[name=id]').val(obj.val())
-
-    let target = document.querySelector('input[name=id]');
-    target.value = value
-  })
-}
-
-}
-
-
   activateListeners (html) {
     super.activateListeners(html)
+
+    html.find('a.copy-to-clipboard').click(function (e) {
+      AOVUtilities.copyToClipboard($(this).siblings('input').val())
+    })
+
     if (!this.object.sheet.isEditable) return
 
-
-  }
-
-  static async copyToClip(event, target) {
-    await AOVUtilities.copyToClipboard($(target).siblings('input').val())
-  }
-
-  static async guessID(event, target) {
-    const guess = target.dataset.guess
-    await this.document.update({
-      'flags.aov.cidFlag.id': guess
+    html.find('input[name=_existing').change(function (e) {
+      const obj = $(this)
+      const prefix = obj.data('prefix')
+      let value = obj.val()
+      if (value !== '') {
+        value = prefix + AOVUtilities.toKebabCase(value)
+      }
+      html.find('input[name=id]').val(value).trigger('change')
     })
-    const html = $(this.document.sheet.element).find('header.window-header .edit-cid-warning,header.window-header .edit-cid-exisiting')
-    if (html.length) {
-      html.css({
-        color: (guess ? 'var(--color-text-light-highlight)' : 'red')
-      })
-    }
-    this.render()
+
+    html.find('select[name=known]').change(function (e) {
+      const obj = $(this)
+      html.find('input[name=id]').val(obj.val())
+    })
+
+    html.find('a[data-guess]').click(async function (e) {
+      e.preventDefault()
+      const obj = $(this)
+      const guess = obj.data('guess')
+      html.find('input[name=id]').val(guess).trigger('change')
+    })
   }
 
-  static async _updateObject (event, form, formData) {
-    const usage = foundry.utils.expandObject(formData.object)
-    const id = usage.id || ''
-    await this.document.update({
+  async _updateObject (event, formData) {
+    const id = formData.id || ''
+    await this.object.update({
       'flags.aov.cidFlag.id': id,
       'flags.aov.cidFlag.lang': formData.lang || game.i18n.lang,
       'flags.aov.cidFlag.priority': formData.priority || 0
     })
-    const html = $(this.document.sheet.element).find('header.window-header .edit-cid-warning,header.window-header .edit-cid-exisiting')
+    const html = $(this.object.sheet.element).find('header.window-header .edit-cid-warning,header.window-header .edit-cid-exisiting')
     if (html.length) {
       html.css({
         color: (id ? 'var(--color-text-light-highlight)' : 'red')

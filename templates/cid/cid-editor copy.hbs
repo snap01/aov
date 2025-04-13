@@ -1,20 +1,25 @@
-<div class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
     <h2>{{localize 'AOV.CIDFlag.title'}}</h2>
-    <p>{{{localize 'AOV.CIDFlag.summary' type=objtype }}}</p>
+    <p>{{{localize 'AOV.CIDFlag.summary' type=object.type}}}</p>
     <input type="hidden" name="id" value="{{id}}">
     <div class="form-group">
       <label for="_existing">{{localize 'AOV.CIDFlag.key'}}:</label>
       <div class="flexrow" style="flex: 2; border: 1px solid transparent; padding: 1px 3px 1px 0;">
         {{#if existingKeys.length}}
           <select style="margin-left: -2px;" name="known">
-            {{selectOptions existingKeys}}
+            <option value="">{{localize 'AOV.CIDFlag.new'}}</option>
+            {{#select id}}
+              {{#each existingKeys as |value|}}
+                <option value="{{value.k}}">{{value.name}}</option>
+              {{/each}}
+            {{/select}}
           </select>
         {{else}}
-          <span style="flex: 0; margin-top: 2px;">{{idPrefix}}</span>
+          <span style="flex: 0; margin-top: 4px;">{{idPrefix}}</span>
           <input type="text" style="flex: 2;" name="_existing" value="{{_existing}}" data-prefix="{{idPrefix}}">
         {{/if}}
-        {{#if isEditable}}
-          <a style="flex: 0 0 20px; align-self: center; text-align: right;" title="{{localize 'AOV.CIDFlag.guess'}}" data-action="guess" data-guess="{{guessCode}}"><i class="fas fa-wand-magic"></i></a>
+        {{#if options.editable}}
+          <a style="flex: 0 0 20px; align-self: center; text-align: right;" title="{{localize 'AOV.CIDFlag.guess'}}" data-guess="{{guessCode}}"><i class="fas fa-wand-magic"></i></a>
         {{/if}}
       </div>
     </div>
@@ -22,13 +27,13 @@
       <div class="form-group">
         <label>&nbsp;</label>
         <div class="flexrow" style="flex: 2; border: 1px solid transparent; padding: 1px 3px 1px 0;">
-          <span style="flex: 0; margin-top: 2px;">{{idPrefix}}</span>
+          <span style="flex: 0; margin-top: 4px;">{{idPrefix}}</span>
           <input type="text" style="flex: 2;" name="_existing" value="{{_existing}}" data-prefix="{{idPrefix}}">
         </div>
       </div>
     {{/if}}
     <div class="form-group">
-      <label for="lang" style="min-width: 284.78px;">{{localize 'AOV.CIDFlag.language'}}:</label>
+      <label for="lang">{{localize 'AOV.CIDFlag.language'}}:</label>
       <select style="flex: 2;" name="lang">
         {{selectOptions supportedLanguages}}
       </select>
@@ -88,8 +93,8 @@
       <div class="form-group">
         <label>{{localize 'AOV.CIDFlag.foundry-id'}}:</label>
         <div class="flexrow">
-          <input type="text" value="{{objid}}" readonly>
-          <a title="{{localize 'AOV.CopyToClipboard'}}" data-action="copyToClip">
+          <input type="text" value="{{object.id}}" readonly>
+          <a title="{{localize 'AOV.CopyToClipboard'}}" class="copy-to-clipboard">
             <i class="fas fa-copy"></i>
           </a>
         </div>
@@ -97,8 +102,8 @@
       <div class="form-group">
         <label>{{localize 'AOV.CIDFlag.foundry-uuid'}}:</label>
         <div class="flexrow">
-          <input type="text" value="{{objuuid}}" readonly>
-          <a title="{{localize 'AOV.CopyToClipboard'}}" data-action="copyToClip">
+          <input type="text" value="{{object.uuid}}" readonly>
+          <a title="{{localize 'PEN.CopyToClipboard'}}" class="copy-to-clipboard">
             <i class="fas fa-copy"></i>
           </a>
         </div>
@@ -106,8 +111,8 @@
       <div class="form-group">
         <label>{{localize 'AOV.CIDFlag.get-this-document'}}:</label>
         <div class="flexrow">
-          <input type="text" value="await fromUuid('{{objuuid}}')" readonly>
-          <a title="{{localize 'AOV.CopyToClipboard'}}" data-action="copyToClip">
+          <input type="text" value="await fromUuid('{{object.uuid}}')" readonly>
+          <a title="{{localize 'PEN.CopyToClipboard'}}" class="copy-to-clipboard">
             <i class="fas fa-copy"></i>
           </a>
         </div>
@@ -117,11 +122,11 @@
           <label>{{localize 'AOV.CIDFlag.get-document-like-this'}}:</label>
           <div class="flexrow">
             <input type="text" value="await game.system.api.cid.fromCID('{{id}}', '{{lang}}')" readonly>
-            <a title="{{localize 'AOV.CopyToClipboard'}}" data-action="copyToClip">
+            <a title="{{localize 'AOV.CopyToClipboard'}}" class="copy-to-clipboard">
               <i class="fas fa-copy"></i>
             </a>
           </div>
         </div>
       {{/if}}
     </fieldset>
-  </div>
+  </form>

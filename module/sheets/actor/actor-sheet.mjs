@@ -68,7 +68,12 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   static _onEditCid(event) {
     event.stopPropagation(); // Don't trigger other events
     if ( event.detail > 1 ) return; // Ignore repeated clicks
-    new CIDEditor(this.actor, {}).render(true, { focus: true })
+
+
+    //new CIDEditor({uuidArray: this.actor.uuid}, {}).render(true, { focus: true })
+    
+
+    new CIDEditor({document: this.document}, {}).render(true, { focus: true })
   }
 
   //Implement Game Settings for Colours
