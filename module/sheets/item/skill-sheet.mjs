@@ -1,27 +1,26 @@
 import { AoVItemSheet} from "./item-sheet.mjs"
-import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
-export class AoVGearSheet extends AoVItemSheet {
+export class AoVSkillSheet extends AoVItemSheet {
   constructor (options = {}) {
     super(options)
   }
   
   static DEFAULT_OPTIONS = {
-    classes: ['gear'],
+    classes: ['skill'],
   }
 
   static PARTS = {
     header: {template: 'systems/aov/templates/item/item.header.hbs'},
     tabs: {template: 'systems/aov/templates/generic/tab-navigation.hbs'},
-    details: {template: 'systems/aov/templates/item/gear.detail.hbs'},
+    details: {template: 'systems/aov/templates/item/skill.detail.hbs'},
     description: {template: 'systems/aov/templates/item/item.description.hbs'},
     gmTab: {template: 'systems/aov/templates/item/item.gmtab.hbs'}
   }  
 
   async _prepareContext (options) {
     let context = await super._prepareContext(options)
-    context.equippedOptions = await AOVSelectLists.equippedOptions(this.document.type)
     context.tabs = this._getTabs(options.parts);
+    context.system.total = context.system.base
   
     return context
   }  

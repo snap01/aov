@@ -3,111 +3,31 @@ import { AoVActorSheet} from "./actor-sheet.mjs"
 export class AoVCharacterSheet extends AoVActorSheet {
   constructor (options = {}) {
     super(options)
+    //this.#dragDrop = this.#createDragDropHandlers();
   }
   
   static DEFAULT_OPTIONS = {
-    classes: ['aov', 'sheet', 'actor'],
-    position: {
-      width: 600,
-      height: 520
-    },
-    tag: "form",
-    // automatically updates the item
-    form: {
-      submitOnChange: true,
-    },
-    actions: {
-      onEditImage: this._onEditImage,
-      editCid: this._onEditCid
-    }
+    classes: ['character'],
   }
 
   static PARTS = {
     header: {template: 'systems/aov/templates/actor/character.header.hbs'},
     tabs: {template: 'systems/aov/templates/generic/tab-navigation.hbs'},
-      attributes: {template: 'systems/aov/templates/actor/character.attributes.hbs'},
-      description: {template: 'systems/aov/templates/actor/character.description.hbs'},
-      gmTab: {template: 'systems/aov/templates/actor/character.gmtab.hbs'}
+    gear: {template: 'systems/aov/templates/actor/character.gear.hbs'},
+    attributes: {template: 'systems/aov/templates/actor/character.attributes.hbs'},
+    description: {template: 'systems/aov/templates/actor/character.description.hbs'},
+    gmTab: {template: 'systems/aov/templates/actor/character.gmtab.hbs'},
   }  
 
-  async _prepareContext (options) {
-    // if we had a base class, do this then mergeObject
-
-    let context = await super._prepareContext(options)
-
-    // this could be moved to a helper, review boilerplate code
-    context.tabs = {
-      attributes: {
-        cssClass:  this.tabGroups['primary'] === 'attributes' ? 'active' : '',
-        group: 'primary',
-        id: 'attributes',
-        label: 'AOV.attributes'
-      },
-      description: {
-        cssClass:  this.tabGroups['primary'] === 'description' ? 'active' : '',
-        group: 'primary',
-        id: 'description',
-        label: 'AOV.description'
-      },
-      gmTab: {
-        cssClass:  this.tabGroups['primary'] === 'gmTab' ? 'active' : '',
-        group: 'primary',
-        id: 'gmTab',
-        label: 'AOV.gmTab'
-      }
-    }
-    this._prepareItems(context);    
-    return context
-  }  
-
- /** @override */
- async _preparePartContext(partId, context) {
-    switch (partId) {
-      case 'attributes':
-        context.tab = context.tabs[partId];
-        break;
-      case 'description':
-        context.tab = context.tabs[partId];
-        context.enrichedDescription = await TextEditor.enrichHTML(
-          this.actor.system.description,
-          {
-            async: true,
-            secrets: this.document.isOwner,
-            rollData: this.actor.getRollData(),
-            relativeTo: this.actor,
-          }
-        );
-        break;
-    }
-    return context;
-  }
-
-  /**
-   * Activate event listeners using the prepared sheet HTML
-   */
-  _onRender (context, _options) {
-    // Everything below here is only needed if the sheet is editable
-    if (!context.editable) return;
-
-    // pure Javascript, no jQuery
-    this.element.querySelectorAll('.actor-toggle').forEach(n => n.addEventListener("dblclick", this.#onActorToggle.bind(this)));
-  }
-
-
-  //Handle Actor Toggles
-  async #onActorToggle (event){
-  }
-
-
-  //Handle Actor's Items
-  _prepareItems(context) {
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
   }  
 
   _getTabs(parts) {
     // If you have sub-tabs this is necessary to change
     const tabGroup = 'primary';
     // Default tab for first time it's rendered this session
-    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'attributes';
+    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'gear';
     return parts.reduce((tabs, partId) => {
       const tab = {
         cssClass: '',
@@ -117,7 +37,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
         // FontAwesome Icon, if you so choose
         icon: '',
         // Run through localization
-        label: 'AOV.Actor.Tabs.',
+        label: 'AOV.',
       };
       switch (partId) {
         case 'header':
@@ -125,15 +45,20 @@ export class AoVCharacterSheet extends AoVActorSheet {
           return tabs;
         case 'attributes':
           tab.id = 'attributes';
-          tab.label += 'Attributes';
+          tab.label += 'attributes';
+          tab.tooltip="tooltip";
+          break;
+        case 'gear':
+          tab.id = 'gear';
+          tab.label += 'gear';
           break;
         case 'description':
           tab.id = 'description';
-          tab.label += 'Description';
+          tab.label += 'description';
           break;
         case 'gmTab':
           tab.id = 'gmTab';
-          tab.label += 'GmTab';
+          tab.label += 'gmTab';
           break;
       }
       if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = 'active';
@@ -142,4 +67,108 @@ export class AoVCharacterSheet extends AoVActorSheet {
     }, {});
   }
 
+  async _prepareContext (options) {
+    let context = await super._prepareContext(options)
+    context.tabs = this._getTabs(options.parts);
+    
+    await this._prepareItems(context);    
+    return context
+  }  
+
+ /** @override */
+ async _preparePartContext(partId, context) {
+    switch (partId) {
+      case 'attributes':
+      case 'gear' :  
+        context.tab = context.tabs[partId];
+        break;
+      case 'description':
+        context.tab = context.tabs[partId];
+        context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          this.actor.system.description,
+          {
+            async: true,
+            secrets: this.document.isOwner,
+            rollData: this.actor.getRollData(),
+            relativeTo: this.actor,
+          }
+        );
+        break;
+        case 'gmTab':
+          context.tab = context.tabs[partId];
+          context.enrichedGMNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+            this.actor.system.gmNotes,
+            {
+              async: true,
+              secrets: this.document.isOwner,
+              rollData: this.actor.getRollData(),
+              relativeTo: this.actor,
+            }
+          );
+          break;  
+    }
+    return context;
+  }
+
+  //Handle Actor's Items
+  _prepareItems(context) {
+    const gear = [];
+ 
+    for (let itm of this.document.items) {
+     if (itm.type === 'gear') {
+       gear.push(itm);
+     }
+    }
+    context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+  }  
+
+
+
+  //Activate event listeners using the prepared sheet HTML
+  _onRender (context, _options) {
+    this._dragDrop.forEach((d) => d.bind(this.element));
+    this.element.querySelectorAll('.actor-toggle').forEach(n => n.addEventListener("dblclick", this.#onActorToggle.bind(this)));
+    this.element.querySelectorAll('.item-quantity').forEach(n => n.addEventListener("change", this.#editQty.bind(this)))
+    this.element.querySelectorAll('.item-toggle').forEach(n => n.addEventListener("click", this.#onItemToggle.bind(this)))
+    this.element.querySelectorAll('.item-delete').forEach(n => n.addEventListener("dblclick", AoVActorSheet._deleteDoc.bind(this)))
+  }
+
+
+
+  //--------------ACTIONS-------------------
+
+
+
+  //--------------LISTENERS------------------
+  //Handle Actor Toggles
+  async #onActorToggle (event){
+  }
+
+  async #editQty (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const newQuantity = event.currentTarget.value;
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    item.update({ 'system.quantity': newQuantity });
+  }
+
+  async #onItemToggle (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    let checkProp={};
+    const prop = event.currentTarget.dataset.prop;
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (prop === 'equipStatus') {
+      let newVal = item.system.equipStatus + 1
+      if (newVal>3) {newVal=1}
+      checkProp = {'system.equipStatus' : newVal}
+    } else {return}
+    item.update(checkProp);
+  }
+
+
+
+  
 }    

@@ -1,41 +1,58 @@
 {{! Sheet Header }}
-<header class='actor sheet-header'>
-  <img
-    class='profile-img'
-    src='{{actor.img}}'
-    data-edit='img'
-    data-action='onEditImage'
-    title='{{actor.name}}'
-    height='100'
-    width='100'
-  />
-  <div class='header-fields'>
-    <div class='document-name'>
-      <input name='name' type='text' value='{{actor.name}}'/>
-    </div>
-    <div class=''>
-
-      <div class=''>
-        <label for='system.health.value' class='resource-label'>
-          {{localize 'AOV.Actor.hp'}}
-        </label>
-        <div class=''>
-          <input type='text' name='system.hp.value' value='{{system.hp.value}}' data-dtype='Number'/>
-          <span> / </span>
-          <input type='text' name='system.hp.max' value='{{system.hp.max}}' data-dtype='Number'/>
+<header class='actor sheet-header draggable'>
+  <div class="character-header">
+    <div>
+      <img class='profile-img' src='{{actor.img}}' data-edit='img' data-action='onEditImage' height='100' width='100'/>
+      <div class='statsTitle'>
+        <div class='resource-label centre'>{{localize 'AOV.Actor.hp'}}</div>
+        <div class='stat-grid'>
+          <input class="gear-input" type='text' name='system.hp.value' value='{{system.hp.value}}' data-dtype='Number'/>
+          <span class="centre"> / </span>
+          <input class="gear-input" type='text' name='system.hp.max' value='{{system.hp.max}}' data-dtype='Number'/>
         </div>
       </div>
 
-      <div class=''>
-        <label for='system.power.value' class='resource-label'>
-          {{localize 'AOV.Actor.power'}}
-        </label>
-        <div class=''>
-          <input type='text' name='system.power.value' value='{{system.power.value}}' data-dtype='Number'/>
-          <span> / </span>
-          <input type='text' name='system.power.max' value='{{system.power.max}}' data-dtype='Number'/>
+      <div class='statsTitle'>
+        <div class='resource-label centre'>{{localize 'AOV.Actor.power'}}</div>
+        <div class='stat-grid'>
+          <input class="gear-input" type='text' name='system.power.value' value='{{system.power.value}}' data-dtype='Number'/>
+          <span class="centre"> / </span>
+          <input class="gear-input" type='text' name='system.power.max' value='{{system.power.max}}' data-dtype='Number'/>
         </div>
       </div>
     </div>
+  
+    <div>
+      <div class='header-fields actorName-grid'>
+        <div>{{localize 'AOV.name'}}</div>
+        <div class='document-name'><input name='name' type='text' value='{{actor.name}}'/></div>
+      </div>  
+      <div>
+        <div class="ability-grid new-row">
+          {{#each system.abilities as |ability key|}}
+              <div class="ability-cell centre bold" data-characteristic = "{{key}}">{{ability.label}}</div>
+          {{/each}}
+          {{#each system.abilities as |ability key|}}
+            <div class ="ability-cell centre">{{ability.total}}</div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+
+    <div class="centre">
+      {{#if isLocked}}
+        <a class="icon20" data-action="toggleLock" title='{{localize "AOV.unlock"}}'><i class="fas fa-lock"></i></a>
+      {{else}}
+        <a class="icon20" data-action="toggleLock" title='{{localize "AOV.lock"}}'><i class="fas fa-lock-open"></i></a>
+      {{/if}}
+      {{#if isToken}}
+        <a class="icon20" title='{{localize "AOV.unlinked"}}'><i class="fas fa-link-slash"></i></a>
+      {{else}}  
+        <a class="icon20" title='{{localize "AOV.linked"}}'><i class="fas fa-link"></i></a>
+      {{/if}}
+    </div>
+
   </div>
+
 </header>

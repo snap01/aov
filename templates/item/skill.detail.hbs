@@ -1,0 +1,18 @@
+<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
+
+  <div class="gear-detail-grid">
+    <div title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
+    <div class="centre"><input type="checkbox" {{checked system.noXP}} name="system.noXP"></div>
+    <div class="new-row"></div>
+    <div class="new-row">{{localize 'AOV.baseScore'}}</div>
+    {{#if isGM}}
+      <div class="centre"><input class="gear-input centre" name='system.base' type='text' value='{{item.system.base}}'  data-dtype="number"></div>
+    {{else}}
+      <div class="centre">{{system.base}}</div>
+    {{/if}}    
+    {{#if hasOwner}}
+    <div class="new-row">{{localize 'AOV.total'}}</div>
+    <div class="centre">{{system.total}}</div>
+    {{/if}}
+  </div>
+</section>

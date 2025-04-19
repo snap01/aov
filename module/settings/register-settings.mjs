@@ -1,4 +1,5 @@
 import { AOVDisplaySettings } from "./settings-displayOptions.mjs";
+import { AOVCIDSettings } from "./settings-cidOptions.mjs";
 
 export async function registerSettings () {
 
@@ -11,5 +12,15 @@ export async function registerSettings () {
     restricted: true
   })
   AOVDisplaySettings.registerSettings()   
+
+  //Chaosium ID Settings Button
+  game.settings.registerMenu('aov', 'cidOptions', {
+    name: 'AOV.Settings.cidOptionsHint',
+    label: 'AOV.Settings.cidOptions',
+    icon: 'fas fa-fingerprint',
+    type: AOVCIDSettings,
+    restricted: true
+  })
+  AOVCIDSettings.registerSettings()   
 
 }    

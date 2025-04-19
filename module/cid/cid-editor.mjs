@@ -65,13 +65,10 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
     const prefix = new RegExp('^' + AOVUtilities.quoteRegExp(sheetData.idPrefix))
     sheetData.existingKeys = Object.keys(CIDKeys).reduce((obj, k) => {
       if (k.match(prefix)) {
-        obj.push({ key:k, name: CIDKeys[k] })
+        obj.push({ k, name: CIDKeys[k] })
       }
       return obj
     }, []).sort(AOVUtilities.sortByNameKey)
-    if (sheetData.existingKeys.length > 0) {
-      sheetData.existingKeys.unshift({key:"new", name: game.i18n.localize('AOV.CIDFlag.new')})
-    }
     sheetData.isSystemID = (typeof CIDKeys[sheetData.id] !== 'undefined')
     const match = sheetData.id.match(/^([^\\.]+)\.([^\\.]*)\.(.+)/)
     sheetData._existing = (match && typeof match[3] !== 'undefined' ? match[3] : '')
@@ -88,7 +85,7 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
         return {
           priority: d.flags.aov.cidFlag.priority,
           lang: d.flags.aov.cidFlag.lang ?? 'en',
-          link: await TextEditor.enrichHTML(d.link, { async: true }),
+          link: await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.link, { async: true }),
           folder: d?.folder?.name
         }
       }))
@@ -108,7 +105,7 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
         return {
           priority: d.flags.aov.cidFlag.priority,
           lang: d.flags.aov.cidFlag.lang ?? 'en',
-          link: await TextEditor.enrichHTML(d.link, { async: true }),
+          link: await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.link, { async: true }),
           folder: d?.folder?.name ?? ''
         }
       }))
@@ -131,38 +128,29 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
 
 _onRender (context, options) {
   if (this.element.querySelector('input[name=_existing')) {
-  this.element.querySelector('input[name=_existing').addEventListener("change", function (e) {
-    const obj = $(this)
-    const prefix = obj.data('prefix')
-    let value = obj.val()
-    if (value !== '') {
-      value = prefix + AOVUtilities.toKebabCase(value)
-    }
-    let target = document.querySelector('input[name=id]');
-    target.value = value
-  })
+    this.element.querySelector('input[name=_existing').addEventListener("change", function (e) {
+      const obj = $(this)
+      const prefix = obj.data('prefix')
+      let value = obj.val()
+      if (value !== '') {
+        value = prefix + AOVUtilities.toKebabCase(value)
+      }
+      let target = document.querySelector('input[name=id]');
+      target.value = value
+    })
 }
 
 
   if (this.element.querySelector('select[name=known]')) {
-  this.element.querySelector('select[name=known]').addEventListener("change", function (e) {
-    const obj = $(this)
-    html.find('input[name=id]').val(obj.val())
-
-    let target = document.querySelector('input[name=id]');
-    target.value = value
-  })
-}
-
-}
-
-
-  activateListeners (html) {
-    super.activateListeners(html)
-    if (!this.object.sheet.isEditable) return
-
-
+    this.element.querySelector('select[name=known]').addEventListener("change", function (e) {
+      const obj = $(this)
+      let value = obj.val()
+      let target = document.querySelector('input[name=id]');
+      target.value = value
+    })
   }
+
+}
 
   static async copyToClip(event, target) {
     await AOVUtilities.copyToClipboard($(target).siblings('input').val())

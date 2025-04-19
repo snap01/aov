@@ -4,14 +4,69 @@
 :root {
   --primary-font-colour: black;
   --secondary-font-colour: rgba(68, 7, 4, 1);
+  --title-font-colour: rgb(139, 3, 3);
   --primary-back-colour:grey;
   --secondary-back-colour: lightgrey;
   --primary-font: "Roboto";
+  --background-colour: rgba(0, 0, 0, 0.05);
+  --primary-font-size: 14px;
+  --title-font-size: 18px;
+  --actor-rollable-colour:black;
+  --actor-rollable-shadow: red;
+  --primary-icon-colour: black;
+  --secondary-icon-colour: red;
+}
+
+.application .window-content {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0.5rem;
+  overflow: hidden;
+}
+
+.rollable:hover, .rollable:focus,.contextmenu:hover, .contextmenu:focus, .item-toggle:hover, .item-toggle:focus, .item-view:hover, .item-view:focus{
+  color: var(--actor-rollable-colour);
+  text-shadow: 0px 0px 5px var(--actor-rollable-shadow);
+  font-weight:bold;
+  cursor: pointer;
+}
+
+.prosemirror .editor-content, prose-mirror .editor-content {
+  position: absolute;
+  overflow: hidden auto;
+  inset: 0;
+  outline: 0 solid transparent;
+  cursor: var(--cursor-text);
+  border: 1px solid;
+  padding-left: 2px;
+  padding-right: 20px;
+}  
+
+.prosemirror button.toggle, prose-mirror button.toggle {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+  opacity: 0.5;
 }
 
 .aov .actor {
   font-family: var(--primary-font);
   color: var(--primary-font-colour);
+  font-size: var(--primary-font-size);
+}
+
+.aov .item {
+  font-family: var(--primary-font);
+  color: var(--primary-font-colour);
+  font-size: var(--primary-font-size);
+}
+
+.aov .aovTab {
+  font-family: var(--primary-font);
+  color: var(--primary-font-colour);
+  font-size: var(--primary-font-size);
 }
 
 .aov .sheet-header .profile-img {
@@ -23,6 +78,35 @@
   flex: 0 0 60px;
   height: 60px;
 }
+
+.aov .standard-form .form-fields {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  max-height: 20px;
+}  
+
+.aov .standard-form .form-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  gap:0;
+  padding-bottom: 10px;
+}
+
+.aov .standard-form .form-group > label, .standard-form .form-group > span.label {
+  flex: 1;
+  color: var(--primary-font-colour);
+  font-weight: bold;
+  line-height: 20px; 
+  cursor: var(--cursor-default);
+}
+
 
 .app .header-button.edit-cid-warning,
 .application .window-header .header-control.edit-cid-warning {
@@ -59,13 +143,144 @@
   border-radius: 5px;
 }
 
+.aov .document-name {
+  color: var(--title-font-colour);
+  font-size: var(--title-font-size);
+  font-weight: bold;
+}
+
+.aov .document-name input{
+  color: var(--title-font-colour);
+  max-height: calc(var(--title-font-size) + 3.5px);
+}
+
+.aov .left {
+  text-align: left;
+}
+
+.aov right {
+  text-align: right;
+}
+
+.aov .centre{
+  text-align: center;
+}
+
+.aov .bold {
+  font-weight:bold;
+}
+
+.aov .new-row {
+  grid-column-start: 1;
+}
+
+.aov .gear-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.aov .gear-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: var(--background-colour);
+  font-weight: bold;
+}
+
+.aov .gear-grid {
+  display: grid;
+  grid-template-columns: 25px 360px 50px 35px 70px;
+  grid-column-gap: 5px;
+}
+
+.aov .gear-list .gear-controls {
+  padding-top: 5px;
+}
+
+.aov .gear-list .gear-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  padding-top: 5px;
+}
+
 .aov .item-header {
   display: grid;
-  margin: 0px 0px 10px 0px;
-  row-gap: 0px;
-  column-gap: 10px;
-  grid-template-columns: 496px 60px;
+  grid-template-columns: 500px 60px;
+  grid-column-gap: 5px;
+  padding-bottom:5px;
 }
+
+.aov .gear-detail-grid {
+  display: grid;
+  grid-template-columns: 150px 150px 200px;
+  grid-column-gap: 5px;
+  padding-top: 10px;
+}
+
+.aov .gear-input {
+  color: var(--secondary-font-colour) !important;
+  font-size: var(--primary-font-size);
+  max-height: calc(var(--primary-font-size) + 3.5px);
+  text-align: center;
+}
+
+.aov .character-header {
+  display: grid;
+  grid-template-columns: 100px auto 25px;
+  grid-column-gap: 5px;
+  padding-bottom: 5px;
+}
+
+.aov .statsTitle {
+  font-size: var(--title-font-size);
+  color: (--primary-font-colour);
+  font-weight: bold;  
+}
+
+.aov .stat-grid {
+  font-size: var(--title-font-size);
+  display: grid;
+  grid-template-columns: 45px 10px 45px;
+}
+
+.aov .actorName-grid {
+  font-size: var(--title-font-size);
+  display: grid;
+  grid-template-columns: 100px 343px;
+  grid-column-gap: 5px;
+}
+
+.aov .icon20 {
+  font-size: 20px;
+  color: var(--primary-icon-colour);
+  align-items: center;
+}
+
+.aov .primIcon {
+  color: var(--primary-icon-colour);
+}
+
+.aov .secIcon {
+  color: var(--secondary-icon-colour);
+}
+
+.aov .ability-grid {
+  font-size: var(--title-font-size);
+  display: grid;
+  grid-template-columns: repeat(7, 60px);
+  grid-column-gap: 4px;
+  border: 1px solid var(--primary-font-colour);
+  border-radius: 3px;
+
+}
+
+
+
 
 
 
@@ -77,6 +292,7 @@
   color: var(--secondary-font-colour);
   margin: 3px 0;
 }
+
 
 
 

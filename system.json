@@ -6,7 +6,7 @@
     "version": "13.1",
     "compatibility": {
       "minimum": 12,
-      "verified": "13.338"
+      "verified": "13.340"
     },    
 
     "authors": [
@@ -33,7 +33,8 @@
         "character": {"htmlFields": ["description","gmNotes"]}
       },
       "Item": {
-        "gear": {"htmlFields": ["description","gmNotes"]}
+        "gear": {"htmlFields": ["description","gmNotes"]},
+        "skill": {"htmlFields": ["description","gmNotes"]}
       }      
     },  
 

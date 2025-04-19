@@ -1,0 +1,21 @@
+<div class="aov settingsForm flexcol" autocomplete="off">
+    <h2 class="bold">{{localize 'AOV.Settings.cidOptions'}}</h2>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.actorCID'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked actorCID.value}} name="actorCID">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.actorCIDHint'}}</p>
+    </div>    
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.actorItemCID'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked actorItemCID.value}} name="actorItemCID">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.actorItemCIDHint'}}</p>
+    </div>  
+    
+    <br>
+  </div>

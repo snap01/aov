@@ -1,3 +1,19 @@
-<section class='tab details {{tab.cssClass}}' data-group='primary' data-tab='details'>
+<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
 
+  <div class="gear-detail-grid">
+    <div>{{localize 'AOV.quantity'}}</div>
+    <input class="gear-input" name='system.quantity' type='text' value='{{item.system.quantity}}' data-dtype="Number"/>
+
+    {{#if hasOwner}}
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.equipped'}}</div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.equipStatus">
+          {{selectOptions equippedOptions selected=item.system.equipStatus}}
+        </select>
+      </div>
+    {{/if}}
+
+  </div>
 </section>
