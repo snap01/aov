@@ -59,7 +59,7 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
     sheetData.cidFlag = this.document.flags?.aov?.cidFlag
     sheetData.id = sheetData.cidFlag?.id || ''
     sheetData.lang = sheetData.cidFlag?.lang || game.i18n.lang
-    sheetData.priority = sheetData.pidFlag?.priority || 0
+    sheetData.priority = sheetData.cidFlag?.priority || 0
 
     const CIDKeys = foundry.utils.flattenObject(game.i18n.translations.AOV.CIDFlag.keys ?? {})
     const prefix = new RegExp('^' + AOVUtilities.quoteRegExp(sheetData.idPrefix))
@@ -173,10 +173,13 @@ _onRender (context, options) {
   static async _updateObject (event, form, formData) {
     const usage = foundry.utils.expandObject(formData.object)
     const id = usage.id || ''
+    const priority = usage.priority || 0
+    const lang = usage.lang || game.i18n.lang
+    console.log(id, lang,priority)
     await this.document.update({
       'flags.aov.cidFlag.id': id,
-      'flags.aov.cidFlag.lang': formData.lang || game.i18n.lang,
-      'flags.aov.cidFlag.priority': formData.priority || 0
+      'flags.aov.cidFlag.lang': lang,
+      'flags.aov.cidFlag.priority': priority,
     })
     const html = $(this.document.sheet.element).find('header.window-header .edit-cid-warning,header.window-header .edit-cid-exisiting')
     if (html.length) {
