@@ -14,7 +14,6 @@
       "power": "Power"
     },  
 
-    "attributes": "Attributes",
     "baseScore": "Base Score",
     "carried": "Carried",
     "CopyToClipboard": "Copy to clipboard",
@@ -35,7 +34,9 @@
     "packed": "Packed",
     "quantity": "Quantity",
     "quantityAbbr": "Qty",
+    "skills": "Skills",
     "stored": "Stored",
+    "synth": "This is a synthetic actor",
     "total": "Total",
     "unlinked": "The token is not linked to the actor",
     "unlock": "Click to unlock the sheet",

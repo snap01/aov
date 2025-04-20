@@ -24,6 +24,12 @@ export class AOVActor extends Actor {
     const systemData = actorData.system;
     this._prepStats(actorData)
     this._prepDerivedStats(actorData)
+
+    for (let itm of actorData.items) {
+      if (itm.type === 'skill') {
+        itm.system.total = itm.system.base
+      }
+    }  
   }    
 
   getRollData() {

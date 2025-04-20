@@ -13,8 +13,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
   static PARTS = {
     header: {template: 'systems/aov/templates/actor/character.header.hbs'},
     tabs: {template: 'systems/aov/templates/generic/tab-navigation.hbs'},
+    skills: {template: 'systems/aov/templates/actor/character.skills.hbs'},
     gear: {template: 'systems/aov/templates/actor/character.gear.hbs'},
-    attributes: {template: 'systems/aov/templates/actor/character.attributes.hbs'},
     description: {template: 'systems/aov/templates/actor/character.description.hbs'},
     gmTab: {template: 'systems/aov/templates/actor/character.gmtab.hbs'},
   }  
@@ -27,25 +27,22 @@ export class AoVCharacterSheet extends AoVActorSheet {
     // If you have sub-tabs this is necessary to change
     const tabGroup = 'primary';
     // Default tab for first time it's rendered this session
-    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'gear';
+    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'skills';
     return parts.reduce((tabs, partId) => {
       const tab = {
         cssClass: '',
         group: tabGroup,
-        // Matches tab property to
         id: '',
-        // FontAwesome Icon, if you so choose
         icon: '',
-        // Run through localization
         label: 'AOV.',
       };
       switch (partId) {
         case 'header':
         case 'tabs':
           return tabs;
-        case 'attributes':
-          tab.id = 'attributes';
-          tab.label += 'attributes';
+        case 'skills':
+          tab.id = 'skills';
+          tab.label += 'skills';
           tab.tooltip="tooltip";
           break;
         case 'gear':
@@ -78,7 +75,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
  /** @override */
  async _preparePartContext(partId, context) {
     switch (partId) {
-      case 'attributes':
+      case 'skills':
       case 'gear' :  
         context.tab = context.tabs[partId];
         break;
@@ -113,13 +110,16 @@ export class AoVCharacterSheet extends AoVActorSheet {
   //Handle Actor's Items
   _prepareItems(context) {
     const gear = [];
+    const skills = [];
  
     for (let itm of this.document.items) {
      if (itm.type === 'gear') {
        gear.push(itm);
-     }
+     } else if (itm.type === 'skill')
+       skills.push(itm)
     }
     context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    context.skills = skills.sort((a, b) => (a.sort || 0) - (b.sort || 0));
   }  
 
 
@@ -130,7 +130,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     this.element.querySelectorAll('.actor-toggle').forEach(n => n.addEventListener("dblclick", this.#onActorToggle.bind(this)));
     this.element.querySelectorAll('.item-quantity').forEach(n => n.addEventListener("change", this.#editQty.bind(this)))
     this.element.querySelectorAll('.item-toggle').forEach(n => n.addEventListener("click", this.#onItemToggle.bind(this)))
-    this.element.querySelectorAll('.item-delete').forEach(n => n.addEventListener("dblclick", AoVActorSheet._deleteDoc.bind(this)))
+   // this.element.querySelectorAll('.item-delete').forEach(n => n.addEventListener("dblclick", AoVActorSheet._deleteDoc.bind(this)))
   }
 
 

@@ -1,0 +1,38 @@
+<section class='actor tab skills {{tab.cssClass}}' data-group='primary' data-tab='skills'>
+  
+  <ol class='gear-list'>
+    <li class='item gear-header gear-grid'>
+      <div class='item-image new-row'></div>
+      <div class='left'>{{localize 'AOV.name'}}</div>
+      <div class='centre' title="{{localize 'AOV.totalScore'}}">%</div>
+      <div class='centre' ></div>
+      <div class='centre'>
+        {{#if @root.editable}}
+          <a
+            class='item-control item-create'
+            title='{{localize "AOV.createDoc" type=(localize "AOV.gear")}}'
+            data-action='createDoc'
+            data-document-class='Item'
+            data-type='skill'
+          >
+            <i class='fas fa-plus'></i>
+          </a>
+        {{/if}}
+      </div>
+    </li>
+    {{#each skills as |item id|}}
+      <li class='item gear-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+        <div class='item-image new-row' title='{{item.name}}'><a><img src='{{item.img}}' width='24' height='24'/> </a></div>
+        <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.gear")}}' data-action='viewDoc'>{{item.name}}</div>
+        <div class='gear-name centre'>{{item.system.total}}</div>
+        <div class='gear-name centre'></div>
+        <div class='gear-controls centre'>
+          <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}'>
+            <i class='fas fa-trash'></i>
+          </a>
+        </div>
+      </li>
+    {{/each}}
+  </ol>
+
+</section>

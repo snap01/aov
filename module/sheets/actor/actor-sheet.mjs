@@ -24,6 +24,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       viewDoc: this._viewDoc,
       toggleLock: this._toggleLock,
       createDoc: this._createDoc,
+      deleteDoc: this._deleteDoc,
     }
   }
 
@@ -59,7 +60,9 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       config: CONFIG.AOV,
       system: this.actor.system,
       isLocked: this.actor.system.locked,
-      isToken: this.actor.isToken,
+      isLinked: this.actor.prototypeToken?.actorLink === true,
+      isSynth: this.actor.isToken
+
     };
   }
 
@@ -97,11 +100,20 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     doc.sheet.render(true);
   }
 
+  /*
   //Delete Embedded Document
   static async _deleteDoc(event) {
     const doc = this._getEmbeddedDocument(event.currentTarget);
     await doc.delete();
   }
+  */
+
+  static async _deleteDoc(event, target) {
+    if (event.detail === 2) {
+      const doc = this._getEmbeddedDocument(target);
+      await doc.delete();
+    }
+  }  
 
   //Get Embedded Document
   _getEmbeddedDocument(target) {

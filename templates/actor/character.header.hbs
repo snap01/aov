@@ -46,11 +46,15 @@
       {{else}}
         <a class="icon20" data-action="toggleLock" title='{{localize "AOV.lock"}}'><i class="fas fa-lock-open"></i></a>
       {{/if}}
-      {{#if isToken}}
-        <a class="icon20" title='{{localize "AOV.unlinked"}}'><i class="fas fa-link-slash"></i></a>
-      {{else}}  
+      {{#if isLinked}}
         <a class="icon20" title='{{localize "AOV.linked"}}'><i class="fas fa-link"></i></a>
+      {{else}}  
+        <a class="icon20" title='{{localize "AOV.unlinked"}}'><i class="fas fa-link-slash"></i></a>
       {{/if}}
+      {{#if isSynth}}
+        <a class="icon20" title='{{localize "AOV.synth"}}'><i class="fas fa-people-group"></i></a>
+      {{/if}}
+
     </div>
 
   </div>
