@@ -1,20 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 /* Default Colours etc */
+
+:root {
+  --primary-font: "Roboto";
+  --primary-font-size: 14px;
+  --title-font-size: 18px;
+}
+
 body.theme-light .application .aov, body.theme-light.application .aov  {
   --primary-font-colour: black;
   --secondary-font-colour: rgba(68, 7, 4, 1);
   --title-font-colour: rgb(139, 3, 3);
   --primary-back-colour:grey;
   --secondary-back-colour: lightgrey;
-  --primary-font: "Roboto";
   --background-colour: rgba(0, 0, 0, 0.05);
-  --primary-font-size: 14px;
-  --title-font-size: 18px;
   --actor-rollable-colour:black;
   --actor-rollable-shadow: red;
   --primary-icon-colour: black;
-  --secondary-icon-colour: red;
+  --secondary-icon-colour: rgb(171,36,12);
+  --character-sheet-tab-blue: rgb(30, 46, 71);
+  --character-sheet-tab-green: teal;
+  --character-sheet-tab-red: rgb(171,36,12);
+  --character-sheet-tab-yellow: rgb(237,181,37);
 }
 
 body.theme-dark .application .aov, body.theme-dark.application .aov {
@@ -23,22 +31,28 @@ body.theme-dark .application .aov, body.theme-dark.application .aov {
   --title-font-colour: rgb(116, 252, 252);
   --primary-back-colour:rgb(127, 127, 127);
   --secondary-back-colour: rgb(44, 44, 44);
-  --primary-font: "Roboto";
   --background-colour: rgba(255, 255, 255, 0.05);
-  --primary-font-size: 14px;
-  --title-font-size: 18px;
   --actor-rollable-colour:white;
   --actor-rollable-shadow: rgb(0, 255, 255);
   --primary-icon-colour: white;
   --secondary-icon-colour: rgb(0, 255, 255);
+  --character-sheet-tab-blue: rgb(30, 46, 71);
+  --character-sheet-tab-green: teal;
+  --character-sheet-tab-red: rgb(171,36,12);
+  --character-sheet-tab-yellow: rgb(237,181,37);
 }
 
-.application .aov .window-content {
+/*Half the padding on windows*/
+.application.aov .window-content {
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
   padding: 0.5rem;
-  overflow: hidden;
+}
+
+/*Allow menu on left of character sheet to be visible*/
+.application.aov.character{
+  overflow:visible !important;
 }
 
 .rollable:hover, .rollable:focus,.contextmenu:hover, .contextmenu:focus, .item-toggle:hover, .item-toggle:focus, .item-view:hover, .item-view:focus{
@@ -67,19 +81,22 @@ body.theme-dark .application .aov, body.theme-dark.application .aov {
   opacity: 0.5;
 }
 
-.aov .actor {
+.aov.actor {
+  font-family: var(--primary-font);
+  color: var(--primary-font-colour);
+  font-size: var(--primary-font-size);
+  background-image: url('../art-assets/stone.jpg') ;
+  background-repeat: no-repeat;
+  background-size:cover;
+}
+
+.aov.item {
   font-family: var(--primary-font);
   color: var(--primary-font-colour);
   font-size: var(--primary-font-size);
 }
 
-.aov .item {
-  font-family: var(--primary-font);
-  color: var(--primary-font-colour);
-  font-size: var(--primary-font-size);
-}
-
-.aov .aovTab {
+.aov.aovTab {
   font-family: var(--primary-font);
   color: var(--primary-font-colour);
   font-size: var(--primary-font-size);
@@ -238,7 +255,7 @@ body.theme-dark .application .aov, body.theme-dark.application .aov {
   padding-top: 10px;
 }
 
-.aov .gear-input {
+.aov input.gear-input{
   color: var(--secondary-font-colour) !important;
   font-size: var(--primary-font-size);
   max-height: calc(var(--primary-font-size) + 3.5px);
@@ -310,5 +327,119 @@ body.theme-dark .application .aov, body.theme-dark.application .aov {
 }
 
 
+/*Character Sheet Tabs*/
+nav.aov.actor.character.sheet-tabs.tabs {
+  border: none;
+}
 
+.aov.character.tabs {
+  position: absolute;
+  left: 0;
+  top: 658px;
+  z-index: -5;
+  width: 710px;
+  height: 70px;
+  transform: rotate(-90deg);
+  transform-origin: bottom left;
+  overflow: hidden;
+  pointer-events: none;
+  background: none;
+
+  .aovTab {
+    color: #fcf7f1;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    background-size: cover;
+    flex: 1;
+    position: relative;
+    bottom: -10px;
+    background-repeat: no-repeat;
+    margin: 1rem 0.4rem 0 0;
+    pointer-events: auto;
+    font-family: var(--primary-font);
+
+    &:has(.active),
+    &:hover {
+      transform: scale(1.2);
+      transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
+      transition-duration: 0.1s;
+      bottom: -6px;
+    }
+
+    &.tab-blue {
+      background: var(--character-sheet-tab-blue);
+      flex: 0 0 90px;
+      height: 30px;
+    }
+
+    &.tab-green {
+      background: var(--character-sheet-tab-green);
+      flex: 0 0 90px;
+      height: 30px;
+    }
+
+    &.tab-red {
+      background: var(--character-sheet-tab-red);
+      flex: 0 0 90px;
+      height: 30px;
+    }
+
+    &.tab-yellow {
+      background: var(--character-sheet-tab-yellow);
+      flex: 0 0 90px;
+      height: 30px;
+    }
+
+    &.active {
+      margin-top: 0;
+      height:50px;
+      bottom: -6px;
+    }
+
+    .tab-label {
+      text-transform: uppercase;
+      font-family: var(--sheet-v3-main-font);
+      width: 100%;
+      height: 100%;
+      max-width: 80px;
+      overflow: hidden;
+      display: inline-block;
+      text-shadow: 2px 2px 4px #000000;
+      box-sizing: content-box;
+
+      &.active {
+        text-shadow: 2px 2px 15px white;
+        color: #ffffaa;
+      }
+    }
+
+    &.small-ribbon {
+      flex: 0 0 48px;
+      height: 61px;
+      margin-left: 1.8rem;
+
+      &~.small-ribbon {
+        margin-left: 0rem;
+      }
+
+      &:has(.active),
+      &:hover {
+        transform: scale(1.3);
+        transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
+        transition-duration: 0.1s;
+
+        .tab-label {
+          font-size: 2rem;
+        }
+      }
+
+      .tab-label {
+        margin-top: -10px;
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
 

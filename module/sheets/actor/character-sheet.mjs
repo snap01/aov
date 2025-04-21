@@ -12,8 +12,9 @@ export class AoVCharacterSheet extends AoVActorSheet {
 
   static PARTS = {
     header: {template: 'systems/aov/templates/actor/character.header.hbs'},
-    tabs: {template: 'systems/aov/templates/generic/tab-navigation.hbs'},
-    skills: {template: 'systems/aov/templates/actor/character.skills.hbs'},
+    tabs: {template: 'systems/aov/templates/actor/character-tab.hbs'},
+    skills: {template: 'systems/aov/templates/actor/character.skills.hbs',
+             scrollable:['']},
     gear: {template: 'systems/aov/templates/actor/character.gear.hbs'},
     description: {template: 'systems/aov/templates/actor/character.description.hbs'},
     gmTab: {template: 'systems/aov/templates/actor/character.gmtab.hbs'},
@@ -21,6 +22,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
 
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
+    //Common parts to the character
+    options.parts = ['header', 'tabs', 'skills','gear','description'];
+    //GM only tabs
+    if (game.user.isGM) {
+      options.parts.push('gmTab');
+    }
   }  
 
   _getTabs(parts) {
@@ -44,18 +51,22 @@ export class AoVCharacterSheet extends AoVActorSheet {
           tab.id = 'skills';
           tab.label += 'skills';
           tab.tooltip="tooltip";
+          tab.colour = 'tab-red';
           break;
         case 'gear':
           tab.id = 'gear';
           tab.label += 'gear';
+          tab.colour='tab-green';
           break;
         case 'description':
           tab.id = 'description';
           tab.label += 'description';
+          tab.colour = 'tab-blue';
           break;
         case 'gmTab':
           tab.id = 'gmTab';
           tab.label += 'gmTab';
+          tab.colour = 'tab-yellow';
           break;
       }
       if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = 'active';

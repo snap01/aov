@@ -100,16 +100,8 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     doc.sheet.render(true);
   }
 
-  /*
-  //Delete Embedded Document
-  static async _deleteDoc(event) {
-    const doc = this._getEmbeddedDocument(event.currentTarget);
-    await doc.delete();
-  }
-  */
-
   static async _deleteDoc(event, target) {
-    if (event.detail === 2) {
+    if (event.detail === 2) {  //Only perform on double click
       const doc = this._getEmbeddedDocument(target);
       await doc.delete();
     }
