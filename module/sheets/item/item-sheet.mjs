@@ -19,7 +19,8 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
     },
     actions: {
       onEditImage: this._onEditImage,
-      editCid: this._onEditCid
+      editCid: this._onEditCid,
+      itemToggle: this._onItemToggle,
     }
   }
 
@@ -130,6 +131,19 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
     new CIDEditor({document: this.document}, {}).render(true, { focus: true })
   }
 
+  // Toggle something on the item
+  static _onItemToggle(event,target) {
+    event.preventDefault();
+    let checkProp={};
+    const prop = target.dataset.property
+    if (['noXP','xpCheck'].includes(prop)) {
+      checkProp = {[`system.${prop}`] : !this.item.system[prop]}
+    } else {return}
+    
+    this.item.update(checkProp)
+  }
+
+
 
  //Implement Game Settings for Colours etc
  static renderSheet (sheet,html) {
@@ -138,7 +152,7 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
   }
 
   if (game.settings.get('aov', 'secondaryFontColour')) {
-    document.body.style.setProperty('--secondary-font-colour', game.settings.get('aov', 'secondaryFontColour'));
+    document.body.style.setProperty('--aov-secondary-font-colour', game.settings.get('aov', 'secondaryFontColour'));
   }
 
   if (game.settings.get('aov', 'primaryBackColour')) {

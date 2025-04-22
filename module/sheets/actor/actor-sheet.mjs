@@ -1,6 +1,7 @@
 const { api, sheets } = foundry.applications;
 import { CIDEditor } from "../../cid/cid-editor.mjs";
 
+
 export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   constructor(options = {}) {
     super(options);
@@ -25,6 +26,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       toggleLock: this._toggleLock,
       createDoc: this._createDoc,
       deleteDoc: this._deleteDoc,
+      itemToggle: this._itemToggle,
     }
   }
 
@@ -121,9 +123,28 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     } else return console.warn('Could not find document class');
   }
 
+  //Toggle the lock
   static _toggleLock(event) {
     event.stopPropagation();
     this.actor.update({'system.locked': !this.actor.system.locked})
+  }
+
+
+  //Toggle an item  
+  static _itemToggle(event,target) {
+    event.stopImmediatePropagation();
+    let checkProp={};
+    const prop = target.dataset.property;
+    const itemId = target.closest(".item").dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (['xpCheck'].includes(prop)) {
+      checkProp = {[`system.${prop}`] : !item.system[prop]}
+    } else if (prop === 'equipStatus') {
+        let newVal = item.system.equipStatus + 1
+        if (newVal>3) {newVal=1}
+        checkProp = {'system.equipStatus' : newVal}
+    } else {return}
+    item.update(checkProp);
   }
 
   //Create an Embedded Document
@@ -173,11 +194,11 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   //Implement Game Settings for Colours etc
   static renderSheet (sheet,html) {
     if (game.settings.get('aov', 'primaryFontColour')) {
-      document.body.style.setProperty('--primary-font-colour', game.settings.get('aov', 'primaryFontColour'));
+      document.body.style.setProperty('--aov-primary-font-colour', game.settings.get('aov', 'primaryFontColour'));
     }
 
     if (game.settings.get('aov', 'secondaryFontColour')) {
-      document.body.style.setProperty('--secondary-font-colour', game.settings.get('aov', 'secondaryFontColour'));
+      document.body.style.setProperty('--aov-secondary-font-colour', game.settings.get('aov', 'secondaryFontColour'));
     }
 
     if (game.settings.get('aov', 'primaryBackColour')) {
@@ -191,7 +212,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     if (game.settings.get('aov', 'primaryFont')) {
       let fontSource="url(/"+game.settings.get('aov', 'primaryFont')+")"
       const primaryFont = new FontFace(
-        'primaryFont',
+        'aov-primaryFont',
         fontSource
       )
       primaryFont
@@ -255,8 +276,6 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     const aeCls = getDocumentClass('ActiveEffect');
     const effect = await aeCls.fromDropData(data);
     if (!this.actor.isOwner || !effect) return false;
-    if (effect.target === this.actor)
-      return this._onSortActiveEffect(event, effect);
     return aeCls.create(effect, { parent: this.actor });
   }
 

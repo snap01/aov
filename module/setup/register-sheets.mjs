@@ -1,6 +1,7 @@
 import { AoVCharacterSheet } from '../sheets/actor/character-sheet.mjs';
 import { AoVGearSheet } from '../sheets/item/gear-sheet.mjs';
 import { AoVSkillSheet } from '../sheets/item/skill-sheet.mjs';
+import { AoVPassionSheet } from '../sheets/item/passion-sheet.mjs';
 
 export function registerSheets () {
 
@@ -22,6 +23,11 @@ export function registerSheets () {
   collections.Items.registerSheet('aov', AoVSkillSheet, {
     types: ['skill'],
     makeDefault: true
-  });      
+  });  
+  collections.Items.registerSheet('aov', AoVPassionSheet, {
+    types: ['passion'],
+    makeDefault: true
+  });  
+  
         
 }      

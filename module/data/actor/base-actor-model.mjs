@@ -12,19 +12,20 @@ export default class AOVActorBaseModel extends AOVDataModel {
       value: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),
       max: new fields.NumberField({ ...requiredInteger, initial: 10 })
     });
-    schema.power = new fields.SchemaField({
+    schema.mp = new fields.SchemaField({
       value: new fields.NumberField({ ...requiredInteger, initial: 5, min: 0 }),
       max: new fields.NumberField({ ...requiredInteger, initial: 5 })
     });
-
     schema.description = new fields.StringField({ required: true, blank: true }); 
     schema.gmNotes = new fields.StringField({ required: true, blank: true }); 
     schema.locked = new fields.BooleanField ({initial: false});
+    
     
     // Iterate over ability names and create a new SchemaField for each.
     schema.abilities = new fields.SchemaField(Object.keys(CONFIG.AOV.abilities).reduce((obj, ability) => {
       obj[ability] = new fields.SchemaField({
         value: new fields.NumberField({ ...requiredInteger, initial: 10, min: 0 }),
+        xp: new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 }),
       });
       return obj;
     }, {}));

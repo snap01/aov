@@ -5,7 +5,7 @@
       <div class='item-image'></div>
       <div class='left'>{{localize 'AOV.name'}}</div>
       <div class='centre' title="{{localize 'AOV.quantity'}}">{{localize 'AOV.quantityAbbr'}}</div>
-      <div class='centre' title="{{localize 'AOV.equipped'}}">{{localize 'AOV.equippedAbbr'}}</div>
+      <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
       <div class='centre'>
         {{#if @root.editable}}
           <a
@@ -27,7 +27,7 @@
         <div class='gear-name centre'>
           <input class="gear-input item-quantity" name='system.quantity' type='text' value='{{item.system.quantity}}' data-dtype="Number"/>
         </div>
-        <div class='gear-name centre'><a class="item-toggle" data-prop="equipStatus">
+        <div class='gear-name centre' data-action="itemToggle" data-property="equipStatus" ><a class="">
           {{#if (eq item.system.equipStatus 1)}}
             <i class="fas fa-hand-holding" title='{{localize "AOV.equipped"}}'></i>
           {{else}}
@@ -39,11 +39,13 @@
           {{/if}}  
 
         </a></div>
-        <div class='gear-controls centre'>
-          <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}' data-action="deleteDoc">
-            <i class='fas fa-trash'></i>
-          </a>
-        </div>
+        {{#unless ../isLocked}}
+          <div class='gear-controls centre'>
+            <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}' data-action="deleteDoc">
+              <i class='fas fa-trash'></i>
+            </a>
+          </div>
+        {{/unless}}  
       </li>
     {{/each}}
   </ol>

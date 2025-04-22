@@ -1,19 +1,4 @@
 { "AOV": { 
-    "Ability": {
-      "str": "STR",
-      "con": "CON",
-      "siz": "SIZ",
-      "int": "INT",
-      "pow": "POW",
-      "dex": "DEX",
-      "app": "APP"
-      },
-
-    "Actor": {
-      "hp": "Hit Points",
-      "power": "Power"
-    },  
-
     "baseScore": "Base Score",
     "carried": "Carried",
     "CopyToClipboard": "Copy to clipboard",
@@ -21,27 +6,50 @@
     "deleteDoc": "Double click to delete {type}",
     "description": "Description",
     "details": "Details",
+    "effects": "Effects",
     "equipped": "Equipped",
+    "equippedHint": "Click the icons below to cycle through the equipped status",
     "equippedAbbr": "Eqd",
+    "family": "Family",
     "gear": "Equipment",
     "gmNotes": "GM Notes",
     "gmTab": "GM Tab",
     "linked": "The token is not linked to the actor",
     "lock": "Click to lock the sheet",
     "name": "Name",
+    "nickname": "Nickname",
+    "notes": "Notes",
     "noXP": "No XP Allowed",
     "noXPHint": "If ticked, these skills can not be improved via experience",
     "packed": "Packed",
     "quantity": "Quantity",
     "quantityAbbr": "Qty",
-    "skills": "Skills",
+      "skills": "Skills",
     "stored": "Stored",
     "synth": "This is a synthetic actor",
     "total": "Total",
-    "unlinked": "The token is not linked to the actor",
+      "unlinked": "The token is not linked to the actor",
     "unlock": "Click to unlock the sheet",
     "viewDoc": "View {type}",
+    "xpAbbr": "Exp",
+    "xpAbbrHint": "Tick the box to add an XP check.  If there is no box then the skill can improve through XP",
+    "xpCheck": "XP Check",
+    "xpCheckHint": "If ticked, this skill is ready for an experience check",
 
+    "Ability": {
+      "str": "STR",
+      "con": "CON",
+      "siz": "SIZ",
+      "int": "INT",
+      "pow": "POW",
+      "dex": "DEX",
+      "cha": "CHA"
+    },
+
+    "Actor": {
+      "hp": "Hit Points",
+      "mp": "Magic Points"
+    },  
 
     "CIDFlag": {
       "documents-in-compendiums": "{count} documents in compendiums",
@@ -69,6 +77,14 @@
       "title": "Edit Chaosium ID (CID)"
     },
 
+    "Effect": {
+      "inactive":"Inactive",
+      "passive": "Passive",
+      "source":"Source",
+      "tabDuration": "Tab Duration",
+      "temporary": "Temporary"
+    },
+
     "Settings": {
       "actorCID": "Add default CID to Actor",
       "actorCIDHint": "Add a default CID to new Actors when created based on actor name",
@@ -88,6 +104,17 @@
       "secondaryBackColourHint": "Background colour additional areas",
       "secondaryFontColour": "Secondary Font Colour",
       "secondaryFontColourHint": "Colour for the titles etc"
+    },
+
+    "Tabs": {
+      "description": "Notes",
+      "effects": "Effects",
+      "gear": "Equip",
+      "gmTab": "GM Tab",
+      "notes": "Notes",
+      "passions": "Passions",
+      "skills": "Skills",
+      "stats": "Stats"
     }
   },
 
@@ -97,6 +124,7 @@
     },
     "Item": {
       "gear": "Equipment",
+      "passion": "Passion",
       "skill": "Skill"
     }
   }

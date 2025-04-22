@@ -13,11 +13,11 @@
       </div>
 
       <div class='statsTitle'>
-        <div class='resource-label centre'>{{localize 'AOV.Actor.power'}}</div>
+        <div class='resource-label centre'>{{localize 'AOV.Actor.mp'}}</div>
         <div class='stat-grid'>
-          <input class="gear-input" type='text' name='system.power.value' value='{{system.power.value}}' data-dtype='Number'/>
+          <input class="gear-input" type='text' name='system.mp.value' value='{{system.mp.value}}' data-dtype='Number'/>
           <span class="centre"> / </span>
-          <input class="gear-input" type='text' name='system.power.max' value='{{system.power.max}}' data-dtype='Number'/>
+          <input class="gear-input" type='text' name='system.mp.max' value='{{system.mp.max}}' data-dtype='Number'/>
         </div>
       </div>
     </div>
@@ -26,6 +26,8 @@
       <div class='header-fields actorName-grid'>
         <div>{{localize 'AOV.name'}}</div>
         <div class='document-name'><input name='name' type='text' value='{{actor.name}}'/></div>
+        <div>{{localize 'AOV.nickname'}}</div>
+        <div class='document-name'><input name='system.nickname' type='text' value='{{actor.system.nickname}}'/></div>
       </div>  
       <div>
         <div class="ability-grid new-row">

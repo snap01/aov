@@ -1,0 +1,25 @@
+<section class='actor tab stats {{tab.cssClass}}' data-group='primary' data-tab='stats'>
+  
+  <ol class='gear-list'>
+    <li class='item gear-header statsgrid'>
+      <div class='left'>{{localize 'AOV.name'}}</div>
+      <div class='centre' title="{{localize 'AOV.quantity'}}">{{localize 'AOV.quantityAbbr'}}</div>
+      <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
+      <div class='centre'></div>
+    </li>
+    
+    {{#each system.abilities as |ability key|}}
+      <li class='statsgrid' data-characteristic = "{{key}}">
+        <div class="gear-name left rollable new-row">{{ability.label}}</div>
+        <div class='gear-name centre'>
+          <input class="gear-input item-quantity" name='system.value' type='text' value='{{ability.system.value}}' data-dtype="Number"/>
+        </div>
+      <div class='gear-name centre'>
+          <input class="gear-input item-quantity" name='system.xp' type='text' value='{{ability.system.xp}}' data-dtype="Number"/>
+        </div>
+      
+      </li>
+    {{/each}}
+  </ol>
+
+</section>

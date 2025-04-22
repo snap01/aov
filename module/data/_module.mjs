@@ -6,4 +6,5 @@ export {default as AOVCharacterModel} from "./actor/actor-character-model.mjs";
 export {default as AOVItemBaseModel} from "./item/base-item-model.mjs";
 export {default as AOVGearModel} from "./item/item-gear-model.mjs";
 export {default as AOVSkillModel} from "./item/item-skill-model.mjs";
+export {default as AOVPassionModel} from "./item/item-passion-model.mjs";
 

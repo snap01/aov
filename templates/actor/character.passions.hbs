@@ -1,14 +1,14 @@
-<section class='tab skills {{tab.cssClass}}' data-group='primary' data-tab='skills'>
+<section class='tab passions {{tab.cssClass}}' data-group='primary' data-tab='passions'>
   <ol class='gear-list'>
-    <li class='item gear-header skill-grid'>
+    <li class='item gear-header passion-grid'>
       <div class='item-image new-row'></div>
       <div class='left'>{{localize 'AOV.name'}}</div>
       <div class='centre' title="{{localize 'AOV.xpAbbrHint'}}">{{localize 'AOV.xpAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.totalScore'}}">%</div>
       <div class='centre'></div>
     </li>
-    {{#each skills as |item id|}}
-      <li class='item skill-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+    {{#each passions as |item id|}}
+      <li class='item passion-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
         <div class='item-image new-row' title='{{item.name}}'><a><img src='{{item.img}}' width='24' height='24'/> </a></div>
         <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.gear")}}' data-action='viewDoc'>{{item.name}}</div>
         {{#unless item.system.noXP}}

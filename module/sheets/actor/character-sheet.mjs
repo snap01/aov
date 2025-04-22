@@ -1,3 +1,5 @@
+import { prepareActiveEffectCategories } from '../../apps/effects.mjs';
+
 import { AoVActorSheet} from "./actor-sheet.mjs"
 
 export class AoVCharacterSheet extends AoVActorSheet {
@@ -14,16 +16,21 @@ export class AoVCharacterSheet extends AoVActorSheet {
     header: {template: 'systems/aov/templates/actor/character.header.hbs'},
     tabs: {template: 'systems/aov/templates/actor/character-tab.hbs'},
     skills: {template: 'systems/aov/templates/actor/character.skills.hbs',
-             scrollable:['']},
+             scrollable:[''],},
+    passions: {template: 'systems/aov/templates/actor/character.passions.hbs',
+               scrollable:[''],},             
     gear: {template: 'systems/aov/templates/actor/character.gear.hbs'},
-    description: {template: 'systems/aov/templates/actor/character.description.hbs'},
+    notes: {template: 'systems/aov/templates/actor/character.notes.hbs'},
+    effects: {template: 'systems/aov/templates/actor/character.effects.hbs',
+              scrollable:[''],},
+    stats: {template: 'systems/aov/templates/actor/character.stats.hbs'},              
     gmTab: {template: 'systems/aov/templates/actor/character.gmtab.hbs'},
   }  
 
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     //Common parts to the character
-    options.parts = ['header', 'tabs', 'skills','gear','description'];
+    options.parts = ['header', 'tabs', 'skills','passions','gear','notes','effects','stats'];
     //GM only tabs
     if (game.user.isGM) {
       options.parts.push('gmTab');
@@ -41,7 +48,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
         group: tabGroup,
         id: '',
         icon: '',
-        label: 'AOV.',
+        label: 'AOV.Tabs.',
       };
       switch (partId) {
         case 'header':
@@ -49,22 +56,45 @@ export class AoVCharacterSheet extends AoVActorSheet {
           return tabs;
         case 'skills':
           tab.id = 'skills';
+          tab.tooltip= tab.label + tab.id;
           tab.label += 'skills';
-          tab.tooltip="tooltip";
           tab.colour = 'tab-red';
           break;
+        case 'passions':
+            tab.id = 'passions';
+            tab.tooltip= tab.label + tab.id;
+            tab.label += 'passions';
+            tab.colour = 'tab-blue';
+            break;          
         case 'gear':
           tab.id = 'gear';
+          tab.tooltip= tab.label + tab.id;
           tab.label += 'gear';
           tab.colour='tab-green';
           break;
-        case 'description':
-          tab.id = 'description';
-          tab.label += 'description';
+        case 'notes':
+          tab.id = 'notes';
+          tab.tooltip= tab.label + tab.id;
+          tab.label += 'notes';
+          tab.colour = 'tab-red';
+          break;
+        case 'effects':
+          tab.id = 'effects';
+          tab.tooltip= tab.label + tab.id;
+          tab.label += 'effects';
           tab.colour = 'tab-blue';
           break;
+        case 'stats': {
+          tab.id = 'stats';
+          tab.tooltip= tab.label + tab.id;
+          tab.label += 'stats';
+          tab.colour = 'tab-green';
+          break;
+        }  
+
         case 'gmTab':
           tab.id = 'gmTab';
+          tab.tooltip= tab.label + tab.id;
           tab.label += 'gmTab';
           tab.colour = 'tab-yellow';
           break;
@@ -87,10 +117,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
  async _preparePartContext(partId, context) {
     switch (partId) {
       case 'skills':
+      case 'passions':
       case 'gear' :  
+      case 'stats' : 
         context.tab = context.tabs[partId];
         break;
-      case 'description':
+      case 'notes':
         context.tab = context.tabs[partId];
         context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
           this.actor.system.description,
@@ -102,6 +134,10 @@ export class AoVCharacterSheet extends AoVActorSheet {
           }
         );
         break;
+        case 'effects':
+          context.tab = context.tabs[partId];
+          context.effects = prepareActiveEffectCategories(this.actor.allApplicableEffects());
+          break;        
         case 'gmTab':
           context.tab = context.tabs[partId];
           context.enrichedGMNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
@@ -122,15 +158,20 @@ export class AoVCharacterSheet extends AoVActorSheet {
   _prepareItems(context) {
     const gear = [];
     const skills = [];
+    const passions = [];
  
     for (let itm of this.document.items) {
      if (itm.type === 'gear') {
        gear.push(itm);
-     } else if (itm.type === 'skill')
+     } else if (itm.type === 'skill') {
        skills.push(itm)
-    }
+     }  else if (itm.type === 'passion') {
+      passions.push(itm)
+    }  
+   }
     context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
     context.skills = skills.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    context.passions = passions.sort((a, b) => (a.sort || 0) - (b.sort || 0));
   }  
 
 
@@ -138,10 +179,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
   //Activate event listeners using the prepared sheet HTML
   _onRender (context, _options) {
     this._dragDrop.forEach((d) => d.bind(this.element));
-    this.element.querySelectorAll('.actor-toggle').forEach(n => n.addEventListener("dblclick", this.#onActorToggle.bind(this)));
     this.element.querySelectorAll('.item-quantity').forEach(n => n.addEventListener("change", this.#editQty.bind(this)))
-    this.element.querySelectorAll('.item-toggle').forEach(n => n.addEventListener("click", this.#onItemToggle.bind(this)))
-   // this.element.querySelectorAll('.item-delete').forEach(n => n.addEventListener("dblclick", AoVActorSheet._deleteDoc.bind(this)))
   }
 
 
@@ -152,9 +190,6 @@ export class AoVCharacterSheet extends AoVActorSheet {
 
   //--------------LISTENERS------------------
   //Handle Actor Toggles
-  async #onActorToggle (event){
-  }
-
   async #editQty (event) {
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -164,21 +199,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     item.update({ 'system.quantity': newQuantity });
   }
 
-  async #onItemToggle (event) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    let checkProp={};
-    const prop = event.currentTarget.dataset.prop;
-    const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.items.get(itemId);
-    if (prop === 'equipStatus') {
-      let newVal = item.system.equipStatus + 1
-      if (newVal>3) {newVal=1}
-      checkProp = {'system.equipStatus' : newVal}
-    } else {return}
-    item.update(checkProp);
-  }
-
+  
 
 
   

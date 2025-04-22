@@ -40,6 +40,11 @@ Hooks.once('init', async function() {
     gear: models.AOVGearModel,
   }
 
+ // Active Effects are never copied to the Actor,
+  // but will still apply to the Actor from within the Item
+  // if the transfer property on the Active Effect is true.
+  CONFIG.ActiveEffect.legacyTransferral = false;
+
 });  
 
 //Remove certain Items types from the list of options to create under the items menu

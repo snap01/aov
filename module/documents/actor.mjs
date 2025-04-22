@@ -28,7 +28,10 @@ export class AOVActor extends Actor {
     for (let itm of actorData.items) {
       if (itm.type === 'skill') {
         itm.system.total = itm.system.base
+      } else if (itm.type === 'passion') {
+        itm.system.total = Number(itm.system.base || 0) + Number(itm.system.family|| 0);
       }
+
     }  
   }    
 
@@ -56,7 +59,7 @@ export class AOVActor extends Actor {
   //Prepare Stats
   _prepStats(actorData) {
     for (let [key, ability] of Object.entries(actorData.system.abilities)) {
-      ability.total = ability.value
+      ability.total = ability.value + ability.xp 
       ability.deriv = ability.total*5
     }    
   }    

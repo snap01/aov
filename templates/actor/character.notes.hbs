@@ -1,0 +1,15 @@
+{{! Description Tab }}
+<section class='actor tab notes {{tab.cssClass}}' data-group='primary' data-tab='notes'>
+  <div>{{localize 'AOV.notes'}}</div>
+
+  {{! Editor for notes}}
+  <div class="item-notes">
+    {{#if editable}} 
+      <prose-mirror name="system.notes" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}" collaborate="true" toggled="true">
+        {{{enrichedDescription}}}
+      </prose-mirror>   
+    {{else}}
+      {{{enrichedDescription}}}
+    {{/if}}  
+  </div>
+</section>

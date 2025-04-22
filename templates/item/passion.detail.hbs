@@ -19,6 +19,8 @@
       <div class="centre">{{system.base}}</div>
     {{/if}}    
     {{#if hasOwner}}
+      <div class="new-row">{{localize 'AOV.family'}}</div>
+      <div class="centre"><input class="gear-input centre" name='system.family' type='text' value='{{item.system.family}}'  data-dtype="number"></div>
       <div class="new-row">{{localize 'AOV.total'}}</div>
       <div class="centre">{{system.total}}</div>
       <div class="new-row"></div>
