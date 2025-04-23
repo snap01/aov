@@ -1,23 +1,28 @@
 <section class='actor tab stats {{tab.cssClass}}' data-group='primary' data-tab='stats'>
   
   <ol class='gear-list'>
-    <li class='item gear-header statsgrid'>
+    <li class='gear-header statsgrid'>
       <div class='left'>{{localize 'AOV.name'}}</div>
-      <div class='centre' title="{{localize 'AOV.quantity'}}">{{localize 'AOV.quantityAbbr'}}</div>
-      <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
-      <div class='centre'></div>
+      <div class='centre'>{{localize 'AOV.base'}}</div>
+      <div class='centre'>{{localize 'AOV.exp'}}</div>
+      <div class='centre'>{{localize 'AOV.total'}}</div>
     </li>
     
     {{#each system.abilities as |ability key|}}
       <li class='statsgrid' data-characteristic = "{{key}}">
         <div class="gear-name left rollable new-row">{{ability.label}}</div>
-        <div class='gear-name centre'>
-          <input class="gear-input item-quantity" name='system.value' type='text' value='{{ability.system.value}}' data-dtype="Number"/>
-        </div>
-      <div class='gear-name centre'>
-          <input class="gear-input item-quantity" name='system.xp' type='text' value='{{ability.system.xp}}' data-dtype="Number"/>
-        </div>
-      
+        {{#if ../isLocked}}
+          <div class='gear-name centre'>{{ability.value}}</div>  
+          <div class='gear-name centre'>{{ability.xp}}</div>  
+        {{else}}
+          <div class='gear-name centre'>
+            <input class="stat-input" name='system.abilities.{{key}}.value' type='text' value='{{ability.value}}' data-dtype="Number"/>
+          </div>
+          <div class='gear-name centre'>
+            <input class="stat-input" name='system.abilities.{{key}}.xp' type='text' value='{{ability.xp}}' data-dtype="Number"/>
+          </div>
+        {{/if}}
+       <div class='gear-name centre'>{{ability.total}}</div>  
       </li>
     {{/each}}
   </ol>

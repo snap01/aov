@@ -309,6 +309,13 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   text-align: center;
 }
 
+.aov input.stat-input{
+  color: var(--aov-secondary-font-colour) !important;
+  font-size: var(--aov-primary-font-size);
+  max-height: calc(var(--aov-primary-font-size) + 3.5px);
+  text-align: center;
+}
+
 
 .aov .character-header {
   display: grid;

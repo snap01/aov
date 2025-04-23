@@ -66,7 +66,12 @@ export class AOVActor extends Actor {
 
   // Calculate derived scores
   _prepDerivedStats(actorData) {
+    if (this.type === 'character') {
+      actorData.system.hp.max = AOVActor._calcMaxHP(actorData)
+      actorData.system.healRate = AOVActor._calcHealRate(actorData)
+    }
   }  
+
   
   
   //Create a new actor - When creating an actor set basics including tokenlink, bars, displays sight
@@ -117,5 +122,24 @@ export class AOVActor extends Actor {
     return actor
   }
 
+  //Calculate Max Hit Points
+  static _calcMaxHP(actorData) {
+    let maxHP = actorData.system.abilities.con.total;
+    let sizBonus = Math.floor((actorData.system.abilities.siz.total-1)/4)-2;
+    let powBonus = Math.floor((actorData.system.abilities.pow.total-1)/4)-2;
+    if (powBonus<0) {
+      powBonus++;
+    } else if (powBonus>0) {
+      powBonus--;
+    }
+    maxHP = maxHP + sizBonus + powBonus + actorData.system.hp.bonus;
+    return maxHP;
+  }
+
+  //Calculate Heal Rate
+  static _calcHealRate(actorData) {
+    let hr = Math.floor((actorData.system.abilities.con.total-1)/6)+1 + actorData.system.hrBonus;
+    return hr
+  }
 
 }    
