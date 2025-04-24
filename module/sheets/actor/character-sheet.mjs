@@ -10,6 +10,10 @@ export class AoVCharacterSheet extends AoVActorSheet {
   
   static DEFAULT_OPTIONS = {
     classes: ['character'],
+    position: {
+      width: 700,
+      height: 950
+    },
   }
 
   static PARTS = {
@@ -56,37 +60,32 @@ export class AoVCharacterSheet extends AoVActorSheet {
           return tabs;
         case 'skills':
           tab.id = 'skills';
-          tab.tooltip= tab.label + tab.id;
+
           tab.label += 'skills';
           tab.colour = 'tab-red';
           break;
         case 'passions':
             tab.id = 'passions';
-            tab.tooltip= tab.label + tab.id;
             tab.label += 'passions';
             tab.colour = 'tab-blue';
             break;          
         case 'gear':
           tab.id = 'gear';
-          tab.tooltip= tab.label + tab.id;
           tab.label += 'gear';
           tab.colour='tab-green';
           break;
         case 'notes':
           tab.id = 'notes';
-          tab.tooltip= tab.label + tab.id;
           tab.label += 'notes';
           tab.colour = 'tab-red';
           break;
         case 'effects':
           tab.id = 'effects';
-          tab.tooltip= tab.label + tab.id;
           tab.label += 'effects';
           tab.colour = 'tab-blue';
           break;
         case 'stats': {
           tab.id = 'stats';
-          tab.tooltip= tab.label + tab.id;
           tab.label += 'stats';
           tab.colour = 'tab-green';
           break;
@@ -94,7 +93,6 @@ export class AoVCharacterSheet extends AoVActorSheet {
 
         case 'gmTab':
           tab.id = 'gmTab';
-          tab.tooltip= tab.label + tab.id;
           tab.label += 'gmTab';
           tab.colour = 'tab-yellow';
           break;
@@ -159,18 +157,57 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const gear = [];
     const skills = [];
     const passions = [];
- 
-    for (let itm of this.document.items) {
-     if (itm.type === 'gear') {
-       gear.push(itm);
-     } else if (itm.type === 'skill') {
-       skills.push(itm)
-     }  else if (itm.type === 'passion') {
+
+  for (let itm of this.document.items) {
+    if (itm.type === 'gear') {
+      gear.push(itm);
+    } else if (itm.type === 'skill') {
+      itm.isType = false;
+      skills.push(itm)
+    } else if (itm.type === 'passion') {
       passions.push(itm)
     }  
-   }
+  }
+
+  //Add Skill Categories
+  skills.push(
+    {name: game.i18n.localize('AOV.skillCat.agi'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.agi'),total: this.actor.system.agi, category:'agi'}},
+    {name: game.i18n.localize('AOV.skillCat.com'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.com'),total: this.actor.system.com, category:'com'}},
+    {name: game.i18n.localize('AOV.skillCat.knw'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.knw'),total: this.actor.system.knw, category:'knw'}},
+    {name: game.i18n.localize('AOV.skillCat.man'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.man'),total: this.actor.system.man, category:'man'}},
+    {name: game.i18n.localize('AOV.skillCat.myt'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.myt'),total: this.actor.system.myt, category:'myt'}},
+    {name: game.i18n.localize('AOV.skillCat.per'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.per'),total: this.actor.system.per, category:'per'}},
+    {name: game.i18n.localize('AOV.skillCat.ste'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.ste'),total: this.actor.system.ste, category:'ste'}},
+    
+  );
+
+  skills.sort(function(a, b){
+    let x = a.name.toLowerCase();
+    let y = b.name.toLowerCase();
+    let r = a.system.category;
+    let s = b.system.category;
+    let p = a.isType;
+    let q = b.isType;
+    if (r < s) {return -1};
+    if (r > s) {return 1};
+    if (p < q) {return 1};
+    if (p > q) {return -1};
+    if (x < y) {return -1};
+    if (x > y) {return 1};
+    return 0;
+  });
+  
+  passions.sort(function(a, b){
+    let x = a.name.toLowerCase();
+    let y = b.name.toLowerCase();
+    if (x < y) {return -1};
+    if (x > y) {return 1};
+    return 0;
+  });
+
+
     context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    context.skills = skills.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    context.skills = skills
     context.passions = passions.sort((a, b) => (a.sort || 0) - (b.sort || 0));
   }  
 

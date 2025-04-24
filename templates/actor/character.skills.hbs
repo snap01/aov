@@ -1,36 +1,54 @@
-<section class='tab skills {{tab.cssClass}}' data-group='primary' data-tab='skills'>
-  <ol class='gear-list'>
-    <li class='item gear-header skill-grid'>
-      <div class='item-image new-row'></div>
-      <div class='left'>{{localize 'AOV.name'}}</div>
+<section class='actor tab skills {{tab.cssClass}}' data-group='primary' data-tab='skills'>
+  <div class="skill-grid-header">  
+    <div class='gear-header skill-grid'>
+      <div class='new-row left'>{{localize 'AOV.name'}}</div>
       <div class='centre' title="{{localize 'AOV.xpAbbrHint'}}">{{localize 'AOV.xpAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.totalScore'}}">%</div>
       <div class='centre'></div>
-    </li>
+    </div>
+    <div class='gear-header skill-grid'>
+      <div class='new-row left'>{{localize 'AOV.name'}}</div>
+      <div class='centre' title="{{localize 'AOV.xpAbbrHint'}}">{{localize 'AOV.xpAbbr'}}</div>
+      <div class='centre' title="{{localize 'AOV.totalScore'}}">%</div>
+      <div class='centre'></div>
+    </div>
+  </div>
+
+  <ol class='skill-list'>
     {{#each skills as |item id|}}
       <li class='item skill-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-        <div class='item-image new-row' title='{{item.name}}'><a><img src='{{item.img}}' width='24' height='24'/> </a></div>
-        <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.gear")}}' data-action='viewDoc'>{{item.name}}</div>
-        {{#unless item.system.noXP}}
-          <div class='gear-name centre' data-action="itemToggle" data-property="xpCheck"><a>
-            {{#if item.system.xpCheck}}
-              <i class="fa-regular fa-square-check"></i>
-            {{else}}
-              <i class="fa-regular fa-square"></i>
-            {{/if}}
-          </a></div>
-        {{else}}
+        {{#if isType}}
+          {{#unless (eq item.system.category 'agi')}}
+            <div class="new-row"></div>  
+            <br>
+          {{/unless}}
+          <div class="new-row gear-name left bold upper">{{item.system.label}}</div>  
           <div></div>
-        {{/unless}}
-        </a></div>
-        <div class='gear-name centre'>{{item.system.total}}</div>
-        {{#unless ../isLocked}}
-          <div class='gear-controls centre'>
-            <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}' data-action="deleteDoc">
-              <i class='fas fa-trash'></i>
-            </a>
-          </div>
-        {{/unless}}
+          <div class='gear-name centre upper'>{{item.system.total}}</div>  
+
+        {{else}}
+          <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.skill")}}' data-action='viewDoc'>{{item.system.label}}</div>
+          {{#unless item.system.noXP}}
+            <div class='gear-name centre' data-action="itemToggle" data-property="xpCheck"><a>
+              {{#if item.system.xpCheck}}
+                <i class="fa-regular fa-square-check"></i>
+              {{else}}
+                <i class="fa-regular fa-square"></i>
+              {{/if}}
+            </a></div>
+          {{else}}
+            <div></div>
+          {{/unless}}
+          </a></div>
+          <div class='gear-name centre terIcon'>{{item.system.total}}</div>
+          {{#unless ../isLocked}}
+            <div class='gear-controls centre'>
+              <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}' data-action="deleteDoc">
+                <i class='fas fa-trash'></i>
+              </a>
+            </div>
+          {{/unless}}
+        {{/if}}
       </li>
     {{/each}}
   </ol>

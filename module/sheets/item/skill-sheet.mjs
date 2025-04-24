@@ -1,4 +1,5 @@
 import { AoVItemSheet} from "./item-sheet.mjs"
+import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
 export class AoVSkillSheet extends AoVItemSheet {
   constructor (options = {}) {
@@ -20,8 +21,18 @@ export class AoVSkillSheet extends AoVItemSheet {
   async _prepareContext (options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    context.system.total = context.system.base
-  
+    context.system.total = (context.system.base ||0) + (context.system.xp ||0)
+    context.skillCatOptions = await AOVSelectLists.skillCat()
+    context.skillCatName = game.i18n.localize("AOV.skillCat." + context.system.category);
+    context.system.total = (context.system.base ||0) + (context.system.xp ||0)
+    context.system.catBonus = 0
+    if (context.hasOwner && context.system.total > 0) {
+      context.system.catBonus = this.item.parent.system[this.item.system.category] || 0
+    }
+    context.system.total += context.system.catBonus
+
+
+
     return context
   }  
 
@@ -99,9 +110,5 @@ export class AoVSkillSheet extends AoVItemSheet {
 
 
   //-----------------------ACTIONS-----------------------------------
-
-
-
-
 
 }

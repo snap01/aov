@@ -1,7 +1,35 @@
 <section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
 
   <div class="gear-detail-grid">
-    <div title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
+    <div class="new-row">{{localize 'AOV.category'}}</div>
+    {{#if isGM}}
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.category">
+          {{selectOptions skillCatOptions selected=item.system.category}}
+        </select>
+      </div>
+    {{else}}
+      <div class="gear-input centre">{{skillCatName}}</div>
+    {{/if}}
+    <div class="new-row"></div>
+    <br>
+
+    <div class="new-row" title="{{localize 'AOV.specHint'}}">{{localize 'AOV.spec'}}</div>
+    <div class="centre" {{#if isGM}}data-action="itemToggle"{{/if}} data-property="specSkill"><a class="icon16">
+      {{#if system.specSkill}}
+        <i class="fa-regular fa-square-check"></i></a></div>
+        <div class="new-row">{{localize 'AOV.specialisation'}}</div>
+        <div class="centre"><input class="gear-input centre" name='system.specialisation' type='text' value='{{item.system.specialisation}}'/></div>
+
+      {{else}}
+        <i class="fa-regular fa-square"></i></a></div>
+      {{/if}}
+ 
+
+    <div class="new-row"></div>
+    <br>
+
+    <div class="new-row" title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
     <div class="centre" {{#if isGM}}data-action="itemToggle"{{/if}} data-property="noXP"><a class="icon16">
       {{#if system.noXP}}
         <i class="fa-regular fa-square-check"></i>
@@ -14,11 +42,15 @@
     <br>
     <div class="new-row">{{localize 'AOV.baseScore'}}</div>
     {{#if isGM}}
-      <div class="centre"><input class="gear-input centre" name='system.base' type='text' value='{{item.system.base}}'  data-dtype="number"></div>
+      <div class="centre"><input class="gear-input centre" name='system.base' type='text' value='{{item.system.base}}'  data-dtype="Number"/></div>
     {{else}}
       <div class="centre">{{system.base}}</div>
     {{/if}}    
     {{#if hasOwner}}
+      <div class="new-row">{{localize 'AOV.experience'}}</div>
+      <div class="centre"><input class="gear-input centre" name='system.xp' type='text' value='{{item.system.xp}}'  data-dtype="Number"/></div>
+      <div class="new-row">{{localize 'AOV.catBonus'}}</div>
+      <div class="centre">{{system.catBonus}}</div>
       <div class="new-row">{{localize 'AOV.total'}}</div>
       <div class="centre">{{system.total}}</div>
       <div class="new-row"></div>

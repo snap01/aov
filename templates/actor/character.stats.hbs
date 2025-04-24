@@ -22,9 +22,38 @@
             <input class="stat-input" name='system.abilities.{{key}}.xp' type='text' value='{{ability.xp}}' data-dtype="Number"/>
           </div>
         {{/if}}
-       <div class='gear-name centre'>{{ability.total}}</div>  
+        <div class='gear-name centre'>{{ability.total}}</div>  
       </li>
     {{/each}}
+    <br>
+    <li class='statsgrid'>
+      <div class="gear-name left rollable new-row">{{localize 'AOV.reput'}}</div>
+      {{#if ../isLocked}}
+        <div class='gear-name centre'>{{system.reputation.base}}</div>  
+        <div class='gear-name centre'>{{system.reputation.xp}}</div>  
+      {{else}}
+        <div class='gear-name centre'>
+          <input class="stat-input" name='system.reputation.base' type='text' value='{{system.reputation.base}}' data-dtype="Number"/>
+        </div>
+        <div class='gear-name centre'>
+          <input class="stat-input" name='system.reputation.xp' type='text' value='{{system.reputation.xp}}' data-dtype="Number"/>
+        </div>
+      {{/if}}
+    </li>  
+    <li class='statsgrid'>
+      <div class="gear-name left rollable new-row">{{localize 'AOV.status'}}</div>
+      {{#if ../isLocked}}
+        <div class='gear-name centre'>{{system.status.base}}</div>  
+        <div class='gear-name centre'>{{system.status.xp}}</div>  
+      {{else}}
+        <div class='gear-name centre'>
+          <input class="stat-input" name='system.status.base' type='text' value='{{system.status.base}}' data-dtype="Number"/>
+        </div>
+        <div class='gear-name centre'>
+          <input class="stat-input" name='system.status.xp' type='text' value='{{system.status.xp}}' data-dtype="Number"/>
+        </div>
+      {{/if}}
+    </li>  
   </ol>
 
 </section>

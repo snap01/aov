@@ -3,9 +3,9 @@
   <div>{{localize 'AOV.notes'}}</div>
 
   {{! Editor for notes}}
-  <div class="item-notes">
+  <div class="character-notes">
     {{#if editable}} 
-      <prose-mirror name="system.notes" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}" collaborate="true" toggled="true">
+      <prose-mirror name="system.description" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}" collaborate="true" toggled="true">
         {{{enrichedDescription}}}
       </prose-mirror>   
     {{else}}

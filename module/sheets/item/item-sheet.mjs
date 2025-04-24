@@ -136,7 +136,7 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
     event.preventDefault();
     let checkProp={};
     const prop = target.dataset.property
-    if (['noXP','xpCheck'].includes(prop)) {
+    if (['noXP','xpCheck',"specSkill"].includes(prop)) {
       checkProp = {[`system.${prop}`] : !this.item.system[prop]}
     } else {return}
     

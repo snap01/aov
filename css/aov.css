@@ -40,6 +40,7 @@ body.theme-light .application.aov, body.theme-light.application .aov  {
   --actor-rollable-shadow: red;
   --primary-icon-colour: black;
   --secondary-icon-colour: rgb(171,36,12);
+  --tertiary-icon-colour:rgb(68,111,94);
   --character-sheet-tab-blue: rgb(21,115,164);
   --character-sheet-tab-green: rgb(68,111,94);
   --character-sheet-tab-red: rgb(131,57,36);
@@ -57,6 +58,7 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   --actor-rollable-shadow: rgb(0, 255, 255);
   --primary-icon-colour: white;
   --secondary-icon-colour: rgb(0, 255, 255);
+  --tertiary-icon-colour:rgb(68,111,94);
   --character-sheet-tab-blue: rgb(21,115,164);
   --character-sheet-tab-green: rgb(68,111,94);
   --character-sheet-tab-red:rgb(131,57,36);;
@@ -68,10 +70,14 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
-  padding: 5px;
+  padding: 0px;
   border: 1px darkslategrey solid;
   border-radius: 3px;
-  margin: 4px;
+}
+
+
+.application.aov.item .window-content {
+  padding:10px;
 }
 
 /*Allow menu on left of character sheet to be visible*/
@@ -85,6 +91,11 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   font-weight:bold;
   cursor: pointer;
 }
+
+.character-notes .prosemirror, .character-notes prose-mirror {
+height:450px;
+}  
+
 
 .prosemirror .editor-content, prose-mirror .editor-content {
   position: absolute;
@@ -105,14 +116,22 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   opacity: 0.5;
 }
 
-.aov.actor {
+.aov.actor .window-content {
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
-  background-image: url('../art-assets/stone.jpg') ;
+  background-image: url('../art-assets/charSheet.jpg') ;
   background-repeat: no-repeat;
   background-size:cover;
 }
+
+.aov.character .sheet-header {
+  padding-left:20px;
+  padding-right:20px;
+  border:none;
+  cursor: default;
+}
+
 
 .aov.item {
   font-family: var(--aov-primary-font);
@@ -127,6 +146,11 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
+}
+
+.aov .sheet-header {
+  border-bottom: 1px darkslategrey solid;
+  padding: 5px;
 }
 
 .aov .sheet-header .profile-img {
@@ -197,6 +221,11 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   }
 }
 
+.aov .actor.tab {
+  padding-left:25px;
+  padding-right:25px;
+}
+
 .aov .char-notes {
   padding: 5px;
   border: 1px solid grey;
@@ -212,13 +241,14 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
 .aov .document-name input{
   color: var(--aov-secondary-font-colour);
   max-height: calc(var(--aov-title-font-size) + 3.5px);
+  outline: none;
 }
 
 .aov .left {
   text-align: left;
 }
 
-.aov right {
+.aov .right {
   text-align: right;
 }
 
@@ -230,10 +260,24 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   font-weight:bold;
 }
 
+.aov .upper {
+  text-transform: uppercase;
+}
+
+.aov .indent {
+  padding-left:5px;
+}
+
 .aov .new-row {
   grid-column-start: 1;
 }
 
+.aov .actor .statBonus {
+  display: grid;
+  grid-template-columns: 125px 50px;
+  grid-column-gap: 5px;
+  grid-row-gap:2px;
+}
 
 .aov .gear-list {
   list-style: none;
@@ -243,6 +287,14 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   scrollbar-width: thin;
 }
 
+.aov .skill-list {
+  list-style: none;
+  display: block;
+  column-count:2;
+
+  padding: 0;
+  margin: 0;
+}
 .aov .gear-header {
   height: 28px;
   margin: 2px 0;
@@ -258,16 +310,26 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   grid-column-gap: 5px;
 }
 
+.aov .skill-grid-header {
+  display: grid;
+  grid-template-columns: 313px 313px;
+  grid-column-gap: 10px;
+  
+}
+
 .aov .skill-grid {
   display: grid;
-  grid-template-columns: 25px 130px 35px 50px 30px;
+  grid-template-columns: 175px 35px 50px 30px;
   grid-column-gap: 5px;
+  padding-left:5px;
 }
 
 .aov .passion-grid {
   display: grid;
-  grid-template-columns: 25px 250px 35px 50px 30px;
+  grid-template-columns: 250px 35px 50px 30px;
   grid-column-gap: 5px;
+  padding-left:5px;
+  width:390px;
 }
 
 .aov .gear-list .gear-controls {
@@ -300,6 +362,14 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   font-size: var(--aov-primary-font-size);
   max-height: calc(var(--aov-primary-font-size) + 5.5px);
   text-align: center;
+  padding:0px;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: 1px var(--aov-secondary-font-colour) solid;
+  background:none;
+  outline: none;
 }
 
 .aov select.gear-input{
@@ -312,16 +382,45 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
 .aov input.stat-input{
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-primary-font-size);
-  max-height: calc(var(--aov-primary-font-size) + 3.5px);
+  max-height: calc(var(--aov-primary-font-size) + 2px);
   text-align: center;
+  outline: none;
 }
+
+.aov input.stat-input{
+  color: var(--aov-secondary-font-colour) !important;
+  font-size: var(--aov-secondary-font-size);
+  max-height: calc(var(--aov-primary-font-size) + 5.5px);
+  text-align: center;
+  padding:0px;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: 1px var(--aov-secondary-font-colour) solid;
+  background:none;
+  outline: none;
+}
+
 
 
 .aov .character-header {
   display: grid;
-  grid-template-columns: 100px auto 25px;
-  grid-column-gap: 5px;
-  padding-bottom: 5px;
+  grid-template-columns: 450px 200px;
+  grid-column-gap: 4px;
+}
+
+.aov .stats-header {
+  display: grid;
+  grid-template-columns: 80px 100px auto 100px;
+  grid-column-gap: 20px;
+  padding-top: 5px;
+  padding-right: 7px;
+}
+
+.aov .charNameHeader {
+  padding-left: 14px;
+  padding-top: 26px;
 }
 
 .aov .statsTitle {
@@ -333,7 +432,7 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
 .aov .stat-grid {
   font-size: var(--aov-title-font-size);
   display: grid;
-  grid-template-columns: 45px 10px 45px;
+  grid-template-columns: 25px 10px 25px;
 }
 
 .aov .statsgrid{
@@ -345,8 +444,9 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
 .aov .actorName-grid {
   font-size: var(--aov-title-font-size);
   display: grid;
-  grid-template-columns: 100px 343px;
+  grid-template-columns: 80px 350px;
   grid-column-gap: 5px;
+  padding-bottom: 10px;
 }
 
 .aov .icon16 {
@@ -356,7 +456,6 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
 
 .aov .icon20 {
   font-size: 20px;
-  color: var(--primary-icon-colour);
   align-items: center;
 }
 
@@ -368,21 +467,73 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   color: var(--secondary-icon-colour);
 }
 
-.aov .ability-grid {
-  font-size: var(--aov-title-font-size);
-  display: grid;
-  grid-template-columns: repeat(7, 60px);
-  grid-column-gap: 4px;
-  border: 1px solid var(--aov-primary-font-colour);
-  border-radius: 3px;
+.aov .terIcon {
+  color: var(--tertiary-icon-colour);
+}
 
+.aov .ability-grid {
+  display: grid;
+  grid-template-columns: 70px 100px 210px;
+  grid-column-gap: 20px;
+  padding-left: 10px;
+}
+
+.aov .characteristics {
+  display: grid;
+  grid-template-columns: 40px 30px;
+
+}
+
+.aov .personalSec {
+  display: grid;
+  grid-template-columns: max-content auto;
+
+  grid-column-gap: 5px;
+}
+
+.aov .derivedStats {
+  display: grid;
+  grid-template-columns: 40px 60px;
+
+}
+
+.aov .personalSecGrid {
+  display: grid;
+  grid-template-columns: auto;
+}
+
+
+.aov .ability-cell{
+  height:18px;
+  font-size: var(--aov-primary-font-size);
+}
+
+.aov input.ability-cell {
+  color: var(--aov-secondary-font-colour) !important;
+  font-size: var(--aov-primary-font-size);
+  max-height: calc(var(--aov-primary-font-size) + 5.5px);
+  text-align: center;
+  padding:0px;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: 1px var(--aov-secondary-font-colour) solid;
+  background:none;
+  outline: none;
 }
 
 .aov .tab.skills {
-  max-height:500px;
-  overflow-y:scroll;
+  max-height:600px;
+  overflow-x:scroll;
 }
 
+.aov .img-centre {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
 
 
 
@@ -405,12 +556,13 @@ nav.aov.actor.character.sheet-tabs.tabs {
 }
 
 .aov.character.tabs {
+  gap: 0rem;
   position: absolute;
   left: 0;
-  top: 658px;
+  top: 628px;
   z-index: -5;
   width: 710px;
-  height: 70px;
+  height: 120px;
   transform: rotate(-90deg);
   transform-origin: bottom left;
   overflow: hidden;
@@ -419,6 +571,8 @@ nav.aov.actor.character.sheet-tabs.tabs {
 
   .aovTab {
     color: #fcf7f1;
+    height: 30px;
+    width:100px;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -426,48 +580,55 @@ nav.aov.actor.character.sheet-tabs.tabs {
     background-size: cover;
     flex: 1;
     position: relative;
-    bottom: -10px;
+    transform: rotate(90deg);
+    bottom: -4px;
     background-repeat: no-repeat;
     margin: 1rem 0.4rem 0 0;
     pointer-events: auto;
     font-family: var(--aov-title-font);
 
-    &:has(.active),
+   
     &:hover {
       transform: scale(1.2);
       transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
       transition-duration: 0.1s;
-      bottom: -6px;
+      transform: rotate(90deg);
+      bottom: 10px;
     }
 
     &.tab-blue {
       background: var(--character-sheet-tab-blue);
       flex: 0 0 90px;
-      height: 30px;
     }
 
     &.tab-green {
       background: var(--character-sheet-tab-green);
       flex: 0 0 90px;
-      height: 30px;
     }
 
     &.tab-red {
       background: var(--character-sheet-tab-red);
       flex: 0 0 90px;
-      height: 30px;
     }
 
     &.tab-yellow {
       background: var(--character-sheet-tab-yellow);
       flex: 0 0 90px;
-      height: 30px;
     }
 
     &.active {
       margin-top: 0;
+      padding-top:10px;
       height:50px;
-      bottom: -6px;
+      bottom: -5px;
+      flex: 0 0 100px;
+      &:hover {
+        transform: scale(1.2);
+        transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
+        transition-duration: 0.1s;
+        transform: rotate(90deg);
+        bottom: 10px;
+      }
     }
 
     .tab-label {

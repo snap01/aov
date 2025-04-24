@@ -11,8 +11,8 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   static DEFAULT_OPTIONS = {
     classes: ['aov', 'sheet', 'actor'],
     position: {
-      width: 600,
-      height: 750
+      width: 587,
+      height: 800
     },
     tag: "form",
     dragDrop: [{ dragSelector: '[data-drag]', dropSelector: null }],
