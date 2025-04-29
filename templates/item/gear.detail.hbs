@@ -2,13 +2,13 @@
 
   <div class="gear-detail-grid">
     <div>{{localize 'AOV.quantity'}}</div>
-    <input class="gear-input" name='system.quantity' type='text' value='{{item.system.quantity}}' data-dtype="Number"/>
+    <input class="gear-input" name='system.quantity' type='text' value='{{item.system.quantity}}' data-dtype="Number" />
 
     {{#if hasOwner}}
       <div class="new-row"></div>
       <br>
       <div class="new-row">{{localize 'AOV.equipped'}}</div>
-      <div class="" >
+      <div class="">
         <select class="gear-input" data-handle-change name="system.equipStatus">
           {{selectOptions equippedOptions selected=item.system.equipStatus}}
         </select>

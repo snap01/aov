@@ -1,27 +1,30 @@
 import { AoVItemSheet } from "./item-sheet.mjs"
 import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
-export class AoVGearSheet extends AoVItemSheet {
+export class AoVWoundSheet extends AoVItemSheet {
   constructor(options = {}) {
     super(options)
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['gear'],
+    classes: ['wound'],
   }
 
   static PARTS = {
     header: { template: 'systems/aov/templates/item/item.header.hbs' },
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
-    details: { template: 'systems/aov/templates/item/gear.detail.hbs' },
-    description: { template: 'systems/aov/templates/item/item.description.hbs' },
-    gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
+    details: { template: 'systems/aov/templates/item/wound.detail.hbs' },
   }
 
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
-    context.equippedOptions = await AOVSelectLists.equippedOptions(this.document.type)
     context.tabs = this._getTabs(options.parts);
+
+    if (context.hasOwner) {
+      let actorId = this.item.parent._id
+      let actor = await game.actors.get(actorId)
+      context.hitLocs = await AOVSelectLists.getHitLocOptions(actor)
+    }
 
     return context
   }
@@ -31,28 +34,6 @@ export class AoVGearSheet extends AoVItemSheet {
     switch (partId) {
       case 'details':
         context.tab = context.tabs[partId];
-        break;
-      case 'description':
-        context.tab = context.tabs[partId];
-        context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-          this.item.system.description,
-          {
-            secrets: this.document.isOwner,
-            rollData: this.document.getRollData(),
-            relativeTo: this.document,
-          }
-        );
-        break;
-      case 'gmTab':
-        context.tab = context.tabs[partId];
-        context.enrichedGMNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-          this.item.system.gmNotes,
-          {
-            secrets: this.document.isOwner,
-            rollData: this.document.getRollData(),
-            relativeTo: this.document,
-          }
-        );
         break;
     }
     return context;
@@ -78,15 +59,7 @@ export class AoVGearSheet extends AoVItemSheet {
           tab.id = 'details';
           tab.label += 'details';
           break;
-        case 'description':
-          tab.id = 'description';
-          tab.label += 'description';
-          break;
-        case 'gmTab':
-          tab.id = 'gmTab';
-          tab.label += 'gmTab';
-          break;
-      }
+       }
       if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = 'active';
       tabs[partId] = tab;
       return tabs;

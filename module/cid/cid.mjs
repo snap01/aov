@@ -5,7 +5,7 @@
 import { AOVUtilities } from '../apps/utilities.mjs'
 
 export class CID {
-  static init () {
+  static init() {
     CONFIG.Actor.compendiumIndexFields.push('flags.aov.cidFlag')
     CONFIG.Item.compendiumIndexFields.push('flags.aov.cidFlag')
     CONFIG.JournalEntry.compendiumIndexFields.push('flags.aov.cidFlag')
@@ -21,7 +21,7 @@ export class CID {
    * Returns RegExp for valid type and format
    * @returns RegExp
    */
-  static regExKey () {
+  static regExKey() {
     return new RegExp('^(' + Object.keys(CID.gamePropertyLookup).join('|') + ')\\.(.*?)\\.(.+)$')
   }
 
@@ -30,7 +30,7 @@ export class CID {
    * @param document
    * @returns string
    */
-  static getPrefix (document) {
+  static getPrefix(document) {
     for (const type in CID.documentNameLookup) {
       if (document instanceof CID.documentNameLookup[type]) {
         return type + '.' + (document.type ?? '') + '.'
@@ -44,7 +44,7 @@ export class CID {
    * @param document
    * @returns string
    */
-  static guessId (document) {
+  static guessId(document) {
     return CID.getPrefix(document) + AOVUtilities.toKebabCase(document.name)
   }
 
@@ -53,7 +53,7 @@ export class CID {
    * @param key
    * @returns string
    */
-  static guessGroupFromKey (id) {
+  static guessGroupFromKey(id) {
     if (id) {
       const key = id.replace(/([^\\.-]+)$/, '')
       if (key.substr(-1) === '-') {
@@ -68,7 +68,7 @@ export class CID {
    * @param document
    * @returns string
    */
-  static guessGroupFromDocument (document) {
+  static guessGroupFromDocument(document) {
     return CID.guessGroupFromKey(document.flags?.aov?.cidFlag?.id)
   }
 
@@ -81,7 +81,7 @@ export class CID {
    * @param showLoading Show loading bar
    * @returns array
    */
-  static async expandItemArray ({ itemList, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
+  static async expandItemArray({ itemList, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
     let items = []
     const cids = itemList.filter(it => typeof it === 'string')
     items = itemList.filter(it => typeof it !== 'string')
@@ -100,7 +100,7 @@ export class CID {
         for (const doc of all) {
           notmissing.push(doc.flags.aov.cidFlag.id)
         }
-        ui.notifications.warn(game.i18n.format('AOV.CIDFlag.error.documents-not-found', { cids: cids.filter(x => !notmissing.includes(x)).join(', '), lang}))
+        ui.notifications.warn(game.i18n.format('AOV.CIDFlag.error.documents-not-found', { cids: cids.filter(x => !notmissing.includes(x)).join(', '), lang }))
       }
       items = items.concat(all)
     }
@@ -114,7 +114,7 @@ export class CID {
    * @param list array of items
    * @returns array
    */
-  static findCIdInList (cid, list) {
+  static findCIdInList(cid, list) {
     let itemName = ''
     const CIDKeys = foundry.utils.flattenObject(game.i18n.translations.AOV.CIDFlag.keys)
     if (typeof CIDKeys[cid] !== 'undefined') {
@@ -129,7 +129,7 @@ export class CID {
    * @param list array of items
    * @returns RegExp
    */
-  static makeGroupRegEx (cids) {
+  static makeGroupRegEx(cids) {
     if (typeof cids === 'string') {
       cids = [cids]
     } else if (typeof cids === 'undefined' || typeof cids.filter !== 'function') {
@@ -189,7 +189,7 @@ export class CID {
    * @param showLoading Show loading bar
    * @returns array
    */
-  static async fromCIDRegexAll ({ cidRegExp, type, lang = game.i18n.lang, scope = 'match', langFallback = true, showLoading = false } = {}) {
+  static async fromCIDRegexAll({ cidRegExp, type, lang = game.i18n.lang, scope = 'match', langFallback = true, showLoading = false } = {}) {
     if (!cidRegExp) {
       return []
     }
@@ -242,7 +242,7 @@ export class CID {
    * @param showLoading Show loading bar
    * @returns array
    */
-  static async fromCIDAll ({ cid, lang = game.i18n.lang, scope = 'match', langFallback = true, showLoading = false } = {}) {
+  static async fromCIDAll({ cid, lang = game.i18n.lang, scope = 'match', langFallback = true, showLoading = false } = {}) {
     if (!cid || typeof cid !== 'string') {
       return []
     }
@@ -267,7 +267,7 @@ export class CID {
    * @param langFallback should the system fall back to en incase there is no translation
    * @param showLoading Show loading bar
    */
-  static async fromCIDRegexBest ({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
+  static async fromCIDRegexBest({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
 
     const allDocuments = await this.fromCIDRegexAll({ cidRegExp, type, lang, scope: 'all', langFallback, showLoading })
     const bestDocuments = this.filterBestCID(allDocuments)
@@ -283,7 +283,7 @@ export class CID {
    * @param lang the language to match against ("en", "es", ...)
    * @param langFallback should the system fall back to en incase there is no translation
    */
-  static fromCID (cid, lang = game.i18n.lang, langFallback = true) {
+  static fromCID(cid, lang = game.i18n.lang, langFallback = true) {
     return CID.fromCIDBest({ cid, lang, langFallback })
   }
 
@@ -297,7 +297,7 @@ export class CID {
    * @param langFallback should the system fall back to en incase there is no translation
    * @param showLoading Show loading bar
    */
-  static fromCIDBest ({ cid, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
+  static fromCIDBest({ cid, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
     if (!cid || typeof cid !== 'string') {
       return []
     }
@@ -311,7 +311,7 @@ export class CID {
    * @param documents
    * @returns
    */
-  static filterBestCID (documents) {
+  static filterBestCID(documents) {
     const bestMatchDocuments = new Map()
     for (const doc of documents) {
       const docCID = doc.getFlag('aov', 'cidFlag')?.id
@@ -352,7 +352,7 @@ export class CID {
    * @param langFallback should the system fall back to en in case there is no translation
    * @returns
    */
-  static filterAllCID (documents, langFallback) {
+  static filterAllCID(documents, langFallback) {
     if (!langFallback) {
       return documents
     }
@@ -390,7 +390,7 @@ export class CID {
    * @param progressBar If greater than zero show percentage
    * @returns array
    */
-  static async documentsFromWorld ({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, progressBar = 0 } = {}) {
+  static async documentsFromWorld({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, progressBar = 0 } = {}) {
     if (!cidRegExp) {
       return []
     }
@@ -418,7 +418,7 @@ export class CID {
 
     return candidateDocuments.sort(CID.compareCIDPrio)
   }
-  
+
   /**
    * Get a list of all documents matching the CID regex, and language from the compendiums.
    * The document list is sorted with the highest priority first.
@@ -429,7 +429,7 @@ export class CID {
    * @param progressBar If greater than zero show percentage
    * @returns array
    */
-  static async documentsFromCompendia ({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, progressBar = 0 }) {
+  static async documentsFromCompendia({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, progressBar = 0 }) {
     if (!cidRegExp) {
       return []
     }
@@ -474,14 +474,14 @@ export class CID {
       }
     }
     return candidateDocuments.sort(CID.compareCIDPrio)
-  }  
+  }
 
   /**
    * Sort a list of document on CID priority - the highest first.
    * @example
    * aListOfDocuments.sort(CID.compareCIDPrio)
    */
-  static compareCIDPrio (a, b) {
+  static compareCIDPrio(a, b) {
     return (
       b.getFlag('aov', 'cidFlag')?.priority -
       a.getFlag('aov', 'cidFlag')?.priority
@@ -492,7 +492,7 @@ export class CID {
    * Translates the first part of a CID to what those documents are called in the `game` object.
    * @param cid a single cid
    */
-  static getGameProperty (cid) {
+  static getGameProperty(cid) {
     const type = cid.split('.')[0]
     const gameProperty = CID.gamePropertyLookup[type]
     if (!gameProperty) {
@@ -503,7 +503,7 @@ export class CID {
     return gameProperty
   }
 
-  static get gamePropertyLookup () {
+  static get gamePropertyLookup() {
     return {
       a: 'actors',
       c: 'cards',
@@ -520,7 +520,7 @@ export class CID {
    * Translates the first part of a CID to what those documents are called in the `game` object.
    * @param cid a single cid
    */
-  static getDocumentType (cid) {
+  static getDocumentType(cid) {
     const type = cid.split('.')[0]
     const documentType = CID.documentNameLookup[type]
     if (!documentType) {
@@ -531,7 +531,7 @@ export class CID {
     return documentType
   }
 
-  static get documentNameLookup () {
+  static get documentNameLookup() {
     return {
       a: Actor,
       c: Card,

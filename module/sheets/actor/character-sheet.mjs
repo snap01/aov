@@ -1,13 +1,14 @@
 import { prepareActiveEffectCategories } from '../../apps/effects.mjs';
+import { AOVSelectLists } from '../../apps/select-lists.mjs';
 
-import { AoVActorSheet} from "./actor-sheet.mjs"
+import { AoVActorSheet } from "./actor-sheet.mjs"
 
 export class AoVCharacterSheet extends AoVActorSheet {
-  constructor (options = {}) {
+  constructor(options = {}) {
     super(options)
     //this.#dragDrop = this.#createDragDropHandlers();
   }
-  
+
   static DEFAULT_OPTIONS = {
     classes: ['character'],
     position: {
@@ -17,35 +18,44 @@ export class AoVCharacterSheet extends AoVActorSheet {
   }
 
   static PARTS = {
-    header: {template: 'systems/aov/templates/actor/character.header.hbs'},
-    tabs: {template: 'systems/aov/templates/actor/character-tab.hbs'},
-    skills: {template: 'systems/aov/templates/actor/character.skills.hbs',
-             scrollable:[''],},
-    passions: {template: 'systems/aov/templates/actor/character.passions.hbs',
-               scrollable:[''],},             
-    gear: {template: 'systems/aov/templates/actor/character.gear.hbs'},
-    notes: {template: 'systems/aov/templates/actor/character.notes.hbs'},
-    effects: {template: 'systems/aov/templates/actor/character.effects.hbs',
-              scrollable:[''],},
-    stats: {template: 'systems/aov/templates/actor/character.stats.hbs'},              
-    gmTab: {template: 'systems/aov/templates/actor/character.gmtab.hbs'},
-  }  
+    header: { template: 'systems/aov/templates/actor/character.header.hbs' },
+    tabs: { template: 'systems/aov/templates/actor/character-tab.hbs' },
+    combat: {
+      template: 'systems/aov/templates/actor/character.combat.hbs',
+    },
+    skills: {
+      template: 'systems/aov/templates/actor/character.skills.hbs',
+      scrollable: [''],
+    },
+    passions: {
+      template: 'systems/aov/templates/actor/character.passions.hbs',
+      scrollable: [''],
+    },
+    gear: { template: 'systems/aov/templates/actor/character.gear.hbs' },
+    notes: { template: 'systems/aov/templates/actor/character.notes.hbs' },
+    effects: {
+      template: 'systems/aov/templates/actor/character.effects.hbs',
+      scrollable: [''],
+    },
+    stats: { template: 'systems/aov/templates/actor/character.stats.hbs' },
+    gmTab: { template: 'systems/aov/templates/actor/character.gmtab.hbs' },
+  }
 
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     //Common parts to the character
-    options.parts = ['header', 'tabs', 'skills','passions','gear','notes','effects','stats'];
+    options.parts = ['header', 'tabs', 'combat','skills', 'passions', 'gear', 'notes', 'effects', 'stats'];
     //GM only tabs
     if (game.user.isGM) {
       options.parts.push('gmTab');
     }
-  }  
+  }
 
   _getTabs(parts) {
     // If you have sub-tabs this is necessary to change
     const tabGroup = 'primary';
     // Default tab for first time it's rendered this session
-    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'skills';
+    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'combat';
     return parts.reduce((tabs, partId) => {
       const tab = {
         cssClass: '',
@@ -58,21 +68,25 @@ export class AoVCharacterSheet extends AoVActorSheet {
         case 'header':
         case 'tabs':
           return tabs;
+        case 'combat':
+          tab.id = 'combat';
+          tab.label += 'combat';
+          tab.colour = 'tab-green';
+          break;
         case 'skills':
           tab.id = 'skills';
-
           tab.label += 'skills';
           tab.colour = 'tab-red';
           break;
         case 'passions':
-            tab.id = 'passions';
-            tab.label += 'passions';
-            tab.colour = 'tab-blue';
-            break;          
+          tab.id = 'passions';
+          tab.label += 'passions';
+          tab.colour = 'tab-blue';
+          break;
         case 'gear':
           tab.id = 'gear';
           tab.label += 'gear';
-          tab.colour='tab-green';
+          tab.colour = 'tab-green';
           break;
         case 'notes':
           tab.id = 'notes';
@@ -89,7 +103,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
           tab.label += 'stats';
           tab.colour = 'tab-green';
           break;
-        }  
+        }
 
         case 'gmTab':
           tab.id = 'gmTab';
@@ -103,21 +117,24 @@ export class AoVCharacterSheet extends AoVActorSheet {
     }, {});
   }
 
-  async _prepareContext (options) {
+  async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    
-    await this._prepareItems(context);    
-    return context
-  }  
+    context.persTypeOptions = await AOVSelectLists.persType();
+    context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
 
- /** @override */
- async _preparePartContext(partId, context) {
+    await this._prepareItems(context);
+    return context
+  }
+
+  /** @override */
+  async _preparePartContext(partId, context) {
     switch (partId) {
+      case 'combat':
       case 'skills':
       case 'passions':
-      case 'gear' :  
-      case 'stats' : 
+      case 'gear':
+      case 'stats':
         context.tab = context.tabs[partId];
         break;
       case 'notes':
@@ -132,22 +149,22 @@ export class AoVCharacterSheet extends AoVActorSheet {
           }
         );
         break;
-        case 'effects':
-          context.tab = context.tabs[partId];
-          context.effects = prepareActiveEffectCategories(this.actor.allApplicableEffects());
-          break;        
-        case 'gmTab':
-          context.tab = context.tabs[partId];
-          context.enrichedGMNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-            this.actor.system.gmNotes,
-            {
-              async: true,
-              secrets: this.document.isOwner,
-              rollData: this.actor.getRollData(),
-              relativeTo: this.actor,
-            }
-          );
-          break;  
+      case 'effects':
+        context.tab = context.tabs[partId];
+        context.effects = prepareActiveEffectCategories(this.actor.allApplicableEffects());
+        break;
+      case 'gmTab':
+        context.tab = context.tabs[partId];
+        context.enrichedGMNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+          this.actor.system.gmNotes,
+          {
+            async: true,
+            secrets: this.document.isOwner,
+            rollData: this.actor.getRollData(),
+            relativeTo: this.actor,
+          }
+        );
+        break;
     }
     return context;
   }
@@ -157,66 +174,125 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const gear = [];
     const skills = [];
     const passions = [];
+    const combatSkills = [];
+    const devSkills = [];
+    const hitLocs = [];
+    const temphitLocs = [];
+    const wounds = [];
 
-  for (let itm of this.document.items) {
-    if (itm.type === 'gear') {
-      gear.push(itm);
-    } else if (itm.type === 'skill') {
-      itm.isType = false;
-      skills.push(itm)
-    } else if (itm.type === 'passion') {
-      passions.push(itm)
-    }  
-  }
+    for (let itm of this.document.items) {
+      if (itm.type === 'gear') {
+        gear.push(itm);
+      } else if (itm.type === 'skill') {
+        devSkills.push(itm);
+        itm.isType = false;
+        if((this.actor.system.uncommon && itm.system.common) || !this.actor.system.uncommon) {
+          skills.push(itm)
+        }
+      } else if (itm.type === 'passion') {
+        passions.push(itm)
+      } else if (itm.type === 'hitloc') {
+        if (itm.system.lowRoll === itm.system.highRoll) {
+          itm.system.label = itm.system.lowRoll
+        } else {
+          itm.system.label = itm.system.lowRoll + "-" + itm.system.highRoll
 
-  //Add Skill Categories
-  skills.push(
-    {name: game.i18n.localize('AOV.skillCat.agi'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.agi'),total: this.actor.system.agi, category:'agi'}},
-    {name: game.i18n.localize('AOV.skillCat.com'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.com'),total: this.actor.system.com, category:'com'}},
-    {name: game.i18n.localize('AOV.skillCat.knw'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.knw'),total: this.actor.system.knw, category:'knw'}},
-    {name: game.i18n.localize('AOV.skillCat.man'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.man'),total: this.actor.system.man, category:'man'}},
-    {name: game.i18n.localize('AOV.skillCat.myt'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.myt'),total: this.actor.system.myt, category:'myt'}},
-    {name: game.i18n.localize('AOV.skillCat.per'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.per'),total: this.actor.system.per, category:'per'}},
-    {name: game.i18n.localize('AOV.skillCat.ste'), isType: true, system: {label:game.i18n.localize('AOV.skillCat.ste'),total: this.actor.system.ste, category:'ste'}},
-    
-  );
+        }
+        temphitLocs.push(itm)
+      } else if (itm.type === 'wound') {
+        wounds.push(itm)
+      }
+    }
 
-  skills.sort(function(a, b){
-    let x = a.name.toLowerCase();
-    let y = b.name.toLowerCase();
-    let r = a.system.category;
-    let s = b.system.category;
-    let p = a.isType;
-    let q = b.isType;
-    if (r < s) {return -1};
-    if (r > s) {return 1};
-    if (p < q) {return 1};
-    if (p > q) {return -1};
-    if (x < y) {return -1};
-    if (x > y) {return 1};
-    return 0;
-  });
-  
-  passions.sort(function(a, b){
-    let x = a.name.toLowerCase();
-    let y = b.name.toLowerCase();
-    if (x < y) {return -1};
-    if (x > y) {return 1};
-    return 0;
-  });
+    //Add Skill Categories
+    if(!this.actor.system.alphaSkills) {
+      skills.push(
+        { name: game.i18n.localize('AOV.skillCat.agi'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.agi'), total: this.actor.system.agi, category: 'agi' } },
+        { name: game.i18n.localize('AOV.skillCat.com'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.com'), total: this.actor.system.com, category: 'com' } },
+        { name: game.i18n.localize('AOV.skillCat.knw'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.knw'), total: this.actor.system.knw, category: 'knw' } },
+        { name: game.i18n.localize('AOV.skillCat.man'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.man'), total: this.actor.system.man, category: 'man' } },
+        { name: game.i18n.localize('AOV.skillCat.myt'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.myt'), total: this.actor.system.myt, category: 'myt' } },
+        { name: game.i18n.localize('AOV.skillCat.per'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.per'), total: this.actor.system.per, category: 'per' } },
+        { name: game.i18n.localize('AOV.skillCat.spi'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.spi'), total: this.actor.system.spi, category: 'spi' } },
+        { name: game.i18n.localize('AOV.skillCat.ste'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.ste'), total: this.actor.system.ste, category: 'ste' } },
+        { name: game.i18n.localize('AOV.skillCat.cbt'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.cbt'), total: this.actor.system.cbt, category: 'cbt' } },
+      );
+      skills.sort(function (a, b) {
+        let x = a.name.toLowerCase();
+        let y = b.name.toLowerCase();
+        let r = a.system.category;
+        let s = b.system.category;
+        let p = a.isType;
+        let q = b.isType;
+        if (r < s) { return -1 };
+        if (r > s) { return 1 };
+        if (p < q) { return 1 };
+        if (p > q) { return -1 };
+        if (x < y) { return -1 };
+        if (x > y) { return 1 };
+        return 0;
+      });
+    } else {
+      skills.sort(function (a, b) {
+        let x = a.name.toLowerCase();
+        let y = b.name.toLowerCase();
+        if (x < y) { return -1 };
+        if (x > y) { return 1 };
+        return 0;
+      })
+    }
+
+    devSkills.sort(function (a, b) {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
+      return 0;
+    })
+
+    combatSkills.sort(function (a, b) {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
+      return 0;
+    })
+
+    //Sort Hit Locs to grid locations
+    for (let count=0; count<13; count++) {
+      let thisLoc = temphitLocs.filter(itm =>itm.system.gridPos === count)
+      if (thisLoc.length>0) {
+        hitLocs.push(thisLoc[0])
+      } else {
+        hitLocs.push ({name: 'blank'})
+      }
+
+    }
+
+    passions.sort(function (a, b) {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
+      return 0;
+    });
 
 
     context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    context.skills = skills
+    context.skills = skills;
     context.passions = passions.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-  }  
+    context.devSkills = devSkills;
+    context.hitLocs = hitLocs;
+    context.wounds = wounds;
+  }
 
 
 
   //Activate event listeners using the prepared sheet HTML
-  _onRender (context, _options) {
+  _onRender(context, _options) {
     this._dragDrop.forEach((d) => d.bind(this.element));
     this.element.querySelectorAll('.item-quantity').forEach(n => n.addEventListener("change", this.#editQty.bind(this)))
+    this.element.querySelectorAll('.skill-inline').forEach(n => n.addEventListener("change", this.#skillInline.bind(this)))
   }
 
 
@@ -227,7 +303,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
 
   //--------------LISTENERS------------------
   //Handle Actor Toggles
-  async #editQty (event) {
+  async #editQty(event) {
     event.preventDefault();
     event.stopImmediatePropagation();
     const newQuantity = event.currentTarget.value;
@@ -236,8 +312,17 @@ export class AoVCharacterSheet extends AoVActorSheet {
     item.update({ 'system.quantity': newQuantity });
   }
 
-  
+  async #skillInline(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    const newVal = Number(event.target.value);
+    const field = "system." + event.target.dataset.field
+    const item = this.actor.items.get(itemId);
+    await item.update({ [field]: newVal });
+  }
 
 
-  
-}    
+
+
+}

@@ -1,16 +1,25 @@
-{ "AOV": { 
+{
+  "AOV": {
     "age": "Age",
     "ageAbbr": "Age",
+    "alphaSkill": "Toggling this will change between the category layout and alphabetical layout",
     "base": "Base",
     "baseScore": "Base Score",
+    "baseScoreOption": "Base Score Option",
     "birthYear": "Birth Year",
     "birthYearAbbr": "Born",
     "bonuses": "Bonuses",
     "carried": "Carried",
     "catBonus": "Category Bonus",
     "category": "Category",
+    "categoryAbbr": "Cat",
+    "commonPassion": "Common Passion",
+    "commonPassionHint": "Common passions are automatically added to new characters",
+    "commonSkill": "Common Skill",
+    "commonSkillHint": "Common skills are automatically added to new characters, and skills can be filtered to only show common skills",
     "CopyToClipboard": "Copy to clipboard",
     "createDoc": "New {type}",
+    "damage": "Damage",
     "deleteDoc": "Double click to delete {type}",
     "description": "Description",
     "details": "Details",
@@ -25,22 +34,35 @@
     "exp": "Exp",
     "experience": "Experience",
     "family": "Family",
+    "fixed": "Fixed",
     "gear": "Equipment",
     "gender": "Gender",
     "genderAbbr": "Gender",
     "gmNotes": "GM Notes",
     "gmTab": "GM Tab",
+    "gridPos": "Grid Position",
+    "gridPosHint": "Choose a number from 1-12 to position the hit location on the character sheet",
     "healRate": "Healing Rate",
     "healRateAbbr": "HR",
     "healRateBonus": "Healing Rate Bonus",
+    "hideUncommon": "Toggling this will hide/reveal uncommon skills",
+    "hitLocations": "Hit Locations",
+    "homelandAbbr": "Home",
+    "homeland": "Homeland",
     "hp": "Hit Points",
     "hpAbbr": "HP",
     "linked": "The token is not linked to the actor",
     "lock": "Click to lock the sheet",
+    "locType": "Hit Location Type",
     "maxEnc": "Maximum Encumberance",
     "maxEncAbbr": "ME",
     "maxHPBonus": "Max HP Bonus",
     "maxMPBonus": "Max MP Bonus",
+    "melee": "Melee",
+    "missile": "Missile",
+    "hitLocHigh": "Hit Loc End",
+    "hitLocLow": "Hit Loc Start",
+    "hitLocMod": "HP Modifier",
     "mp": "Magic Points",
     "mpAbbr": "MP",
     "mr": "Movement Rate",
@@ -48,11 +70,14 @@
     "name": "Name",
     "nameMean": "Name Meaning",
     "nameMeanAbbr": "Meaning",
+    "naturalWpn": "Natural Weapon",
     "nickname": "Nickname",
     "notes": "Notes",
     "noXP": "No XP Allowed",
     "noXPHint": "If ticked, these skills can not be improved via experience",
     "packed": "Packed",
+    "personal": "Personal",
+    "personalAbbr": "Pers",
     "persType": "Personality Type",
     "persTypeAbbr": "Personality",
     "quantity": "Quantity",
@@ -68,18 +93,20 @@
     "spiritAn": "Spirit Animal",
     "spiritAnAbbr": "Spirit",
     "status": "Status",
-    "statusAbbr":"Status",
+    "statusAbbr": "Status",
     "stored": "Stored",
     "synth": "This is a synthetic actor",
     "total": "Total",
+    "treated": "Treated",
     "unlinked": "The token is not linked to the actor",
     "unlock": "Click to unlock the sheet",
+    "untreated": "This wound has not been treated",
     "viewDoc": "View {type}",
+    "weaponType": "Weapon Type",
     "xpAbbr": "Exp",
     "xpAbbrHint": "Tick the box to add an XP check.  If there is no box then the skill can improve through XP",
     "xpCheck": "XP Check",
     "xpCheckHint": "If ticked, this skill is ready for an experience check",
-
     "Ability": {
       "str": "STR",
       "con": "CON",
@@ -89,12 +116,10 @@
       "dex": "DEX",
       "cha": "CHA"
     },
-
     "Actor": {
       "hp": "Hit Points",
       "mp": "Magic Points"
-    },  
-
+    },
     "CIDFlag": {
       "documents-in-compendiums": "{count} documents in compendiums",
       "documents-in-world": "{count} documents in the world",
@@ -109,7 +134,11 @@
       "id": "CID",
       "info": "Info",
       "key": "Chaosium ID (CID)",
-      "keys": {},
+      "keys": {
+        "i.skill.large-shield": "Large Shield",
+        "i.skill.medium-shield": "Medium Shield",
+        "i.skill.small-shield": "Small Shield"
+      },
       "lang": "Lang",
       "language": "Language",
       "link": "Link",
@@ -120,15 +149,29 @@
       "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The Chaosium ID should use the English translation of the {type} to support localization across all languages.",
       "title": "Edit Chaosium ID (CID)"
     },
-
     "Effect": {
-      "inactive":"Inactive",
+      "inactive": "Inactive",
       "passive": "Passive",
-      "source":"Source",
+      "source": "Source",
       "tabDuration": "Tab Duration",
       "temporary": "Temporary"
     },
+    "HitLoc": {
+      "abdomen": "Abdomen",
+      "chest": "Chest",
+      "general": "General",
+      "head": "Head",
+      "limb": "Limb"
 
+    },
+    "Personality": {
+      "cunning": "Cunning",
+      "manipulative": "Manipulative",
+      "mighty": "Mighty",
+      "spiritual": "Spiritual",
+      "steadfast": "Steadfast",
+      "wanderer": "Wanderer"
+    },
     "Settings": {
       "actorCID": "Add default CID to Actor",
       "actorCIDHint": "Add a default CID to new Actors when created based on actor name",
@@ -151,18 +194,19 @@
       "secondaryFontColour": "Secondary Font Colour",
       "secondaryFontColourHint": "Colour for the titles etc"
     },
-
     "skillCat": {
       "agi": "Agility",
+      "cbt": "Combat",
       "com": "Communication",
       "knw": "Knowledge",
       "man": "Manipulation",
       "myt": "Mythic",
       "per": "Perception",
+      "spi": "Spirit Animal",
       "ste": "Stealth"
     },
-
     "Tabs": {
+      "combat": "Combat",
       "description": "Notes",
       "effects": "Effects",
       "gear": "Equip",
@@ -174,15 +218,16 @@
       "stats": "Stats"
     }
   },
-
   "TYPES": {
     "Actor": {
       "character": "Character"
     },
     "Item": {
       "gear": "Equipment",
+      "hitloc": "Hit Location",
       "passion": "Passion",
-      "skill": "Skill"
+      "skill": "Skill",
+      "wound": "Wound"
     }
   }
 }

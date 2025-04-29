@@ -9,7 +9,19 @@
         <i class="fa-regular fa-square"></i>
       {{/if}}
       </a>
-    </div>  
+    </div>
+
+    <div class="new-row"></div>
+    <br>
+
+    <div class="new-row" title="{{localize 'AOV.commonPassionHint'}}">{{localize 'AOV.commonPassion'}}</div>
+    <div class="centre" {{#if isGM}}data-action="itemToggle"{{/if}} data-property="common">
+      <a class="icon16">
+        <i class="fa-regular {{#if system.common}}fa-square-check{{else}}fa-square{{/if}}"></i>
+      </a>
+    </div>
+
+
     <div class="new-row"></div>
     <br>
     <div class="new-row">{{localize 'AOV.baseScore'}}</div>
@@ -17,10 +29,12 @@
       <div class="centre"><input class="gear-input centre" name='system.base' type='text' value='{{item.system.base}}'  data-dtype="Number"></div>
     {{else}}
       <div class="centre">{{system.base}}</div>
-    {{/if}}    
+    {{/if}}
     {{#if hasOwner}}
       <div class="new-row">{{localize 'AOV.family'}}</div>
       <div class="centre"><input class="gear-input centre" name='system.family' type='text' value='{{item.system.family}}'  data-dtype="Number"></div>
+      <div class="new-row">{{localize 'AOV.exp'}}</div>
+      <div class="centre"><input class="gear-input centre" name='system.xp' type='text' value='{{item.system.xp}}'  data-dtype="Number"></div>
       <div class="new-row">{{localize 'AOV.total'}}</div>
       <div class="centre">{{system.total}}</div>
       <div class="new-row"></div>
@@ -34,7 +48,7 @@
           {{else}}
             <i class="fa-regular fa-square"></i>
           {{/if}}
-        </a></div>  
+        </a></div>
       {{/unless}}
 
     {{/if}}

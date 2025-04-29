@@ -3,9 +3,10 @@
 
   {{! Editor for description}}
   <div class="item-notes">
-     <prose-mirror name="system.gmNotes" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.gmNotes}}" collaborate="true" toggled="true">
-        {{{enrichedGMNotes}}}
-      </prose-mirror>   
+    <prose-mirror name="system.gmNotes" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.gmNotes}}"
+      collaborate="true" toggled="true">
+      {{{enrichedGMNotes}}}
+    </prose-mirror>
   </div>
   <br>
   {{! Bonuses etc}}
@@ -14,15 +15,15 @@
   <div class="statBonus">
     <div class="gear-name left new-row">{{localize 'AOV.maxHPBonus'}}</div>
     <div class='gear-name centre'>
-      <input class="stat-input" name='system.hp.bonus' type='text' value='{{system.hp.bonus}}' data-dtype="Number"/>
+      <input class="stat-input" name='system.hp.bonus' type='text' value='{{system.hp.bonus}}' data-dtype="Number" />
     </div>
     <div class="gear-name left new-row">{{localize 'AOV.maxMPBonus'}}</div>
     <div class='gear-name centre'>
-      <input class="stat-input" name='system.mp.bonus' type='text' value='{{system.mp.bonus}}' data-dtype="Number"/>
+      <input class="stat-input" name='system.mp.bonus' type='text' value='{{system.mp.bonus}}' data-dtype="Number" />
     </div>
     <div class="gear-name left new-row">{{localize 'AOV.healRateBonus'}}</div>
     <div class='gear-name centre'>
-      <input class="stat-input" name='system.hrBonus' type='text' value='{{system.hrBonus}}' data-dtype="Number"/>
+      <input class="stat-input" name='system.hrBonus' type='text' value='{{system.hrBonus}}' data-dtype="Number" />
     </div>
 
   </div>

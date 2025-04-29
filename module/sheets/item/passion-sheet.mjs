@@ -1,32 +1,32 @@
-import { AoVItemSheet} from "./item-sheet.mjs"
+import { AoVItemSheet } from "./item-sheet.mjs"
 
 export class AoVPassionSheet extends AoVItemSheet {
-  constructor (options = {}) {
+  constructor(options = {}) {
     super(options)
   }
-  
+
   static DEFAULT_OPTIONS = {
     classes: ['passion'],
   }
 
   static PARTS = {
-    header: {template: 'systems/aov/templates/item/item.header.hbs'},
-    tabs: {template: 'systems/aov/templates/generic/tab-navigation.hbs'},
-    details: {template: 'systems/aov/templates/item/passion.detail.hbs'},
-    description: {template: 'systems/aov/templates/item/item.description.hbs'},
-    gmTab: {template: 'systems/aov/templates/item/item.gmtab.hbs'}
-  }  
+    header: { template: 'systems/aov/templates/item/item.header.hbs' },
+    tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
+    details: { template: 'systems/aov/templates/item/passion.detail.hbs' },
+    description: { template: 'systems/aov/templates/item/item.description.hbs' },
+    gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
+  }
 
-  async _prepareContext (options) {
+  async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    context.system.total = Number(context.system.base || 0) + Number(context.system.family || 0);
-  
-    return context
-  }  
+    context.system.total = Number(context.system.base || 0) + Number(context.system.family || 0) + Number(itm.system.xp || 0);
 
- /** @override */
- async _preparePartContext(partId, context) {
+    return context
+  }
+
+  /** @override */
+  async _preparePartContext(partId, context) {
     switch (partId) {
       case 'details':
         context.tab = context.tabs[partId];
@@ -52,7 +52,7 @@ export class AoVPassionSheet extends AoVItemSheet {
             relativeTo: this.document,
           }
         );
-        break;        
+        break;
     }
     return context;
   }
@@ -94,7 +94,7 @@ export class AoVPassionSheet extends AoVItemSheet {
 
 
   //Activate event listeners using the prepared sheet HTML
-  _onRender (context, _options) {
+  _onRender(context, _options) {
   }
 
 

@@ -1,5 +1,5 @@
 <section class='actor tab gear {{tab.cssClass}}' data-group='primary' data-tab='gear'>
-  
+
   <ol class='gear-list'>
     <li class='item gear-header gear-grid'>
       <div class='item-image'></div>
@@ -8,45 +8,43 @@
       <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
       <div class='centre'>
         {{#if @root.editable}}
-          <a
-            class='item-control item-create'
-            title='{{localize "AOV.createDoc" type=(localize "AOV.gear")}}'
-            data-action='createDoc'
-            data-document-class='Item'
-            data-type='gear'
-          >
-            <i class='fas fa-plus'></i>
-          </a>
+        <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "AOV.gear")}}'
+          data-action='createDoc' data-document-class='Item' data-type='gear'>
+          <i class='fas fa-plus'></i>
+        </a>
         {{/if}}
       </div>
     </li>
     {{#each gear as |item id|}}
-      <li class='item gear-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-        <div class='item-image' title='{{item.name}}'><a><img src='{{item.img}}' width='24' height='24'/> </a></div>
-        <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.gear")}}' data-action='viewDoc'>{{item.name}}</div>
-        <div class='gear-name centre'>
-          <input class="gear-input item-quantity" name='system.quantity' type='text' value='{{item.system.quantity}}' data-dtype="Number"/>
-        </div>
-        <div class='gear-name centre' data-action="itemToggle" data-property="equipStatus" ><a class="">
+    <li class='item gear-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+      <div class='item-image' title='{{item.name}}'><a><img src='{{item.img}}' width='24' height='24' /> </a></div>
+      <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.gear")}}'
+        data-action='viewDoc'>{{item.name}}</div>
+      <div class='gear-name centre'>
+        <input class="gear-input item-quantity" name='system.quantity' type='text' value='{{item.system.quantity}}'
+          data-dtype="Number" />
+      </div>
+      <div class='gear-name centre' data-action="itemToggle" data-property="equipStatus"><a class="">
           {{#if (eq item.system.equipStatus 1)}}
-            <i class="fas fa-hand-holding" title='{{localize "AOV.equipped"}}'></i>
+          <i class="fas fa-hand-holding" title='{{localize "AOV.equipped"}}'></i>
           {{else}}
-            {{#if (eq item.system.equipStatus 2)}}
-              <i class="fas fa-horse" title='{{localize "AOV.carried"}}'></i>
-            {{else}}
-              <i class="fas fa-house" title='{{localize "AOV.stored"}}'></i>
-            {{/if}}
-          {{/if}}  
+          {{#if (eq item.system.equipStatus 2)}}
+          <i class="fas fa-horse" title='{{localize "AOV.carried"}}'></i>
+          {{else}}
+          <i class="fas fa-house" title='{{localize "AOV.stored"}}'></i>
+          {{/if}}
+          {{/if}}
 
         </a></div>
-        {{#unless ../isLocked}}
-          <div class='gear-controls centre'>
-            <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}' data-action="deleteDoc">
-              <i class='fas fa-trash'></i>
-            </a>
-          </div>
-        {{/unless}}  
-      </li>
+      {{#unless ../isLocked}}
+      <div class='gear-controls centre'>
+        <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}'
+          data-action="deleteDoc">
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+      {{/unless}}
+    </li>
     {{/each}}
   </ol>
 

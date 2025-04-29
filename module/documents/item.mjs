@@ -6,7 +6,7 @@ export class AOVItem extends Item {
 
   getRollData() {
     const rollData = { ...this.system };
-    if ( !this.actor ) return rollData;
+    if (!this.actor) return rollData;
     rollData.actor = this.actor.getRollData();
     return rollData;
   }

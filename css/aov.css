@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'Farnham';
   font-style: normal;
@@ -29,40 +28,43 @@
   --aov-title-font-size: 16px;
 }
 
-body.theme-light .application.aov, body.theme-light.application .aov  {
+body.theme-light .application.aov,
+body.theme-light.application .aov {
   --aov-primary-font-colour: black;
   --aov-secondary-font-colour: rgb(163, 16, 8);
-  --aov-title-font-colour:  rgb(68,111,94);
-  --primary-back-colour:grey;
+  --aov-title-font-colour: rgb(68, 111, 94);
+  --primary-back-colour: grey;
   --secondary-back-colour: lightgrey;
-  --background-colour: rgba(68,111,94,0.5);
-  --actor-rollable-colour:black;
+  --background-colour: rgba(68, 111, 94, 0.5);
+  --actor-rollable-colour: black;
   --actor-rollable-shadow: red;
   --primary-icon-colour: black;
-  --secondary-icon-colour: rgb(171,36,12);
-  --tertiary-icon-colour:rgb(68,111,94);
-  --character-sheet-tab-blue: rgb(21,115,164);
-  --character-sheet-tab-green: rgb(68,111,94);
-  --character-sheet-tab-red: rgb(131,57,36);
-  --character-sheet-tab-yellow: rgb(237,181,37);
+  --secondary-icon-colour: rgb(171, 36, 12);
+  --tertiary-icon-colour: rgb(68, 111, 94);
+  --character-sheet-tab-blue: rgb(21, 115, 164);
+  --character-sheet-tab-green: rgb(68, 111, 94);
+  --character-sheet-tab-red: rgb(131, 57, 36);
+  --character-sheet-tab-yellow: rgb(237, 181, 37);
 }
 
-body.theme-dark .application.aov, body.theme-dark.application .aov {
+body.theme-dark .application.aov,
+body.theme-dark.application .aov {
   --aov-primary-font-colour: white;
   --aov-secondary-font-colour: rgba(187, 248, 251, 1);
   --aov-title-font-colour: rgb(116, 252, 252);
-  --primary-back-colour:rgb(127, 127, 127);
+  --primary-back-colour: rgb(127, 127, 127);
   --secondary-back-colour: rgb(44, 44, 44);
   --background-colour: rgba(255, 255, 255, 0.05);
-  --actor-rollable-colour:white;
+  --actor-rollable-colour: white;
   --actor-rollable-shadow: rgb(0, 255, 255);
   --primary-icon-colour: white;
   --secondary-icon-colour: rgb(0, 255, 255);
-  --tertiary-icon-colour:rgb(68,111,94);
-  --character-sheet-tab-blue: rgb(21,115,164);
-  --character-sheet-tab-green: rgb(68,111,94);
-  --character-sheet-tab-red:rgb(131,57,36);;
-  --character-sheet-tab-yellow: rgb(237,181,37);
+  --tertiary-icon-colour: rgb(68, 111, 94);
+  --character-sheet-tab-blue: rgb(21, 115, 164);
+  --character-sheet-tab-green: rgb(68, 111, 94);
+  --character-sheet-tab-red: rgb(131, 57, 36);
+  ;
+  --character-sheet-tab-yellow: rgb(237, 181, 37);
 }
 
 /*Half the padding on windows*/
@@ -70,34 +72,42 @@ body.theme-dark .application.aov, body.theme-dark.application .aov {
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
-  padding: 0px;
   border: 1px darkslategrey solid;
   border-radius: 3px;
 }
 
 
-.application.aov.item .window-content {
-  padding:10px;
+.application.aov.character .window-content {
+  padding: 0px;
 }
 
 /*Allow menu on left of character sheet to be visible*/
-.application.aov.character{
-  overflow:visible !important;
+.application.aov.character {
+  overflow: visible !important;
 }
 
-.rollable:hover, .rollable:focus,.contextmenu:hover, .contextmenu:focus, .item-toggle:hover, .item-toggle:focus, .item-view:hover, .item-view:focus{
+.rollable:hover,
+.rollable:focus,
+.contextmenu:hover,
+.contextmenu:focus,
+.item-toggle:hover,
+.item-toggle:focus,
+.item-view:hover,
+.item-view:focus {
   color: var(--actor-rollable-colour);
   text-shadow: 0px 0px 5px var(--actor-rollable-shadow);
-  font-weight:bold;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.character-notes .prosemirror, .character-notes prose-mirror {
-height:450px;
-}  
+.character-notes .prosemirror,
+.character-notes prose-mirror {
+  height: 450px;
+}
 
 
-.prosemirror .editor-content, prose-mirror .editor-content {
+.prosemirror .editor-content,
+prose-mirror .editor-content {
   position: absolute;
   overflow: hidden auto;
   inset: 0;
@@ -106,9 +116,10 @@ height:450px;
   border: 1px solid;
   padding-left: 2px;
   padding-right: 20px;
-}  
+}
 
-.prosemirror button.toggle, prose-mirror button.toggle {
+.prosemirror button.toggle,
+prose-mirror button.toggle {
   position: absolute;
   top: 2px;
   right: 2px;
@@ -120,15 +131,15 @@ height:450px;
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
-  background-image: url('../art-assets/charSheet.jpg') ;
+  background-image: url('../art-assets/charSheet.jpg');
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
 }
 
 .aov.character .sheet-header {
-  padding-left:20px;
-  padding-right:20px;
-  border:none;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: none;
   cursor: default;
 }
 
@@ -137,9 +148,9 @@ height:450px;
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
-  background-image: url('../art-assets/stone.jpg') ;
+  background-image: url('../art-assets/stone.jpg');
   background-repeat: no-repeat;
-  background-size:cover;
+  background-size: cover;
 }
 
 .aov.aovTab {
@@ -171,7 +182,7 @@ height:450px;
   justify-content: flex-end;
   align-items: center;
   max-height: 20px;
-}  
+}
 
 .aov .standard-form .form-group {
   display: flex;
@@ -179,15 +190,16 @@ height:450px;
   flex-wrap: wrap;
   align-items: center;
   margin: 0;
-  gap:0;
+  gap: 0;
   padding-bottom: 10px;
 }
 
-.aov .standard-form .form-group > label, .standard-form .form-group > span.label {
+.aov .standard-form .form-group>label,
+.standard-form .form-group>span.label {
   flex: 1;
   color: var(--aov-primary-font-colour);
   font-weight: bold;
-  line-height: 20px; 
+  line-height: 20px;
   cursor: var(--cursor-default);
 }
 
@@ -222,8 +234,8 @@ height:450px;
 }
 
 .aov .actor.tab {
-  padding-left:25px;
-  padding-right:25px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .aov .char-notes {
@@ -238,7 +250,7 @@ height:450px;
   font-weight: bold;
 }
 
-.aov .document-name input{
+.aov .document-name input {
   color: var(--aov-secondary-font-colour);
   max-height: calc(var(--aov-title-font-size) + 3.5px);
   outline: none;
@@ -252,12 +264,12 @@ height:450px;
   text-align: right;
 }
 
-.aov .centre{
+.aov .centre {
   text-align: center;
 }
 
 .aov .bold {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .aov .upper {
@@ -265,18 +277,32 @@ height:450px;
 }
 
 .aov .indent {
-  padding-left:5px;
+  padding-left: 5px;
 }
 
 .aov .new-row {
   grid-column-start: 1;
 }
 
+.aov .truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+}
+
+.bottom-line {
+  border-bottom: var(--aov-primary-font-colour) 1px solid;
+}
+
+.right-line {
+  border-right: var(--aov-primary-font-colour) 1px solid;
+}
+
 .aov .actor .statBonus {
   display: grid;
   grid-template-columns: 125px 50px;
   grid-column-gap: 5px;
-  grid-row-gap:2px;
+  grid-row-gap: 2px;
 }
 
 .aov .gear-list {
@@ -290,11 +316,27 @@ height:450px;
 .aov .skill-list {
   list-style: none;
   display: block;
-  column-count:2;
-
+  column-count: 2;
   padding: 0;
   margin: 0;
 }
+
+.aov .skillDev-list {
+  list-style: none;
+  display: block;
+  column-count: 1;
+  padding: 0px;
+  margin: 0px;
+  border-left:var(--aov-primary-font-colour) 1px solid;
+  border-bottom:var(--aov-primary-font-colour) 1px solid;
+}
+
+.aov .charHitLoc {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
 .aov .gear-header {
   height: 28px;
   margin: 2px 0;
@@ -314,22 +356,39 @@ height:450px;
   display: grid;
   grid-template-columns: 313px 313px;
   grid-column-gap: 10px;
-  
+
 }
 
 .aov .skill-grid {
   display: grid;
   grid-template-columns: 175px 35px 50px 30px;
   grid-column-gap: 5px;
-  padding-left:5px;
+  padding-left: 5px;
+}
+
+.aov .skillDev-grid {
+  display: grid;
+  width:636px;
+  grid-template-columns: auto 150px 50px 50px 50px 50px 50px 50px;
+  padding-left: 5px;
+  margin:0px;
+  border-right:var(--aov-primary-font-colour) 1px solid;
+  border-top:var(--aov-primary-font-colour) 1px solid;
 }
 
 .aov .passion-grid {
   display: grid;
   grid-template-columns: 250px 35px 50px 30px;
   grid-column-gap: 5px;
-  padding-left:5px;
-  width:390px;
+  padding-left: 5px;
+  width: 390px;
+}
+
+.aov .wounds-grid {
+  display: grid;
+  grid-template-columns: 150px 70px 40px 30px;
+  grid-column-gap: 5px;
+  padding-left: 5px;
 }
 
 .aov .gear-list .gear-controls {
@@ -339,7 +398,7 @@ height:450px;
 .aov .gear-list .gear-name {
   overflow: hidden;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   padding-top: 5px;
 }
 
@@ -347,7 +406,7 @@ height:450px;
   display: grid;
   grid-template-columns: 500px 60px;
   grid-column-gap: 5px;
-  padding-bottom:5px;
+  padding-bottom: 5px;
 }
 
 .aov .gear-detail-grid {
@@ -357,29 +416,29 @@ height:450px;
   padding-top: 10px;
 }
 
-.aov input.gear-input{
+.aov input.gear-input {
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-primary-font-size);
   max-height: calc(var(--aov-primary-font-size) + 5.5px);
   text-align: center;
-  padding:0px;
+  padding: 0px;
   border-radius: 0px;
   border-top: transparent;
   border-left: transparent;
   border-right: transparent;
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
-  background:none;
+  background: none;
   outline: none;
 }
 
-.aov select.gear-input{
+.aov select.gear-input {
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-primary-font-size);
   max-height: calc(var(--aov-primary-font-size) + 5.5px);
   text-align: center;
 }
 
-.aov input.stat-input{
+.aov input.stat-input {
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-primary-font-size);
   max-height: calc(var(--aov-primary-font-size) + 2px);
@@ -387,21 +446,34 @@ height:450px;
   outline: none;
 }
 
-.aov input.stat-input{
+.aov input.stat-input {
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-secondary-font-size);
   max-height: calc(var(--aov-primary-font-size) + 5.5px);
   text-align: center;
-  padding:0px;
+  padding: 0px;
   border-radius: 0px;
   border-top: transparent;
   border-left: transparent;
   border-right: transparent;
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
-  background:none;
+  background: none;
   outline: none;
 }
 
+.aov select.stat-input {
+  color: var(--aov-secondary-font-colour) !important;
+  font-size: var(--aov-primary-font-size);
+  max-height: calc(var(--aov-primary-font-size) + 5.5px);
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: 1px var(--aov-secondary-font-colour) solid;
+  border-radius: 0px;
+  text-align: center;
+  background: none;
+  outline: none;
+}
 
 
 .aov .character-header {
@@ -426,7 +498,7 @@ height:450px;
 .aov .statsTitle {
   font-size: var(--aov-title-font-size);
   color: var(--aov-primary-font-colour);
-  font-weight: bold;  
+  font-weight: bold;
 }
 
 .aov .stat-grid {
@@ -435,7 +507,7 @@ height:450px;
   grid-template-columns: 25px 10px 25px;
 }
 
-.aov .statsgrid{
+.aov .statsgrid {
   display: grid;
   grid-template-columns: 75px 50px 50px 75px;
   grid-column-gap: 5px;
@@ -450,7 +522,7 @@ height:450px;
 }
 
 .aov .icon16 {
-  font-size:16px;
+  font-size: 16px;
   align-items: center;
 }
 
@@ -503,8 +575,8 @@ height:450px;
 }
 
 
-.aov .ability-cell{
-  height:18px;
+.aov .ability-cell {
+  height: 18px;
   font-size: var(--aov-primary-font-size);
 }
 
@@ -513,19 +585,31 @@ height:450px;
   font-size: var(--aov-primary-font-size);
   max-height: calc(var(--aov-primary-font-size) + 5.5px);
   text-align: center;
-  padding:0px;
+  padding: 0px;
   border-radius: 0px;
   border-top: transparent;
   border-left: transparent;
   border-right: transparent;
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
-  background:none;
+  background: none;
+  outline: none;
+}
+
+.aov input.skillDev-input {
+  color: var(--aov-secondary-font-colour);
+  font-size: var(--aov-primary-font-size);
+  max-height: calc(var(--aov-primary-font-size));
+  text-align: center;
+  padding: 0px;
+  border-radius: 0px;
+  border: transparent;
+  background: none;
   outline: none;
 }
 
 .aov .tab.skills {
-  max-height:600px;
-  overflow-x:scroll;
+  max-height: 600px;
+  overflow-x: scroll;
 }
 
 .aov .img-centre {
@@ -545,9 +629,10 @@ height:450px;
   color: var(--aov-secondary-font-colour);
   margin: 3px 0;
 }
+
 /*General Tabs*/
-nav.aov.sheet-tabs.tabs{
-  background:none;
+nav.aov.sheet-tabs.tabs {
+  background: none;
 }
 
 /*Character Sheet Tabs*/
@@ -559,9 +644,9 @@ nav.aov.actor.character.sheet-tabs.tabs {
   gap: 0rem;
   position: absolute;
   left: 0;
-  top: 628px;
+  top: 830px;
   z-index: -5;
-  width: 710px;
+  width: 950px;
   height: 120px;
   transform: rotate(-90deg);
   transform-origin: bottom left;
@@ -572,7 +657,7 @@ nav.aov.actor.character.sheet-tabs.tabs {
   .aovTab {
     color: #fcf7f1;
     height: 30px;
-    width:100px;
+    width: 100px;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -587,7 +672,7 @@ nav.aov.actor.character.sheet-tabs.tabs {
     pointer-events: auto;
     font-family: var(--aov-title-font);
 
-   
+
     &:hover {
       transform: scale(1.2);
       transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
@@ -618,10 +703,11 @@ nav.aov.actor.character.sheet-tabs.tabs {
 
     &.active {
       margin-top: 0;
-      padding-top:10px;
-      height:50px;
+      padding-top: 10px;
+      height: 50px;
       bottom: -5px;
       flex: 0 0 100px;
+
       &:hover {
         transform: scale(1.2);
         transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
@@ -647,6 +733,31 @@ nav.aov.actor.character.sheet-tabs.tabs {
         color: #ffffaa;
       }
     }
-
   }
 }
+
+.aov.character .hitLocGrid {
+  display: grid;
+  background-image: url('../art-assets/warrior.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 70%;
+  grid-template-columns: 100px 100px 100px;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  grid-template-rows: 75px 75px 75px 75px;
+}
+
+.aov .hitlocCell {
+  border: 2px solid black;
+  border-radius: 3px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.aov .hitLocCellAtt {
+  display: grid;
+  grid-template-columns: 30px 30px 10px 30px ;
+}
+
+

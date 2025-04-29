@@ -1,30 +1,34 @@
-import { AoVItemSheet} from "./item-sheet.mjs"
+import { AoVItemSheet } from "./item-sheet.mjs"
 import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
 export class AoVSkillSheet extends AoVItemSheet {
-  constructor (options = {}) {
+  constructor(options = {}) {
     super(options)
   }
-  
+
   static DEFAULT_OPTIONS = {
     classes: ['skill'],
   }
 
   static PARTS = {
-    header: {template: 'systems/aov/templates/item/item.header.hbs'},
-    tabs: {template: 'systems/aov/templates/generic/tab-navigation.hbs'},
-    details: {template: 'systems/aov/templates/item/skill.detail.hbs'},
-    description: {template: 'systems/aov/templates/item/item.description.hbs'},
-    gmTab: {template: 'systems/aov/templates/item/item.gmtab.hbs'}
-  }  
+    header: { template: 'systems/aov/templates/item/item.header.hbs' },
+    tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
+    details: { template: 'systems/aov/templates/item/skill.detail.hbs' },
+    description: { template: 'systems/aov/templates/item/item.description.hbs' },
+    gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
+  }
 
-  async _prepareContext (options) {
+  async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    context.system.total = (context.system.base ||0) + (context.system.xp ||0)
+    context.system.total = (context.system.base || 0) + (context.system.xp || 0)
     context.skillCatOptions = await AOVSelectLists.skillCat()
     context.skillCatName = game.i18n.localize("AOV.skillCat." + context.system.category);
-    context.system.total = (context.system.base ||0) + (context.system.xp ||0)
+    context.baseSkillOptions = await AOVSelectLists.baseSkill()
+    context.baseSkillName = game.i18n.localize("AOV." + context.system.baseVal);
+    context.weaponTypeOptions = await AOVSelectLists.weaponType()
+    context.weaponTypeName = game.i18n.localize("AOV." + context.system.weaponType);
+    context.system.total = (context.system.base || 0) + (context.system.xp || 0) + (context.system.home || 0) + (context.system.pers || 0)
     context.system.catBonus = 0
     if (context.hasOwner && context.system.total > 0) {
       context.system.catBonus = this.item.parent.system[this.item.system.category] || 0
@@ -34,10 +38,10 @@ export class AoVSkillSheet extends AoVItemSheet {
 
 
     return context
-  }  
+  }
 
- /** @override */
- async _preparePartContext(partId, context) {
+  /** @override */
+  async _preparePartContext(partId, context) {
     switch (partId) {
       case 'details':
         context.tab = context.tabs[partId];
@@ -63,7 +67,7 @@ export class AoVSkillSheet extends AoVItemSheet {
             relativeTo: this.document,
           }
         );
-        break;        
+        break;
     }
     return context;
   }
@@ -105,7 +109,7 @@ export class AoVSkillSheet extends AoVItemSheet {
 
 
   //Activate event listeners using the prepared sheet HTML
-  _onRender (context, _options) {
+  _onRender(context, _options) {
   }
 
 

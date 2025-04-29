@@ -1,7 +1,7 @@
 import { AOVDisplaySettings } from "./settings-displayOptions.mjs";
 import { AOVCIDSettings } from "./settings-cidOptions.mjs";
 
-export async function registerSettings () {
+export async function registerSettings() {
 
   //Display Settings Button
   game.settings.registerMenu('aov', 'displayOptions', {
@@ -11,7 +11,7 @@ export async function registerSettings () {
     type: AOVDisplaySettings,
     restricted: true
   })
-  AOVDisplaySettings.registerSettings()   
+  AOVDisplaySettings.registerSettings()
 
   //Chaosium ID Settings Button
   game.settings.registerMenu('aov', 'cidOptions', {
@@ -21,7 +21,7 @@ export async function registerSettings () {
     type: AOVCIDSettings,
     restricted: true
   })
-  AOVCIDSettings.registerSettings()   
+  AOVCIDSettings.registerSettings()
 
   //Game Year
   game.settings.register('aov', "gameYear", {

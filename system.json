@@ -7,7 +7,7 @@
     "compatibility": {
       "minimum": 12,
       "verified": "13.340"
-    },    
+    },
 
     "authors": [
       {
@@ -35,14 +35,16 @@
       "Item": {
         "gear": {"htmlFields": ["description","gmNotes"]},
         "skill": {"htmlFields": ["description","gmNotes"]},
-        "passion": {"htmlFields": ["description","gmNotes"]}
-      }      
-    },  
+        "passion": {"htmlFields": ["description","gmNotes"]},
+        "hitloc": {"htmlFields": ["description","gmNotes"]},
+        "wound": {}
+      }
+    },
 
     "grid":{
       "distance": 5,
       "units": "ft"
-    }, 
+    },
 
     "primaryTokenAttribute": "hp",
     "secondaryTokenAttribute": "mp",

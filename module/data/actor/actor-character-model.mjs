@@ -7,19 +7,19 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
     schema.move = new fields.SchemaField({
-      base: new fields.NumberField({ ...requiredInteger, initial: 10}),
+      base: new fields.NumberField({ ...requiredInteger, initial: 10 }),
       bonus: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
     schema.reputation = new fields.SchemaField({
-      base: new fields.NumberField({ ...requiredInteger, initial: 5}),
+      base: new fields.NumberField({ ...requiredInteger, initial: 5 }),
       xp: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
     schema.status = new fields.SchemaField({
-      base: new fields.NumberField({ ...requiredInteger, initial: 25}),
+      base: new fields.NumberField({ ...requiredInteger, initial: 25 }),
       xp: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
     schema.hrBonus = new fields.NumberField({ ...requiredInteger, initial: 0 });
-    schema.birthYear = new fields.NumberField({ ...requiredInteger, initial: 955 }); 
+    schema.birthYear = new fields.NumberField({ ...requiredInteger, initial: 955 });
     schema.nickname = new fields.StringField({ required: true, blank: true });
     schema.gender = new fields.StringField({ required: true, blank: true });
     schema.persType = new fields.StringField({ required: true, blank: true });
@@ -43,7 +43,7 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
 
     // Copy the ability scores to the top level, so that rolls can use them
     if (this.abilities) {
-      for (let [k,v] of Object.entries(this.abilities)) {
+      for (let [k, v] of Object.entries(this.abilities)) {
         data[k] = foundry.utils.deepClone(v);
       }
     }

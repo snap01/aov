@@ -1,7 +1,7 @@
 //CHAOSIUM ID EDITOR
 import { AOV } from '../setup/config.mjs'
 import { AOVUtilities } from '../apps/utilities.mjs'
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api 
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
 export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
 
@@ -14,7 +14,7 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
       closeOnSubmit: false,
       submitOnClose: true,
       submitOnChange: true,
-    } ,
+    },
     position: {
       width: 900,
       height: "auto",
@@ -28,27 +28,27 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
 
     window: {
       title: 'AOV.CIDFlag.title',
-      contentClasses: ["standard-form"],  
+      contentClasses: ["standard-form"],
     }
-  }  
+  }
 
   get title() {
     return `${game.i18n.localize(this.options.window.title)}`;
   }
 
   static PARTS = {
-    form: {template: 'systems/aov/templates/cid/cid-editor.hbs'},
+    form: { template: 'systems/aov/templates/cid/cid-editor.hbs' },
   }
 
 
 
-  async _prepareContext (options) {
+  async _prepareContext(options) {
 
 
     this.document = this.options.document
 
     const sheetData = await super._prepareContext()
-  
+
     sheetData.objtype = this.document.type
     sheetData.objid = this.document.id
     sheetData.objuuid = this.document.uuid
@@ -126,31 +126,31 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
     return sheetData
   }
 
-_onRender (context, options) {
-  if (this.element.querySelector('input[name=_existing')) {
-    this.element.querySelector('input[name=_existing').addEventListener("change", function (e) {
-      const obj = $(this)
-      const prefix = obj.data('prefix')
-      let value = obj.val()
-      if (value !== '') {
-        value = prefix + AOVUtilities.toKebabCase(value)
-      }
-      let target = document.querySelector('input[name=id]');
-      target.value = value
-    })
-}
+  _onRender(context, options) {
+    if (this.element.querySelector('input[name=_existing')) {
+      this.element.querySelector('input[name=_existing').addEventListener("change", function (e) {
+        const obj = $(this)
+        const prefix = obj.data('prefix')
+        let value = obj.val()
+        if (value !== '') {
+          value = prefix + AOVUtilities.toKebabCase(value)
+        }
+        let target = document.querySelector('input[name=id]');
+        target.value = value
+      })
+    }
 
 
-  if (this.element.querySelector('select[name=known]')) {
-    this.element.querySelector('select[name=known]').addEventListener("change", function (e) {
-      const obj = $(this)
-      let value = obj.val()
-      let target = document.querySelector('input[name=id]');
-      target.value = value
-    })
+    if (this.element.querySelector('select[name=known]')) {
+      this.element.querySelector('select[name=known]').addEventListener("change", function (e) {
+        const obj = $(this)
+        let value = obj.val()
+        let target = document.querySelector('input[name=id]');
+        target.value = value
+      })
+    }
+
   }
-
-}
 
   static async copyToClip(event, target) {
     await AOVUtilities.copyToClipboard($(target).siblings('input').val())
@@ -170,12 +170,11 @@ _onRender (context, options) {
     this.render()
   }
 
-  static async _updateObject (event, form, formData) {
+  static async _updateObject(event, form, formData) {
     const usage = foundry.utils.expandObject(formData.object)
     const id = usage.id || ''
     const priority = usage.priority || 0
     const lang = usage.lang || game.i18n.lang
-    console.log(id, lang,priority)
     await this.document.update({
       'flags.aov.cidFlag.id': id,
       'flags.aov.cidFlag.lang': lang,
@@ -190,4 +189,4 @@ _onRender (context, options) {
     this.render()
   }
 
-}  
+}

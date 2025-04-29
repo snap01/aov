@@ -23,7 +23,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       onEditImage: this._onEditImage,
       editCid: this._onEditCid,
       viewDoc: this._viewDoc,
-      toggleLock: this._toggleLock,
+      toggleActor: this._toggleActor,
       createDoc: this._createDoc,
       deleteDoc: this._deleteDoc,
       itemToggle: this._itemToggle,
@@ -49,7 +49,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     return frame;
   }
 
-  
+
   async _prepareContext(options) {
     return {
       editable: this.isEditable,
@@ -92,11 +92,11 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   // Handle editCid action
   static _onEditCid(event) {
     event.stopPropagation(); // Don't trigger other events
-    if ( event.detail > 1 ) return; // Ignore repeated clicks
-    new CIDEditor({document: this.document}, {}).render(true, { focus: true })
+    if (event.detail > 1) return; // Ignore repeated clicks
+    new CIDEditor({ document: this.document }, {}).render(true, { focus: true })
   }
 
-  // View Embedded Document 
+  // View Embedded Document
   static async _viewDoc(event, target) {
     const doc = this._getEmbeddedDocument(target);
     doc.sheet.render(true);
@@ -107,7 +107,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       const doc = this._getEmbeddedDocument(target);
       await doc.delete();
     }
-  }  
+  }
 
   //Get Embedded Document
   _getEmbeddedDocument(target) {
@@ -123,27 +123,34 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     } else return console.warn('Could not find document class');
   }
 
-  //Toggle the lock
-  static _toggleLock(event) {
+  //Toggle aspects of the actor
+  static _toggleActor(event,target) {
     event.stopPropagation();
-    this.actor.update({'system.locked': !this.actor.system.locked})
+    let checkProp={}
+    let prop = target.dataset.property
+    if (['locked', 'uncommon', 'alphaSkills'].includes(prop)) {
+      checkProp = { [`system.${prop}`]: !this.actor.system[prop] }
+    } else {
+      return
+    }
+    this.actor.update(checkProp)
   }
 
 
-  //Toggle an item  
-  static _itemToggle(event,target) {
+  //Toggle an item
+  static _itemToggle(event, target) {
     event.stopImmediatePropagation();
-    let checkProp={};
+    let checkProp = {};
     const prop = target.dataset.property;
     const itemId = target.closest(".item").dataset.itemId;
     const item = this.actor.items.get(itemId);
-    if (['xpCheck'].includes(prop)) {
-      checkProp = {[`system.${prop}`] : !item.system[prop]}
+    if (['xpCheck',"treated"].includes(prop)) {
+      checkProp = { [`system.${prop}`]: !item.system[prop] }
     } else if (prop === 'equipStatus') {
-        let newVal = item.system.equipStatus + 1
-        if (newVal>3) {newVal=1}
-        checkProp = {'system.equipStatus' : newVal}
-    } else {return}
+      let newVal = item.system.equipStatus + 1
+      if (newVal > 3) { newVal = 1 }
+      checkProp = { 'system.equipStatus': newVal }
+    } else { return }
     item.update(checkProp);
   }
 
@@ -166,23 +173,25 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     const newItem = await docCls.create(docData, { parent: this.actor });
 
     //And in certain circumstances render the new item sheet
-      if (['gear'].includes(newItem.type)) {
-       newItem.sheet.render(true);
+    if (['gear','wound'].includes(newItem.type)) {
+      newItem.sheet.render(true);
     }
-   
+
     //Add default CID to the item
-    if(game.settings.get('aov', "actorItemCID")) {
+    if (game.settings.get('aov', "actorItemCID")) {
       let key = await game.system.api.cid.guessId(newItem)
-      await newItem.update({'flags.aov.cidFlag.id': key,
-                            'flags.aov.cidFlag.lang': game.i18n.lang,
-                            'flags.aov.cidFlag.priority': 0})
+      await newItem.update({
+        'flags.aov.cidFlag.id': key,
+        'flags.aov.cidFlag.lang': game.i18n.lang,
+        'flags.aov.cidFlag.priority': 0
+      })
       const html = $(newItem.sheet.element).find('header.window-header .edit-cid-warning,header.window-header .edit-cid-exisiting')
       if (html.length) {
         html.css({
           color: (key ? 'orange' : 'red')
         })
       }
-    newItem.sheet.render();
+      newItem.sheet.render();
     }
 
 
@@ -192,7 +201,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   //----------------
 
   //Implement Game Settings for Colours etc
-  static renderSheet (sheet,html) {
+  static renderSheet(sheet, html) {
     if (game.settings.get('aov', 'primaryFontColour')) {
       document.body.style.setProperty('--aov-primary-font-colour', game.settings.get('aov', 'primaryFontColour'));
     }
@@ -204,28 +213,28 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     if (game.settings.get('aov', 'primaryBackColour')) {
       document.body.style.setProperty('--primary-back-colour', game.settings.get('aov', 'primaryBackColour'));
     }
-        
+
     if (game.settings.get('aov', 'secondaryBackColour')) {
       document.body.style.setProperty('--secondary-back-colour', game.settings.get('aov', 'secondaryBackColour'));
-    }        
+    }
 
     if (game.settings.get('aov', 'primaryFont')) {
-      let fontSource="url(/"+game.settings.get('aov', 'primaryFont')+")"
+      let fontSource = "url(/" + game.settings.get('aov', 'primaryFont') + ")"
       const primaryFont = new FontFace(
         'aov-primaryFont',
         fontSource
       )
       primaryFont
         .load()
-        .then(function (loadedFace) {document.fonts.add(loadedFace)})
+        .then(function (loadedFace) { document.fonts.add(loadedFace) })
         .catch(function (error) {
           ui.notifications.error(error)
         })
-        document.body.style.setProperty('--primary-font', 'primaryFont');
-      }
+      document.body.style.setProperty('--primary-font', 'primaryFont');
+    }
   }
 
-//-------------Drag and Drop--------------
+  //-------------Drag and Drop--------------
 
   // Define whether a user is able to begin a dragstart workflow for a given drag selector
   _canDragStart(selector) {
@@ -249,7 +258,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   }
 
   //Callback actions which occur when a dragged element is over a drop target.
-  _onDragOver(event) {}
+  _onDragOver(event) { }
 
   //Callback actions which occur when a dragged element is dropped on a target.
   async _onDrop(event) {
@@ -340,4 +349,4 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
 
 
 
-}    
+}

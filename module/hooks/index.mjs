@@ -5,9 +5,9 @@ import * as Init from './init.mjs'
 
 
 export const AOVHooks = {
-    listen () {
-      Init.listen()
-      RenderActorSheet.listen()
-      RenderItemSheet.listen()
-    }
+  listen() {
+    Init.listen()
+    RenderActorSheet.listen()
+    RenderItemSheet.listen()
   }
+}

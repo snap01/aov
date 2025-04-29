@@ -1,0 +1,26 @@
+<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
+  <div class="gear-detail-grid">
+    {{#if hasOwner}}
+      <div class="new-row">{{localize 'AOV.damage'}}</div>
+      <div class="centre"><input class="gear-input centre" name='system.damage' type='text' value='{{item.system.damage}}'  data-dtype="Number"></div>
+      <div class="new-row"></div>
+      <br>
+
+      <div class="new-row">{{localize 'TYPES.Item.hitloc'}}</div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.hitLocId">
+              {{selectOptions hitLocs selected=item.system.hitLocId default=""}}
+            </select>
+          </div>
+      <div class="new-row"></div>
+      <br>
+
+      <div class="new-row">{{localize 'AOV.treated'}}</div>
+      <div class="centre" data-action="itemToggle" data-property="treated">
+        <a class="icon16">
+          <i class="fa-regular {{#if system.treated}}fa-square-check{{else}}fa-square{{/if}}"></i>
+        </a>
+      </div>
+    {{/if}}
+  </div>
+</section>

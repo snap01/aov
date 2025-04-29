@@ -1,0 +1,89 @@
+{{! Description Tab }}
+<section class='actor tab combat {{tab.cssClass}}' data-group='primary' data-tab='combat'>
+
+  <div class="skill-grid-header">
+    <div class='gear-header skill-grid'>
+      <div class='centre' style="grid-column: 1 / span4;">{{localize 'AOV.hitLocations'}}</div>
+    </div>
+    <div class='gear-header wounds-grid'>
+      <div class='new-row left'>{{localize 'TYPES.Item.wound'}}</div>
+      <div class='centre'>{{localize 'AOV.damage'}}</div>
+      <div class='centre'>{{localize 'AOV.status'}}</div>
+      <div class='centre'>
+        {{#if @root.editable}}
+        <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.wound")}}'
+          data-action='createDoc' data-document-class='Item' data-type='wound'>
+          <i class='fas fa-plus'></i>
+        </a>
+        {{/if}}
+      </div>
+    </div>
+
+    <ol class="charHitLoc">
+      <div class="hitLocGrid">
+
+        {{#each hitLocs as |item id|}}
+        {{#unless (eq item.system.locType 'general')}}
+        {{#if (eq item.name 'blank')}}
+        <div></div>
+        {{else}}
+        <li class="item hitlocCell" data-item-id='{{item._id}}' data-document-class='Item'>
+          <div class="upper rollable" data-action='viewDoc'>{{item.name}}</div>
+          {{#if ../isLocked}}
+            <div>{{item.system.label}}</div>
+          {{else}}
+            <div class='gear-controls centre'>
+              <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
+                data-action="deleteDoc">
+                <i class='fas fa-trash'></i>
+              </a>
+            </div>
+          {{/if}}
+          <div class="hitLocCellAtt">
+            <div>AP</div>
+            <div class="terIcon">7</div>
+            <div>/</div>
+            <div class="terIcon">10</div>
+            <div>HP</div>
+            <div class="terIcon">{{item.system.currHp}}</div>
+            <div>/</div>
+            <div class="terIcon">{{item.system.hpMax}}</div>
+          </div>
+        </li>
+        {{/if}}
+        {{/unless}}
+        {{/each}}
+      </div>
+    </ol>
+
+    <ol class="charHitLoc">
+      <div class="woundsGrid">
+
+        {{#each wounds as |item id|}}
+        <li class="item wounds-grid" data-item-id='{{item._id}}' data-document-class='Item'>
+          <div class="rollable" data-action='viewDoc'>{{item.system.label}}</div>
+          <div class="centre skill-inline"><input class="ability-cell centre" name='system.damage'
+            type='text' value='{{item.system.damage}}' data-field="damage" data-dtype="Number"/>
+          </div>
+          <div class="centre">
+            {{#unless item.system.treated}}
+              <a class="secIcon" title="{{localize 'AOV.untreated'}}" data-action="itemToggle" data-property="treated">
+                <i class="fa-solid fa-droplet"></i>
+              </a>
+            {{/unless}}
+          </div>
+            <div class='gear-controls centre'>
+              <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.wound")}}'
+                data-action="deleteDoc">
+                <i class='fas fa-trash'></i>
+              </a>
+            </div>
+
+        </li>
+        {{/each}}
+      </div>
+    </ol>
+
+  </div>
+
+</section>

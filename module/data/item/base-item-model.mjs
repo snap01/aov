@@ -7,8 +7,8 @@ export default class AOVItemBaseModel extends AOVDataModel {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = {};
 
-    schema.description = new fields.StringField({ required: true, blank: true }); 
-    schema.gmNotes = new fields.StringField({ required: true, blank: true }); 
+    schema.description = new fields.StringField({ required: true, blank: true });
+    schema.gmNotes = new fields.StringField({ required: true, blank: true });
 
     return schema;
   }

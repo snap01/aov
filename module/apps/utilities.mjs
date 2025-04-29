@@ -1,6 +1,6 @@
 export class AOVUtilities {
 
-  static toKebabCase (s) {
+  static toKebabCase(s) {
     if (!s) {
       return ''
     }
@@ -9,9 +9,9 @@ export class AOVUtilities {
       return ''
     }
     return match.join('-').toLowerCase()
-  }    
+  }
 
-  static async copyToClipboard (text) {
+  static async copyToClipboard(text) {
     try {
       if (navigator.clipboard && window.isSecureContext) {
         return navigator.clipboard.writeText(text)
@@ -29,56 +29,56 @@ export class AOVUtilities {
             ? resolve()
             : reject(
               new Error(game.i18n.localize('AOV.UnableToCopyToClipboard'))
-              )
-              textArea.remove()
+            )
+          textArea.remove()
         }).catch(err => ui.notifications.error(err))
       }
     } catch (err) {
       ui.notifications.error(game.i18n.localize('AOV.UnableToCopyToClipboard'))
     }
-  }  
-    
-    
-  static quoteRegExp (string) {
+  }
+
+
+  static quoteRegExp(string) {
     // https://bitbucket.org/cggaertner/js-hacks/raw/master/quote.js
     const len = string.length
     let qString = ''
-    
+
     for (let current, i = 0; i < len; ++i) {
       current = string.charAt(i)
-    
+
       if (current >= ' ' && current <= '~') {
         if (current === '\\' || current === "'") {
           qString += '\\'
         }
-    
+
         qString += current.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
       } else {
         switch (current) {
           case '\b':
             qString += '\\b'
             break
-    
+
           case '\f':
             qString += '\\f'
             break
-    
+
           case '\n':
             qString += '\\n'
             break
-    
+
           case '\r':
             qString += '\\r'
             break
-    
+
           case '\t':
             qString += '\\t'
             break
-    
+
           case '\v':
             qString += '\\v'
             break
-    
+
           default:
             qString += '\\u'
             current = current.charCodeAt(0).toString(16)
@@ -89,20 +89,20 @@ export class AOVUtilities {
     }
     return qString
   }
-      
-    
-  static sortByNameKey (a, b) {
+
+
+  static sortByNameKey(a, b) {
     return a.name
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toLocaleLowerCase()
       .localeCompare(
         b.name
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLocaleLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLocaleLowerCase()
       )
-  }  
+  }
 
 
 }    

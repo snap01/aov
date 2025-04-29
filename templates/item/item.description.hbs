@@ -4,12 +4,13 @@
 
   {{! Editor for description}}
   <div class="item-notes">
-    {{#if editable}} 
-      <prose-mirror name="system.description" data-document-u-u-i-d="{{item.uuid}}" value="{{system.description}}" collaborate="true" toggled="true">
+    {{#if editable}}
+      <prose-mirror name="system.description" data-document-u-u-i-d="{{item.uuid}}" value="{{system.description}}"
+        collaborate="true" toggled="true">
         {{{enrichedDescription}}}
-      </prose-mirror>   
+      </prose-mirror>
     {{else}}
-        {{{enrichedDescription}}}
-    {{/if}}  
+      {{{enrichedDescription}}}
+    {{/if}}
   </div>
 </section>
