@@ -268,7 +268,6 @@ export class CID {
    * @param showLoading Show loading bar
    */
   static async fromCIDRegexBest({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, showLoading = false } = {}) {
-
     const allDocuments = await this.fromCIDRegexAll({ cidRegExp, type, lang, scope: 'all', langFallback, showLoading })
     const bestDocuments = this.filterBestCID(allDocuments)
     return bestDocuments
@@ -391,7 +390,7 @@ export class CID {
    * @returns array
    */
   static async documentsFromWorld({ cidRegExp, type, lang = game.i18n.lang, langFallback = true, progressBar = 0 } = {}) {
-    if (!cidRegExp) {
+       if (!cidRegExp) {
       return []
     }
     if (lang === '') {
@@ -403,7 +402,6 @@ export class CID {
     }
 
     const gameProperty = CID.getGameProperty(`${type}..`)
-
     const candidateDocuments = game[gameProperty]?.filter((d) => {
       const cidFlag = d.getFlag('aov', 'cidFlag')
       if (typeof cidFlag === 'undefined') {
@@ -543,4 +541,4 @@ export class CID {
       s: Scene
     }
   }
-}  
+}

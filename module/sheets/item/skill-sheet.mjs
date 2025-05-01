@@ -8,6 +8,10 @@ export class AoVSkillSheet extends AoVItemSheet {
 
   static DEFAULT_OPTIONS = {
     classes: ['skill'],
+    position: {
+      width: 600,
+      height: 570
+    },
   }
 
   static PARTS = {
@@ -21,20 +25,25 @@ export class AoVSkillSheet extends AoVItemSheet {
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    context.system.total = (context.system.base || 0) + (context.system.xp || 0)
     context.skillCatOptions = await AOVSelectLists.skillCat()
     context.skillCatName = game.i18n.localize("AOV.skillCat." + context.system.category);
     context.baseSkillOptions = await AOVSelectLists.baseSkill()
     context.baseSkillName = game.i18n.localize("AOV." + context.system.baseVal);
     context.weaponTypeOptions = await AOVSelectLists.weaponType()
     context.weaponTypeName = game.i18n.localize("AOV." + context.system.weaponType);
-    context.system.total = (context.system.base || 0) + (context.system.xp || 0) + (context.system.home || 0) + (context.system.pers || 0)
+    if (context.system.category === 'cbt') {
+      context.weaponCatOptions = CONFIG.weaponCats;
+      let weaponCat = await game.system.api.cid.fromCID(context.system.weaponCat)
+      context.weaponCatName = weaponCat[0].name ?? ""
+    } else {
+      context.weaponCatName = ""
+    }
+    context.system.total = (context.system.base ?? 0) + (context.system.xp ?? 0) + (context.system.home ?? 0) + (context.system.pers ?? 0)
     context.system.catBonus = 0
     if (context.hasOwner && context.system.total > 0) {
-      context.system.catBonus = this.item.parent.system[this.item.system.category] || 0
+      context.system.catBonus = this.item.parent.system[this.item.system.category] ?? 0
     }
     context.system.total += context.system.catBonus
-
 
 
     return context
@@ -70,6 +79,15 @@ export class AoVSkillSheet extends AoVItemSheet {
         break;
     }
     return context;
+  }
+
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    //Only show GM tab if you are GM
+    options.parts = ['header', 'tabs', 'details','description'];
+    if (game.user.isGM) {
+        options.parts.push('gmTab');
+    }
   }
 
   _getTabs(parts) {

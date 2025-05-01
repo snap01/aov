@@ -7,12 +7,13 @@ import { AOVHooks } from './module/hooks/index.mjs'
 import * as models from './module/data/_module.mjs';
 import { AoVActorSheet } from "./module/sheets/actor/actor-sheet.mjs";
 import { AoVItemSheet } from "./module/sheets/item/item-sheet.mjs";
+import { AOVSelectLists } from "./module/apps/select-lists.mjs";
+import { CID } from "./module/cid/cid.mjs"
 
 
 
 //  Init Hook
 Hooks.once('init', async function() {
-
   //Add classes to global game object
   game.aov = {
     AOVActor,
@@ -20,16 +21,19 @@ Hooks.once('init', async function() {
   }
 
 
+
   //Add Custom Configuration
   CONFIG.AOV = AOV;
+
 
   //Register Settings and Handlebar Helpers
   registerSettings();
   handlebarsHelper();
 
   // Define custom Document classes
-  CONFIG.Actor.documentClass = AOVActor;
   CONFIG.Item.documentClass = AOVItem;
+  CONFIG.Actor.documentClass = AOVActor;
+
 
 
   //Declare Data Models
@@ -44,20 +48,15 @@ Hooks.once('init', async function() {
   // but will still apply to the Actor from within the Item
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = false;
-
-});  
-
-//Remove certain Items types from the list of options to create under the items menu
-Hooks.on("renderDialog", (dialog, html) => {
-  let deprecatedTypes = ["wound"]; // 
-  Array.from(html.find("#document-create option")).forEach(i => {
-      if (deprecatedTypes.includes(i.value))
-      {
-          i.remove()
-      }
-  })
 });
 
+// Ready Hook
+Hooks.once("ready", async function () {
+  console.log("///////////////////////////////////")
+  console.log("//  Age of Vikings System Ready  //")
+  console.log("///////////////////////////////////")
+
+})
 
 AOVHooks.listen()
 

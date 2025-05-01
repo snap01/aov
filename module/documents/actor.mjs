@@ -1,4 +1,5 @@
 import { CID } from '../cid/cid.mjs';
+import { AOVSelectLists } from "../apps/select-lists.mjs";
 
 export class AOVActor extends Actor {
 
@@ -25,14 +26,26 @@ export class AOVActor extends Actor {
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
+    if (!CONFIG.weaponCats) {
+      console.log("CREATE")
+      CONFIG.weaponCats = await AOVSelectLists.getWeaponCategories();
+    }
+    for (let [key, cat] of Object.entries(CONFIG.weaponCats)) {
+      let tempCat = key.split('.')[2]
+      systemData.weaponCats[tempCat] = 0
+    }
+
+
     for (let itm of actorData.items) {
       if (itm.type === 'skill') {
-        itm.system.total = (itm.system.base || 0) + (itm.system.xp || 0) + (itm.system.home || 0) + (itm.system.pers || 0)
-        itm.system.catBonus = actorData.system[itm.system.category] || 0
+        //Calculate Total Chance
+        itm.system.total = (itm.system.base ?? 0) + (itm.system.xp ?? 0) + (itm.system.home ?? 0) + (itm.system.pers ?? 0)
+        itm.system.catBonus = actorData.system[itm.system.category] ?? 0
         itm.system.catLabel = game.i18n.localize('AOV.skillCat.' + itm.system.category)
         if (itm.system.total > 0) {
           itm.system.total += itm.system.catBonus
         }
+        //Item label combining specialism
         itm.system.label = itm.name
         if (itm.system.specSkill) {
           if (itm.system.specialisation === "") {
@@ -41,12 +54,22 @@ export class AOVActor extends Actor {
             itm.system.label = itm.system.label + " (" + itm.system.specialisation + ")"
           }
         }
+        //Build up Weapon Category Max Values
+        if (itm.system.category === "cbt") {
+          let catName = itm.system.weaponCat
+          if (catName) {
+            catName = catName.split('.')[2]
+            if (itm.system.total > systemData.weaponCats[catName]) {
+              systemData.weaponCats[catName] = itm.system.total
+            }
+          }
+        }
 
       } else if (itm.type === 'passion') {
-        itm.system.total = Number(itm.system.base || 0) + Number(itm.system.family || 0) + Number(itm.system.xp || 0);
+        itm.system.total = Number(itm.system.base ?? 0) + Number(itm.system.family ?? 0) + Number(itm.system.xp ?? 0);
       } else if (itm.type === 'wound') {
         let loc = await actorData.items.get(itm.system.hitLocId)
-        if (loc) {itm.system.label = loc.name ||""}
+        if (loc) {itm.system.label = loc.name ?? ""}
       }
 
     }
@@ -59,7 +82,7 @@ export class AOVActor extends Actor {
         if (itm.system.locType ===  'general') {
           itm.system.hpMax = 0
         } else {
-          itm.system.hpMax = Math.max(Math.ceil(systemData.hp.max / 3),2) + (itm.system.hpMod || 0)
+          itm.system.hpMax = Math.max(Math.ceil(systemData.hp.max / 3),2) + (itm.system.hpMod ?? 0)
         }
         for (let witm of actorData.items) {
           if (witm.type === 'wound') {
@@ -100,7 +123,7 @@ export class AOVActor extends Actor {
   //Prepare Stats
   _prepStats(actorData) {
     for (let [key, ability] of Object.entries(actorData.system.abilities)) {
-      ability.total = ability.value + ability.xp
+      ability.total = ability.value + ability.xp + ability.age
       ability.deriv = ability.total * 5
     }
   }
@@ -112,9 +135,9 @@ export class AOVActor extends Actor {
       systemData.hp.max = AOVActor._calcMaxHP(systemData);
       systemData.mp.max = AOVActor._calcMaxMP(systemData);
       systemData.healRate = AOVActor._calcHealRate(systemData);
-      systemData.reputation.total = (systemData.reputation.base || 0) + (systemData.reputation.xp || 0);
-      systemData.status.total = (systemData.status.base || 0) + (systemData.status.xp || 0);
-      systemData.moveRate = (systemData.move.base || 0) + (systemData.move.bonus || 0);
+      systemData.reputation.total = (systemData.reputation.base ?? 0) + (systemData.reputation.xp ?? 0);
+      systemData.status.total = (systemData.status.base ?? 0) + (systemData.status.xp ?? 0);
+      systemData.moveRate = (systemData.move.base ?? 0) + (systemData.move.bonus ?? 0);
       systemData.dmgBonus = AOVActor._damMod(systemData);
       systemData.maxEnc = AOVActor._maxEnc(systemData);
       systemData.age = game.settings.get('aov', 'gameYear') - systemData.birthYear;

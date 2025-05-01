@@ -15,7 +15,7 @@
     <br>
 
     {{#if (eq system.category 'cbt')}}
-      <div class="new-row">{{localize 'AOV.weaponType'}}</div>
+      <div class="new-row">{{localize 'AOV.weaponTypeCat'}}</div>
       {{#if isGM}}
         <div class="" >
           <select class="gear-input" data-handle-change name="system.weaponType">
@@ -24,6 +24,16 @@
         </div>
       {{else}}
         <div class="gear-input centre">{{weaponTypeName}}</div>
+      {{/if}}
+
+      {{#if isGM}}
+        <div class="" >
+          <select class="gear-input" data-handle-change name="system.weaponCat">
+            {{selectOptions weaponCatOptions selected=item.system.weaponCat}}
+          </select>
+        </div>
+      {{else}}
+        <div class="gear-input centre">{{weaponCatName}}</div>
       {{/if}}
       <div class="new-row"></div>
       <br>

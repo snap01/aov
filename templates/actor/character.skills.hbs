@@ -57,14 +57,12 @@
               <div></div>
             {{/unless}}
             <div class='gear-name centre terIcon'>{{item.system.total}}</div>
-            {{#unless ../isLocked}}
               <div class='gear-controls centre'>
                 <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.skill")}}'
                   data-action="deleteDoc">
                   <i class='fas fa-trash'></i>
                 </a>
               </div>
-            {{/unless}}
           {{/if}}
         </li>
       {{/each}}

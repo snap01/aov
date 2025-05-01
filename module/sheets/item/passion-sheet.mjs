@@ -20,7 +20,7 @@ export class AoVPassionSheet extends AoVItemSheet {
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    context.system.total = Number(context.system.base || 0) + Number(context.system.family || 0) + Number(itm.system.xp || 0);
+    context.system.total = Number(context.system.base ?? 0) + Number(context.system.family ?? 0) + Number(context.system.xp ?? 0);
 
     return context
   }
@@ -92,6 +92,14 @@ export class AoVPassionSheet extends AoVItemSheet {
     }, {});
   }
 
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    //Only show GM tab if you are GM
+    options.parts = ['header', 'tabs', 'details','description'];
+    if (game.user.isGM) {
+        options.parts.push('gmTab');
+    }
+  }
 
   //Activate event listeners using the prepared sheet HTML
   _onRender(context, _options) {

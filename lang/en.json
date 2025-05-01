@@ -102,7 +102,7 @@
     "unlock": "Click to unlock the sheet",
     "untreated": "This wound has not been treated",
     "viewDoc": "View {type}",
-    "weaponType": "Weapon Type",
+    "weaponTypeCat": "Weapon Type/Category",
     "xpAbbr": "Exp",
     "xpAbbrHint": "Tick the box to add an XP check.  If there is no box then the skill can improve through XP",
     "xpCheck": "XP Check",
@@ -223,10 +223,12 @@
       "character": "Character"
     },
     "Item": {
+      "devotion": "Devotion",
       "gear": "Equipment",
       "hitloc": "Hit Location",
       "passion": "Passion",
       "skill": "Skill",
+      "weaponcat": "Weapon Category",
       "wound": "Wound"
     }
   }

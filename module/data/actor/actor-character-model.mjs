@@ -18,7 +18,7 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
       base: new fields.NumberField({ ...requiredInteger, initial: 25 }),
       xp: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
-    schema.hrBonus = new fields.NumberField({ ...requiredInteger, initial: 0 });
+    schema.hrBonus = new fields.NumberField({ ...requiredInteger, initial: 0 }); // Healing Rate Bonus
     schema.birthYear = new fields.NumberField({ ...requiredInteger, initial: 955 });
     schema.nickname = new fields.StringField({ required: true, blank: true });
     schema.gender = new fields.StringField({ required: true, blank: true });
@@ -26,6 +26,7 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     schema.spiritAn = new fields.StringField({ required: true, blank: true });
     schema.distFeatures = new fields.StringField({ required: true, blank: true });
     schema.nameMean = new fields.StringField({ required: true, blank: true });
+    schema.weaponCats = new fields.SchemaField({});  //Blank array to hold weapon category bonuses
 
     return schema
   }

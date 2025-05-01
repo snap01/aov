@@ -9,4 +9,7 @@ export { default as AOVSkillModel } from "./item/item-skill-model.mjs";
 export { default as AOVPassionModel } from "./item/item-passion-model.mjs";
 export { default as AOVHitLocModel } from "./item/item-hitloc-model.mjs";
 export { default as AOVWoundModel } from "./item/item-wound-model.mjs";
+export { default as AOVWeaponCatModel } from "./item/item-weaponCat-model.mjs";
+export { default as AOVDevotionModel}  from "./item/item-devotion-model.mjs";
+
 

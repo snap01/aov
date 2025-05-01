@@ -4,6 +4,7 @@ import { AoVSkillSheet } from '../sheets/item/skill-sheet.mjs';
 import { AoVPassionSheet } from '../sheets/item/passion-sheet.mjs';
 import { AoVHitLocSheet} from '../sheets/item/hitloc-sheet.mjs';
 import { AoVWoundSheet } from '../sheets/item/wound-sheet.mjs';
+import { AoVWeaponCatSheet } from '../sheets/item/weaponCat-sheet.mjs';
 
 export function registerSheets() {
 
@@ -36,6 +37,10 @@ export function registerSheets() {
   });
   collections.Items.registerSheet('aov', AoVWoundSheet, {
     types: ['wound'],
+    makeDefault: true
+  });
+  collections.Items.registerSheet('aov', AoVWeaponCatSheet, {
+    types: ['weaponcat'],
     makeDefault: true
   });
 }

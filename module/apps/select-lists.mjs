@@ -1,5 +1,6 @@
 export class AOVSelectLists {
 
+
   //Equipped List
   static async equippedOptions(type) {
     let options = {};
@@ -86,6 +87,25 @@ export class AOVSelectLists {
       if (itm.type === 'hitloc') {
           newOption = { [itm.id]: itm.name, };
           options = Object.assign(options, newOption)
+      }
+    }
+    return options
+  }
+
+  //Weapon Category List
+  static async getWeaponCategories() {
+    let weaponCatList = await game.system.api.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i.weaponcat'), type: 'i' })
+    weaponCatList.sort(function (a, b) {
+      let x = a.name;
+      let y = b.name;
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
+      return 0;
+    });
+    let options = {}
+    for (let itm of weaponCatList) {
+      if (itm.flags.aov.cidFlag.id) {
+        options = Object.assign(options, { [itm.flags.aov.cidFlag.id]: itm.name })
       }
     }
     return options

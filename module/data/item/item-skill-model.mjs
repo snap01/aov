@@ -17,6 +17,7 @@ export default class AOVSkillModel extends AOVItemBaseModel {
     schema.category = new fields.StringField({ required: true, blank: true, initial: "agi" }); //Skill Category of this skill
     schema.specialisation = new fields.StringField({ required: true, blank: true, initial: "" }); //Name of skill specialisation
     schema.weaponType = new fields.StringField({ required: true, blank: true, initial: "" }); //Weapon Type
+    schema.weaponCat = new fields.StringField({ required: true, blank: true, initial: "" }); //Weapon Category
     schema.common = new fields.BooleanField({ initial: true }); //Is this a common skill
     return schema
   }

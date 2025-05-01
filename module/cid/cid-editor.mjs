@@ -158,8 +158,13 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
 
   static async guessID(event, target) {
     const guess = target.dataset.guess
+    const priority = this.document.flags.aov?.cidFlag?.priority ?? 0
+    const lang = this.document.flags.aov?.cidFlag?.lang ?? game.i18n.lang
+
     await this.document.update({
-      'flags.aov.cidFlag.id': guess
+      'flags.aov.cidFlag.id': guess,
+      'flags.aov.cidFlag.lang': lang,
+      'flags.aov.cidFlag.priority': priority,
     })
     const html = $(this.document.sheet.element).find('header.window-header .edit-cid-warning,header.window-header .edit-cid-exisiting')
     if (html.length) {

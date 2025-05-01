@@ -45,6 +45,7 @@ body.theme-light.application .aov {
   --character-sheet-tab-green: rgb(68, 111, 94);
   --character-sheet-tab-red: rgb(131, 57, 36);
   --character-sheet-tab-yellow: rgb(237, 181, 37);
+  --cid-duplicate: red;
 }
 
 body.theme-dark .application.aov,
@@ -63,8 +64,8 @@ body.theme-dark.application .aov {
   --character-sheet-tab-blue: rgb(21, 115, 164);
   --character-sheet-tab-green: rgb(68, 111, 94);
   --character-sheet-tab-red: rgb(131, 57, 36);
-  ;
   --character-sheet-tab-yellow: rgb(237, 181, 37);
+  --cid-duplicate: red;
 }
 
 /*Half the padding on windows*/
@@ -290,6 +291,10 @@ prose-mirror button.toggle {
   text-overflow:ellipsis;
 }
 
+.aov .darkred {
+  color: var(--cid-duplicate);
+}
+
 .bottom-line {
   border-bottom: var(--aov-primary-font-colour) 1px solid;
 }
@@ -402,6 +407,21 @@ prose-mirror button.toggle {
   padding-top: 5px;
 }
 
+.aov input.stat-val {
+  color: var(--aov-secondary-font-colour);
+  font-size: var(--aov-secondary-font-size);
+  max-height: calc(var(--aov-primary-font-size));
+  text-align: center;
+  padding: 0px;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: 1px var(--aov-secondary-font-colour) solid;
+  background: none;
+  outline: none;
+}
+
 .aov .item-header {
   display: grid;
   grid-template-columns: 500px 60px;
@@ -411,8 +431,8 @@ prose-mirror button.toggle {
 
 .aov .gear-detail-grid {
   display: grid;
-  grid-template-columns: 150px 150px 200px;
-  grid-column-gap: 5px;
+  grid-template-columns: 175px 150px 150px;
+  grid-column-gap: 10px;
   padding-top: 10px;
 }
 
@@ -509,7 +529,7 @@ prose-mirror button.toggle {
 
 .aov .statsgrid {
   display: grid;
-  grid-template-columns: 75px 50px 50px 75px;
+  grid-template-columns: 75px 50px 50px 50px 75px;
   grid-column-gap: 5px;
 }
 

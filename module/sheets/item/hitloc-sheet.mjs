@@ -93,6 +93,14 @@ export class AoVHitLocSheet extends AoVItemSheet {
     }, {});
   }
 
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    //Only show GM tab if you are GM
+    options.parts = ['header', 'tabs', 'details','description'];
+    if (game.user.isGM) {
+        options.parts.push('gmTab');
+    }
+  }
 
   //Activate event listeners using the prepared sheet HTML
   _onRender(context, _options) {
