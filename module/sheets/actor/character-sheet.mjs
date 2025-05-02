@@ -20,35 +20,38 @@ export class AoVCharacterSheet extends AoVActorSheet {
   static PARTS = {
     header: { template: 'systems/aov/templates/actor/character.header.hbs' },
     tabs: { template: 'systems/aov/templates/actor/character-tab.hbs' },
-    combat: {
-      template: 'systems/aov/templates/actor/character.combat.hbs',
-    },
-    skills: {
-      template: 'systems/aov/templates/actor/character.skills.hbs',
-      scrollable: [''],
-    },
-    passions: {
-      template: 'systems/aov/templates/actor/character.passions.hbs',
-      scrollable: [''],
-    },
-    gear: { template: 'systems/aov/templates/actor/character.gear.hbs' },
+    gmTab: { template: 'systems/aov/templates/actor/character.gmtab.hbs' },
     notes: { template: 'systems/aov/templates/actor/character.notes.hbs' },
     effects: {
       template: 'systems/aov/templates/actor/character.effects.hbs',
       scrollable: [''],
     },
     stats: { template: 'systems/aov/templates/actor/character.stats.hbs' },
-    gmTab: { template: 'systems/aov/templates/actor/character.gmtab.hbs' },
+    passions: {
+      template: 'systems/aov/templates/actor/character.passions.hbs',
+      scrollable: [''],
+    },
+    gear: { template: 'systems/aov/templates/actor/character.gear.hbs' },
+    skills: {
+      template: 'systems/aov/templates/actor/character.skills.hbs',
+      scrollable: [''],
+    },
+    combat: {
+      template: 'systems/aov/templates/actor/character.combat.hbs',
+    },
+    devotions: { template: 'systems/aov/templates/actor/character.devotions.hbs' },
   }
 
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
-    //Common parts to the character
-    options.parts = ['header', 'tabs', 'combat','skills', 'passions', 'gear', 'notes', 'effects', 'stats'];
+    //Common parts to the character - this is the order they are show on the sheet
+    options.parts = ['header'];
     //GM only tabs
     if (game.user.isGM) {
       options.parts.push('gmTab');
     }
+    //Last tab is at the top of the list on the character sheet
+    options.parts.push('tabs', 'stats', 'effects', 'notes', 'gear', 'devotions', 'passions', 'combat', 'skills');
   }
 
   _getTabs(parts) {
@@ -104,6 +107,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
           tab.colour = 'tab-green';
           break;
         }
+        case 'devotions': {
+          tab.id = 'devotions';
+          tab.label += 'devotions';
+          tab.colour = 'tab-green';
+          break;
+        }
 
         case 'gmTab':
           tab.id = 'gmTab';
@@ -122,6 +131,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.tabs = this._getTabs(options.parts);
     context.persTypeOptions = await AOVSelectLists.persType();
     context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
+    context.dpOptions = await AOVSelectLists.dpOptions();
 
     await this._prepareItems(context);
     return context
@@ -135,6 +145,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
       case 'passions':
       case 'gear':
       case 'stats':
+      case 'devotions':
         context.tab = context.tabs[partId];
         break;
       case 'notes':
@@ -179,6 +190,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const hitLocs = [];
     const temphitLocs = [];
     const wounds = [];
+    const devotions = [];
 
     for (let itm of this.document.items) {
       if (itm.type === 'gear') {
@@ -196,11 +208,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
           itm.system.label = itm.system.lowRoll
         } else {
           itm.system.label = itm.system.lowRoll + "-" + itm.system.highRoll
-
         }
         temphitLocs.push(itm)
       } else if (itm.type === 'wound') {
         wounds.push(itm)
+      } else if (itm.type === 'devotion') {
+        devotions.push(itm)
       }
     }
 
@@ -277,6 +290,13 @@ export class AoVCharacterSheet extends AoVActorSheet {
       return 0;
     });
 
+    devotions.sort(function (a, b) {
+      let x = a.name.toLowerCase();
+      let y = b.name.toLowerCase();
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
+      return 0;
+    });
 
     context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
     context.skills = skills;
@@ -284,6 +304,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.devSkills = devSkills;
     context.hitLocs = hitLocs;
     context.wounds = wounds;
+    context.devotions = devotions;
   }
 
 
@@ -316,7 +337,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     event.preventDefault();
     event.stopImmediatePropagation();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const newVal = Number(event.target.value);
+    let newVal = Number(event.target.value);
     const field = "system." + event.target.dataset.field
     const item = this.actor.items.get(itemId);
     await item.update({ [field]: newVal });

@@ -8,6 +8,10 @@ export class AoVWoundSheet extends AoVItemSheet {
 
   static DEFAULT_OPTIONS = {
     classes: ['wound'],
+    position: {
+      width: 600,
+      height: 350
+    },
   }
 
   static PARTS = {

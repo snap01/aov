@@ -1,0 +1,19 @@
+<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
+
+  <div class="gear-detail-grid">
+    <div>{{localize 'AOV.ideals'}}</div>
+    <input class="gear-input" style="grid-column: 2 / span2;" name='system.ideals' type='text' value='{{item.system.ideals}}'/>
+
+    {{#if hasOwner}}
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.devPoints'}}</div>
+        <div class="" >
+          <select class="gear-input" data-handle-change name="system.dp">
+            {{selectOptions dpOptions selected=item.system.dp}}
+          </select>
+        </div>
+    {{/if}}
+
+  </div>
+</section>

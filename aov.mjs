@@ -8,11 +8,10 @@ import * as models from './module/data/_module.mjs';
 import { AoVActorSheet } from "./module/sheets/actor/actor-sheet.mjs";
 import { AoVItemSheet } from "./module/sheets/item/item-sheet.mjs";
 import { AOVSelectLists } from "./module/apps/select-lists.mjs";
-import { CID } from "./module/cid/cid.mjs"
-
-
 
 //  Init Hook
+
+
 Hooks.once('init', async function() {
   //Add classes to global game object
   game.aov = {
@@ -42,6 +41,12 @@ Hooks.once('init', async function() {
   }
   CONFIG.Item.dataModels = {
     gear: models.AOVGearModel,
+    devotion: models.AOVDevotionModel,
+    hitloc: models.AOVHitLocModel,
+    passion: models.AOVPassionModel,
+    skill: models.AOVSkillModel,
+    weaponcat: models.AOVWeaponCatModel,
+    wound: models.AOVWoundModel,
   }
 
  // Active Effects are never copied to the Actor,
@@ -52,6 +57,9 @@ Hooks.once('init', async function() {
 
 // Ready Hook
 Hooks.once("ready", async function () {
+  //TO DO - remove await when adding a Promise
+  game.aov.weaponCats = await AOVSelectLists.getWeaponCategories();
+  //console.log(game.aov.weaponCats)
   console.log("///////////////////////////////////")
   console.log("//  Age of Vikings System Ready  //")
   console.log("///////////////////////////////////")

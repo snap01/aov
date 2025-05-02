@@ -33,7 +33,7 @@
         "character": {"htmlFields": ["description","gmNotes"]}
       },
       "Item": {
-        "devotions": {"htmlFields": ["description","gmNotes"]},
+        "devotion": {"htmlFields": ["description","gmNotes"]},
         "gear": {"htmlFields": ["description","gmNotes"]},
         "skill": {"htmlFields": ["description","gmNotes"]},
         "passion": {"htmlFields": ["description","gmNotes"]},

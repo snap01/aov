@@ -111,4 +111,16 @@ export class AOVSelectLists {
     return options
   }
 
+  //Hit Loc Types
+  static async dpOptions() {
+    let options = {};
+    options = {
+      0: "0",
+      1: "1",
+      2: "2",
+      3: "3",
+    };
+    return options;
+  }
+
 }

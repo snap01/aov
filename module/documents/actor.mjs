@@ -26,11 +26,14 @@ export class AOVActor extends Actor {
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
+    //TO DO - reinstate below when promise in aov.mjs sorted
+    //const weaponCats = await game.aov.weaponCats
+
     if (!CONFIG.weaponCats) {
-      console.log("CREATE")
       CONFIG.weaponCats = await AOVSelectLists.getWeaponCategories();
     }
     for (let [key, cat] of Object.entries(CONFIG.weaponCats)) {
+  //for (let [key, cat] of Object.entries(weaponCats)) {
       let tempCat = key.split('.')[2]
       systemData.weaponCats[tempCat] = 0
     }

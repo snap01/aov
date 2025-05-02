@@ -6,8 +6,8 @@ export default class AOVDevotionModel extends AOVItemBaseModel {
     const fields = foundry.data.fields;
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
-    schema.dp = new fields.NumberField({ ...requiredInteger, initial: 0 });  //Devotion Points
-    schema.ideals = fields.StringField({ required: true, blank: true, initial: "fixed" });  //Ideals
+    schema.dp = new fields.NumberField({ ...requiredInteger, initial: 0});  //Devotion Points
+    schema.ideals = new fields.StringField({ required: true, blank: true, initial: "" });  //Ideals
     return schema
   }
 
