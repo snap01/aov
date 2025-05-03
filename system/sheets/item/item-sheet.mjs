@@ -1,4 +1,4 @@
-import { CIDEditor } from "/systems/aov/module/cid/cid-editor.mjs";
+import { CIDEditor } from "../../cid/cid-editor.mjs";
 
 const { api, sheets } = foundry.applications;
 

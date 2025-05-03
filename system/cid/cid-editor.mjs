@@ -54,8 +54,8 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
     sheetData.objuuid = this.document.uuid
     sheetData.supportedLanguages = CONFIG.supportedLanguages
     sheetData.isEditable = this.document.sheet.isEditable
-    sheetData.guessCode = game.system.api.cid.guessId(this.document)
-    sheetData.idPrefix = game.system.api.cid.getPrefix(this.document)
+    sheetData.guessCode = game.aov.cid.guessId(this.document)
+    sheetData.idPrefix = game.aov.cid.getPrefix(this.document)
     sheetData.cidFlag = this.document.flags?.aov?.cidFlag
     sheetData.id = sheetData.cidFlag?.id || ''
     sheetData.lang = sheetData.cidFlag?.lang || game.i18n.lang
@@ -75,7 +75,7 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
 
     if (sheetData.id && sheetData.lang) {
       // Find out if there exists a duplicate CID
-      const worldDocuments = await game.system.api.cid.fromCIDAll({
+      const worldDocuments = await game.aov.cid.fromCIDAll({
         cid: sheetData.id,
         lang: sheetData.lang,
         scope: 'world'
@@ -95,7 +95,7 @@ export class CIDEditor extends HandlebarsApplicationMixin(ApplicationV2) {
       }
       sheetData.worldDuplicates = worldDocuments.length ?? 0
 
-      const compendiumDocuments = await game.system.api.cid.fromCIDAll({
+      const compendiumDocuments = await game.aov.cid.fromCIDAll({
         cid: sheetData.id,
         lang: sheetData.lang,
         scope: 'compendiums'

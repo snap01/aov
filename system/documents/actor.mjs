@@ -26,19 +26,11 @@ export class AOVActor extends Actor {
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
-    //TO DO - reinstate below when promise in aov.mjs sorted
-    //const weaponCats = await game.aov.weaponCats
-
-    if (!CONFIG.weaponCats) {
-      CONFIG.weaponCats = await AOVSelectLists.getWeaponCategories();
-    }
-    for (let [key, cat] of Object.entries(CONFIG.weaponCats)) {
-  //for (let [key, cat] of Object.entries(weaponCats)) {
-      let tempCat = key.split('.')[2]
-      systemData.weaponCats[tempCat] = 0
-    }
-
-    systemData.actualEnc = 0
+    // CONFIG.weaponCats = await AOVSelectLists.getWeaponCategories();
+    // for (let [key, cat] of Object.entries(CONFIG.weaponCats)) {
+    //   let tempCat = key.split('.')[2]
+    //   systemData.weaponCats[tempCat] = 0
+    // }
 
     for (let itm of actorData.items) {
       if (itm.type === 'skill') {
@@ -239,10 +231,10 @@ export class AOVActor extends Actor {
     if (data.type === 'character') {
       //If an actor now add all common skills to the sheet
       //Get list of skills and passions then add to actor
-      let skillList = await game.system.api.cid.fromCIDRegexBest({ cidRegExp: /^i.skill\./, type: 'i' })
+      let skillList = await game.aov.cid.fromCIDRegexBest({ cidRegExp: /^i.skill\./, type: 'i' })
       let commonSkills = skillList.filter(itm=>itm.system.common)
       await actor.createEmbeddedDocuments("Item", commonSkills);
-      let passionList = await game.system.api.cid.fromCIDRegexBest({ cidRegExp: /^i.passion\./, type: 'i' })
+      let passionList = await game.aov.cid.fromCIDRegexBest({ cidRegExp: /^i.passion\./, type: 'i' })
       let commonPassions = passionList.filter(itm=>itm.system.common)
       await actor.createEmbeddedDocuments("Item", commonPassions);
 
