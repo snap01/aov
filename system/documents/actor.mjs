@@ -23,6 +23,7 @@ export class AOVActor extends Actor {
   async _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
     const systemData = actorData.system;
+    systemData.actualEnc = 0
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
@@ -49,7 +50,6 @@ export class AOVActor extends Actor {
           let catName = itm.system.weaponCat
           if (catName) {
             catName = catName.split('.')[2]
-            console.log(itm.name, catName,itm.system.total,systemData.weaponCats[catName])
             if (!systemData.weaponCats[catName]) {
               systemData.weaponCats[catName] = itm.system.total
             } else if (itm.system.total > systemData.weaponCats[catName]) {
