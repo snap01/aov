@@ -32,7 +32,7 @@ export class AoVSkillSheet extends AoVItemSheet {
     context.weaponTypeOptions = await AOVSelectLists.weaponType()
     context.weaponTypeName = game.i18n.localize("AOV." + context.system.weaponType);
     if (context.system.category === 'cbt') {
-      context.weaponCatOptions = await game.aov.weaponCategories();
+      context.weaponCatOptions = await AOVSelectLists.getWeaponCategories();
       let weaponCat = await game.aov.cid.fromCID(context.system.weaponCat);
       context.weaponCatName = weaponCat[0].name ?? ""
     } else {
