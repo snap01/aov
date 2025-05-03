@@ -10,7 +10,7 @@ export class AoVGearSheet extends AoVItemSheet {
     classes: ['gear'],
     position: {
       width: 600,
-      height: 270
+      height: 320
     },
   }
 

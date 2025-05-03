@@ -38,6 +38,7 @@ export class AOVActor extends Actor {
       systemData.weaponCats[tempCat] = 0
     }
 
+    systemData.actualEnc = 0
 
     for (let itm of actorData.items) {
       if (itm.type === 'skill') {
@@ -73,7 +74,16 @@ export class AOVActor extends Actor {
       } else if (itm.type === 'wound') {
         let loc = await actorData.items.get(itm.system.hitLocId)
         if (loc) {itm.system.label = loc.name ?? ""}
+      } else if (itm.type === 'gear') {
+        if (itm.system.equipStatus === 1 ) {
+          itm.system.actlEnc = itm.system.enc * itm.system.quantity
+        } else {
+          itm.system.actlEnc = 0
+        }
+        systemData.actualEnc += (itm.system.actlEnc ?? 0)
+
       }
+
 
     }
 

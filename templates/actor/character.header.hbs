@@ -73,8 +73,12 @@
       <div class="ability-cell centre terIcon">{{system.dmgBonus}}</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.mr'}}">{{localize 'AOV.mrAbbr'}}</div>
       <div class="ability-cell centre terIcon">{{system.moveRate}}</div>
-      <div class="ability-cell left bold" title="{{localize 'AOV.maxEnc'}}">{{localize 'AOV.maxEncAbbr'}}</div>
-      <div class="ability-cell centre terIcon">{{system.maxEnc}}</div>
+      <div class="ability-cell left bold" title="{{localize 'AOV.encHint'}}">{{localize 'AOV.encumberanceAbbr'}}</div>
+      <div class='stat-grid'>
+        <span class="ability-cell centre terIcon">{{system.actualEnc}}</span>
+        <span class="ability-cell centre"> / </span>
+        <span class="ability-cell centre terIcon">{{system.maxEnc}}</span>
+      </div>
     </div>
 
     {{!Personal}}

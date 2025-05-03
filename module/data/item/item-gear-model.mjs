@@ -8,6 +8,7 @@ export default class AOVGearModel extends AOVItemBaseModel {
     const schema = super.defineSchema();
     schema.quantity = new fields.NumberField({ ...requiredInteger, initial: 1 });
     schema.equipStatus = new fields.NumberField({ ...requiredInteger, initial: 1 });
+    schema.enc = new fields.NumberField({ ...requiredInteger, initial: 0 });
     return schema
   }
 
