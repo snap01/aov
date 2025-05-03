@@ -26,12 +26,6 @@ export class AOVActor extends Actor {
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
-    // CONFIG.weaponCats = await AOVSelectLists.getWeaponCategories();
-    // for (let [key, cat] of Object.entries(CONFIG.weaponCats)) {
-    //   let tempCat = key.split('.')[2]
-    //   systemData.weaponCats[tempCat] = 0
-    // }
-
     for (let itm of actorData.items) {
       if (itm.type === 'skill') {
         //Calculate Total Chance
@@ -55,7 +49,10 @@ export class AOVActor extends Actor {
           let catName = itm.system.weaponCat
           if (catName) {
             catName = catName.split('.')[2]
-            if (itm.system.total > systemData.weaponCats[catName]) {
+            console.log(itm.name, catName,itm.system.total,systemData.weaponCats[catName])
+            if (!systemData.weaponCats[catName]) {
+              systemData.weaponCats[catName] = itm.system.total
+            } else if (itm.system.total > systemData.weaponCats[catName]) {
               systemData.weaponCats[catName] = itm.system.total
             }
           }

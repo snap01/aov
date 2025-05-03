@@ -6,5 +6,5 @@ export default function Ready() {
   console.log("///////////////////////////////////")
 
   game.aov.categories = AOVSelectLists.preLoadCategoriesCategories()
-  game.aov.weaponCategories = AOVSelectLists.getWeaponCategories
+  game.aov.weaponCategories = AOVSelectLists.getWeaponCategories()
 }
