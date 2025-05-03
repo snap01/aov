@@ -179,7 +179,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
 
     //Add default CID to the item
     if (game.settings.get('aov', "actorItemCID")) {
-      let key = await game.system.api.cid.guessId(newItem)
+      let key = await game.aov.cid.guessId(newItem)
       await newItem.update({
         'flags.aov.cidFlag.id': key,
         'flags.aov.cidFlag.lang': game.i18n.lang,

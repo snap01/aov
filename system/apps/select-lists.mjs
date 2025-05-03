@@ -92,22 +92,22 @@ export class AOVSelectLists {
     return options
   }
 
+  static async preLoadCategoriesCategories() {
+    return new Promise(async (resolve, reject) => {
+      resolve(await game.aov.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i\.(weaponcat|passion)\.'), type: 'i', showLoading: true }))
+    })
+  }
+
   //Weapon Category List
   static async getWeaponCategories() {
-    let weaponCatList = await game.system.api.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i.weaponcat'), type: 'i' })
+    const weaponCatList = (await game.aov.categories).filter(d => d.type === 'weaponcat')
     weaponCatList.sort(function (a, b) {
-      let x = a.name;
-      let y = b.name;
-      if (x < y) { return -1 };
-      if (x > y) { return 1 };
-      return 0;
+      return a.name.localeCompare(b.name)
     });
-    let options = {}
-    for (let itm of weaponCatList) {
-      if (itm.flags.aov.cidFlag.id) {
-        options = Object.assign(options, { [itm.flags.aov.cidFlag.id]: itm.name })
-      }
-    }
+    let options = weaponCatList.reduce((c, i) => {
+      c[i.flags.aov.cidFlag.id] = i.name
+      return c
+    }, {})
     return options
   }
 
