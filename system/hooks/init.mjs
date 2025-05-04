@@ -1,6 +1,6 @@
 import { AOV } from "../setup/config.mjs";
-import { AOVActor } from "../documents/actor.mjs";
-import { AOVItem } from "../documents/item.mjs";
+import { AOVActor } from "../actor/actor.mjs";
+import { AOVItem } from "../item/item.mjs";
 import { CID } from '../cid/cid.mjs'
 import { handlebarsHelper } from '../setup/handlebar-helpers.mjs';
 import { registerSettings } from '../settings/register-settings.mjs'
@@ -26,7 +26,14 @@ export default function Init() {
 
   //Declare Data Models
   CONFIG.Actor.dataModels.character = models.AOVCharacterModel
+  CONFIG.Item.dataModels.devotion = models.AOVDevotionModel
+  CONFIG.Item.dataModels.family = models.AOVFamilyModel
   CONFIG.Item.dataModels.gear = models.AOVGearModel
+  CONFIG.Item.dataModels.hitloc = models.AOVHitLocModel
+  CONFIG.Item.dataModels.passion = models.AOVPassionModel
+  CONFIG.Item.dataModels.skill = models.AOVSkillModel
+  CONFIG.Item.dataModels.weaponCat = models.AOVWeaponCatModel
+  CONFIG.Item.dataModels.wound = models.AOVWoundModel
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item

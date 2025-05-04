@@ -13,6 +13,9 @@
       {
         "name": "Dangermouse",
         "discord": "dangermouse67"
+      },
+      {
+        "name": "JamesB"
       }
     ],
 
@@ -34,6 +37,7 @@
       },
       "Item": {
         "devotion": {"htmlFields": ["description","gmNotes"]},
+        "family": {"htmlFields": ["description","gmNotes"]},
         "gear": {"htmlFields": ["description","gmNotes"]},
         "skill": {"htmlFields": ["description","gmNotes"]},
         "passion": {"htmlFields": ["description","gmNotes"]},

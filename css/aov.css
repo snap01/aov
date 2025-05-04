@@ -355,6 +355,7 @@ prose-mirror button.toggle {
   display: grid;
   grid-template-columns: 25px 400px 50px 50px 35px 30px;
   grid-column-gap: 5px;
+  padding-left: 5px;
 }
 
 .aov .skill-grid-header {
@@ -400,6 +401,14 @@ prose-mirror button.toggle {
   display: grid;
   grid-template-columns: 150px 395px 50px 30px;
   grid-column-gap: 5px;
+  padding-left: 5px;
+}
+
+.aov .family-grid{
+  display: grid;
+  grid-template-columns: 175px 125px 145px 65px 65px 30px;
+  grid-column-gap: 5px;
+  padding-left: 5px;
 }
 
 .aov .gear-list .gear-controls {

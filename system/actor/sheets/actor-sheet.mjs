@@ -173,7 +173,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     const newItem = await docCls.create(docData, { parent: this.actor });
 
     //And in certain circumstances render the new item sheet
-    if (['gear','wound'].includes(newItem.type)) {
+    if (['gear','wound','family'].includes(newItem.type)) {
       newItem.sheet.render(true);
     }
 

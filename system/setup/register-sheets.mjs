@@ -1,11 +1,12 @@
-import { AoVCharacterSheet } from '../sheets/actor/character-sheet.mjs';
-import { AoVGearSheet } from '../sheets/item/gear-sheet.mjs';
-import { AoVSkillSheet } from '../sheets/item/skill-sheet.mjs';
-import { AoVPassionSheet } from '../sheets/item/passion-sheet.mjs';
-import { AoVHitLocSheet} from '../sheets/item/hitloc-sheet.mjs';
-import { AoVWoundSheet } from '../sheets/item/wound-sheet.mjs';
-import { AoVWeaponCatSheet } from '../sheets/item/weaponCat-sheet.mjs';
-import { AoVDevotionSheet } from '../sheets/item/devotion-sheet.mjs';
+import { AoVCharacterSheet } from '../actor/sheets/character-sheet.mjs';
+import { AoVGearSheet } from '../item/sheets/gear-sheet.mjs';
+import { AoVSkillSheet } from '../item/sheets/skill-sheet.mjs';
+import { AoVPassionSheet } from '../item/sheets/passion-sheet.mjs';
+import { AoVHitLocSheet} from '../item/sheets/hitloc-sheet.mjs';
+import { AoVWoundSheet } from '../item/sheets/wound-sheet.mjs';
+import { AoVWeaponCatSheet } from '../item/sheets/weaponCat-sheet.mjs';
+import { AoVDevotionSheet } from '../item/sheets/devotion-sheet.mjs';
+import { AoVFamilySheet } from '../item/sheets/family-sheet.mjs';
 
 export function registerSheets() {
 
@@ -54,6 +55,10 @@ export function registerSheets() {
   });
   collections.Items.registerSheet('aov', AoVDevotionSheet, {
     types: ['devotion'],
+    makeDefault: true
+  });
+  collections.Items.registerSheet('aov', AoVFamilySheet, {
+    types: ['family'],
     makeDefault: true
   });
 }

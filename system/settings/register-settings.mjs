@@ -26,10 +26,10 @@ export async function registerSettings() {
   //Game Year
   game.settings.register('aov', "gameYear", {
     name: "AOV.Settings.gameYear",
-    hint: "AOV.Settings.gameyearHint",
+    hint: "AOV.Settings.gameYearHint",
     scope: "client",
     config: true,
     type: Number,
     default: 977
   });
-}    
+}

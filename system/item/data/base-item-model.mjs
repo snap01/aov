@@ -1,4 +1,4 @@
-import AOVDataModel from "../base-model.mjs";
+import AOVDataModel from "../../data/base-model.mjs";
 
 export default class AOVItemBaseModel extends AOVDataModel {
 

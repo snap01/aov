@@ -26,6 +26,10 @@ export class AoVCharacterSheet extends AoVActorSheet {
       template: 'systems/aov/templates/actor/character.effects.hbs',
       scrollable: [''],
     },
+    family: {
+      template: 'systems/aov/templates/actor/character.family.hbs',
+      scrollable: [''],
+    },
     stats: { template: 'systems/aov/templates/actor/character.stats.hbs' },
     passions: {
       template: 'systems/aov/templates/actor/character.passions.hbs',
@@ -51,7 +55,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
       options.parts.push('gmTab');
     }
     //Last tab is at the top of the list on the character sheet
-    options.parts.push('tabs', 'stats', 'effects', 'notes', 'gear', 'devotions', 'passions', 'combat', 'skills');
+    options.parts.push('tabs', 'stats', 'effects', 'notes', 'family', 'gear', 'devotions', 'passions', 'combat', 'skills');
   }
 
   _getTabs(parts) {
@@ -113,6 +117,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
           tab.colour = 'tab-green';
           break;
         }
+        case 'family': {
+          tab.id = 'family';
+          tab.label += 'family';
+          tab.colour = 'tab-green';
+          break;
+        }
 
         case 'gmTab':
           tab.id = 'gmTab';
@@ -144,6 +154,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
       case 'skills':
       case 'passions':
       case 'gear':
+      case 'family':
       case 'stats':
       case 'devotions':
         context.tab = context.tabs[partId];
@@ -185,12 +196,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const gear = [];
     const skills = [];
     const passions = [];
-    const combatSkills = [];
     const devSkills = [];
     const hitLocs = [];
     const temphitLocs = [];
     const wounds = [];
     const devotions = [];
+    const families = [];
 
     for (let itm of this.document.items) {
       if (itm.type === 'gear') {
@@ -214,6 +225,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
         wounds.push(itm)
       } else if (itm.type === 'devotion') {
         devotions.push(itm)
+      } else if (itm.type === 'family') {
+        families.push(itm)
       }
     }
 
@@ -255,22 +268,6 @@ export class AoVCharacterSheet extends AoVActorSheet {
       })
     }
 
-    devSkills.sort(function (a, b) {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      if (x < y) { return -1 };
-      if (x > y) { return 1 };
-      return 0;
-    })
-
-    combatSkills.sort(function (a, b) {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      if (x < y) { return -1 };
-      if (x > y) { return 1 };
-      return 0;
-    })
-
     //Sort Hit Locs to grid locations
     for (let count=0; count<13; count++) {
       let thisLoc = temphitLocs.filter(itm =>itm.system.gridPos === count)
@@ -279,32 +276,16 @@ export class AoVCharacterSheet extends AoVActorSheet {
       } else {
         hitLocs.push ({name: 'blank'})
       }
-
     }
 
-    passions.sort(function (a, b) {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      if (x < y) { return -1 };
-      if (x > y) { return 1 };
-      return 0;
-    });
-
-    devotions.sort(function (a, b) {
-      let x = a.name.toLowerCase();
-      let y = b.name.toLowerCase();
-      if (x < y) { return -1 };
-      if (x > y) { return 1 };
-      return 0;
-    });
-
-    context.gear = gear.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+    context.gear = gear.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.skills = skills;
-    context.passions = passions.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    context.devSkills = devSkills;
+    context.passions = passions.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.devSkills = devSkills.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.hitLocs = hitLocs;
     context.wounds = wounds;
-    context.devotions = devotions;
+    context.devotions = devotions.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.families = families.sort(function (a, b) {return a.name.localeCompare(b.name)});
   }
 
 
