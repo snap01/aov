@@ -3,6 +3,7 @@
     "age": "Age",
     "ageAbbr": "Age",
     "alphaSkill": "Toggling this will change between the category layout and alphabetical layout",
+    "animals": "Animals",
     "base": "Base",
     "baseScore": "Base Score",
     "baseScoreOption": "Base Score Option",
@@ -41,6 +42,9 @@
     "exp": "Exp",
     "experience": "Experience",
     "family": "Family",
+    "farmSize": "Farm Size (Hectares)",
+    "farmType": "Farm Type",
+    "farmValue": "Farm Value (vaðmál)",
     "fixed": "Fixed",
     "gear": "Equipment",
     "gender": "Gender",
@@ -62,6 +66,7 @@
     "linked": "The token is not linked to the actor",
     "lock": "Click to lock the sheet",
     "locType": "Hit Location Type",
+    "mapLocHint": "Double click on land to place the farm",
     "maxEnc": "Maximum Encumberance",
     "maxEncAbbr": "ME",
     "maxHPBonus": "Max HP Bonus",
@@ -165,6 +170,12 @@
       "tabDuration": "Tab Duration",
       "temporary": "Temporary"
     },
+    "Farm": {
+      "dairy": "Dairy",
+      "driftwood": "Driftwood",
+      "fishing": "Fishing",
+      "sheep": "Sheep"
+    },
     "HitLoc": {
       "abdomen": "Abdomen",
       "chest": "Chest",
@@ -223,6 +234,7 @@
       "gear": "Equip",
       "gearHint": "Equipment",
       "gmTab": "GM Tab",
+      "location": "Location",
       "notes": "Notes",
       "passions": "Passions",
       "skills": "Skills",
@@ -236,6 +248,7 @@
     "Item": {
       "devotion": "Devotion",
       "family": "Family",
+      "farm": "Farm",
       "gear": "Equipment",
       "hitloc": "Hit Location",
       "passion": "Passion",

@@ -42,6 +42,7 @@
         "skill": {"htmlFields": ["description","gmNotes"]},
         "passion": {"htmlFields": ["description","gmNotes"]},
         "hitloc": {"htmlFields": ["description","gmNotes"]},
+        "farm": {"htmlFields": ["description","gmNotes"]},
         "weaponcat": {},
         "wound": {}
       }

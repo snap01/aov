@@ -6,7 +6,7 @@ export class AoVWeaponCatSheet extends AoVItemSheet {
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['gear'],
+    classes: ['weaponcat'],
     position: {
       width: 600,
       height: 150

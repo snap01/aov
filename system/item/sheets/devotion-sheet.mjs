@@ -7,7 +7,7 @@ export class AoVDevotionSheet extends AoVItemSheet {
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['gear'],
+    classes: ['devotion'],
   }
 
   static PARTS = {

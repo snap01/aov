@@ -123,4 +123,16 @@ export class AOVSelectLists {
     return options;
   }
 
+  //Farm Type Options
+  static async farmTypeOptions() {
+    let options = {};
+    options = {
+      "dairy": game.i18n.localize("AOV.Farm.dairy"),
+      "sheep": game.i18n.localize("AOV.Farm.sheep"),
+      "fishing": game.i18n.localize("AOV.Farm.fishing"),
+      "driftwood": game.i18n.localize("AOV.Farm.driftwood"),
+    };
+    return options;
+  }
+
 }

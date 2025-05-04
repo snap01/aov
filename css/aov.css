@@ -795,4 +795,16 @@ nav.aov.actor.character.sheet-tabs.tabs {
   grid-template-columns: 30px 30px 10px 30px ;
 }
 
+.aov.farm .farm-map-grid {
+  display: grid;
+  height: 360px;
 
+  background-image: url('../art-assets/iceland.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 100%;
+  grid-template-columns: repeat(37, 15px);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  grid-template-rows: repeat(22, 15px);
+}

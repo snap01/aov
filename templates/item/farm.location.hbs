@@ -1,0 +1,14 @@
+<section class='item tab location {{tab.cssClass}}' data-group='primary' data-tab='location'>
+
+  <div class="farm-map-grid" title="{{localize 'AOV.mapLocHint'}}">
+  {{#loop 1 814 1}}
+    {{#if (eq this ../item.system.location)}}
+      <div class="gridLoc" data-value={{this}}>
+        <a class="secIcon"><i class="fa-solid fa-house"></i></a>
+      </div>
+    {{else}}
+      <div class="gridLoc" data-value={{this}}>&nbsp</div>
+    {{/if}}
+  {{/loop}}
+   </div>
+</section>
