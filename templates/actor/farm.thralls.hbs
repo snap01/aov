@@ -1,0 +1,35 @@
+<section class='farm tab thralls {{tab.cssClass}}' data-group='primary' data-tab='thralls'>
+  <ol class='charHitLoc' style="padding-top: 10px;">
+    <li class="thralls-grid" style="background: var(--background-colour);">
+      <div class='left'>{{localize 'AOV.name'}}</div>
+      <div class='centre'>{{localize 'AOV.born'}}</div>
+      <div class='centre'>{{localize 'AOV.died'}}</div>
+      <div class='centre'>{{localize 'AOV.gender'}}</div>
+      <div class='centre'>
+        {{#if @root.editable}}
+        <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.thrall")}}'
+          data-action='createDoc' data-document-class='Item' data-type='thrall'>
+          <i class='fas fa-plus'></i>
+        </a>
+        {{/if}}
+
+    </li>
+    {{#each thralls as |item id|}}
+      <li class='item thralls-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+        <div class="new-row left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.thrall")}}'
+            data-action='viewDoc'>{{item.name}}</div>
+        <div class='centre'>{{item.system.born}}</div>
+        <div class='centre'>{{item.system.died}}</div>
+        <div class='centre'>{{item.system.gender}}</div>
+        {{#unless isLocked}}
+          <div class='centre'>
+            <a class='item-control' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.thrall")}}'
+              data-action="deleteDoc">
+              <i class='fas fa-trash'></i>
+            </a>
+          </div>
+        {{/unless}}
+      </li>
+    {{/each}}
+  </ol>
+</section>

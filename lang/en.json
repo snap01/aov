@@ -20,8 +20,10 @@
     "commonSkill": "Common Skill",
     "commonSkillHint": "Common skills are automatically added to new characters, and skills can be filtered to only show common skills",
     "CopyToClipboard": "Copy to clipboard",
+    "cost": "Cost (ells)",
     "createDoc": "New {type}",
     "damage": "Damage",
+    "damageType": "Damage Type",
     "deleteDoc": "Double click to delete {type}",
     "description": "Description",
     "details": "Details",
@@ -58,11 +60,17 @@
     "healRateBonus": "Healing Rate Bonus",
     "hideUncommon": "Toggling this will hide/reveal uncommon skills",
     "hitLocations": "Hit Locations",
+    "hitLocHigh": "Hit Loc End",
+    "hitLocLow": "Hit Loc Start",
+    "hitLocMod": "HP Modifier",
     "homelandAbbr": "Home",
     "homeland": "Homeland",
     "hp": "Hit Points",
     "hpAbbr": "HP",
+    "hpCurr": "Current/Max HP",
+    "hpMax": "Max HP",
     "ideals": "Ideals",
+    "length": "Length",
     "linked": "The token is not linked to the actor",
     "lock": "Click to lock the sheet",
     "locType": "Hit Location Type",
@@ -73,9 +81,7 @@
     "maxMPBonus": "Max MP Bonus",
     "melee": "Melee",
     "missile": "Missile",
-    "hitLocHigh": "Hit Loc End",
-    "hitLocLow": "Hit Loc Start",
-    "hitLocMod": "HP Modifier",
+    "minSTRDEX": "Min STR / DEX",
     "mp": "Magic Points",
     "mpAbbr": "MP",
     "mr": "Movement Rate",
@@ -95,9 +101,11 @@
     "persTypeAbbr": "Personality",
     "quantity": "Quantity",
     "quantityAbbr": "Qty",
+    "range": "Range",
     "relationship": "Relationship",
     "reput": "Reputation",
     "reputAbbr": "Rep",
+    "size": "Size",
     "skill": "Skill",
     "skills": "Skills",
     "spec": "Specialised Skill",
@@ -110,14 +118,20 @@
     "statusAbbr": "Status",
     "stored": "Stored",
     "synth": "This is a synthetic actor",
+    "thrall": "Thrall",
+    "thrallHint": "Tick this if the person is a thrall rather than a relative",
     "total": "Total",
     "treated": "Treated",
+    "type": "Type",
     "unlinked": "The token is not linked to the actor",
     "unlock": "Click to unlock the sheet",
     "untreated": "This wound has not been treated",
+    "value": "Value",
     "viewDoc": "View {type}",
+    "weaponSkill": "Weapon Skill",
     "weaponTypeCat": "Weapon Type/Category",
-    "xpAbbr": "Exp",
+    "weaponType": "Weapon Type",
+    "xpAbbr": "XP",
     "xpAbbrHint": "Tick the box to add an XP check.  If there is no box then the skill can improve through XP",
     "xpCheck": "XP Check",
     "xpCheckHint": "If ticked, this skill is ready for an experience check",
@@ -163,12 +177,31 @@
       "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The Chaosium ID should use the English translation of the {type} to support localization across all languages.",
       "title": "Edit Chaosium ID (CID)"
     },
+    "DamType": {
+      "c": "Crushing",
+      "ct": "Cut & Thrust",
+      "h": "Hand to Hand",
+      "i": "Impaling",
+      "s": "Slashing"
+    },
+    "DamTypeAbbr": {
+      "c": "C",
+      "ct": "CT",
+      "h": "H",
+      "i": "I",
+      "s": "S"
+    },
     "Effect": {
       "inactive": "Inactive",
       "passive": "Passive",
       "source": "Source",
       "tabDuration": "Tab Duration",
       "temporary": "Temporary"
+    },
+    "ErrorMsg": {
+      "cantDropItem": "You can not add a {itemType} item to a {actorType}.",
+      "cantDropActor": "You can not add a {itemType} actor to a {actorType}.",
+      "dupItem": "{itemName} already exists on this sheet and can not be added again"
     },
     "Farm": {
       "dairy": "Dairy",
@@ -199,6 +232,7 @@
       "steadfast": "Steadfast",
       "wanderer": "Wanderer"
     },
+
     "Settings": {
       "actorCID": "Add default CID to Actor",
       "actorCIDHint": "Add a default CID to new Actors when created based on actor name",
@@ -249,7 +283,8 @@
       "notes": "Notes",
       "passions": "Passions",
       "skills": "Skills",
-      "stats": "Stats"
+      "stats": "Stats",
+      "thralls": "Thralls"
     }
   },
   "TYPES": {
@@ -264,6 +299,8 @@
       "hitloc": "Hit Location",
       "passion": "Passion",
       "skill": "Skill",
+      "thrall": "Thrall",
+      "weapon": "Weapon",
       "weaponcat": "Weapon Category",
       "wound": "Wound"
     }

@@ -1,12 +1,10 @@
 import { prepareActiveEffectCategories } from '../../apps/effects.mjs';
 import { AOVSelectLists } from '../../apps/select-lists.mjs';
-
 import { AoVActorSheet } from "./actor-sheet.mjs"
 
 export class AoVCharacterSheet extends AoVActorSheet {
   constructor(options = {}) {
     super(options)
-    //this.#dragDrop = this.#createDragDropHandlers();
   }
 
   static DEFAULT_OPTIONS = {
@@ -192,7 +190,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
   }
 
   //Handle Actor's Items
-  _prepareItems(context) {
+  async _prepareItems(context) {
     const gear = [];
     const skills = [];
     const passions = [];
@@ -202,6 +200,43 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const wounds = [];
     const devotions = [];
     const families = [];
+    const farms = [];
+    const thralls = [];
+    const weapons = [];
+
+    for (let farmUuid of this.document.system.farms) {
+      let farm = await fromUuid(farmUuid.uuid)
+      if (!farm) {
+        farms.push ({
+          'name': "Invalid",
+          'uuid': farmUuid.uuid,
+          'size': "",
+          'farmType': "",
+          'value': ""
+        })
+      } else {
+        farms.push( {
+          'name': farm.name,
+          'uuid': farm.uuid,
+          'size': farm.system.size,
+          'farmType': game.i18n.localize('AOV.Farm.' + farm.system.farmType),
+          'value': farm.system.value
+        });
+        for (let fItm of farm.items) {
+          if (fItm.type==='thrall') {
+            thralls.push({
+              'uuid': fItm.uuid,
+              'name': fItm.name,
+              'born': fItm.system.born,
+              'died': fItm.system.died,
+              'gender': fItm.system.gender,
+              'farmName': farm.name
+            })
+          }
+        }
+      }
+    }
+
 
     for (let itm of this.document.items) {
       if (itm.type === 'gear') {
@@ -227,6 +262,9 @@ export class AoVCharacterSheet extends AoVActorSheet {
         devotions.push(itm)
       } else if (itm.type === 'family') {
         families.push(itm)
+      } else if (itm.type === 'weapon') {
+        itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)
+        weapons.push(itm)
       }
     }
 
@@ -286,6 +324,9 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.wounds = wounds;
     context.devotions = devotions.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.families = families.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.thralls = thralls.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.farms = farms.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.weapons = weapons.sort(function (a, b) {return a.name.localeCompare(b.name)});
   }
 
 
@@ -295,6 +336,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
     this._dragDrop.forEach((d) => d.bind(this.element));
     this.element.querySelectorAll('.item-quantity').forEach(n => n.addEventListener("change", this.#editQty.bind(this)))
     this.element.querySelectorAll('.skill-inline').forEach(n => n.addEventListener("change", this.#skillInline.bind(this)))
+    this.element.querySelectorAll('.viewFromUuid').forEach(n => n.addEventListener("click", this.#viewFromUuid.bind(this)))
+    this.element.querySelectorAll('.deleteFarm').forEach(n => n.addEventListener("dblclick", this.#deleteFarm.bind(this)))
   }
 
 
@@ -314,6 +357,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     item.update({ 'system.quantity': newQuantity });
   }
 
+  //Edit Skills Inline
   async #skillInline(event) {
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -324,7 +368,26 @@ export class AoVCharacterSheet extends AoVActorSheet {
     await item.update({ [field]: newVal });
   }
 
+  //View Thrall item embedded in a farm
+  async #viewFromUuid(event){
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    let viewDoc = await fromUuid(itemId)
+    if (viewDoc) viewDoc.sheet.render(true)
+  }
 
-
+  //Delete a Farm
+  async #deleteFarm(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const itemId = event.currentTarget.closest(".item").dataset.itemId;
+    const farmsIndex = this.actor.system.farms.findIndex(i => (itemId && i.uuid === itemId))
+    if (farmsIndex > -1) {
+      const farms = this.actor.system.farms ? foundry.utils.duplicate(this.actor.system.farms) : []
+      farms.splice(farmsIndex, 1)
+      await this.actor.update({ 'system.farms': farms })
+    }
+  }
 
 }

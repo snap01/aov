@@ -34,7 +34,8 @@ body.theme-light.application .aov {
   --aov-secondary-font-colour: rgb(163, 16, 8);
   --aov-title-font-colour: rgb(68, 111, 94);
   --primary-back-colour: grey;
-  --secondary-back-colour: lightgrey;
+  --secondary-back-colour: rgb(21, 115, 164);
+  --tertiary-back-colour: rgb(131, 57, 36);
   --background-colour: rgba(68, 111, 94, 0.5);
   --actor-rollable-colour: black;
   --actor-rollable-shadow: red;
@@ -55,6 +56,7 @@ body.theme-dark.application .aov {
   --aov-title-font-colour: rgb(116, 252, 252);
   --primary-back-colour: rgb(127, 127, 127);
   --secondary-back-colour: rgb(44, 44, 44);
+  --tertiary-back-colour: rgb(131, 57, 36);
   --background-colour: rgba(255, 255, 255, 0.05);
   --actor-rollable-colour: white;
   --actor-rollable-shadow: rgb(0, 255, 255);
@@ -460,6 +462,26 @@ prose-mirror button.toggle {
   padding-top: 10px;
 }
 
+.aov .weapon-detail-grid {
+  display: grid;
+  grid-template-columns: 175px 175px 175px;
+  grid-column-gap: 10px;
+  padding-top: 10px;
+}
+
+.aov .weapons-list-grid {
+  display: grid;
+  grid-template-columns: 160px 50px 125px 50px 30px 10px 30px 40px 80px 30px;
+  grid-column-gap: 5px;
+  padding-top: 10px;
+}
+
+.aov .minstrdex {
+  display: grid;
+  grid-template-columns: 75px 25px 75px;
+  grid-column-gap: 0px;
+}
+
 .aov input.gear-input {
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-primary-font-size);
@@ -807,7 +829,6 @@ nav.aov.actor.character.sheet-tabs.tabs {
 .aov.farm .farm-map-grid {
   display: grid;
   height: 360px;
-
   background-image: url('../art-assets/iceland.png');
   background-repeat: no-repeat;
   background-position: top left;
@@ -816,4 +837,11 @@ nav.aov.actor.character.sheet-tabs.tabs {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   grid-template-rows: repeat(22, 15px);
+}
+
+.aov.farm .thralls-grid {
+  display: grid;
+  grid-template-columns: 200px 100px 100px 100px 30px;
+  grid-column-gap: 5px;
+  padding-left: 5px;
 }

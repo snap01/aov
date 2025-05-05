@@ -173,7 +173,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     const newItem = await docCls.create(docData, { parent: this.actor });
 
     //And in certain circumstances render the new item sheet
-    if (['gear','wound','family'].includes(newItem.type)) {
+    if (['gear','wound','family','thrall'].includes(newItem.type)) {
       newItem.sheet.render(true);
     }
 
@@ -291,12 +291,21 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   //Handle dropping of an Actor data onto another Actor sheet
   async _onDropActor(event, data) {
     if (!this.actor.isOwner) return false;
+    await this.DropActor(data);
   }
 
   //Handle dropping of an item reference or item data onto an Actor Sheet
   async _onDropItem(event, data) {
     if (!this.actor.isOwner) return false;
     const item = await Item.implementation.fromDropData(data);
+
+    //Only let thralls be dropped on farms
+    if (this.actor.type === 'farm' && !['thrall'].includes(item.type)) {
+      ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.cantDropItem', { itemType: game.i18n.localize('TYPES.Item.'+ item.type), actorType: game.i18n.localize('TYPES.Actor.'+ this.actor.type) }))
+      return false
+    }
+
+
     // Handle item sorting within the same Actor
     if (this.actor.uuid === item.parent?.uuid)
       return this._onSortItem(event, item);
@@ -347,6 +356,23 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     });
   }
 
-
+  //Drop Actor on to an Actor Sheet
+  async DropActor(data) {
+    let newActor = await fromUuid(data.uuid)
+    if (!newActor) {return}
+    if (this.actor.type === 'character' && newActor.type === 'farm') {
+      const farms = this.actor.system.farms ? foundry.utils.duplicate(this.actor.system.farms) : []
+      //Check farm is not in farms list
+      if (farms.find(el => el.uuid === newActor.uuid)) {
+        ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.dupItem', { itemName: (newActor.name +"(" + newActor.uuid +")") }));
+        return
+      }
+      farms.push({uuid:newActor.uuid})
+      await this.actor.update({'system.farms': farms})
+    } else {
+      ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.cantDropActor', { itemType: game.i18n.localize('TYPES.Actor.'+ newActor.type), actorType: game.i18n.localize('TYPES.Actor.'+ this.actor.type) }))
+      return
+    }
+  }
 
 }

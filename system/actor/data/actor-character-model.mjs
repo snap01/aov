@@ -27,6 +27,7 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     schema.distFeatures = new fields.StringField({ required: true, blank: true });
     schema.nameMean = new fields.StringField({ required: true, blank: true });
     schema.weaponCats = new fields.SchemaField({});  //Blank array to hold weapon category bonuses
+    schema.farms = new fields.ArrayField(new fields.ObjectField()); // Holds an Array of Farm Actor UUIDs
 
     return schema
   }

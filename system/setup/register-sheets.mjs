@@ -8,6 +8,9 @@ import { AoVWoundSheet } from '../item/sheets/wound-sheet.mjs';
 import { AoVWeaponCatSheet } from '../item/sheets/weaponCat-sheet.mjs';
 import { AoVDevotionSheet } from '../item/sheets/devotion-sheet.mjs';
 import { AoVFamilySheet } from '../item/sheets/family-sheet.mjs';
+import { AoVThrallSheet } from '../item/sheets/thrall-sheet.mjs';
+import { AoVWeaponSheet } from '../item/sheets/weapon-sheet.mjs';
+
 
 export function registerSheets() {
 
@@ -66,4 +69,13 @@ export function registerSheets() {
     types: ['family'],
     makeDefault: true
   });
+  collections.Items.registerSheet('aov', AoVThrallSheet, {
+    types: ['thrall'],
+    makeDefault: true
+  });
+  collections.Items.registerSheet('aov', AoVWeaponSheet, {
+    types: ['weapon'],
+    makeDefault: true
+  });
+
 }

@@ -39,10 +39,12 @@
       "Item": {
         "devotion": {"htmlFields": ["description","gmNotes"]},
         "family": {"htmlFields": ["description","gmNotes"]},
+        "thrall": {"htmlFields": ["description","gmNotes"]},
         "gear": {"htmlFields": ["description","gmNotes"]},
         "skill": {"htmlFields": ["description","gmNotes"]},
         "passion": {"htmlFields": ["description","gmNotes"]},
         "hitloc": {"htmlFields": ["description","gmNotes"]},
+        "weapon": {"htmlFields": ["description","gmNotes"]},
         "weaponcat": {},
         "wound": {}
       }

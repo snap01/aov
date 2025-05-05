@@ -8,4 +8,5 @@ export default function Ready() {
 
   game.aov.categories = AOVSelectLists.preLoadCategoriesCategories()
   game.aov.weaponCategories = AOVSelectLists.getWeaponCategories
+  game.aov.weaponSkillsList = AOVSelectLists.getWeaponSkills
 }

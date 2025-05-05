@@ -1,0 +1,164 @@
+<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
+
+  <div class="weapon-detail-grid">
+
+    {{#if isGM}}
+      <div class="new-row">{{localize 'AOV.weaponSkill'}}</div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.skillCID">
+          {{selectOptions weaponSkillsList selected=item.system.skillCID}}
+        </select>
+      </div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.weaponType'}}</div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.weaponType">
+          {{selectOptions weaponTypeOptions selected=item.system.weaponType}}
+        </select>
+      </div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'TYPES.Item.weaponcat'}}</div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.weaponCat">
+          {{selectOptions weaponCatOptions selected=item.system.weaponCat}}
+        </select>
+      </div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.minSTRDEX'}}</div>
+      <div class="minstrdex">
+        <span class="centre"><input class="gear-input centre" name='system.minStr' type='text' value='{{item.system.minStr}}'  data-dtype="Number"/></span>
+        <span class="centre"> / </span>
+        <span class="centre"><input class="gear-input centre" name='system.minDex' type='text' value='{{item.system.minDex}}'  data-dtype="Number"/></span>
+      </div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.damage'}}</div>
+      <div class="centre"><input class="gear-input centre" name='system.damage' type='text' value='{{item.system.damage}}'/></div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.damageType'}}</div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.damType">
+          {{selectOptions damTypeList selected=item.system.damType}}
+        </select>
+      </div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.encumberance'}}</div>
+      <div class=""><input class="gear-input centre" name='system.enc' type='text' value='{{item.system.enc}}'  data-dtype="Number"/></div>
+      <div class="new-row"></div>
+      <br>
+      {{#if (eq item.system.weaponType 'missile')}}
+        <div class="new-row">{{localize 'AOV.range'}}</div>
+        <div class=""><input class="gear-input centre" name='system.range' type='text' value='{{item.system.range}}'  data-dtype="Number"/></div>
+      {{else}}
+        <div class="new-row">{{localize 'AOV.length'}}</div>
+        <div class=""><input class="gear-input centre" name='system.length' type='text' value='{{item.system.length}}'  data-dtype="Number"/></div>
+      {{/if}}
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.cost'}}</div>
+      <div class=""><input class="gear-input centre" name='system.cost' type='text' value='{{item.system.cost}}'  data-dtype="Number"/></div>
+      <div class="new-row"></div>
+      <br>
+      {{#if hasOwner}}
+        <div class="new-row">{{localize 'AOV.hpCurr'}}</div>
+        <div class="minstrdex">
+          <span class="centre"><input class="gear-input centre" name='system.currHP' type='text' value='{{item.system.currHP}}'  data-dtype="currHP"/></span>
+          <span class="centre"> / </span>
+          <span class="centre"><input class="gear-input centre" name='system.maxHP' type='text' value='{{item.system.maxHP}}'  data-dtype="maxHP"/></span>
+        </div>
+      {{else}}
+        <div class="new-row">{{localize 'AOV.hpMax'}}</div>
+        <div class="">
+          <input class="gear-input centre" name='system.maxHP' type='text' value='{{item.system.maxHP}}'  data-dtype="maxHP"/>
+        </div>
+      {{/if}}
+      <div class="new-row"></div>
+      <br>
+    {{else}}
+      <div class="new-row">{{localize 'AOV.weaponSkill'}}</div>
+      <div class="gear-input centre">{{weaponSkillName}}</div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.weaponType'}}</div>
+      <div class="gear-input centre">{{weaponTypeName}}</div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'TYPES.Item.weaponcat'}}</div>
+      <div class="gear-input centre">{{weaponCatName}}</div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.minSTRDEX'}}</div>
+      <div class="centre">{{item.system.minStr}} / {{item.system.minDex}}</div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.damage'}}</div>
+      <div class="gear-input centre">{{item.system.damage}}</div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.damageType'}}</div>
+      <div class="gear-input centre">{{damTypeName}}</div>
+      <div class="new-row"></div>
+      <div class="new-row">{{localize 'AOV.encumberance'}}</div>
+      <div class="gear-input centre">{{item.system.enc}}</div>
+      <div class="new-row"></div>
+      <br>
+      {{#if (eq item.system.weaponType 'missile')}}
+        <div class="new-row">{{localize 'AOV.range'}}</div>
+        <div class="gear-input centre">{{item.system.range}}</div>
+     {{else}}
+        <div class="new-row">{{localize 'AOV.length'}}</div>
+        <div class="gear-input centre">{{item.system.length}}</div>
+      {{/if}}
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.cost'}}</div>
+      <div class="gear-input centre">{{item.system.cost}}</div>
+      <div class="new-row"></div>
+      <br>
+      {{#if hasOwner}}
+        <div class="new-row">{{localize 'AOV.hpCurr'}}</div>
+        <div class="minstrdex">
+          <span class="centre"><input class="gear-input centre" name='system.currHP' type='text' value='{{item.system.currHP}}'  data-dtype="currHP"/></span>
+          <span class="centre"> / </span>
+          <span class="centre">{{item.system.maxHP}}</span>
+        </div>
+      {{else}}
+        <div class="new-row">{{localize 'AOV.hpMax'}}</div>
+        <div class="">{{item.system.maxHP}}</div>
+      {{/if}}
+      <div class="new-row"></div>
+      <br>
+    {{/if}}
+
+    {{#if hasOwner}}
+      <div class="new-row">{{localize 'AOV.equipped'}}</div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.equipStatus">
+          {{selectOptions equippedOptions selected=item.system.equipStatus}}
+        </select>
+      </div>
+      <div class="new-row"></div>
+      <br>
+    {{/if}}
+
+
+
+
+
+
+
+
+
+
+
+    {{#if hasOwner}}
+      <div class="new-row"></div>
+      <br>
+    {{/if}}
+  </div>
+</section>

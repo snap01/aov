@@ -63,22 +63,22 @@ export class AOVActor extends Actor {
       } else if (itm.type === 'wound') {
         let loc = await actorData.items.get(itm.system.hitLocId)
         if (loc) {itm.system.label = loc.name ?? ""}
-      } else if (itm.type === 'gear') {
+      } else if (['gear','weapon'].includes(itm.type)) {
         if (itm.system.equipStatus === 1 ) {
-          itm.system.actlEnc = itm.system.enc * itm.system.quantity
+          itm.system.actlEnc = itm.system.enc * (itm.system.quantity ?? 1)
         } else {
           itm.system.actlEnc = 0
         }
         systemData.actualEnc += (itm.system.actlEnc ?? 0)
-
       }
-
-
     }
 
-    //Go through Hit Locations and calc Max HP and then current HP
+
+
+    //Go through items a second time to calculate a second round of values
     let totalDmg = 0
     for (let itm of actorData.items) {
+      //Go through Hit Locations and calc Max HP and then current HP
       if (itm.type === 'hitloc') {
         let totalWnds = 0
         if (itm.system.locType ===  'general') {
@@ -95,6 +95,17 @@ export class AOVActor extends Actor {
         }
         itm.system.currHp = itm.system.hpMax - totalWnds
         totalDmg += totalWnds
+      }
+
+      //Go through Weapons and calc best score from weapon skill and half the category score
+      if (itm.type === 'weapon'){
+        let weaponSkill = await actorData.items.filter(i=>i.flags.aov.cidFlag.id === itm.system.skillCID)[0].system.total
+        let catName = itm.system.weaponCat
+        if (catName) {
+          catName = catName.split('.')[2]
+        }
+        let catScore = actorData.system.weaponCats[catName] ?? 0
+        itm.system.total = Math.max(weaponSkill,Math.ceil(catScore/2))
       }
     }
     systemData.hp.value = systemData.hp.max - totalDmg

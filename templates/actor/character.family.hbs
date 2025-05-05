@@ -1,7 +1,7 @@
 <section class='character tab family {{tab.cssClass}}' data-group='primary' data-tab='family'>
   <ol class='gear-list'>
     <li class='item gear-header family-grid'>
-      <div class='left new-row'>{{localize 'AOV.name'}}</div>
+      <div class='left new-row'>{{localize 'TYPES.Item.family'}}</div>
       <div class='centre'>{{localize 'AOV.gender'}}</div>
       <div class='centre'>{{localize 'AOV.relationship'}}</div>
       <div class='centre'>{{localize 'AOV.born'}}</div>
@@ -33,5 +33,54 @@
       {{/unless}}
     </li>
     {{/each}}
+
+    <br>
+
+     <li class='item gear-header family-grid' style = "background: var(--secondary-back-colour);">
+      <div class='left new-row'>{{localize 'TYPES.Item.thrall'}}</div>
+      <div class='centre'>{{localize 'AOV.gender'}}</div>
+      <div class='centre'>{{localize 'TYPES.Actor.farm'}}</div>
+      <div class='centre'>{{localize 'AOV.born'}}</div>
+      <div class='centre'>{{localize 'AOV.died'}}</div>
+      <div></div>
+    </li>
+    {{#each thralls as |item id|}}
+    <li class='item family-grid' data-item-id='{{item.uuid}}' data-drag='true' data-document-class='Item'>
+      <div class="new-row gear-name left rollable viewFromUuid" title='{{localize "AOV.viewDoc"
+        type=(localize "TYPES.Item.thrall")}}'>{{item.name}}</div>
+      <div class='gear-name centre'>{{item.gender}}</div>
+      <div class='gear-name centre'>{{item.farmName}}</div>
+      <div class='gear-name centre'>{{item.born}}</div>
+      <div class='gear-name centre'>{{item.died}}</div>
+    </li>
+    {{/each}}
+    <br>
+
+    <li class='item gear-header family-grid' style = "background: var(--tertiary-back-colour);">
+      <div class='left new-row'>{{localize 'TYPES.Actor.farm'}}</div>
+      <div class='centre'>{{localize 'AOV.size'}}</div>
+      <div class='centre'>{{localize 'AOV.type'}}</div>
+      <div class='centre'>{{localize 'AOV.value'}}</div>
+      <div class='centre'>&nbsp</div>
+      <div>&nbsp</div>
+    </li>
+    {{#each farms as |item id|}}
+    <li class='item family-grid' data-item-id='{{item.uuid}}' data-drag='true' data-document-class='Item'>
+      <div class="new-row gear-name left rollable viewFromUuid" title='{{localize "AOV.viewDoc"
+        type=(localize "TYPES.Actor.farm")}}'>{{item.name}}</div>
+      <div class='gear-name centre'>{{item.size}}</div>
+      <div class='gear-name centre'>{{item.farmType}}</div>
+      <div class='gear-name centre'>{{item.value}}</div>
+      <div class='gear-name centre'></div>
+      {{#unless ../isLocked}}
+        <div class='gear-controls centre'>
+          <a class='item-delete centre deleteFarm' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Actor.farm")}}'>
+            <i class='fas fa-trash'></i>
+          </a>
+        </div>
+      {{/unless}}
+    </li>
+    {{/each}}
+
   </ol>
 </section>

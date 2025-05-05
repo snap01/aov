@@ -1,12 +1,12 @@
 import { AoVItemSheet } from "./item-sheet.mjs"
 
-export class AoVFamilySheet extends AoVItemSheet {
+export class AoVThrallSheet extends AoVItemSheet {
   constructor(options = {}) {
     super(options)
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['family'],
+    classes: ['thrall'],
     position: {
       width: 600,
       height: 420
@@ -16,7 +16,7 @@ export class AoVFamilySheet extends AoVItemSheet {
   static PARTS = {
     header: { template: 'systems/aov/templates/item/item.header.hbs' },
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
-    details: { template: 'systems/aov/templates/item/family.detail.hbs' },
+    details: { template: 'systems/aov/templates/item/thrall.detail.hbs' },
     description: { template: 'systems/aov/templates/item/item.description.hbs' },
     gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
   }

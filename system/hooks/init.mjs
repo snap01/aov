@@ -33,7 +33,9 @@ export default function Init() {
   CONFIG.Item.dataModels.gear = models.AOVGearModel
   CONFIG.Item.dataModels.hitloc = models.AOVHitLocModel
   CONFIG.Item.dataModels.passion = models.AOVPassionModel
+  CONFIG.Item.dataModels.thrall = models.AOVThrallModel
   CONFIG.Item.dataModels.skill = models.AOVSkillModel
+  CONFIG.Item.dataModels.weapon = models.AOVWeaponModel
   CONFIG.Item.dataModels.weaponCat = models.AOVWeaponCatModel
   CONFIG.Item.dataModels.wound = models.AOVWoundModel
 

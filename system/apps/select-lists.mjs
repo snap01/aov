@@ -3,8 +3,7 @@ export class AOVSelectLists {
 
   //Equipped List
   static async equippedOptions(type) {
-    let options = {};
-    options = {
+    let options = {
       1: game.i18n.localize("AOV.carried"),
       2: game.i18n.localize("AOV.packed"),
       3: game.i18n.localize("AOV.stored"),
@@ -14,8 +13,7 @@ export class AOVSelectLists {
 
   //Skill Categories
   static async skillCat() {
-    let options = {};
-    options = {
+    let options = {
       "agi": game.i18n.localize("AOV.skillCat.agi"),
       "cbt": game.i18n.localize("AOV.skillCat.cbt"),
       "com": game.i18n.localize("AOV.skillCat.com"),
@@ -31,8 +29,7 @@ export class AOVSelectLists {
 
   //Skill Base Value Options
   static async baseSkill() {
-    let options = {};
-    options = {
+    let options = {
       "fixed": game.i18n.localize("AOV.fixed"),
       "dex2": game.i18n.localize("AOV.Ability.dex") + "*2",
       "dex3": game.i18n.localize("AOV.Ability.dex") + "*3",
@@ -42,8 +39,7 @@ export class AOVSelectLists {
 
   //Personality Types
   static async persType() {
-    let options = {};
-    options = {
+    let options = {
       "mighty": game.i18n.localize("AOV.Personality.mighty"),
       "steadfast": game.i18n.localize("AOV.Personality.steadfast"),
       "spiritual": game.i18n.localize("AOV.Personality.spiritual"),
@@ -57,8 +53,7 @@ export class AOVSelectLists {
 
   //Weapon Types
   static async weaponType() {
-    let options = {};
-    options = {
+    let options = {
       "melee": game.i18n.localize("AOV.melee"),
       "missile": game.i18n.localize("AOV.missile"),
       "naturalWpn": game.i18n.localize("AOV.naturalWpn"),
@@ -68,8 +63,7 @@ export class AOVSelectLists {
 
   //Hit Loc Types
   static async hitLocType() {
-    let options = {};
-    options = {
+    let options = {
       "limb": game.i18n.localize("AOV.HitLoc.limb"),
       "abdomen": game.i18n.localize("AOV.HitLoc.abdomen"),
       "chest": game.i18n.localize("AOV.HitLoc.chest"),
@@ -79,7 +73,7 @@ export class AOVSelectLists {
     return options;
   }
 
-  //Hit Loc Options
+  //Hit Loc Options for the Actor
   static getHitLocOptions(actor) {
     let options = {}
     let newOption = {}
@@ -94,8 +88,21 @@ export class AOVSelectLists {
 
   static async preLoadCategoriesCategories() {
     return new Promise(async (resolve, reject) => {
-      resolve(await game.aov.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i\.(weaponcat|passion)\.'), type: 'i', showLoading: true }))
+      resolve(await game.aov.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i\.(weaponcat|passion|skill)\.'), type: 'i', showLoading: true }))
     })
+  }
+
+  //Weapon Skills List
+  static async getWeaponSkills() {
+    const weaponSkillsList = (await game.aov.categories).filter(d => d.type === 'skill').filter(e => e.system.category === 'cbt')
+    weaponSkillsList.sort(function (a, b) {
+      return a.name.localeCompare(b.name)
+    });
+    let options = weaponSkillsList.reduce((c, i) => {
+      c[i.flags.aov.cidFlag.id] = i.name
+      return c
+    }, {})
+    return options
   }
 
   //Weapon Category List
@@ -111,10 +118,9 @@ export class AOVSelectLists {
     return options
   }
 
-  //Hit Loc Types
+  //Devotion Points
   static async dpOptions() {
-    let options = {};
-    options = {
+    let options = {
       0: "0",
       1: "1",
       2: "2",
@@ -125,8 +131,7 @@ export class AOVSelectLists {
 
   //Farm Type Options
   static async farmTypeOptions() {
-    let options = {};
-    options = {
+    let options = {
       "dairy": game.i18n.localize("AOV.Farm.dairy"),
       "sheep": game.i18n.localize("AOV.Farm.sheep"),
       "fishing": game.i18n.localize("AOV.Farm.fishing"),
@@ -135,4 +140,15 @@ export class AOVSelectLists {
     return options;
   }
 
+  //Damage Type Options
+  static async dmgTypeOptions() {
+    let options = {
+      "c": game.i18n.localize("AOV.DamType.c"),
+      "ct": game.i18n.localize("AOV.DamType.ct"),
+      "h": game.i18n.localize("AOV.DamType.h"),
+      "i": game.i18n.localize("AOV.DamType.i"),
+      "s": game.i18n.localize("AOV.DamType.s"),
+    };
+    return options;
+  }
 }

@@ -20,6 +20,7 @@ export class AoVFarmSheet extends AoVActorSheet {
     details: { template: 'systems/aov/templates/actor/farm.detail.hbs' },
     location: { template: 'systems/aov/templates/actor/farm.location.hbs' },
     description: { template: 'systems/aov/templates/actor/farm.description.hbs' },
+    thralls: { template: 'systems/aov/templates/actor/farm.thralls.hbs' },
     gmTab: { template: 'systems/aov/templates/actor/farm.gmtab.hbs' }
   }
 
@@ -28,15 +29,29 @@ export class AoVFarmSheet extends AoVActorSheet {
     context.tabs = this._getTabs(options.parts);
     context.farmTypeOptions = await AOVSelectLists.farmTypeOptions()
     context.farmTypeName = game.i18n.localize("AOV.Farm."+context.system.farmType)
-
+    await this._prepareItems(context);
     return context
   }
+
+  //Handle Actor's Items
+  _prepareItems(context) {
+    const thralls = [];
+
+    for (let itm of this.document.items) {
+      if (itm.type === 'thrall') {
+        thralls.push(itm)
+      }
+    }
+    context.thralls = thralls.sort(function (a, b) {return a.name.localeCompare(b.name)});
+  }
+
 
   /** @override */
   async _preparePartContext(partId, context) {
     switch (partId) {
       case 'details':
       case 'location':
+      case 'thralls':
         context.tab = context.tabs[partId];
         break;
       case 'description':
@@ -91,6 +106,10 @@ export class AoVFarmSheet extends AoVActorSheet {
             tab.id = 'location';
             tab.label += 'Tabs.location';
             break;
+        case 'thralls':
+            tab.id = 'thralls';
+            tab.label += 'Tabs.thralls';
+            break;
         case 'description':
           tab.id = 'description';
           tab.label += 'description';
@@ -109,7 +128,7 @@ export class AoVFarmSheet extends AoVActorSheet {
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     //Only show GM tab if you are GM
-    options.parts = ['header', 'tabs', 'details','location','description'];
+    options.parts = ['header', 'tabs', 'details','thralls', 'location','description'];
     if (game.user.isGM) {
         options.parts.push('gmTab');
     }
@@ -117,6 +136,7 @@ export class AoVFarmSheet extends AoVActorSheet {
 
   //Activate event listeners using the prepared sheet HTML
   _onRender(context, _options) {
+    this._dragDrop.forEach((d) => d.bind(this.element));
     this.element.querySelectorAll('.gridLoc').forEach(n => n.addEventListener("dblclick", this.editLoc.bind(this)))
   }
 

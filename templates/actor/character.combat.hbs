@@ -83,7 +83,59 @@
         {{/each}}
       </div>
     </ol>
-
   </div>
+  <br>
+  <ol class="charHitLoc">
+    <div class="gear-header weapons-list-grid">
+      <div class='new-row left'>{{localize 'TYPES.Item.weapon'}}</div>
+      <div class='centre'>%</div>
+      <div class='centre'>{{localize 'AOV.damage'}}</div>
+      <div class='centre'>{{localize 'AOV.encumberanceAbbr'}}</div>
+      <div class='centre' style="grid-column: 5 / 8;">{{localize 'AOV.hpAbbr'}}</div>
+      <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
+      <div class='centre'>{{localize 'AOV.range'}}</div>
+    </div>
+
+    {{#each weapons as |item id|}}
+      <li class="item weapons-list-grid" data-item-id='{{item._id}}' data-document-class='Item'>
+        <div class="new-row gear-name left rollable truncate" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.weapon")}}'
+              data-action='viewDoc'>{{item.name}}</div>
+        <div class='gear-name centre terIcon'>{{item.system.total}}</div>
+        <div class='gear-name centre' title="{{item.system.damTypeLabel}}">{{item.system.damage}}</div>
+        <div class='gear-name centre terIcon'>{{item.system.actlEnc}}</div>
+        <div class="centre skill-inline"><input class="ability-cell centre" name='system.currHP'
+          type='text' value='{{item.system.currHP}}' data-field="currHP" data-dtype="Number"/>
+        </div>
+        <div class='gear-name centre'>/</div>
+        <div class='gear-name centre'>{{item.system.maxHP}}</div>
+        <div class='gear-name centre' data-action="itemToggle" data-property="equipStatus"><a class="">
+          {{#if (eq item.system.equipStatus 1)}}
+            <i class="fas fa-hand-holding" title='{{localize "AOV.carried"}}'></i>
+          {{else}}
+            {{#if (eq item.system.equipStatus 2)}}
+              <i class="fas fa-horse" title='{{localize "AOV.packed"}}'></i>
+            {{else}}
+            <i class="fas fa-house" title='{{localize "AOV.stored"}}'></i>
+            {{/if}}
+          {{/if}}
+        </a></div>
+        {{#if (eq item.system.weaponType 'missile')}}
+          <div class='gear-name centre'>{{item.system.range}}</div>
+        {{else}}
+          <div class="centre">-</div>
+        {{/if}}
+        {{#unless ../isLocked}}
+          <div class='gear-controls centre'>
+            <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.weapon")}}'
+              data-action="deleteDoc">
+              <i class='fas fa-trash'></i>
+            </a>
+          </div>
+        {{/unless}}
+      </li>
+    {{/each}}
+    </div>
+  </ol>
+
 
 </section>

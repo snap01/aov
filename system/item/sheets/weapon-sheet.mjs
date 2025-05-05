@@ -1,22 +1,23 @@
 import { AoVItemSheet } from "./item-sheet.mjs"
+import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
-export class AoVFamilySheet extends AoVItemSheet {
+export class AoVWeaponSheet extends AoVItemSheet {
   constructor(options = {}) {
     super(options)
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['family'],
+    classes: ['weapon'],
     position: {
       width: 600,
-      height: 420
+      height: 620
     },
   }
 
   static PARTS = {
     header: { template: 'systems/aov/templates/item/item.header.hbs' },
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
-    details: { template: 'systems/aov/templates/item/family.detail.hbs' },
+    details: { template: 'systems/aov/templates/item/weapon.detail.hbs' },
     description: { template: 'systems/aov/templates/item/item.description.hbs' },
     gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
   }
@@ -24,6 +25,25 @@ export class AoVFamilySheet extends AoVItemSheet {
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
+    context.weaponCatOptions = await AOVSelectLists.getWeaponCategories();
+    if (context.system.weaponCat) {
+      let weaponCat = await game.aov.cid.fromCID(context.system.weaponCat);
+      context.weaponCatName = weaponCat[0].name ?? ""
+    } else {
+      context.weaponCatName = ""
+    }
+    context.weaponTypeOptions = await AOVSelectLists.weaponType()
+    context.weaponTypeName = game.i18n.localize("AOV." + context.system.weaponType);
+    context.weaponSkillsList = await AOVSelectLists.getWeaponSkills()
+    if (context.system.skillCID) {
+      let weaponSkill = await game.aov.cid.fromCID(context.system.skillCID);
+      context.weaponSkillName = weaponSkill[0].name ?? ""
+    } else {
+      context.weaponSkillName = ""
+    }
+    context.damTypeList = await AOVSelectLists.dmgTypeOptions()
+    context.damTypeName = game.i18n.localize('AOV.DmgType,' + context.system.damType)
+    context.equippedOptions = await AOVSelectLists.equippedOptions(this.document.type)
 
     return context
   }
@@ -58,6 +78,15 @@ export class AoVFamilySheet extends AoVItemSheet {
         break;
     }
     return context;
+  }
+
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    //Only show GM tab if you are GM
+    options.parts = ['header', 'tabs', 'details','description'];
+    if (game.user.isGM) {
+        options.parts.push('gmTab');
+    }
   }
 
   _getTabs(parts) {
@@ -95,44 +124,12 @@ export class AoVFamilySheet extends AoVItemSheet {
     }, {});
   }
 
-  _configureRenderOptions(options) {
-    super._configureRenderOptions(options);
-    //Only show GM tab if you are GM
-    options.parts = ['header', 'tabs', 'details','description'];
-    if (game.user.isGM) {
-        options.parts.push('gmTab');
-    }
-  }
 
   //Activate event listeners using the prepared sheet HTML
   _onRender(context, _options) {
-    this.element.querySelectorAll('.died-input').forEach(n => n.addEventListener("change", this.#checkDeath.bind(this)))
   }
 
 
   //-----------------------ACTIONS-----------------------------------
-
-
-
-
-  //-------------------------LISTENERS--------------------------------
-  //Make sure Date of Death, if populated, is not earlier that date of birth
-  async #checkDeath(event) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    let newVal = Number(event.target.value);
-
-    if (!newVal) {
-      await this.item.update({ 'system.died': null });
-      return
-    } else if (newVal < this.item.system.born) {
-      newVal = this.item.system.born
-    }
-    await this.item.update({ 'system.died': newVal });
-  }
-
-
-
-
 
 }
