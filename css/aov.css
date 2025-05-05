@@ -128,7 +128,7 @@ prose-mirror button.toggle {
   opacity: 0.5;
 }
 
-.aov.actor .window-content {
+.aov.character .window-content {
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
@@ -142,6 +142,15 @@ prose-mirror button.toggle {
   padding-right: 20px;
   border: none;
   cursor: default;
+}
+
+.aov.farm {
+  font-family: var(--aov-primary-font);
+  color: var(--aov-primary-font-colour);
+  font-size: var(--aov-primary-font-size);
+  background-image: url('../art-assets/stone.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 
@@ -234,7 +243,7 @@ prose-mirror button.toggle {
   }
 }
 
-.aov .actor.tab {
+.aov .character.tab {
   padding-left: 25px;
   padding-right: 25px;
 }
@@ -303,7 +312,7 @@ prose-mirror button.toggle {
   border-right: var(--aov-primary-font-colour) 1px solid;
 }
 
-.aov .actor .statBonus {
+.aov .character .statBonus {
   display: grid;
   grid-template-columns: 125px 50px;
   grid-column-gap: 5px;

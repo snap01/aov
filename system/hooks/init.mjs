@@ -24,8 +24,10 @@ export default function Init() {
   CONFIG.Item.documentClass = AOVItem;
   CONFIG.Actor.documentClass = AOVActor;
 
+
   //Declare Data Models
   CONFIG.Actor.dataModels.character = models.AOVCharacterModel
+  CONFIG.Actor.dataModels.farm = models.AOVFarmModel
   CONFIG.Item.dataModels.devotion = models.AOVDevotionModel
   CONFIG.Item.dataModels.family = models.AOVFamilyModel
   CONFIG.Item.dataModels.gear = models.AOVGearModel
@@ -34,8 +36,6 @@ export default function Init() {
   CONFIG.Item.dataModels.skill = models.AOVSkillModel
   CONFIG.Item.dataModels.weaponCat = models.AOVWeaponCatModel
   CONFIG.Item.dataModels.wound = models.AOVWoundModel
-  CONFIG.Item.dataModels.farm = models.AOVFarmModel
-
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item

@@ -1,7 +1,7 @@
-import { AoVItemSheet } from "./item-sheet.mjs"
+import { AoVActorSheet } from "./actor-sheet.mjs"
 import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
-export class AoVFarmSheet extends AoVItemSheet {
+export class AoVFarmSheet extends AoVActorSheet {
   constructor(options = {}) {
     super(options)
   }
@@ -15,12 +15,12 @@ export class AoVFarmSheet extends AoVItemSheet {
   }
 
   static PARTS = {
-    header: { template: 'systems/aov/templates/item/item.header.hbs' },
+    header: { template: 'systems/aov/templates/actor/farm.header.hbs' },
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
-    details: { template: 'systems/aov/templates/item/farm.detail.hbs' },
-    location: { template: 'systems/aov/templates/item/farm.location.hbs' },
-    description: { template: 'systems/aov/templates/item/item.description.hbs' },
-    gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
+    details: { template: 'systems/aov/templates/actor/farm.detail.hbs' },
+    location: { template: 'systems/aov/templates/actor/farm.location.hbs' },
+    description: { template: 'systems/aov/templates/actor/farm.description.hbs' },
+    gmTab: { template: 'systems/aov/templates/actor/farm.gmtab.hbs' }
   }
 
   async _prepareContext(options) {
@@ -42,22 +42,24 @@ export class AoVFarmSheet extends AoVItemSheet {
       case 'description':
         context.tab = context.tabs[partId];
         context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-          this.item.system.description,
+          this.actor.system.description,
           {
+            async: true,
             secrets: this.document.isOwner,
-            rollData: this.document.getRollData(),
-            relativeTo: this.document,
+            rollData: this.actor.getRollData(),
+            relativeTo: this.actor,
           }
         );
         break;
       case 'gmTab':
         context.tab = context.tabs[partId];
         context.enrichedGMNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-          this.item.system.gmNotes,
+          this.actor.system.gmNotes,
           {
+            async: true,
             secrets: this.document.isOwner,
-            rollData: this.document.getRollData(),
-            relativeTo: this.document,
+            rollData: this.actor.getRollData(),
+            relativeTo: this.actor,
           }
         );
         break;
@@ -161,7 +163,7 @@ export class AoVFarmSheet extends AoVItemSheet {
     else if (newLoc >=800 && newLoc <= 802) {valid = true}
 
     if(valid) {
-      await this.item.update({ 'system.location': newLoc });
+      await this.actor.update({ 'system.location': newLoc });
     }
   }
 

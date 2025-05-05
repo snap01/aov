@@ -1,28 +1,28 @@
-<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
+<section class='farm tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
 
   <div class="gear-detail-grid">
     <div>{{localize 'AOV.farmSize'}}</div>
-    <input class="gear-input" name='system.size' type='text' value='{{item.system.size}}' data-dtype="Number" />
+    <input class="gear-input" name='system.size' type='text' value='{{actor.system.size}}' data-dtype="Number" />
     <div class="new-row"></div>
     <br>
 
     <div class="new-row">{{localize 'AOV.farmType'}}</div>
     <div class="">
       <select class="gear-input" data-handle-change name="system.farmType">
-        {{selectOptions farmTypeOptions selected=item.system.farmType}}
+        {{selectOptions farmTypeOptions selected=actor.system.farmType}}
       </select>
     </div>
     <div class="new-row"></div>
     <br>
 
     <div class="new-row">{{localize 'AOV.animals'}}</div>
-    <input class="gear-input" style="grid-column: 2 / span2;" name='system.animals' type='text' value='{{item.system.animals}}'/>
+    <input class="gear-input" style="grid-column: 2 / span2;" name='system.animals' type='text' value='{{actor.system.animals}}'/>
     <div class="new-row"></div>
     <br>
 
 
     <div class="new-row">{{localize 'AOV.farmValue'}}</div>
-    <input class="gear-input" name='system.value' type='text' value='{{item.system.value}}' data-dtype="Number" />
+    <input class="gear-input" name='system.value' type='text' value='{{actor.system.value}}' data-dtype="Number" />
     <div class="new-row"></div>
     <br>
 

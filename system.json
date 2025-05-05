@@ -33,7 +33,8 @@
 
     "documentTypes": {
       "Actor": {
-        "character": {"htmlFields": ["description","gmNotes"]}
+        "character": {"htmlFields": ["description","gmNotes"]},
+        "farm": {"htmlFields": ["description","gmNotes"]}
       },
       "Item": {
         "devotion": {"htmlFields": ["description","gmNotes"]},
@@ -42,7 +43,6 @@
         "skill": {"htmlFields": ["description","gmNotes"]},
         "passion": {"htmlFields": ["description","gmNotes"]},
         "hitloc": {"htmlFields": ["description","gmNotes"]},
-        "farm": {"htmlFields": ["description","gmNotes"]},
         "weaponcat": {},
         "wound": {}
       }

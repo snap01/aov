@@ -254,12 +254,12 @@
   },
   "TYPES": {
     "Actor": {
-      "character": "Character"
+      "character": "Character",
+      "farm": "Farm"
     },
     "Item": {
       "devotion": "Devotion",
       "family": "Family",
-      "farm": "Farm",
       "gear": "Equipment",
       "hitloc": "Hit Location",
       "passion": "Passion",
