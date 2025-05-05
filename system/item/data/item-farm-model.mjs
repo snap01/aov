@@ -12,9 +12,7 @@ export default class AOVFarmModel extends AOVItemBaseModel {
     schema.animals = new fields.StringField({ required: true, blank: true, initial: "" }); //Animals
     schema.location = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Grid location of the farm
     schema.status = new fields.StringField({ required: true, blank: true, initial: "" }); //Farm status
-    /*schema.thralls= new fields.ArrayField(
-      new fields.Stringfield({})
-       {required: true, empty: true, initial: []}); //Thralls on farm*/
+    schema.thralls = new fields.ArrayField(new fields.StringField());
     return schema
   }
 

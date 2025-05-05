@@ -1,7 +1,17 @@
 import { AOVDisplaySettings } from "./settings-displayOptions.mjs";
 import { AOVCIDSettings } from "./settings-cidOptions.mjs";
+import { AOVGameYearSettings } from "./settings-gameYear.mjs";
 
 export async function registerSettings() {
+  //Game Year Settings Button
+  game.settings.registerMenu('aov', 'gameYearSettings', {
+    name: 'AOV.Settings.gameYearSettingsHint',
+    label: 'AOV.Settings.gameYearSettings',
+    icon: 'fas fa-calendar-days',
+    type: AOVGameYearSettings,
+    restricted: true
+  })
+  AOVGameYearSettings.registerSettings()
 
   //Display Settings Button
   game.settings.registerMenu('aov', 'displayOptions', {
@@ -23,13 +33,6 @@ export async function registerSettings() {
   })
   AOVCIDSettings.registerSettings()
 
-  //Game Year
-  game.settings.register('aov', "gameYear", {
-    name: "AOV.Settings.gameYear",
-    hint: "AOV.Settings.gameYearHint",
-    scope: "client",
-    config: true,
-    type: Number,
-    default: 977
-  });
+
+
 }

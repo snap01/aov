@@ -10,4 +10,10 @@ AOV.abilities = {
   cha: 'AOV.Ability.cha',
 };
 
-
+AOV.omensList = {
+  "cursed": "AOV.Omens.cursed",
+  "illfavoured": "AOV.Omens.illfavoured",
+  "normal": "AOV.Omens.normal",
+  "good": "AOV.Omens.good",
+  "blessed": "AOV.Omens.blessed"
+}

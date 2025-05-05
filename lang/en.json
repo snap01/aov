@@ -184,6 +184,13 @@
       "limb": "Limb"
 
     },
+    "Omens": {
+      "cursed": "Cursed",
+      "illfavoured": "Ill-favoured",
+      "normal": "Normal",
+      "good": "Good",
+      "blessed": "Blessed"
+    },
     "Personality": {
       "cunning": "Cunning",
       "manipulative": "Manipulative",
@@ -202,7 +209,11 @@
       "displayOptions": "Display Options",
       "displayOptionsHint": "Configure colours, fonts etc",
       "gameYear": "Game Year",
-      "gameYearHint": "Change this to alter the year of play",
+      "gameYearHint": "The current year of play",
+      "gameYearSettings": "Game Year Settings",
+      "gameYearSettingsHint": "Change setting for the year of play",
+      "omens": "Omens",
+      "omensHint": "The omens for the current game year",
       "primaryBackColour": "Primary Background Colour",
       "primaryBackColourHint": "Background colour for the sheets",
       "primaryFont": "Primary Font",

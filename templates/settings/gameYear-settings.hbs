@@ -1,0 +1,27 @@
+<div class="aov settingsForm flexcol" autocomplete="off">
+    <h2 class="bold">{{localize 'AOV.Settings.gameYearSettings'}}</h2>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.gameYear'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input class="centre" name="gameYear" type="text" value="{{optSet.gameYear.value}}"/>
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.gameYearHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.omens'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <select class="centre" name="omens" data-dtype="String">
+          {{selectOptions optSet.omensList selected=optSet.omens.value}}
+        </select>
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.omensHint'}}</p>
+    </div>
+
+
+
+
+
+    <br>
+  </div>
