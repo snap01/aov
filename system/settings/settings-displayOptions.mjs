@@ -46,6 +46,15 @@ const SETTINGS = {
     default: "",
   },
 
+  singleColourBar: {
+    name: "AOV.Settings.singleColourBar",
+    hint: "AOV.Settings.singleColourBarHint",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: false
+  },
+
 }
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
@@ -122,4 +131,4 @@ export class AOVDisplaySettings extends HandlebarsApplicationMixin(ApplicationV2
     )
   }
 
-}    
+}

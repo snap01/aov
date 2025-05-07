@@ -10,7 +10,7 @@ import { AoVDevotionSheet } from '../item/sheets/devotion-sheet.mjs';
 import { AoVFamilySheet } from '../item/sheets/family-sheet.mjs';
 import { AoVThrallSheet } from '../item/sheets/thrall-sheet.mjs';
 import { AoVWeaponSheet } from '../item/sheets/weapon-sheet.mjs';
-
+import { AoVArmourSheet } from '../item/sheets/armour-sheet.mjs';
 
 export function registerSheets() {
 
@@ -75,6 +75,10 @@ export function registerSheets() {
   });
   collections.Items.registerSheet('aov', AoVWeaponSheet, {
     types: ['weapon'],
+    makeDefault: true
+  });
+  collections.Items.registerSheet('aov', AoVArmourSheet, {
+    types: ['armour'],
     makeDefault: true
   });
 

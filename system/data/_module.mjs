@@ -15,3 +15,4 @@ export { default as AOVDevotionModel}  from "../item/data/item-devotion-model.mj
 export { default as AOVFamilyModel} from "../item/data/item-family-model.mjs";
 export { default as AOVThrallModel} from "../item/data/item-thrall-model.mjs";
 export { default as AOVWeaponModel} from "../item/data/item-weapon-model.mjs";
+export { default as AOVArmourModel} from "../item/data/item-armour-model.mjs";

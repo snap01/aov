@@ -1,7 +1,7 @@
 <section class='character tab skills {{tab.cssClass}}' data-group='primary' data-tab='skills'>
   {{#if system.locked}}
     <div class="skill-grid-header">
-      <div class='gear-header skill-grid'>
+      <div class='gear-header primBackCol skill-grid'>
         <div class='new-row left'>{{localize 'AOV.name'}}</div>
         <div class='centre' title="{{localize 'AOV.xpAbbrHint'}}">{{localize 'AOV.xpAbbr'}}</div>
         <div class='centre' title="{{localize 'AOV.totalScore'}}">%</div>
@@ -15,7 +15,7 @@
           </a>
         </div>
       </div>
-      <div class='gear-header skill-grid'>
+      <div class='gear-header primBackCol skill-grid'>
         <div class='new-row left'>{{localize 'AOV.name'}}</div>
         <div class='centre' title="{{localize 'AOV.xpAbbrHint'}}">{{localize 'AOV.xpAbbr'}}</div>
         <div class='centre' title="{{localize 'AOV.totalScore'}}">%</div>
@@ -43,7 +43,7 @@
             <div></div>
             <div class='gear-name centre upper'>{{item.system.total}}</div>
           {{else}}
-            <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.skill")}}'
+            <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.skill")}}'
               data-action='viewDoc'>{{item.system.label}}</div>
             {{#unless item.system.noXP}}
               <div class='gear-name centre' data-action="itemToggle" data-property="xpCheck"><a>
@@ -58,7 +58,7 @@
             {{/unless}}
             <div class='gear-name centre terIcon'>{{item.system.total}}</div>
               <div class='gear-controls centre'>
-                <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.skill")}}'
+                <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.skill")}}'
                   data-action="deleteDoc">
                   <i class='fas fa-trash'></i>
                 </a>
@@ -69,7 +69,7 @@
     </ol>
   {{else}}
     <ol class='skillDev-list'>
-      <div class='gear-header skillDev-grid'>
+      <div class='gear-header primBackCol skillDev-grid'>
         <div class='new-row left'>{{localize 'AOV.name'}}</div>
         <div class='centre'>{{localize 'AOV.category'}}</div>
         <div class='centre'>{{localize 'AOV.base'}}</div>

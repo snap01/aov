@@ -33,10 +33,9 @@ body.theme-light.application .aov {
   --aov-primary-font-colour: black;
   --aov-secondary-font-colour: rgb(163, 16, 8);
   --aov-title-font-colour: rgb(68, 111, 94);
-  --primary-back-colour: grey;
-  --secondary-back-colour: rgb(21, 115, 164);
-  --tertiary-back-colour: rgb(131, 57, 36);
-  --background-colour: rgba(68, 111, 94, 0.5);
+  --primary-back-colour: rgba(68, 111, 94, 0.5);
+  --secondary-back-colour: rgba(21, 115, 164, 0.5);
+  --tertiary-back-colour: rgba(131, 57, 36, 0.5);
   --actor-rollable-colour: black;
   --actor-rollable-shadow: red;
   --primary-icon-colour: black;
@@ -54,9 +53,9 @@ body.theme-dark.application .aov {
   --aov-primary-font-colour: white;
   --aov-secondary-font-colour: rgba(187, 248, 251, 1);
   --aov-title-font-colour: rgb(116, 252, 252);
-  --primary-back-colour: rgb(127, 127, 127);
-  --secondary-back-colour: rgb(44, 44, 44);
-  --tertiary-back-colour: rgb(131, 57, 36);
+  --primary-back-colour: rgba(127, 127, 127, 0.5);
+  --secondary-back-colour: rgba(44, 44, 44, 0.5);
+  --tertiary-back-colour: rgba(131, 57, 36, 0.5);
   --background-colour: rgba(255, 255, 255, 0.05);
   --actor-rollable-colour: white;
   --actor-rollable-shadow: rgb(0, 255, 255);
@@ -358,8 +357,19 @@ prose-mirror button.toggle {
   margin: 2px 0;
   padding: 0;
   align-items: center;
-  background: var(--background-colour);
   font-weight: bold;
+}
+
+.aov .primBackCol {
+  background: var(--primary-back-colour);
+}
+
+.aov .secBackCol {
+  background: var(--secondary-back-colour);
+}
+
+.aov .terBackCol {
+  background: var(--tertiary-back-colour);
 }
 
 .aov .gear-grid {
@@ -422,6 +432,12 @@ prose-mirror button.toggle {
   padding-left: 5px;
 }
 
+.aov .armour-grid{
+  display: grid;
+  grid-template-columns: 210px 100px 70px 50px 90px 50px 30px;
+  grid-column-gap: 5px;
+  padding-left: 5px;
+}
 .aov .gear-list .gear-controls {
   padding-top: 5px;
 }
@@ -473,7 +489,6 @@ prose-mirror button.toggle {
   display: grid;
   grid-template-columns: 160px 50px 125px 50px 30px 10px 30px 40px 80px 30px;
   grid-column-gap: 5px;
-  padding-top: 10px;
 }
 
 .aov .minstrdex {
@@ -673,7 +688,7 @@ prose-mirror button.toggle {
   outline: none;
 }
 
-.aov .tab.skills {
+.aov .tab.skills, .tab.combat {
   max-height: 600px;
   overflow-x: scroll;
 }
@@ -710,7 +725,7 @@ nav.aov.actor.character.sheet-tabs.tabs {
   gap: 0rem;
   position: absolute;
   left: 0;
-  top: 830px;
+  top: 855px;
   z-index: -5;
   width: 950px;
   height: 120px;
@@ -823,7 +838,7 @@ nav.aov.actor.character.sheet-tabs.tabs {
 
 .aov .hitLocCellAtt {
   display: grid;
-  grid-template-columns: 30px 30px 10px 30px ;
+  grid-template-columns: 30px 28px 10px 28px ;
 }
 
 .aov.farm .farm-map-grid {

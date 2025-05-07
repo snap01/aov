@@ -1,8 +1,12 @@
 {
   "AOV": {
+    "absorbs": "Absorbs",
     "age": "Age",
     "ageAbbr": "Age",
     "alphaSkill": "Toggling this will change between the category layout and alphabetical layout",
+    "armourPoints": "Armour Points",
+    "armourPointsAbbr": "AP",
+    "armourType": "Armour Type",
     "animals": "Animals",
     "base": "Base",
     "baseScore": "Base Score",
@@ -21,6 +25,7 @@
     "commonSkillHint": "Common skills are automatically added to new characters, and skills can be filtered to only show common skills",
     "CopyToClipboard": "Copy to clipboard",
     "cost": "Cost (ells)",
+    "coverage": "Coverage",
     "createDoc": "New {type}",
     "damage": "Damage",
     "damageType": "Damage Type",
@@ -60,6 +65,7 @@
     "healRateBonus": "Healing Rate Bonus",
     "hideUncommon": "Toggling this will hide/reveal uncommon skills",
     "hitLocations": "Hit Locations",
+    "hitLocationsHint": "Enter the low and high value that the Hit Loc cover. If a single value (e.g. 12) enter it in both",
     "hitLocHigh": "Hit Loc End",
     "hitLocLow": "Hit Loc Start",
     "hitLocMod": "HP Modifier",
@@ -75,6 +81,7 @@
     "lock": "Click to lock the sheet",
     "locType": "Hit Location Type",
     "mapLocHint": "Double click on land to place the farm",
+    "material": "Material",
     "maxEnc": "Maximum Encumberance",
     "maxEncAbbr": "ME",
     "maxHPBonus": "Max HP Bonus",
@@ -82,6 +89,8 @@
     "melee": "Melee",
     "missile": "Missile",
     "minSTRDEX": "Min STR / DEX",
+    "moveQuietly":"Move Quietly Penalty",
+    "moveQuietlyAbbr": "MQ Penalty",
     "mp": "Magic Points",
     "mpAbbr": "MP",
     "mr": "Movement Rate",
@@ -201,7 +210,8 @@
     "ErrorMsg": {
       "cantDropItem": "You can not add a {itemType} item to a {actorType}.",
       "cantDropActor": "You can not add a {itemType} actor to a {actorType}.",
-      "dupItem": "{itemName} already exists on this sheet and can not be added again"
+      "dupItem": "{itemName} already exists on this sheet and can not be added again",
+      "noCIDFlag": "Can't add {itemName} as it does not have a Chaosium ID"
     },
     "Farm": {
       "dairy": "Dairy",
@@ -257,7 +267,9 @@
       "secondaryBackColour": "Secondary Background Colour",
       "secondaryBackColourHint": "Background colour additional areas",
       "secondaryFontColour": "Secondary Font Colour",
-      "secondaryFontColourHint": "Colour for the titles etc"
+      "secondaryFontColourHint": "Colour for the titles etc",
+      "singleColourBar": "Single Colour Bars",
+      "singleColourBarHint": "Mutliple header bars on the same tab will be the same colour"
     },
     "skillCat": {
       "agi": "Agility",
@@ -293,6 +305,7 @@
       "farm": "Farm"
     },
     "Item": {
+      "armour": "Armour",
       "devotion": "Devotion",
       "family": "Family",
       "gear": "Equipment",

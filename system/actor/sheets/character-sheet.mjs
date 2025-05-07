@@ -40,6 +40,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     },
     combat: {
       template: 'systems/aov/templates/actor/character.combat.hbs',
+      scrollable: [''],
     },
     devotions: { template: 'systems/aov/templates/actor/character.devotions.hbs' },
   }
@@ -203,7 +204,9 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const farms = [];
     const thralls = [];
     const weapons = [];
+    const armours = [];
 
+    //Not strictly items but get farm actors to get thrall items
     for (let farmUuid of this.document.system.farms) {
       let farm = await fromUuid(farmUuid.uuid)
       if (!farm) {
@@ -265,6 +268,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
       } else if (itm.type === 'weapon') {
         itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)
         weapons.push(itm)
+      } else if (itm.type === 'armour') {
+        itm.system.armourLocLabel = itm.system.lowLoc
+        if (itm.system.lowLoc != itm.system.highLoc) {
+          itm.system.armourLocLabel = itm.system.armourLocLabel + "-" + itm.system.highLoc
+        }
+        armours.push(itm)
       }
     }
 
@@ -316,6 +325,15 @@ export class AoVCharacterSheet extends AoVActorSheet {
       }
     }
 
+    //Sort Armour on Hit Loc
+    armours.sort(function (a, b) {
+      let x = a.system.highLoc;
+      let y = b.system.highLoc;
+      if (x < y) { return 1 };
+      if (x > y) { return -1 };
+      return 0;
+    })
+
     context.gear = gear.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.skills = skills;
     context.passions = passions.sort(function (a, b) {return a.name.localeCompare(b.name)});
@@ -327,6 +345,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.thralls = thralls.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.farms = farms.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.weapons = weapons.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.armours = armours;
   }
 
 

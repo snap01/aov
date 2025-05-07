@@ -1,5 +1,6 @@
 import { CID } from '../cid/cid.mjs';
 import { AOVSelectLists } from "../apps/select-lists.mjs";
+import { AOVActorItemDrop } from './actor-item-drop.mjs';
 
 export class AOVActor extends Actor {
 
@@ -63,7 +64,7 @@ export class AOVActor extends Actor {
       } else if (itm.type === 'wound') {
         let loc = await actorData.items.get(itm.system.hitLocId)
         if (loc) {itm.system.label = loc.name ?? ""}
-      } else if (['gear','weapon'].includes(itm.type)) {
+      } else if (['gear','weapon','armour'].includes(itm.type)) {
         if (itm.system.equipStatus === 1 ) {
           itm.system.actlEnc = itm.system.enc * (itm.system.quantity ?? 1)
         } else {
@@ -72,20 +73,33 @@ export class AOVActor extends Actor {
         systemData.actualEnc += (itm.system.actlEnc ?? 0)
       }
     }
-
+    systemData.actualEnc = Math.floor(systemData.actualEnc)
 
 
     //Go through items a second time to calculate a second round of values
+    let armourList = await actorData.items.filter(i => i.type === 'armour').filter(j => j.system.equipStatus === 1)
     let totalDmg = 0
     for (let itm of actorData.items) {
-      //Go through Hit Locations and calc Max HP and then current HP
+      //Go through Hit Locations and calc AP, Max HP, and current HP
       if (itm.type === 'hitloc') {
+        //Calc C(urrent) and M(ax) AP
+        itm.system.map = 0
+        if (armourList.length>0){
+          for (let aItm of armourList){
+            if (itm.system.lowRoll>=aItm.system.lowLoc && itm.system.highRoll<=aItm.system.highLoc) {
+              itm.system.map += aItm.system.map
+            }
+          }
+        }
+
+        //Calc Max HP
         let totalWnds = 0
         if (itm.system.locType ===  'general') {
           itm.system.hpMax = 0
         } else {
           itm.system.hpMax = Math.max(Math.ceil(systemData.hp.max / 3),2) + (itm.system.hpMod ?? 0)
         }
+        //Calc Wounds and therefore current HP
         for (let witm of actorData.items) {
           if (witm.type === 'wound') {
             if (witm.system.hitLocId === itm.id) {
@@ -99,13 +113,17 @@ export class AOVActor extends Actor {
 
       //Go through Weapons and calc best score from weapon skill and half the category score
       if (itm.type === 'weapon'){
-        let weaponSkill = await actorData.items.filter(i=>i.flags.aov.cidFlag.id === itm.system.skillCID)[0].system.total
+        let weaponSkill = await actorData.items.filter(i=>i.flags.aov.cidFlag.id === itm.system.skillCID)
+        let weaponScore = 0
+        if (weaponSkill.length > 0) {
+          weaponScore = weaponSkill[0].system.total
+        }
         let catName = itm.system.weaponCat
         if (catName) {
           catName = catName.split('.')[2]
         }
         let catScore = actorData.system.weaponCats[catName] ?? 0
-        itm.system.total = Math.max(weaponSkill,Math.ceil(catScore/2))
+        itm.system.total = Math.max(weaponScore,Math.ceil(catScore/2))
       }
     }
     systemData.hp.value = systemData.hp.max - totalDmg
@@ -237,16 +255,19 @@ export class AOVActor extends Actor {
     }
 
     if (data.type === 'character') {
-      //If an actor now add all common skills to the sheet
       //Get list of skills and passions then add to actor
       let skillList = await game.aov.cid.fromCIDRegexBest({ cidRegExp: /^i.skill\./, type: 'i' })
-      let commonSkills = skillList.filter(itm=>itm.system.common)
-      await actor.createEmbeddedDocuments("Item", commonSkills);
+      let commonSkills=[];
+      for (let thisItem of skillList) {
+        if (!thisItem.system.common) {continue}
+        let nItm = thisItem.toObject()
+        nItm.system.base = await AOVActorItemDrop._AOVcalcBase(nItm, actor);
+        commonSkills.push(nItm)
+      }
+      let newSkills = await actor.createEmbeddedDocuments("Item", commonSkills);
       let passionList = await game.aov.cid.fromCIDRegexBest({ cidRegExp: /^i.passion\./, type: 'i' })
       let commonPassions = passionList.filter(itm=>itm.system.common)
-      await actor.createEmbeddedDocuments("Item", commonPassions);
-
-
+      let newPassions = await actor.createEmbeddedDocuments("Item", commonPassions);
     }
 
 

@@ -1,11 +1,12 @@
-{{! Description Tab }}
+{{!--Combat Tab--}}
 <section class='character tab combat {{tab.cssClass}}' data-group='primary' data-tab='combat'>
 
+  {{!--Hit Locations--}}
   <div class="skill-grid-header">
-    <div class='gear-header skill-grid'>
+    <div class='gear-header primBackCol skill-grid'>
       <div class='centre' style="grid-column: 1 / span4;">{{localize 'AOV.hitLocations'}}</div>
     </div>
-    <div class='gear-header wounds-grid'>
+    <div class='gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} wounds-grid'>
       <div class='new-row left'>{{localize 'TYPES.Item.wound'}}</div>
       <div class='centre'>{{localize 'AOV.damage'}}</div>
       <div class='centre'>{{localize 'AOV.status'}}</div>
@@ -40,11 +41,11 @@
             </div>
           {{/if}}
           <div class="hitLocCellAtt">
-            <div>AP</div>
-            <div class="terIcon">7</div>
-            <div>/</div>
-            <div class="terIcon">10</div>
-            <div>HP</div>
+            <div>{{localize 'AOV.armourPointsAbbr'}}</div>
+            <div class="centre terIcon"></div>
+            <div class="centre terIcon"></div>
+            <div class="centre terIcon">{{item.system.map}}</div>
+            <div class="new-row">{{localize 'AOV.hpAbbr'}}</div>
             <div class="terIcon">{{item.system.currHp}}</div>
             <div>/</div>
             <div class="terIcon">{{item.system.hpMax}}</div>
@@ -56,6 +57,7 @@
       </div>
     </ol>
 
+    {{!-- Wounds--}}
     <ol class="charHitLoc">
       <div class="woundsGrid">
 
@@ -85,8 +87,10 @@
     </ol>
   </div>
   <br>
+
+  {{!--Weapons--}}
   <ol class="charHitLoc">
-    <div class="gear-header weapons-list-grid">
+    <div class="gear-header {{#if singleColour}}primBackCol{{else}}terBackCol{{/if}} weapons-list-grid">
       <div class='new-row left'>{{localize 'TYPES.Item.weapon'}}</div>
       <div class='centre'>%</div>
       <div class='centre'>{{localize 'AOV.damage'}}</div>

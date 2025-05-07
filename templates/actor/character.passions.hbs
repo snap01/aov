@@ -1,6 +1,6 @@
 <section class='character tab passions {{tab.cssClass}}' data-group='primary' data-tab='passions'>
   <ol class='gear-list'>
-    <li class='item gear-header passion-grid'>
+    <li class='item gear-header primBackCol passion-grid'>
       <div class='left new-row'>{{localize 'AOV.name'}}</div>
       <div class='centre' title="{{localize 'AOV.xpAbbrHint'}}">{{localize 'AOV.xpAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.totalScore'}}">%</div>
@@ -8,7 +8,7 @@
     </li>
     {{#each passions as |item id|}}
     <li class='item passion-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-      <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "AOV.passion")}}'
+      <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.passion")}}'
         data-action='viewDoc'>{{item.name}}</div>
       {{#unless item.system.noXP}}
       <div class='gear-name centre' data-action="itemToggle" data-property="xpCheck"><a>
@@ -25,7 +25,7 @@
       <div class='gear-name centre terIcon'>{{item.system.total}}</div>
       {{#unless ../isLocked}}
       <div class='gear-controls centre'>
-        <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "AOV.gear")}}'
+        <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.passion")}}'
           data-action="deleteDoc">
           <i class='fas fa-trash'></i>
         </a>

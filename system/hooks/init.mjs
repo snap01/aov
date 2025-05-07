@@ -38,6 +38,7 @@ export default function Init() {
   CONFIG.Item.dataModels.weapon = models.AOVWeaponModel
   CONFIG.Item.dataModels.weaponCat = models.AOVWeaponCatModel
   CONFIG.Item.dataModels.wound = models.AOVWoundModel
+  CONFIG.Item.dataModels.armour = models.AOVArmourModel
 
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item

@@ -1,6 +1,8 @@
+{{!--Family Tab--}}
 <section class='character tab family {{tab.cssClass}}' data-group='primary' data-tab='family'>
   <ol class='gear-list'>
-    <li class='item gear-header family-grid'>
+    {{!--Family List--}}
+    <li class='item gear-header primBackCol family-grid'>
       <div class='left new-row'>{{localize 'TYPES.Item.family'}}</div>
       <div class='centre'>{{localize 'AOV.gender'}}</div>
       <div class='centre'>{{localize 'AOV.relationship'}}</div>
@@ -35,8 +37,8 @@
     {{/each}}
 
     <br>
-
-     <li class='item gear-header family-grid' style = "background: var(--secondary-back-colour);">
+    {{!--Thrall List--}}
+    <li class='item gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} family-grid'>
       <div class='left new-row'>{{localize 'TYPES.Item.thrall'}}</div>
       <div class='centre'>{{localize 'AOV.gender'}}</div>
       <div class='centre'>{{localize 'TYPES.Actor.farm'}}</div>
@@ -56,7 +58,8 @@
     {{/each}}
     <br>
 
-    <li class='item gear-header family-grid' style = "background: var(--tertiary-back-colour);">
+    {{!--Farm List--}}
+    <li class='item gear-header {{#if singleColour}}primBackCol{{else}}terBackCol{{/if}} family-grid'>
       <div class='left new-row'>{{localize 'TYPES.Actor.farm'}}</div>
       <div class='centre'>{{localize 'AOV.size'}}</div>
       <div class='centre'>{{localize 'AOV.type'}}</div>

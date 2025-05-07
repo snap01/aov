@@ -1,5 +1,6 @@
 const { api, sheets } = foundry.applications;
 import { CIDEditor } from "../../cid/cid-editor.mjs";
+import { AOVActorItemDrop } from "../actor-item-drop.mjs";
 
 
 export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
@@ -63,7 +64,8 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       system: this.actor.system,
       isLocked: this.actor.system.locked,
       isLinked: this.actor.prototypeToken?.actorLink === true,
-      isSynth: this.actor.isToken
+      isSynth: this.actor.isToken,
+      singleColour: game.settings.get('aov','singleColourBar')
 
     };
   }
@@ -299,13 +301,6 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     if (!this.actor.isOwner) return false;
     const item = await Item.implementation.fromDropData(data);
 
-    //Only let thralls be dropped on farms
-    if (this.actor.type === 'farm' && !['thrall'].includes(item.type)) {
-      ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.cantDropItem', { itemType: game.i18n.localize('TYPES.Item.'+ item.type), actorType: game.i18n.localize('TYPES.Actor.'+ this.actor.type) }))
-      return false
-    }
-
-
     // Handle item sorting within the same Actor
     if (this.actor.uuid === item.parent?.uuid)
       return this._onSortItem(event, item);
@@ -329,8 +324,9 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
 
   //Handle the final creation of dropped Item data on the Actor.
   async _onDropItemCreate(itemData, event) {
-    itemData = itemData instanceof Array ? itemData : [itemData];
-    return this.actor.createEmbeddedDocuments('Item', itemData);
+    itemData = await AOVActorItemDrop._AOVonDropItemCreate(itemData, this.actor)
+    const list = await this.actor.createEmbeddedDocuments('Item', itemData);
+    return list;
   }
 
   //Returns an array of DragDrop instances
