@@ -40,7 +40,6 @@ export class AOVActorItemDrop {
         let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
         if (currentList.length < 1) {
           let extraSkill = await game.aov.cid.fromCID(nItm.system.skillCID)
-          console.log(nItm.system.skillCID,extraSkill)
           if (extraSkill.length>0) {
             let xItm = extraSkill[0].toObject()
             xItm.system.base = await this._AOVcalcBase(xItm, actor);

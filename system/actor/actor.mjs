@@ -29,6 +29,16 @@ export class AOVActor extends Actor {
     await this._prepDerivedStats(actorData)
 
     for (let itm of actorData.items) {
+
+      //Does the item have transferrable effects
+      if (['gear'].includes(itm.type)) {
+        if (itm.transferredEffects.length > 0) {
+          itm.system.hasEffects = true;
+        } else {
+          itm.system.hasEffects = false;
+        }
+      }
+
       if (itm.type === 'skill') {
         //Calculate Total Chance
         itm.system.total = (itm.system.base ?? 0) + (itm.system.xp ?? 0) + (itm.system.home ?? 0) + (itm.system.pers ?? 0)
@@ -127,7 +137,6 @@ export class AOVActor extends Actor {
       }
     }
     systemData.hp.value = systemData.hp.max - totalDmg
-
   }
 
   getRollData() {
@@ -154,7 +163,7 @@ export class AOVActor extends Actor {
   //Prepare Stats
   _prepStats(actorData) {
     for (let [key, ability] of Object.entries(actorData.system.abilities)) {
-      ability.total = ability.value + ability.xp + ability.age
+      ability.total = ability.value + ability.xp + ability.age + (ability.effects ?? 0)
       ability.deriv = ability.total * 5
     }
   }
@@ -284,14 +293,14 @@ export class AOVActor extends Actor {
     } else if (powBonus > 0) {
       powBonus--;
     }
-    maxHP = maxHP + sizBonus + powBonus + systemData.hp.bonus;
+    maxHP = maxHP + sizBonus + powBonus + systemData.hp.bonus + (systemData.hp.effects ?? 0);
     return maxHP;
   }
 
   //Calculate Max Magic Points
   static _calcMaxMP(systemData) {
     let maxMP = systemData.abilities.pow.total;
-    maxMP = maxMP + systemData.mp.bonus;
+    maxMP = maxMP + systemData.mp.bonus + (systemData.mp.effects ?? 0);
     return maxMP;
   }
 

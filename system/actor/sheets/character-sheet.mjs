@@ -1,6 +1,7 @@
-import { prepareActiveEffectCategories } from '../../apps/effects.mjs';
 import { AOVSelectLists } from '../../apps/select-lists.mjs';
 import { AoVActorSheet } from "./actor-sheet.mjs"
+import { AOVActiveEffect } from '../../apps/active-effects.mjs';
+import { AOVActiveEffectSheet } from '../../sheets/aov-active-effect-sheet.mjs'
 
 export class AoVCharacterSheet extends AoVActorSheet {
   constructor(options = {}) {
@@ -172,7 +173,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
         break;
       case 'effects':
         context.tab = context.tabs[partId];
-        context.effects = prepareActiveEffectCategories(this.actor.allApplicableEffects());
+        context.effects = await AOVActiveEffectSheet.getActorEffectsFromSheet(this.document)
         break;
       case 'gmTab':
         context.tab = context.tabs[partId];

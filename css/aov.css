@@ -276,6 +276,8 @@ prose-mirror button.toggle {
 }
 
 .aov .centre {
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
@@ -859,4 +861,72 @@ nav.aov.actor.character.sheet-tabs.tabs {
   grid-template-columns: 200px 100px 100px 100px 30px;
   grid-column-gap: 5px;
   padding-left: 5px;
+}
+
+.aov div.active-effect-change-edit {
+  align-items: center;
+  gap: 1rem;
+}
+
+.aov div.active-effect-change-edit select {
+  flex: 0 0 auto;
+}
+
+.aov div.active-effect-change-edit input {
+  flex: 0 0 3rem;
+}
+
+.aov div.active-effect-change-edit a.control-button {
+  flex: 0 0 30px;
+  text-align: center;
+}
+
+.aov .effects-grid {
+  width: 645px;
+  display: grid;
+  grid-template-columns: 250px 260px 70px 50px;
+  padding-left: 5px;
+}
+
+.aov .base-grid {
+  display: grid;
+  margin: 0px;
+  padding: 0px 0px 0px 0px;
+  row-gap: 5px;
+  column-gap: 5px;
+  font-size: 14px;
+  grid-template-columns: 165px 165px 165px;
+}
+
+.aov .clickable-button {
+  border: 1px solid black;
+  border-radius: 3px;
+  font-size: 14px;
+  background-color: lightgrey;
+  font-weight: bold;
+  text-align: center;
+}
+
+.aov .clickable-button {
+  cursor: pointer;
+}
+
+.aov .weapon-input input {
+  text-align: center;
+  font-weight: bold;
+  border-color: rgba(68, 7, 4, 1);
+  height: calc(100% - 2px);
+}
+
+.aov .active-effect-list {
+  display: grid;
+  grid-template-columns: 250px 100px 50px 50px;
+}
+
+.aov .fade {
+  opacity: 0.3;
+}
+
+.aov .aura-img {
+  margin: auto;
 }

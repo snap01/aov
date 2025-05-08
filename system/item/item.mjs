@@ -54,4 +54,40 @@ export class AOVItem extends Item {
     return super.createDialog(data, createOptions, { types, ...options });
   }
 
+  async _preDelete(options, user) {
+    if (this.parent) {
+      const ids = this.parent.effects.filter(e => e.origin === this.uuid).map(e => e.id)
+      if (ids.length) {
+        await this.parent.deleteEmbeddedDocuments('ActiveEffect', ids)
+      }
+    }
+    return super._preDelete(options, user);
+  }
+
+  /** @override */
+  static async _onCreateOperation(documents, operation, user) {
+    super._onCreateOperation(documents, operation, user)
+    /* Copied from FoundryVTT v12 item.js replacing Actor with ActorDelta */
+    if ( !(operation.parent instanceof ActorDelta) || !CONFIG.ActiveEffect.legacyTransferral || !user.isSelf ) return;
+    const cls = getDocumentClass("ActiveEffect");
+
+    // Create effect data
+    const toCreate = [];
+    for ( let item of documents ) {
+      for ( let e of item.effects ) {
+        if ( !e.transfer ) continue;
+        const effectData = e.toJSON();
+        effectData.origin = item.uuid;
+        toCreate.push(effectData);
+      }
+    }
+
+    // Asynchronously create transferred Active Effects
+    operation = {...operation};
+    delete operation.data;
+    operation.renderSheet = false;
+    // noinspection ES6MissingAwait
+    cls.createDocuments(toCreate, operation);
+  }
+
 }

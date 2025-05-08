@@ -6,6 +6,7 @@ import { handlebarsHelper } from '../setup/handlebar-helpers.mjs';
 import { registerSettings } from '../settings/register-settings.mjs'
 import { registerSheets } from '../setup/register-sheets.mjs'
 import * as models from '../data/_module.mjs';
+import { AOVActiveEffect } from "../apps/active-effects.mjs";
 
 export default function Init() {
   //Add classes to global game object
@@ -23,6 +24,7 @@ export default function Init() {
   // Define custom Document classes
   CONFIG.Item.documentClass = AOVItem;
   CONFIG.Actor.documentClass = AOVActor;
+  CONFIG.ActiveEffect.documentClass = AOVActiveEffect;
 
 
   //Declare Data Models
@@ -40,11 +42,11 @@ export default function Init() {
   CONFIG.Item.dataModels.wound = models.AOVWoundModel
   CONFIG.Item.dataModels.armour = models.AOVArmourModel
 
+  CID.init()
+  registerSheets()
+
   // Active Effects are never copied to the Actor,
   // but will still apply to the Actor from within the Item
   // if the transfer property on the Active Effect is true.
-  CONFIG.ActiveEffect.legacyTransferral = false;
-
-  CID.init()
-  registerSheets()
+  CONFIG.ActiveEffect.legacyTransferral = true;
 }

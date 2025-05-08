@@ -1,5 +1,6 @@
 import { AoVItemSheet } from "./item-sheet.mjs"
 import { AOVSelectLists } from "../../apps/select-lists.mjs"
+import { AOVActiveEffectSheet } from "../../sheets/aov-active-effect-sheet.mjs"
 
 export class AoVGearSheet extends AoVItemSheet {
   constructor(options = {}) {
@@ -8,10 +9,6 @@ export class AoVGearSheet extends AoVItemSheet {
 
   static DEFAULT_OPTIONS = {
     classes: ['gear'],
-    position: {
-      width: 600,
-      height: 320
-    },
   }
 
   static PARTS = {
@@ -19,6 +16,7 @@ export class AoVGearSheet extends AoVItemSheet {
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
     details: { template: 'systems/aov/templates/item/gear.detail.hbs' },
     description: { template: 'systems/aov/templates/item/item.description.hbs' },
+    effects: {template: 'systems/aov/templates/item/item.active-effect.hbs'},
     gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
   }
 
@@ -26,6 +24,10 @@ export class AoVGearSheet extends AoVItemSheet {
     let context = await super._prepareContext(options)
     context.equippedOptions = await AOVSelectLists.equippedOptions(this.document.type)
     context.tabs = this._getTabs(options.parts);
+    context.effects = AOVActiveEffectSheet.getItemEffectsFromSheet(this.document)
+    const changesActiveEffects = AOVActiveEffectSheet.getEffectChangesFromSheet(this.document)
+    context.effectKeys = changesActiveEffects.effectKeys
+    context.effectChanges = changesActiveEffects.effectChanges
 
     return context
   }
@@ -34,6 +36,7 @@ export class AoVGearSheet extends AoVItemSheet {
   async _preparePartContext(partId, context) {
     switch (partId) {
       case 'details':
+      case 'effects':
         context.tab = context.tabs[partId];
         break;
       case 'description':
@@ -82,6 +85,10 @@ export class AoVGearSheet extends AoVItemSheet {
           tab.id = 'details';
           tab.label += 'details';
           break;
+        case 'effects':
+            tab.id = 'effects';
+            tab.label += 'effects';
+            break;
         case 'description':
           tab.id = 'description';
           tab.label += 'description';
@@ -100,7 +107,7 @@ export class AoVGearSheet extends AoVItemSheet {
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     //Only show GM tab if you are GM
-    options.parts = ['header', 'tabs', 'details','description'];
+    options.parts = ['header', 'tabs', 'details','effects','description'];
     if (game.user.isGM) {
         options.parts.push('gmTab');
     }
@@ -108,6 +115,7 @@ export class AoVGearSheet extends AoVItemSheet {
 
   //Activate event listeners using the prepared sheet HTML
   _onRender(context, _options) {
+    AOVActiveEffectSheet.activateListeners(this)
   }
 
 

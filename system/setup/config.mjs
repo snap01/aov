@@ -17,3 +17,15 @@ AOV.omensList = {
   "good": "AOV.Omens.good",
   "blessed": "AOV.Omens.blessed"
 }
+
+AOV.keysActiveEffects = {
+  'system.abilities.str.effects': 'AOV.Ability.str',
+  'system.abilities.con.effects': 'AOV.Ability.con',
+  'system.abilities.siz.effects': 'AOV.Ability.siz',
+  'system.abilities.dex.effects': 'AOV.Ability.dex',
+  'system.abilities.int.effects': 'AOV.Ability.int',
+  'system.abilities.pow.effects': 'AOV.Ability.pow',
+  'system.abilities.cha.effects': 'AOV.Ability.cha',
+  'system.hphealth.effects': 'AOV.mp',
+  'system.mp.effects': 'AOV.mp'
+};
