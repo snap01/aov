@@ -104,5 +104,28 @@ export class AOVUtilities {
       )
   }
 
+  static async toggleDevPhase (toggle) {
+    let state = await game.settings.get('aov', 'developmentEnabled')
+    await game.settings.set('aov', 'developmentEnabled', !state)
+    ui.notifications.info(
+      state
+        ? game.i18n.localize('AOV.devPhaseDisabled')
+        : game.i18n.localize('AOV.devPhaseEnabled')
+    )
+ //TODO: Enable socket
+ //   game.socket.emit('system.CoC7', {
+ //     type: 'updateChar'
+ //   })
+ //   CoC7Utilities.updateCharSheets()
+  }
 
-}    
+  static async toggleXPGain (toggle) {
+    let state = await game.settings.get('aov', 'xpEnabled')
+    await game.settings.set('aov', 'xpEnabled', !state)
+    ui.notifications.info(
+      state
+        ? game.i18n.localize('AOV.xpGainDisabled')
+        : game.i18n.localize('AOV.xpGainEnabled')
+    )
+  }
+}

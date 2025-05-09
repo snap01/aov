@@ -18,6 +18,7 @@
     "birthYearAbbr": "Born",
     "bonuses": "Bonuses",
     "born": "Born",
+    "cancel": "Cancel",
     "carried": "Carried",
     "catBonus": "Category Bonus",
     "category": "Category",
@@ -35,6 +36,9 @@
     "deleteDoc": "Double click to delete {type}",
     "description": "Description",
     "details": "Details",
+    "devPhase": "Development Phase",
+    "devPhaseDisabled": "Development Phase Disabled",
+    "devPhaseEnabled": "Development Phase Enabled",
     "devPoints": "Devotion Points",
     "devPointsAbbr": "DP",
     "died": "Died",
@@ -63,6 +67,7 @@
     "genderAbbr": "Gender",
     "gmNotes": "GM Notes",
     "gmTab": "GM Tab",
+    "gmTools": "GM Tools",
     "gridPos": "Grid Position",
     "gridPosHint": "Choose a number from 1-12 to position the hit location on the character sheet",
     "healRate": "Healing Rate",
@@ -134,10 +139,12 @@
     "status": "Status",
     "statusAbbr": "Status",
     "stored": "Stored",
+    "submit": "Submit",
     "subtract": "Subtract",
     "synth": "This is a synthetic actor",
     "thrall": "Thrall",
     "thrallHint": "Tick this if the person is a thrall rather than a relative",
+    "toggleXP": "Toggle XP",
     "total": "Total",
     "treated": "Treated",
     "type": "Type",
@@ -153,6 +160,10 @@
     "xpAbbrHint": "Tick the box to add an XP check.  If there is no box then the skill can improve through XP",
     "xpCheck": "XP Check",
     "xpCheckHint": "If ticked, this skill is ready for an experience check",
+    "xpGainDisabled": "XP Gain Disabled",
+    "xpGainEnabled": "XP Gain Enabled",
+
+
     "Ability": {
       "str": "STR",
       "con": "CON",
@@ -165,6 +176,18 @@
     "Actor": {
       "hp": "Hit Points",
       "mp": "Magic Points"
+    },
+    "ActorCID": {
+    "ItemsBest": "Chaosium ID: Actor Item replacement",
+    "ItemsWarning": "This action can not be undone, please backup your world before updating your Actors",
+    "ItemsWhich": "Check Item's CID in active compendiums, world compendiums, and Items directory replacing the Actor's Items with the best choice based on these rules",
+    "ItemsRules2": "Check Item's that match the language \"{lang}\" or \"English\" if no translated Items exist",
+    "ItemsRules3": "Select the Item with the highest priority",
+    "ItemsSceneTokens": "Update all tokens on this scene",
+    "ItemsUnlinkedToken": "Update unlinked Actor in directory for each Token first",
+    "ItemsActorSheets": "Update open Actor sheets",
+    "ItemsActorDirectory": "Update all Actors in directory",
+    "ItemsUpdate": "Update"
     },
     "CIDFlag": {
       "documents-in-compendiums": "{count} documents in compendiums",

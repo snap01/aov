@@ -34,5 +34,20 @@ export async function registerSettings() {
   AOVCIDSettings.registerSettings()
 
 
+  //Invisible Settings
+  game.settings.register('aov', 'developmentEnabled', {
+    name: 'Development phased allowed',
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  })
 
+  game.settings.register('aov', 'xpEnabled', {
+    name: 'Enable XP gain',
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: true
+  })
 }

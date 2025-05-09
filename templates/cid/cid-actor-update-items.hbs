@@ -1,0 +1,38 @@
+<div autocomplete="off" class="flexcol-aov" style="height: 350px;">
+  <div class="form-fields" style="display:block";>
+    <p style="background-color: rgb(255, 166, 0); outline: 2px dashed rgba(143, 86, 1, 0.678); padding: 0.5rem;"><i class="fas fa-exclamation-triangle"></i> {{localize 'AOV.ActorCID.ItemsWarning'}}</p>
+    <p>{{localize 'AOV.ActorCID.ItemsWhich'}}</p>
+    <ul>
+      {{#unless sheetData.isEn}}
+      <li>{{localize 'AOV.ActorCID.ItemsRules2' lang=lang}}</li>
+      {{/unless}}
+      <li>{{localize 'AOV.ActorCID.ItemsRules3'}}</li>
+    </ul>
+    <div class="form-group flexrow-aov">
+      <label for="cid-actor-update-items-parent">{{localize 'AOV.ActorCID.ItemsUnlinkedToken'}}:</label>
+      <div style="flex: 0 0 2rem">
+        <input type="checkbox" name="cid-actor-update-items-parent" id="cid-actor-update-items-parent" value="on"  style="margin-left: -5px;" checked="checked">
+      </div>
+    </div>
+    <div class="form-group flexrow-aov">
+      <label for="cid-actor-update-items-which-1">{{localize 'AOV.ActorCID.ItemsSceneTokens'}}:</label>
+      <div style="flex: 0 0 2rem">
+        <input type="radio" name="cid-actor-update-items-which" id="cid-actor-update-items-which-1" value="1" style="margin-left: -6px; transform: scale(1.25);" checked="checked">
+      </div>
+    </div>
+    <div class="form-group flexrow-aov">
+      <label for="cid-actor-update-items-which-2">{{localize 'AOV.ActorCID.ItemsActorSheets'}}:</label>
+      <div style="flex: 0 0 2rem">
+        <input type="radio" name="cid-actor-update-items-which" id="cid-actor-update-items-which-2" value="2" class="submit_on_change" style="margin-left: -6px; transform: scale(1.25);">
+      </div>
+    </div>
+    <div class="form-group flexrow-aov">
+      <label for="cid-actor-update-items-which-3">{{localize 'AOV.ActorCID.ItemsActorDirectory'}}:</label>
+      <div style="flex: 0 0 2rem">
+        <input type="radio" name="cid-actor-update-items-which" id="cid-actor-update-items-which-3" value="3" class="submit_on_change" style="margin-left: -6px; transform: scale(1.25);">
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</div>

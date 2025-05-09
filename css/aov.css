@@ -930,3 +930,43 @@ nav.aov.actor.character.sheet-tabs.tabs {
 .aov .aura-img {
   margin: auto;
 }
+
+.aov .dialog-buttons.flexrow-aov{
+  display: flex ;
+  align-items: center;
+  gap: 10rem;
+  margin-top: 19rem;
+}
+
+#controls {
+  .aovmenu {
+    background: rgba(30, 80, 80, 0.5) !important;
+    &.active,
+    &:hover {
+      border: 1px solid green !important;
+      border-bottom: 1px solid #008060 !important;
+      box-shadow: 0 0 10px #008060 !important;
+    }
+  }
+  li.control-tool.active {
+    i.fa-certificate {
+      color: goldenrod;
+    }
+  }
+}
+#scene-controls {
+  .aovmenu {
+    button {
+      background: rgba(30, 80, 80, 0.5) !important;
+      &.active,
+      &:hover {
+        border: 1px solid green !important;
+        border-bottom: 1px solid #008060 !important;
+        box-shadow: 0 0 10px #008060 !important;
+      }
+    }
+  }
+  button.control.ui-control.fas.fa-certificate[aria-pressed="true"] {
+    color: goldenrod;
+  }
+}
