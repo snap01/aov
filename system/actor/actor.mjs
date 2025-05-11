@@ -41,7 +41,7 @@ export class AOVActor extends Actor {
 
       if (itm.type === 'skill') {
         //Calculate Total Chance
-        itm.system.total = (itm.system.base ?? 0) + (itm.system.xp ?? 0) + (itm.system.home ?? 0) + (itm.system.pers ?? 0)
+        itm.system.total = (itm.system.base ?? 0) + (itm.system.xp ?? 0) + (itm.system.home ?? 0) + (itm.system.pers ?? 0) + (itm.system.effects ?? 0)
         itm.system.catBonus = actorData.system[itm.system.category] ?? 0
         itm.system.catLabel = game.i18n.localize('AOV.skillCat.' + itm.system.category)
         if (itm.system.total > 0) {
@@ -178,6 +178,9 @@ export class AOVActor extends Actor {
       systemData.reputation.total = (systemData.reputation.base ?? 0) + (systemData.reputation.xp ?? 0);
       systemData.status.total = (systemData.status.base ?? 0) + (systemData.status.xp ?? 0);
       systemData.moveRate = (systemData.move.base ?? 0) + (systemData.move.bonus ?? 0);
+      if (systemData.move.penalty !=0) {
+        systemData.moveRate = Math.ceil(systemData.moveRate * systemData.move.penalty)
+      }
       systemData.dmgBonus = AOVActor._damMod(systemData);
       systemData.maxEnc = AOVActor._maxEnc(systemData);
       systemData.age = game.settings.get('aov', 'gameYear') - systemData.birthYear;

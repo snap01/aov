@@ -25,6 +25,7 @@ export default class AOVActorBaseModel extends AOVDataModel {
     schema.locked = new fields.BooleanField({ initial: false });  //Flag to lock the actor sheet
     schema.uncommon = new fields.BooleanField({ initial: false });  //Flag to show uncommon skills or not
     schema.alphaSkills = new fields.BooleanField({ initial: false });  //Flag to list the skills in alphabetical order
+    schema.parryBonus = new fields.NumberField({ ...requiredInteger, initial: 0  });  //Parry Bonus
 
 
     // Iterate over ability names and create a new SchemaField for each.

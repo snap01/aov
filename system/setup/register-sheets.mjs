@@ -11,6 +11,7 @@ import { AoVFamilySheet } from '../item/sheets/family-sheet.mjs';
 import { AoVThrallSheet } from '../item/sheets/thrall-sheet.mjs';
 import { AoVWeaponSheet } from '../item/sheets/weapon-sheet.mjs';
 import { AoVArmourSheet } from '../item/sheets/armour-sheet.mjs';
+import { AoVRuneSheet } from '../item/sheets/rune-sheet.mjs';
 
 export function registerSheets() {
 
@@ -79,6 +80,10 @@ export function registerSheets() {
   });
   collections.Items.registerSheet('aov', AoVArmourSheet, {
     types: ['armour'],
+    makeDefault: true
+  });
+    collections.Items.registerSheet('aov', AoVRuneSheet, {
+    types: ['rune'],
     makeDefault: true
   });
 

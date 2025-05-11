@@ -41,6 +41,7 @@ export default function Init() {
   CONFIG.Item.dataModels.weaponCat = models.AOVWeaponCatModel
   CONFIG.Item.dataModels.wound = models.AOVWoundModel
   CONFIG.Item.dataModels.armour = models.AOVArmourModel
+  CONFIG.Item.dataModels.rune = models.AOVRuneModel
 
   CID.init()
   registerSheets()

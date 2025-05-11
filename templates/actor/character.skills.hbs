@@ -76,6 +76,7 @@
         <div class='centre'>{{localize 'AOV.exp'}}</div>
         <div class='centre' title="{{localize 'AOV.homeland'}}">{{localize 'AOV.homelandAbbr'}}</div>
         <div class='centre' title="{{localize 'AOV.personal'}}">{{localize 'AOV.personalAbbr'}}</div>
+        <div class='centre' title="{{localize 'AOV.effects'}}">{{localize 'AOV.effectsShort'}}</div>
         <div class='centre' title="{{localize 'AOV.category'}}">{{localize 'AOV.categoryAbbr'}}</div>
         <div class='centre'>{{localize 'AOV.total'}}</div>
       </div>
@@ -92,6 +93,7 @@
             type='text' value='{{item.system.home}}' data-field="home" data-dtype="Number"/></div>
           <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.pers'
             type='text' value='{{item.system.pers}}' data-field="pers" data-dtype="Number"/></div>
+          <div class='gear-name centre right-line terIcon'>{{item.system.effects}}</div>
           <div class='gear-name centre right-line terIcon'>{{item.system.catBonus}}</div>
           <div class='gear-name centre'>{{item.system.total}}</div>
         </li>

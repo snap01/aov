@@ -11,7 +11,7 @@ export class AOVCIDActorUpdateItems extends HandlebarsApplicationMixin(Applicati
     tag: 'form',
     name: 'aov-id-actor-update-items',
     classes: ['aov', 'dialog', 'investigator-wizard'],
-    form:{
+    form: {
       handler: AOVCIDActorUpdateItems.formHandler,
       closeOnSubmit: true,
       submitOnClose: false,
@@ -39,7 +39,7 @@ export class AOVCIDActorUpdateItems extends HandlebarsApplicationMixin(Applicati
     footer: { template: 'templates/generic/form-footer.hbs' }
   }
 
-  async _prepareContext (options) {
+  async _prepareContext(options) {
 
     const sheetData = await super._prepareContext()
     sheetData.lang = CONFIG.supportedLanguages[game.i18n.lang] ?? '?'
@@ -50,12 +50,12 @@ export class AOVCIDActorUpdateItems extends HandlebarsApplicationMixin(Applicati
       sheetData,
       buttons: [
         { type: "submit", icon: "fa-solid fa-check", label: submitLabel },
-        { type: "button", action: "cancel", icon: "fa-solid fa-ban", label: cancelLabel}
+        { type: "button", action: "cancel", icon: "fa-solid fa-ban", label: cancelLabel }
       ]
     }
   }
 
-  getUpdateData (item) {
+  getUpdateData(item) {
     const output = {
       flags: {
         aov: {
@@ -89,7 +89,7 @@ export class AOVCIDActorUpdateItems extends HandlebarsApplicationMixin(Applicati
     return output
   }
 
-   async updateActors (actorList, parent) {
+  async updateActors(actorList, parent) {
     if (parent) {
       const unlinkedActors = await actorList.filter(a => a.token?.actorLink === false).map(a => a.id).filter((a, o, v) => v.indexOf(a) === o).reduce(async (c, i) => {
         c.push(await fromUuid('Actor.' + i))
@@ -101,14 +101,12 @@ export class AOVCIDActorUpdateItems extends HandlebarsApplicationMixin(Applicati
     const ids = {}
     for (const actor of actorList) {
 
-        for (const item of actor.items.contents) {
-          if (typeof item.flags?.aov?.cidFlag?.id === 'string') {
-            ids[item.flags.aov.cidFlag.id] = {}
-          }
-       }
+      for (const item of actor.items.contents) {
+        if (typeof item.flags?.aov?.cidFlag?.id === 'string') {
+          ids[item.flags.aov.cidFlag.id] = {}
+        }
+      }
     }
-
-
 
     //Pull back a list of the best match items based on ids
     const found = await game.aov.cid.fromCIDRegexBest({ cidRegExp: game.aov.cid.makeGroupRegEx(Object.keys(ids)), type: 'i', showLoading: true })
@@ -122,65 +120,65 @@ export class AOVCIDActorUpdateItems extends HandlebarsApplicationMixin(Applicati
     for (const actor of actorList) {
       const updates = []
       //Loop through each item on the actor and push the best match over to updates
-        for (const item of actor.items.contents) {
-          if (Object.prototype.hasOwnProperty.call(ids, item.flags?.aov?.cidFlag?.id)) {
-            updates.push(foundry.utils.mergeObject({
-              _id: item.id
-            }, ids[item.flags.aov.cidFlag.id]))
-          }
+      for (const item of actor.items.contents) {
+        if (Object.prototype.hasOwnProperty.call(ids, item.flags?.aov?.cidFlag?.id)) {
+          updates.push(foundry.utils.mergeObject({
+            _id: item.id
+          }, ids[item.flags.aov.cidFlag.id]))
         }
+      }
       //If there are updates then update the embedded items in the actor
       if (updates.length) {
-        await Item.implementation.updateDocuments(updates, {parent: actor});
+        await Item.implementation.updateDocuments(updates, { parent: actor });
       }
     }
   }
 
   static async formHandler(event, form, formData) {
     const usage = foundry.utils.expandObject(formData.object)
-      if (event.submitter.className.indexOf('currently-submitting') > -1) {
-        return
-      }
-      event.submitter.className = event.submitter.className + ' currently-submitting'
-      const parent = typeof usage['cid-actor-update-items-parent'] === 'string'
-      const which = (usage['cid-actor-update-items-which'] ?? '').toString()
-      let activeList = []
-      switch (which) {
-        //Tokens on Scene
-        case '1':
-          for (const body of canvas.scene.tokens.contents) {
-            if (typeof body.uuid === 'string') {
-              if (body.actorLink) {
-                activeList.push(body.actor)
-              } else {
-                let tempBody = await fromUuid(body.actor.uuid)
+    if (event.submitter.className.indexOf('currently-submitting') > -1) {
+      return
+    }
+    event.submitter.className = event.submitter.className + ' currently-submitting'
+    const parent = typeof usage['cid-actor-update-items-parent'] === 'string'
+    const which = (usage['cid-actor-update-items-which'] ?? '').toString()
+    let activeList = []
+    switch (which) {
+      //Tokens on Scene
+      case '1':
+        for (const body of canvas.scene.tokens.contents) {
+          if (typeof body.uuid === 'string') {
+            if (body.actorLink) {
+              activeList.push(body.actor)
+            } else {
+              let tempBody = await fromUuid(body.actor.uuid)
               activeList.push(tempBody)
-              }
             }
           }
-          await this.updateActors(activeList, parent)
-          break
-        //Open Actor Sheets
-        case '2':
-          for (const body of foundry.applications.instances.values()) {
-            if(body.document instanceof Actor) {
-              activeList.push(body.document)
-            }
-          }
+        }
         await this.updateActors(activeList, parent)
-          break
-        //Game Actors
-        case '3':
-          await this.updateActors(game.actors.contents, false)
-          break
-      }
+        break
+      //Open Actor Sheets
+      case '2':
+        for (const body of foundry.applications.instances.values()) {
+          if (body.document instanceof Actor) {
+            activeList.push(body.document)
+          }
+        }
+        await this.updateActors(activeList, parent)
+        break
+      //Game Actors
+      case '3':
+        await this.updateActors(game.actors.contents, false)
+        break
+    }
   }
 
   static async onCancel(event, form, formData) {
     this.close()
   }
 
-  static async create (options = {}) {
+  static async create(options = {}) {
     new AOVCIDActorUpdateItems(options).render(true)
   }
 }

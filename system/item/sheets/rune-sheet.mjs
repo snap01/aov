@@ -1,23 +1,25 @@
 import { AoVItemSheet } from "./item-sheet.mjs"
 import { AOVSelectLists } from "../../apps/select-lists.mjs"
+import { AOVActiveEffectSheet } from "../../sheets/aov-active-effect-sheet.mjs"
 
-export class AoVSkillSheet extends AoVItemSheet {
+
+export class AoVRuneSheet extends AoVItemSheet {
   constructor(options = {}) {
     super(options)
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['skill'],
+    classes: ['rune'],
     position: {
       width: 600,
-      height: 570
+      height: 700
     },
   }
 
   static PARTS = {
     header: { template: 'systems/aov/templates/item/item.header.hbs' },
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
-    details: { template: 'systems/aov/templates/item/skill.detail.hbs' },
+    details: { template: 'systems/aov/templates/item/rune.detail.hbs' },
     description: { template: 'systems/aov/templates/item/item.description.hbs' },
     gmTab: { template: 'systems/aov/templates/item/item.gmtab.hbs' }
   }
@@ -25,27 +27,7 @@ export class AoVSkillSheet extends AoVItemSheet {
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    context.skillCatOptions = await AOVSelectLists.skillCat()
-    context.skillCatName = game.i18n.localize("AOV.skillCat." + context.system.category);
-    context.baseSkillOptions = await AOVSelectLists.baseSkill()
-    context.baseSkillName = game.i18n.localize("AOV." + context.system.baseVal);
-    context.weaponTypeOptions = await AOVSelectLists.weaponType()
-    context.weaponTypeName = game.i18n.localize("AOV." + context.system.weaponType);
-    if (context.system.category === 'cbt') {
-      context.weaponCatOptions = await AOVSelectLists.getWeaponCategories();
-      let weaponCat = await game.aov.cid.fromCID(context.system.weaponCat);
-      context.weaponCatName = weaponCat[0].name ?? ""
-    } else {
-      context.weaponCatName = ""
-    }
-    context.system.total = (context.system.base ?? 0) + (context.system.xp ?? 0) + (context.system.home ?? 0) + (context.system.pers ?? 0) + (context.system.effects ?? 0)
-    context.system.catBonus = 0
-    if (context.hasOwner && context.system.total > 0) {
-      context.system.catBonus = this.item.parent.system[this.item.system.category] ?? 0
-    }
-    context.system.total += context.system.catBonus
-
-
+    context.effectOptions = await AOVSelectLists.effectOptions()
     return context
   }
 
@@ -79,15 +61,6 @@ export class AoVSkillSheet extends AoVItemSheet {
         break;
     }
     return context;
-  }
-
-  _configureRenderOptions(options) {
-    super._configureRenderOptions(options);
-    //Only show GM tab if you are GM
-    options.parts = ['header', 'tabs', 'details','description'];
-    if (game.user.isGM) {
-        options.parts.push('gmTab');
-    }
   }
 
   _getTabs(parts) {
@@ -125,6 +98,14 @@ export class AoVSkillSheet extends AoVItemSheet {
     }, {});
   }
 
+  _configureRenderOptions(options) {
+    super._configureRenderOptions(options);
+    //Only show GM tab if you are GM
+    options.parts = ['header', 'tabs', 'details','description'];
+    if (game.user.isGM) {
+        options.parts.push('gmTab');
+    }
+  }
 
   //Activate event listeners using the prepared sheet HTML
   _onRender(context, _options) {
@@ -132,5 +113,9 @@ export class AoVSkillSheet extends AoVItemSheet {
 
 
   //-----------------------ACTIONS-----------------------------------
+
+
+
+
 
 }

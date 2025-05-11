@@ -44,6 +44,10 @@ export class AoVCharacterSheet extends AoVActorSheet {
       scrollable: [''],
     },
     devotions: { template: 'systems/aov/templates/actor/character.devotions.hbs' },
+    runes: {
+      template: 'systems/aov/templates/actor/character.runes.hbs',
+      scrollable: [''],
+    },
   }
 
   _configureRenderOptions(options) {
@@ -55,7 +59,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
       options.parts.push('gmTab');
     }
     //Last tab is at the top of the list on the character sheet
-    options.parts.push('tabs', 'stats', 'effects', 'notes', 'family', 'gear', 'devotions', 'passions', 'combat', 'skills');
+    options.parts.push('tabs', 'stats', 'effects', 'notes', 'family', 'gear', 'devotions', 'passions','runes', 'combat', 'skills');
   }
 
   _getTabs(parts) {
@@ -83,12 +87,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
         case 'skills':
           tab.id = 'skills';
           tab.label += 'skills';
-          tab.colour = 'tab-red';
+          tab.colour = 'tab-green';
           break;
         case 'passions':
           tab.id = 'passions';
           tab.label += 'passions';
-          tab.colour = 'tab-blue';
+          tab.colour = 'tab-green';
           break;
         case 'gear':
           tab.id = 'gear';
@@ -98,12 +102,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
         case 'notes':
           tab.id = 'notes';
           tab.label += 'notes';
-          tab.colour = 'tab-red';
+          tab.colour = 'tab-green';
           break;
         case 'effects':
           tab.id = 'effects';
           tab.label += 'effects';
-          tab.colour = 'tab-blue';
+          tab.colour = 'tab-green';
           break;
         case 'stats': {
           tab.id = 'stats';
@@ -123,11 +127,16 @@ export class AoVCharacterSheet extends AoVActorSheet {
           tab.colour = 'tab-green';
           break;
         }
-
+        case 'runes': {
+          tab.id = 'runes';
+          tab.label += 'runes';
+          tab.colour = 'tab-green';
+          break;
+        }
         case 'gmTab':
           tab.id = 'gmTab';
           tab.label += 'gmTab';
-          tab.colour = 'tab-yellow';
+          tab.colour = 'tab-green';
           break;
       }
       if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = 'active';
@@ -156,6 +165,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
       case 'gear':
       case 'family':
       case 'stats':
+      case 'runes':
       case 'devotions':
         context.tab = context.tabs[partId];
         break;
@@ -206,6 +216,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const thralls = [];
     const weapons = [];
     const armours = [];
+    const runes = [];
 
     //Not strictly items but get farm actors to get thrall items
     for (let farmUuid of this.document.system.farms) {
@@ -275,6 +286,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
           itm.system.armourLocLabel = itm.system.armourLocLabel + "-" + itm.system.highLoc
         }
         armours.push(itm)
+      } else if (itm.type === 'rune') {
+        runes.push(itm)
       }
     }
 
@@ -347,6 +360,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.farms = farms.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.weapons = weapons.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.armours = armours;
+    context.runes = runes.sort(function (a, b) {return a.name.localeCompare(b.name)});
   }
 
 

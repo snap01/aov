@@ -94,14 +94,6 @@ export class AOVActiveEffectSheet {
       document.element.querySelectorAll('div.active-effect-change-edit .fa-trash').forEach(n => n.addEventListener("click", AOVActiveEffectSheet._onDeleteItemEffectChange.bind(document)))
       document.element.querySelectorAll('div.active-effect-change-edit select').forEach(n => n.addEventListener("click", AOVActiveEffectSheet._onChangeItemEffectChange.bind(document)))
       document.element.querySelectorAll('div.active-effect-change-edit input').forEach(n => n.addEventListener("blur", AOVActiveEffectSheet._onChangeItemEffectChange.bind(document)))
-
-      //html.find('div[data-action="openActiveEffect"]').click(AOVActiveEffectSheet._onOpenActiveEffect.bind(document))
-      //html.find('div[data-action="addItemEffect"]').click(AOVActiveEffectSheet._onAddItemEffect.bind(document))
-      //html.find('div.active-effect-change-edit .fa-trash').click(AOVActiveEffectSheet._onDeleteItemEffectChange.bind(document))
-      //html.find('div.active-effect-change-edit select').click(AOVActiveEffectSheet._onChangeItemEffectChange.bind(document))
-      //html.find('div.active-effect-change-edit input').blur(AOVActiveEffectSheet._onChangeItemEffectChange.bind(document))
-
-
     }
   }
 

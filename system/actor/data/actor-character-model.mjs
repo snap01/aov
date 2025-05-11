@@ -9,6 +9,7 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     schema.move = new fields.SchemaField({
       base: new fields.NumberField({ ...requiredInteger, initial: 10 }),
       bonus: new fields.NumberField({ ...requiredInteger, initial: 0 }),
+      penalty: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
     schema.reputation = new fields.SchemaField({
       base: new fields.NumberField({ ...requiredInteger, initial: 5 }),

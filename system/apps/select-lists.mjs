@@ -151,4 +151,38 @@ export class AOVSelectLists {
     };
     return options;
   }
+
+  //Effect Options
+  static async effectOptions() {
+    let options = {
+      "none": game.i18n.localize("AOV.noneSelected")
+    }
+    let effectKeys = await foundry.utils.duplicate(CONFIG.AOV.keysActiveEffects)
+    let newOption = {}
+    for (let [key,name] of Object.entries(effectKeys)) {
+      newOption = { [key]: game.i18n.localize(name), };
+      options = Object.assign(options, newOption)
+    }
+
+    const effectSkillOptions = (await game.aov.categories).filter(d => d.type === 'skill')
+    effectSkillOptions.sort(function (a, b) {
+      return a.name.localeCompare(b.name)
+    });
+    let skillList = effectSkillOptions.reduce((c, i) => {
+      let effectPath = "system.cidFlagItems." + i.flags.aov.cidFlag.id + ".system.effects"
+      c[effectPath] = (game.i18n.localize('AOV.skill') + ": " + i.name)
+      return c
+    }, {})
+
+    options = Object.assign(options, skillList)
+
+    let specialEffectKeys = await foundry.utils.duplicate(CONFIG.AOV.keysSpecialActiveEffects)
+    for (let [key,name] of Object.entries(specialEffectKeys)) {
+      newOption = { [key]: game.i18n.localize('AOV.special') + ": " + game.i18n.localize(name), };
+      options = Object.assign(options, newOption)
+    }
+
+
+    return options;
+  }
 }

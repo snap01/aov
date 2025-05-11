@@ -26,6 +26,11 @@ AOV.keysActiveEffects = {
   'system.abilities.int.effects': 'AOV.Ability.int',
   'system.abilities.pow.effects': 'AOV.Ability.pow',
   'system.abilities.cha.effects': 'AOV.Ability.cha',
-  'system.hphealth.effects': 'AOV.mp',
+  'system.hp.effects': 'AOV.hp',
   'system.mp.effects': 'AOV.mp'
 };
+
+AOV.keysSpecialActiveEffects = {
+  'system.parryBonus': 'AOV.parryBonus',
+  'system.move.penalty': 'AOV.slowed',
+}
