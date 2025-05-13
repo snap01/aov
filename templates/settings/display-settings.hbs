@@ -1,6 +1,7 @@
 <div class="aov settingsForm flexcol" autocomplete="off">
     <h2 class="bold">{{localize 'AOV.Settings.displayOptions'}}</h2>
 
+    {{#if isGM}}
     <div class="form-group">
       <label class="bold">{{localize 'AOV.Settings.primaryFontColour'}}</label>
       <div class="form-fields" style="flex: 1;">
@@ -40,11 +41,12 @@
       </div>
       <p class="settingNote">{{localize 'AOV.Settings.primaryFontHint'}}</p>
     </div>
+    {{/if}}
 
     <div class="form-group">
       <label class="bold">{{localize 'AOV.Settings.singleColourBar'}}</label>
       <div class="form-fields" style="flex: 1;">
-        <input type="checkbox" {{checked singleColourBar.value}} name="singleColourBar">
+        <input type="checkbox" {{checked optSet.singleColourBar.value}} name="singleColourBar">
       </div>
       <p class="settingNote">{{localize 'AOV.Settings.singleColourBarHint'}}</p>
     </div>

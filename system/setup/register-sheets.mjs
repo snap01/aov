@@ -12,6 +12,8 @@ import { AoVThrallSheet } from '../item/sheets/thrall-sheet.mjs';
 import { AoVWeaponSheet } from '../item/sheets/weapon-sheet.mjs';
 import { AoVArmourSheet } from '../item/sheets/armour-sheet.mjs';
 import { AoVRuneSheet } from '../item/sheets/rune-sheet.mjs';
+import { AoVRuneScriptSheet } from '../item/sheets/runescript-sheet.mjs';
+import { AoVSeidurSheet } from '../item/sheets/seidur-sheet.mjs';
 
 export function registerSheets() {
 
@@ -86,5 +88,12 @@ export function registerSheets() {
     types: ['rune'],
     makeDefault: true
   });
-
+    collections.Items.registerSheet('aov', AoVRuneScriptSheet, {
+    types: ['runescript'],
+    makeDefault: true
+  });
+    collections.Items.registerSheet('aov', AoVSeidurSheet, {
+    types: ['seidur'],
+    makeDefault: true
+  });
 }

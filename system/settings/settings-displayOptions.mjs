@@ -49,7 +49,7 @@ const SETTINGS = {
   singleColourBar: {
     name: "AOV.Settings.singleColourBar",
     hint: "AOV.Settings.singleColourBarHint",
-    scope: "world",
+    scope: "client",
     config: false,
     type: Boolean,
     default: false
@@ -92,7 +92,7 @@ export class AOVDisplaySettings extends HandlebarsApplicationMixin(ApplicationV2
 
 
   async _prepareContext(options) {
-
+    const isGM = game.user.isGM;
     const optSet = {}
     for (const [k, v] of Object.entries(SETTINGS)) {
       optSet[k] = {
@@ -101,6 +101,7 @@ export class AOVDisplaySettings extends HandlebarsApplicationMixin(ApplicationV2
       }
     }
     return {
+      isGM,
       optSet,
       buttons: [
         { type: "submit", icon: "fa-solid fa-save", label: "SETTINGS.Save" },

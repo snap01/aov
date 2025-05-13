@@ -112,11 +112,10 @@ export class AOVUtilities {
         ? game.i18n.localize('AOV.devPhaseDisabled')
         : game.i18n.localize('AOV.devPhaseEnabled')
     )
- //TODO: Enable socket
- //   game.socket.emit('system.CoC7', {
- //     type: 'updateChar'
- //   })
- //   CoC7Utilities.updateCharSheets()
+    game.socket.emit('system.aov', {
+      type: 'updateChar'
+    })
+    AOVUtilities.updateCharSheets()
   }
 
   static async toggleXPGain (toggle) {
@@ -127,5 +126,23 @@ export class AOVUtilities {
         ? game.i18n.localize('AOV.xpGainDisabled')
         : game.i18n.localize('AOV.xpGainEnabled')
     )
+  }
+
+    static updateCharSheets () {
+    if (game.user.isGM) {
+      for (const a of game.actors.contents) {
+        if (a?.type === 'character' && a?.sheet && a?.sheet?.rendered) {
+          a.update({ 'system.flags.locked': true })
+          a.render(false)
+        }
+      }
+    } else {
+      for (const a of game.actors.contents) {
+        if (a.isOwner) {
+          a.update({ 'system.flags.locked': true })
+          a.render(false)
+        }
+      }
+    }
   }
 }

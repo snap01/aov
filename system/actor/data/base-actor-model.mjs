@@ -18,13 +18,15 @@ export default class AOVActorBaseModel extends AOVDataModel {
       value: new fields.NumberField({ ...requiredInteger, initial: 5 }),
       max: new fields.NumberField({ ...requiredInteger, initial: 5 }),
       bonus: new fields.NumberField({ ...requiredInteger, initial: 0 }),
-      effects: new fields.NumberField({ ...requiredInteger, initial: 0 })
+      effects: new fields.NumberField({ ...requiredInteger, initial: 0 }),
+      locked: new fields.NumberField({ ...requiredInteger, initial: 0 })
     });
     schema.description = new fields.StringField({ required: true, blank: true });
     schema.gmNotes = new fields.StringField({ required: true, blank: true });
     schema.locked = new fields.BooleanField({ initial: false });  //Flag to lock the actor sheet
     schema.uncommon = new fields.BooleanField({ initial: false });  //Flag to show uncommon skills or not
     schema.alphaSkills = new fields.BooleanField({ initial: false });  //Flag to list the skills in alphabetical order
+    schema.showRunes = new fields.BooleanField({ initial: true });  //Flag to show the runes
     schema.parryBonus = new fields.NumberField({ ...requiredInteger, initial: 0  });  //Parry Bonus
 
 

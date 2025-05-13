@@ -19,7 +19,7 @@ export async function registerSettings() {
     label: 'AOV.Settings.displayOptions',
     icon: 'fas fa-palette',
     type: AOVDisplaySettings,
-    restricted: true
+    restricted: false
   })
   AOVDisplaySettings.registerSettings()
 

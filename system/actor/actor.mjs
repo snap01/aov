@@ -81,6 +81,11 @@ export class AOVActor extends Actor {
           itm.system.actlEnc = 0
         }
         systemData.actualEnc += (itm.system.actlEnc ?? 0)
+      } else if (itm.type === 'runescript') {
+        let runedetails = await AOVActor.runeMPCost (itm)
+        itm.system.mpCost = runedetails.cost;
+        itm.system.maxEff = runedetails.maxEff;
+        itm.system.effective = runedetails.effective;
       }
     }
     systemData.actualEnc = Math.floor(systemData.actualEnc)
@@ -123,7 +128,7 @@ export class AOVActor extends Actor {
 
       //Go through Weapons and calc best score from weapon skill and half the category score
       if (itm.type === 'weapon'){
-        let weaponSkill = await actorData.items.filter(i=>i.flags.aov.cidFlag.id === itm.system.skillCID)
+        let weaponSkill = await actorData.items.filter(i=>i.flags.aov?.cidFlag?.id === itm.system.skillCID)
         let weaponScore = 0
         if (weaponSkill.length > 0) {
           weaponScore = weaponSkill[0].system.total
@@ -303,7 +308,7 @@ export class AOVActor extends Actor {
   //Calculate Max Magic Points
   static _calcMaxMP(systemData) {
     let maxMP = systemData.abilities.pow.total;
-    maxMP = maxMP + systemData.mp.bonus + (systemData.mp.effects ?? 0);
+    maxMP = maxMP + systemData.mp.bonus + (systemData.mp.effects ?? 0) - (systemData.mp.locked ?? 0);
     return maxMP;
   }
 
@@ -427,4 +432,28 @@ export class AOVActor extends Actor {
     return bonus
   }
 
+  //Runescript Magic Point Cost
+  static async runeMPCost (runescript) {
+    let runes = 0
+      for (let [key, rune] of Object.entries(runescript.system.runes)) {
+        if (!['none',''].includes(rune)) {
+          runes ++
+        }
+      }
+    let cost = runes*2
+    let maxEff = Math.floor((runes-1)/2)
+    let effective = false
+    if ([3,5,7,9].includes(runes)) {
+      effective = true
+    }
+    return {cost, maxEff, effective}
+  }
+
+  //Seidur Spell Magic Point Cost
+  static async seidurMPCost (seidur)
+ {
+  let cost = (seidur.system.dimension ??0 ) + (seidur.system.distance ??0 ) + (seidur.system.duration ?? 0 )
+  let mpLocked = Math.max((seidur.system.dimension ??0 ) , (seidur.system.distance ??0 ) , (seidur.system.duration ?? 0 ) )
+  return {cost, mpLocked}
+ }
 }

@@ -87,19 +87,23 @@
     "hpCurr": "Current/Max HP",
     "hpMax": "Max HP",
     "ideals": "Ideals",
+    "impact": "Impact",
     "inactive": "Inactive",
     "length": "Length",
     "linked": "The token is not linked to the actor",
     "lock": "Click to lock the sheet",
+    "lockedMP": "Locked Magic Points",
     "locType": "Hit Location Type",
     "manuallyEditActiveEffects": "Manually edit the active effects",
     "mapLocHint": "Double click on land to place the farm",
     "material": "Material",
+    "maxEffects": "Maximum Effects",
     "maxEnc": "Maximum Encumberance",
     "maxEncAbbr": "ME",
     "maxHPBonus": "Max HP Bonus",
     "maxMPBonus": "Max MP Bonus",
     "meaning": "Meaning",
+    "meanings": "Meanings",
     "melee": "Melee",
     "missile": "Missile",
     "minSTRDEX": "Min STR / DEX",
@@ -114,10 +118,12 @@
     "nameMeanAbbr": "Meaning",
     "naturalWpn": "Natural Weapon",
     "nickname": "Nickname",
+    "no": "No",
     "noneSelected": "Nothing Selected",
     "notes": "Notes",
     "noXP": "No XP Allowed",
     "noXPHint": "If ticked, these skills can not be improved via experience",
+    "oddRunes": "Valid Runescript",
     "packed": "Packed",
     "parryBonus": "Parry Bonus",
     "personal": "Personal",
@@ -130,6 +136,9 @@
     "relationship": "Relationship",
     "reput": "Reputation",
     "reputAbbr": "Rep",
+    "results": "Results",
+    "runes": "Runes",
+    "showRunes": "Toggle this to show/hide the known runes",
     "size": "Size",
     "skill": "Skill",
     "skills": "Skills",
@@ -169,6 +178,7 @@
     "xpCheckHint": "If ticked, this skill is ready for an experience check",
     "xpGainDisabled": "XP Gain Disabled",
     "xpGainEnabled": "XP Gain Enabled",
+    "yes": "Yes",
 
 
     "Ability": {
@@ -239,6 +249,40 @@
       "i": "I",
       "s": "S"
     },
+
+    "dimension": {
+      "label": "Dimension",
+      "0": "Mundane",
+      "1": "Very weak",
+      "2": "Weak",
+      "3": "Medium",
+      "4": "Strong",
+      "5": "Very strong",
+      "6": "Fantastic"
+    },
+
+    "distance": {
+      "label": "Distance",
+      "0": "Line of Sight",
+      "1": "Within a single day's ride",
+      "2": "Within a few days' ride",
+      "3": "Within a few weeks'ride",
+      "4": "In this country",
+      "5": "In another country you have visited",
+      "6": "Anywhere"
+    },
+
+    "duration": {
+      "label": "Duration",
+      "0":"Immediate",
+      "1": "Minutes",
+      "2": "Hours",
+      "3": "Days",
+      "4": "Weeks",
+      "5": "Months",
+      "6": "Years"
+    },
+
     "Effect": {
       "inactive": "Inactive",
       "passive": "Passive",
@@ -249,6 +293,7 @@
     "ErrorMsg": {
       "cantDropItem": "You can not add a {itemType} item to a {actorType}.",
       "cantDropActor": "You can not add a {itemType} actor to a {actorType}.",
+      "cantTransfer": "You can't transfer a {itemType} between actors",
       "dupItem": "{itemName} already exists on this sheet and can not be added again",
       "noCIDFlag": "Can't add {itemName} as it does not have a Chaosium ID"
     },
@@ -280,6 +325,14 @@
       "spiritual": "Spiritual",
       "steadfast": "Steadfast",
       "wanderer": "Wanderer"
+    },
+
+    "realm": {
+      "label": "Realm",
+      "body": "Body",
+      "mind": "Mind",
+      "spirit": "Spirit",
+      "weave": "Weave"
     },
 
     "Settings": {
@@ -324,7 +377,7 @@
     "Tabs": {
       "combat": "Combat",
       "description": "Notes",
-      "devotions": "Devotion",
+      "devotions": "Beliefs",
       "effects": "Effects",
       "family": "Family",
       "gear": "Equip",
@@ -333,7 +386,7 @@
       "location": "Location",
       "notes": "Notes",
       "passions": "Passions",
-      "runes": "Runes",
+      "magic": "Magic",
       "skills": "Skills",
       "stats": "Stats",
       "thralls": "Thralls"
@@ -352,6 +405,8 @@
       "hitloc": "Hit Location",
       "passion": "Passion",
       "rune": "Rune",
+      "runescript":"Rune Script",
+      "seidur": "Seidur Spell",
       "skill": "Skill",
       "thrall": "Thrall",
       "weapon": "Weapon",

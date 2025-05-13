@@ -65,8 +65,8 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       isLocked: this.actor.system.locked,
       isLinked: this.actor.prototypeToken?.actorLink === true,
       isSynth: this.actor.isToken,
-      singleColour: game.settings.get('aov','singleColourBar')
-
+      singleColour: game.settings.get('aov','singleColourBar'),
+      isDevelop: game.settings.get('aov','developmentEnabled')
     };
   }
 
@@ -130,7 +130,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     event.stopPropagation();
     let checkProp={}
     let prop = target.dataset.property
-    if (['locked', 'uncommon', 'alphaSkills'].includes(prop)) {
+    if (['locked', 'uncommon', 'alphaSkills','showRunes'].includes(prop)) {
       checkProp = { [`system.${prop}`]: !this.actor.system[prop] }
     } else {
       return

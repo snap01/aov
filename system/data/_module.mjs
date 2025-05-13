@@ -17,3 +17,5 @@ export { default as AOVThrallModel} from "../item/data/item-thrall-model.mjs";
 export { default as AOVWeaponModel} from "../item/data/item-weapon-model.mjs";
 export { default as AOVArmourModel} from "../item/data/item-armour-model.mjs";
 export { default as AOVRuneModel} from "../item/data/item-rune-model.mjs";
+export { default as AOVRunescriptModel} from "../item/data/item-runescript-model.mjs";
+export { default as AOVSeidurModel} from "../item/data/item-seidur-model.mjs";

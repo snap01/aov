@@ -185,4 +185,73 @@ export class AOVSelectLists {
 
     return options;
   }
+
+  //Owned Rune List
+  static async ownedRuneList(actor) {
+    let options = {"none":game.i18n.localize("AOV.noneSelected")}
+    const runeList = (await actor.items).filter(d => d.type === 'rune')
+    runeList.sort(function (a, b) {
+      return a.name.localeCompare(b.name)
+    });
+    let newRunes = runeList.reduce((c, i) => {
+      c[i.flags.aov?.cidFlag?.id] = i.name
+      return c
+    }, {})
+    options = Object.assign(options, newRunes)
+    return options;
+  }
+
+  //Seigur Realm List
+  static async realmList() {
+    let options = {
+      "mind": game.i18n.localize("AOV.realm.mind"),
+      "body": game.i18n.localize("AOV.realm.body"),
+      "spirit": game.i18n.localize("AOV.realm.spirit"),
+      "weave": game.i18n.localize("AOV.realm.weave")
+    };
+    return options;
+  }
+
+  //Seigur Duration List
+  static async durationList() {
+    let options = {
+      0: game.i18n.localize("AOV.duration.0"),
+      1: game.i18n.localize("AOV.duration.1"),
+      2: game.i18n.localize("AOV.duration.2"),
+      3: game.i18n.localize("AOV.duration.3"),
+      4: game.i18n.localize("AOV.duration.4"),
+      5: game.i18n.localize("AOV.duration.5"),
+      6: game.i18n.localize("AOV.duration.6"),
+    };
+    return options;
+  }
+
+  //Seigur Distance List
+  static async distanceList() {
+    let options = {
+      0: game.i18n.localize("AOV.distance.0"),
+      1: game.i18n.localize("AOV.distance.1"),
+      2: game.i18n.localize("AOV.distance.2"),
+      3: game.i18n.localize("AOV.distance.3"),
+      4: game.i18n.localize("AOV.distance.4"),
+      5: game.i18n.localize("AOV.distance.5"),
+      6: game.i18n.localize("AOV.distance.6"),
+    };
+    return options;
+  }
+
+  //Seigur Dimension List
+  static async dimensionList() {
+    let options = {
+      0: game.i18n.localize("AOV.dimension.0"),
+      1: game.i18n.localize("AOV.dimension.1"),
+      2: game.i18n.localize("AOV.dimension.2"),
+      3: game.i18n.localize("AOV.dimension.3"),
+      4: game.i18n.localize("AOV.dimension.4"),
+      5: game.i18n.localize("AOV.dimension.5"),
+      6: game.i18n.localize("AOV.dimension.6"),
+    };
+    return options;
+  }
+
 }

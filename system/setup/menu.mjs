@@ -92,7 +92,7 @@ export class AOVMenu {
 
   static renderControls (app, html, data) {
     const isGM = game.user.isGM
-    if (foundry.utils.isNewerVersion(game.version, '13')) {
+    //if (foundry.utils.isNewerVersion(game.version, '13')) {
       const gmMenu = html.querySelector('.fa-solid fa-hammer')?.parentNode
       if (gmMenu && !gmMenu.classList.contains('aovmenu')) {
         gmMenu.classList.add('aovmenu')
@@ -103,10 +103,9 @@ export class AOVMenu {
           menuButton.type = 'button'
         }
       }
-    } else {
-      const gmMenu = html.find('.fa-solid fa-hammer').parent()
-      gmMenu.addClass('aovmenu')
-
-    }
+    //} else {
+    //  const gmMenu = html.find('.fa-solid fa-hammer').parent()
+    //  gmMenu.addClass('aovmenu')
+    //}
   }
 }

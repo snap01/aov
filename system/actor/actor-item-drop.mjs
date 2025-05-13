@@ -8,6 +8,12 @@ export class AOVActorItemDrop {
       let nItm = thisItem.toObject()
       let nItmCidFlag = nItm.flags.aov?.cidFlag?.id
 
+      //Can't drop certain types of items
+      if (['wound','runescript'].includes(nItm.type)) {
+        ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.cantTransfer', { itemType: game.i18n.localize('TYPES.Item.'+ nItm.type)}));
+        continue;
+      }
+
       //Check Dropped item has a Chaosium ID, if not then don't add it
       if (!nItmCidFlag) {
         ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.noCIDFlag', { itemName: nItm.name}));

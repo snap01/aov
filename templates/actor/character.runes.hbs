@@ -1,21 +1,72 @@
 <section class='character tab runes {{tab.cssClass}}' data-group='primary' data-tab='runes'>
+  <div class="armour-grid">
+    <div>Locked Magic Points</div>
+    <input class="ability-cell" type='number' name='system.mp.locked' value='{{system.mp.locked}}'
+          data-dtype='Number' />
+  </div>
+  <br>
+
   {{!--Runes List--}}
   <ol class='gear-list'>
     <li class='item gear-header primBackCol runes-grid'>
-      <div class='item-image'></div>
-      <div class='left'>{{localize 'AOV.name'}}</div>
+      <div class='item-image'>{{localize "TYPES.Item.rune"}}</div>
+      <div class='left'></div>
       <div class='centre'>{{localize 'AOV.areas'}}</div>
-      <div class='centre'></div>
+      <div class='centre'>
+        <a data-action="toggleActor" data-property = "showRunes" title="{{localize 'AOV.showRunes'}}">
+        {{#if system.showRunes}}
+          <i class="fa-solid fa-magnifying-glass-minus"></i>
+        {{else}}
+          <i class="fa-solid fa-magnifying-glass-plus"></i>
+        {{/if}}
+        </a>
+      </div>
     </li>
-    {{#each runes as |item id|}}
-    <li class='item runes-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-      <div class='new-row item-image' title='{{item.name}}'><a><img src='{{item.img}}' width='40' height='40' /> </a></div>
-      <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.rune")}}'
+    {{#if system.showRunes}}
+      {{#each runes as |item id|}}
+        <li class='item runes-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+          <div class='new-row item-image' title='{{item.name}}'><a><img src='{{item.img}}' width='40' height='40' /> </a></div>
+          <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.rune")}}'
+            data-action='viewDoc'>{{item.name}}</div>
+          <div class="area-of-power"> {{item.system.areas}}</div>
+          {{#unless ../isLocked}}
+          <div class='gear-controls centre'>
+            <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.rune")}}'
+              data-action="deleteDoc">
+              <i class='fas fa-trash'></i>
+            </a>
+          </div>
+          {{/unless}}
+        </li>
+      {{/each}}
+    {{/if}}
+  </ol>
+  <br>
+
+  {{!--Runes List--}}
+  <ol class='gear-list'>
+    <li class='item gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} runescript-grid'>
+      <div class='left'>{{localize "TYPES.Item.runescript"}}</div>
+      <div class='centre'>{{localize 'AOV.impact'}}</div>
+      {{#unless ../isLocked}}
+      <div class='centre'>
+        {{#if @root.editable}}
+        <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.runescript")}}'
+          data-action='createDoc' data-document-class='Item' data-type='runescript'>
+          <i class='fas fa-plus'></i>
+        </a>
+        {{/if}}
+      </div>
+      {{/unless}}
+    </li>
+    {{#each runescripts as |item id|}}
+    <li class='item runescript-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+      <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.runescript")}}'
         data-action='viewDoc'>{{item.name}}</div>
-      <div class="area-of-power"> {{item.system.areas}}</div>
+      <div class="truncate" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
       {{#unless ../isLocked}}
       <div class='gear-controls centre'>
-        <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.rune")}}'
+        <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.runescript")}}'
           data-action="deleteDoc">
           <i class='fas fa-trash'></i>
         </a>
@@ -23,6 +74,41 @@
       {{/unless}}
     </li>
     {{/each}}
-
   </ol>
+  <br>
+
+  {{!--Seidur Magic--}}
+  <ol class='gear-list'>
+    <li class='item gear-header {{#if singleColour}}primBackCol{{else}}terBackCol{{/if}} runescript-grid'>
+      <div class='left'>{{localize "TYPES.Item.seidur"}}</div>
+      <div class='centre'>{{localize 'AOV.impact'}}</div>
+      {{#unless ../isLocked}}
+      <div class='centre'>
+        {{#if @root.editable}}
+        <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.seidur")}}'
+          data-action='createDoc' data-document-class='Item' data-type='seidur'>
+          <i class='fas fa-plus'></i>
+        </a>
+        {{/if}}
+      </div>
+      {{/unless}}
+    </li>
+    {{#each seidurs as |item id|}}
+    <li class='item runescript-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+      <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.seidur")}}'
+        data-action='viewDoc'>{{item.name}}</div>
+      <div class="truncate" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
+      {{#unless ../isLocked}}
+      <div class='gear-controls centre'>
+        <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.seidur")}}'
+          data-action="deleteDoc">
+          <i class='fas fa-trash'></i>
+        </a>
+      </div>
+      {{/unless}}
+    </li>
+    {{/each}}
+  </ol>
+
+
 </section>
