@@ -665,8 +665,25 @@ prose-mirror button.toggle {
 .aov .personalSec {
   display: grid;
   grid-template-columns: max-content auto;
-
   grid-column-gap: 5px;
+}
+
+.aov .personalSecDbl {
+  display: grid;
+  grid-template-columns: 150px 150px;
+  grid-column-gap: 5px;
+}
+
+.aov .distinct {
+  max-height:40px;
+  min-height: 40px;
+  padding-top: 3px;
+}
+.aov .distinctFeat{
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: var(--aov-primary-font);
 }
 
 .aov .derivedStats {

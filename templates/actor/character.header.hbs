@@ -100,14 +100,20 @@
         <div class="ability-cell left bold" title="{{localize 'AOV.gender'}}">{{localize 'AOV.genderAbbr'}}</div>
         <div class='ability-cell bottom-line centre'>{{actor.system.gender}}</div>
       </div>
-      <div class="personalSec">
+      <div class="personalSecDbl">
+        <div class="personalSec">
+          <div class="ability-cell left bold" title="{{localize 'AOV.birthYear'}}">{{localize 'AOV.birthYearAbbr'}}</div>
+          <div class='ability-cell bottom-line centre'>{{actor.system.birthYear}}</div>
+        </div>
+        <div class="personalSec">
+          <div class="ability-cell left bold" title="{{localize 'AOV.age'}}">{{localize 'AOV.ageAbbr'}}</div>
+          <div class="ability-cell centre terIcon bottom-line">{{system.age}}</div>
+        </div>
+      </div>
+      <div class="personalSec distinct">
         <div class="ability-cell left bold" title="{{localize 'AOV.distFeatures'}}">{{localize 'AOV.distFeaturesAbbr'}}
         </div>
-        <div class='ability-cell bottom-line centre'>{{actor.system.distFeatures}}</div>
-      </div>
-      <div class="personalSec">
-        <div class="ability-cell left bold" title="{{localize 'AOV.birthYear'}}">{{localize 'AOV.birthYearAbbr'}}</div>
-        <div class='ability-cell bottom-line centre'>{{actor.system.birthYear}}</div>
+        <div class='ability-cell centre'>{{actor.system.distFeatures}}</div>
       </div>
       {{else}}
       <div class="personalSec">
@@ -133,22 +139,22 @@
         <div class='ability-cell'><input class="stat-input centre" name='system.gender' type='text'
             value='{{actor.system.gender}}' /></div>
       </div>
-      <div class="personalSec">
-        <div class="ability-cell left bold" title="{{localize 'AOV.distFeatures'}}">{{localize 'AOV.distFeaturesAbbr'}}
+      <div class="personalSecDbl">
+        <div class="personalSec">
+          <div class="ability-cell left bold" title="{{localize 'AOV.birthYear'}}">{{localize 'AOV.birthYearAbbr'}}</div>
+          <div class='ability-cell'><input class="stat-input centre" name='system.birthYear' type='text'
+              value='{{actor.system.birthYear}}' data-dtype="Number" /></div>
         </div>
-        <div class='ability-cell'><input class="stat-input centre" name='system.distFeatures' type='text'
-            value='{{actor.system.distFeatures}}' /></div>
+        <div class="personalSec">
+          <div class="ability-cell left bold" title="{{localize 'AOV.age'}}">{{localize 'AOV.ageAbbr'}}</div>
+          <div class="ability-cell centre terIcon bottom-line">{{system.age}}</div>
+        </div>
       </div>
-      <div class="personalSec">
-        <div class="ability-cell left bold" title="{{localize 'AOV.birthYear'}}">{{localize 'AOV.birthYearAbbr'}}</div>
-        <div class='ability-cell'><input class="stat-input centre" name='system.birthYear' type='text'
-            value='{{actor.system.birthYear}}' data-dtype="Number" /></div>
+      <div class="personalSec distinct">
+        <div class="ability-cell left bold" title="{{localize 'AOV.distFeatures'}}">{{localize 'AOV.distFeaturesAbbr'}}</div>
+        <textarea class='distinctFeat secIcon centre' name='system.distFeatures'>{{actor.system.distFeatures}}</textarea>
       </div>
       {{/if}}
-      <div class="personalSec">
-        <div class="ability-cell left bold" title="{{localize 'AOV.age'}}">{{localize 'AOV.ageAbbr'}}</div>
-        <div class="ability-cell centre terIcon bottom-line">{{system.age}}</div>
-      </div>
     </div>
 
     {{!Image Section}}

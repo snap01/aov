@@ -26,12 +26,23 @@ export class AOVActorItemDrop {
         continue;
       }
 
-      //Check for duplicate skills, passions and devotions
-      if (['skill','passion','devotion'].includes(nItm.type)){
+      //Check for duplicate passions and devotions
+      if (['passion','devotion'].includes(nItm.type)){
         let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
         if (currentList.length > 0) {
           ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.dupItem', { itemName: (nItm.name +"(" + nItmCidFlag +")") }));
           continue;
+        }
+      }
+
+      //Check for duplicate skills, but not specialised skills
+      if (['skill'].includes(nItm.type)){
+        if (!nItm.system.specSkill) {
+          let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
+          if (currentList.length > 0) {
+            ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.dupItem', { itemName: (nItm.name +"(" + nItmCidFlag +")") }));
+            continue;
+          }
         }
       }
 
