@@ -1,5 +1,6 @@
 import { AoVCharacterSheet } from '../actor/sheets/character-sheet.mjs';
 import { AoVFarmSheet } from '../actor/sheets/farm-sheet.mjs';
+import { AoVShipSheet } from '../actor/sheets/ship-sheet.mjs';
 import { AoVGearSheet } from '../item/sheets/gear-sheet.mjs';
 import { AoVSkillSheet } from '../item/sheets/skill-sheet.mjs';
 import { AoVPassionSheet } from '../item/sheets/passion-sheet.mjs';
@@ -36,6 +37,10 @@ export function registerSheets() {
   });
   collections.Actors.registerSheet('aov', AoVFarmSheet, {
     types: ['farm'],
+    makeDefault: true
+  });
+  collections.Actors.registerSheet('aov', AoVShipSheet, {
+    types: ['ship'],
     makeDefault: true
   });
 

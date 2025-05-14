@@ -88,7 +88,7 @@ export class AOVSelectLists {
 
   static async preLoadCategoriesCategories() {
     return new Promise(async (resolve, reject) => {
-      resolve(await game.aov.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i\.(weaponcat|passion|skill)\.'), type: 'i', showLoading: true }))
+      resolve(await game.aov.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i\.(weaponcat|passion|skill)\.'), type: 'i', showLoading: false }))
     })
   }
 
@@ -250,6 +250,16 @@ export class AOVSelectLists {
       4: game.i18n.localize("AOV.dimension.4"),
       5: game.i18n.localize("AOV.dimension.5"),
       6: game.i18n.localize("AOV.dimension.6"),
+    };
+    return options;
+  }
+
+  //Ship Hull Types
+  static async hullTypes() {
+    let options = {
+      "barge": game.i18n.localize("AOV.ship.barge"),
+      "merchant": game.i18n.localize("AOV.ship.merchant"),
+      "warship": game.i18n.localize("AOV.ship.warship"),
     };
     return options;
   }

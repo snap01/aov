@@ -223,7 +223,9 @@
       "keys": {
         "i.skill.large-shield": "Large Shield",
         "i.skill.medium-shield": "Medium Shield",
-        "i.skill.small-shield": "Small Shield"
+        "i.skill.small-shield": "Small Shield",
+        "i.skill.shiphandling": "Ship Handling",
+        "i.skill.boat": "Boat"
       },
       "lang": "Lang",
       "language": "Language",
@@ -363,6 +365,44 @@
       "singleColourBar": "Single Colour Bars",
       "singleColourBarHint": "Mutliple header bars on the same tab will be the same colour"
     },
+    "ship": {
+      "additionalCrew": "Additional Crew",
+      "barge": "Barge",
+      "beam": "Beam",
+      "before": "Before",
+      "boatShip": "Boat/Shiphandling",
+      "capacity": "Capacity",
+      "capacityAbbr": "Cap",
+      "captain": "Captain",
+      "crew": "Crew",
+      "currentMin": "Current / Minumum crew levels",
+      "half": "Half",
+      "head": "Head",
+      "helmsman": "Helmsman",
+      "hullQuality": "Hull Quality",
+      "hullQualityAbbr": "HQ",
+      "hullType": "Hull Type",
+      "length": "Length",
+      "merchant": "Merchant",
+      "nation": "Nation",
+      "navigate": "Navigate",
+      "passengers": "Passengers",
+      "quarter": "Quarter",
+      "rowers": "Rowers",
+      "rowing": "Rowing Speed",
+      "sailing": "Sailing Speed",
+      "sailors": "Sailors",
+      "seaWorthy": "Seaworthiness",
+      "seaWorthyAbbr": "SW",
+      "shipsLog": "Ship's Log and Notes",
+      "shipType": "Ship Type",
+      "siegeEngines": "Siege Engines",
+      "structuralPoints": "Structural Points",
+      "structuralPointsAbbr": "SP",
+      "warriors": "Warriors",
+      "warship": "Warship"
+    },
+
     "skillCat": {
       "agi": "Agility",
       "cbt": "Combat",
@@ -395,7 +435,8 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
-      "farm": "Farm"
+      "farm": "Farm",
+      "ship": "Ship"
     },
     "Item": {
       "armour": "Armour",

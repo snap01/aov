@@ -30,6 +30,7 @@ export default function Init() {
   //Declare Data Models
   CONFIG.Actor.dataModels.character = models.AOVCharacterModel
   CONFIG.Actor.dataModels.farm = models.AOVFarmModel
+  CONFIG.Actor.dataModels.ship = models.AOVShipModel
   CONFIG.Item.dataModels.devotion = models.AOVDevotionModel
   CONFIG.Item.dataModels.family = models.AOVFamilyModel
   CONFIG.Item.dataModels.gear = models.AOVGearModel

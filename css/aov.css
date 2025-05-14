@@ -88,8 +88,10 @@ body.theme-dark.application .aov {
 }
 
 
-.application.aov.character .window-content {
-  padding: 0px;
+.application.aov.character, .application.aov.ship {
+  .window-content {
+    padding: 0px;
+  }
 }
 
 /*Allow menu on left of character sheet to be visible*/
@@ -116,6 +118,10 @@ body.theme-dark.application .aov {
   height: 450px;
 }
 
+.ship-notes .prosemirror,
+.ship-notes prose-mirror {
+  height: 450px;
+}
 
 .prosemirror .editor-content,
 prose-mirror .editor-content {
@@ -138,20 +144,24 @@ prose-mirror button.toggle {
   opacity: 0.5;
 }
 
-.aov.character .window-content {
-  font-family: var(--aov-primary-font);
-  color: var(--aov-primary-font-colour);
-  font-size: var(--aov-primary-font-size);
-  background-image: url('../art-assets/charSheet.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+.aov.character, .aov.ship {
+  .window-content {
+    font-family: var(--aov-primary-font);
+    color: var(--aov-primary-font-colour);
+    font-size: var(--aov-primary-font-size);
+    background-image: url('../art-assets/charSheet.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
-.aov.character .sheet-header {
-  padding-left: 20px;
-  padding-right: 20px;
-  border: none;
-  cursor: default;
+.aov.character, .aov.ship {
+  .sheet-header {
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    cursor: default;
+  }
 }
 
 .aov.farm {
@@ -555,7 +565,7 @@ prose-mirror button.toggle {
 .aov input.stat-input {
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-secondary-font-size);
-  max-height: calc(var(--aov-primary-font-size) + 5.5px);
+  max-height: calc(var(--aov-primary-font-size) + 4px);
   text-align: center;
   padding: 0px;
   border-radius: 0px;
@@ -570,7 +580,7 @@ prose-mirror button.toggle {
 .aov select.stat-input {
   color: var(--aov-secondary-font-colour) !important;
   font-size: var(--aov-primary-font-size);
-  max-height: calc(var(--aov-primary-font-size) + 5.5px);
+  max-height: calc(var(--aov-primary-font-size) + 4px);
   border-top: transparent;
   border-left: transparent;
   border-right: transparent;
@@ -586,6 +596,57 @@ prose-mirror button.toggle {
   display: grid;
   grid-template-columns: 450px 200px;
   grid-column-gap: 4px;
+}
+
+.aov .ship-header {
+  display: grid;
+  grid-template-columns: 450px 200px;
+  grid-column-gap: 4px;
+}
+
+.aov .ship-details {
+  display: grid;
+  grid-template-columns: 140px 150px 300px;
+  grid-column-gap: 20px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 7px;
+}
+
+.aov .shipStats {
+  display: grid;
+  grid-template-columns: 60px 40px 10px 40px;
+}
+
+.aov .shipCrew {
+  display: grid;
+  grid-template-columns: 125px 80px 10px 80px;
+}
+
+.aov .captain {
+  padding-left: 13px;
+  padding-bottom: 2px;
+  display: grid;
+  grid-template-columns: 100px 300px 150px 50px;
+  grid-column-gap: 10px;
+}
+
+.aov .ship-extra {
+  padding-left: 13px;
+  display: grid;
+  grid-template-columns: 305px 300px;
+  grid-column-gap: 15px;
+}
+
+.aov .ship-speeds {
+  display: grid;
+  grid-template-columns: 80px 50px 80px 50px;
+  grid-column-gap: 15px;
+}
+
+.aov .ship-siege {
+  display: grid;
+  grid-template-columns: 300px;
 }
 
 .aov .stats-header {
