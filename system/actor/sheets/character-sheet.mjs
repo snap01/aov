@@ -1,5 +1,5 @@
 import { AOVSelectLists } from '../../apps/select-lists.mjs';
-import { AoVActorSheet } from "./actor-sheet.mjs"
+import { AoVActorSheet } from "./base-actor-sheet.mjs"
 import { AOVActiveEffect } from '../../apps/active-effects.mjs';
 import { AOVActiveEffectSheet } from '../../sheets/aov-active-effect-sheet.mjs'
 

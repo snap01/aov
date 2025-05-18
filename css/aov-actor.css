@@ -1,0 +1,249 @@
+/*Allow menu on left of character sheet to be visible*/
+.application.aov.character {
+  overflow: visible;
+}
+
+
+.aov .npc.sheet-header{
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.aov.character, .aov.ship {
+  .window-content {
+    font-family: var(--aov-primary-font);
+    color: var(--aov-primary-font-colour);
+    font-size: var(--aov-primary-font-size);
+    background-image: url('../art-assets/charSheet.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0px;
+  }
+}
+
+.aov.npc {
+  .window-content {
+    font-family: var(--aov-primary-font);
+    color: var(--aov-primary-font-colour);
+    font-size: var(--aov-primary-font-size);
+    background-image: url('../art-assets/npcSheet.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0px;
+  }
+}
+
+.aov.character, .aov.ship, .aov.npc {
+  .sheet-header {
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    cursor: default;
+  }
+  .sheet-Name {
+    font-size: var(--aov-heading-font-size);
+    padding-left: 260px;
+  }
+
+  .character-header {
+    display: grid;
+    grid-template-columns: 450px 200px;
+    grid-column-gap: 4px;
+  }
+
+  .actorName-grid {
+    font-size: var(--aov-title-font-size);
+    display: grid;
+    grid-template-columns: 80px 350px;
+    grid-column-gap: 5px;
+    padding-bottom: 10px;
+  }
+
+  .npc-header {
+    display: grid;
+    grid-template-columns: 265px 180px;
+    grid-column-gap: 4px;
+  }
+
+  .npcName-grid {
+    font-size: var(--aov-title-font-size);
+    display: grid;
+    grid-template-columns: 60px 185px;
+    grid-column-gap: 5px;
+  }
+
+  .charNameHeader {
+    padding-left: 14px;
+    padding-top: 26px;
+  }
+
+}
+
+.aov.farm {
+  font-family: var(--aov-primary-font);
+  color: var(--aov-primary-font-colour);
+  font-size: var(--aov-primary-font-size);
+  background-image: url('../art-assets/stone.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.aov.npc {
+  .npcHeader {
+    padding-left:10px;
+    display: grid;
+    grid-template-columns: 200px 130px 80px;
+    grid-column-gap: 10px;
+  }
+
+  .hit-loc-grid {
+    border-left:var(--aov-primary-font-colour) 1px solid;
+    border-top:var(--aov-primary-font-colour) 1px solid;
+    display:grid;
+    width: 431px;
+    padding: 0px;
+    margin: 0 0 0 13px;
+  }
+
+  .hit-loc-row {
+    display: grid;
+    grid-template-columns: 100px 100px 50px 50px 100px 30px;
+    margin: 0px;
+  }
+
+  .hit-loc-cell {
+    border-right:1px solid slategrey;
+    border-bottom:1px solid slategrey;
+  }
+
+
+
+  .npc-stats-grid {
+    display: grid;
+    grid-template-columns: 35px 50px 35px 50px;
+    grid-template-rows: repeat(4, 18px);
+    grid-column-gap: 10px;
+    padding-bottom:5px;
+  }
+
+  .npc-ability-grid {
+    display: grid;
+    grid-template-columns: 38px 38px 10px 38px;
+    grid-template-rows: repeat(4, 18px);
+  }
+}
+
+.aov .sheet-header .profile-img {
+  flex: 0 0 100px;
+  height: 100px;
+}
+
+.aov .skillDev-list {
+  list-style: none;
+  display: block;
+  column-count: 1;
+  padding: 0px;
+  margin: 0px;
+  border-left:var(--aov-primary-font-colour) 1px solid;
+  border-bottom:var(--aov-primary-font-colour) 1px solid;
+}
+
+.aov .skill-list {
+  list-style: none;
+  display: block;
+  column-count: 2;
+  padding: 0;
+  margin: 0;
+}
+
+.aov .npc-skill-grid {
+  display: grid;
+  grid-template-columns: 140px 140px 140px;
+  grid-column-gap: 5px;
+  padding: 0px;
+  margin: 10px 0 0 13px;
+}
+
+.aov .npc-skill-row {
+  display: grid;
+  grid-template-columns: 90px 30px 20px;
+  margin: 0px;
+}
+
+.aov input.skillDev-input {
+  color: var(--aov-secondary-font-colour);
+  font-size: var(--aov-primary-font-size);
+  max-height: calc(var(--aov-primary-font-size));
+  padding: 0px;
+  border-radius: 0px;
+  border: transparent;
+  background: none;
+  outline: none;
+}
+
+.aov .npc-weapon-grid {
+  display: grid;
+  grid-template-columns: 430px;
+  padding: 0px;
+  margin: 10px 0 0 13px;
+}
+
+.aov .npc-weapon-row {
+  display: grid;
+  grid-template-columns:190px 35px 70px 35px 45px 30px;
+  grid-column-gap:5px;
+  margin: 0px;
+}
+
+.aov .npc-power-row {
+  display: grid;
+  grid-template-columns:150px 240px 30px;
+  grid-column-gap:5px;
+  margin: 0px;
+}
+
+.aov .npc-base-stats-grid {
+  display: grid;
+  grid-template-columns:100px 150px 150px;
+  margin: 10px 0px 0px 10px;
+}
+
+.aov .npc-gear-row {
+  display: grid;
+  grid-template-columns: 120px 20px;
+  margin: 0px;
+}
+
+.aov input.npc-stat-display {
+  color: var(--aov-secondary-font-colour) !important;
+  font-size: var(--aov-secondary-font-size);
+  max-height: calc(var(--aov-primary-font-size) + 4px);
+  text-align: center;
+  padding: 0px 5px 0px 5px;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: 1px var(--aov-primary-font-colour) solid;
+  background: none;
+  outline: none;
+}
+
+.aov .npc-stat-input {
+  margin: 0 10px 0 10px;
+}
+
+.aov input.npc-stat-input {
+  color: var(--aov-secondary-font-colour) !important;
+  font-size: var(--aov-secondary-font-size);
+  max-height: calc(var(--aov-primary-font-size) + 4px);
+  text-align: center;
+  padding: 0px 5px 0px 5px;
+  border-radius: 0px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+  border-bottom: 1px var(--aov-secondary-font-colour) solid;
+  background: none;
+  outline: none;
+}

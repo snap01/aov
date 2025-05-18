@@ -1,6 +1,7 @@
 //Actors
 export { default as AOVActorBaseModel } from "../actor/data/base-actor-model.mjs";
 export { default as AOVCharacterModel } from "../actor/data/actor-character-model.mjs";
+export { default as AOVNPCModel } from "../actor/data/actor-npc-model.mjs";
 export { default as AOVFarmModel} from "../actor/data/actor-farm-model.mjs";
 export { default as AOVShipModel} from "../actor/data/actor-ship-model.mjs";
 
@@ -20,3 +21,4 @@ export { default as AOVArmourModel} from "../item/data/item-armour-model.mjs";
 export { default as AOVRuneModel} from "../item/data/item-rune-model.mjs";
 export { default as AOVRunescriptModel} from "../item/data/item-runescript-model.mjs";
 export { default as AOVSeidurModel} from "../item/data/item-seidur-model.mjs";
+export { default as AOVNPCPowerModel} from "../item/data/item-npcpower-model.mjs";

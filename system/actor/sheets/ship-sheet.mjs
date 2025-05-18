@@ -1,5 +1,5 @@
 import { AOVSelectLists } from '../../apps/select-lists.mjs';
-import { AoVActorSheet } from "./actor-sheet.mjs"
+import { AoVActorSheet } from "./base-actor-sheet.mjs"
 
 export class AoVShipSheet extends AoVActorSheet {
   constructor(options = {}) {

@@ -42,6 +42,12 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
   }
 
   async _prepareContext(options) {
+    let isChar = false
+    if (this.item.isEmbedded === true) {
+      if (this.item.parent.type === 'character') {
+        isChar = true
+      }
+    }
     return {
       editable: this.isEditable,
       owner: this.document.isOwner,
@@ -53,6 +59,7 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
       isGM: game.user.isGM,
       fields: this.document.schema.fields,
       config: CONFIG.AOV,
+      isChar: isChar,
     };
   }
 

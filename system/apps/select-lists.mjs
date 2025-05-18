@@ -57,6 +57,7 @@ export class AOVSelectLists {
       "melee": game.i18n.localize("AOV.melee"),
       "missile": game.i18n.localize("AOV.missile"),
       "naturalWpn": game.i18n.localize("AOV.naturalWpn"),
+      "thrown": game.i18n.localize("AOV.thrown"),
     };
     return options;
   }

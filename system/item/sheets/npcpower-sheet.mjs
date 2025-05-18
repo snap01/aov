@@ -1,7 +1,6 @@
 import { AoVItemSheet } from "./base-item-sheet.mjs"
-import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
-export class AoVWoundSheet extends AoVItemSheet {
+export class AoVNPCPowerSheet extends AoVItemSheet {
   constructor(options = {}) {
     super(options)
   }
@@ -10,26 +9,19 @@ export class AoVWoundSheet extends AoVItemSheet {
     classes: ['wound'],
     position: {
       width: 600,
-      height: 350
+      height: 420
     },
   }
 
   static PARTS = {
     header: { template: 'systems/aov/templates/item/item.header.hbs' },
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
-    details: { template: 'systems/aov/templates/item/wound.detail.hbs' },
+    details: { template: 'systems/aov/templates/item/npcpower.detail.hbs' },
   }
 
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-
-    if (context.hasOwner) {
-      let actorId = this.item.parent._id
-      let actor = await game.actors.get(actorId)
-      context.hitLocs = await AOVSelectLists.getHitLocOptions(actor)
-    }
-
     return context
   }
 

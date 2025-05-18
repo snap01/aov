@@ -20,7 +20,12 @@
     ],
 
     "esmodules": ["aov.mjs"],
-    "styles": ["css/aov.css"],
+    "styles": [
+      "css/aov.css",
+      "css/aov-actor.css",
+      "css/aov-cid.css",
+      "css/aov-prosemirror.css"
+    ],
     "languages": [
       {
         "lang": "en",
@@ -34,6 +39,7 @@
     "documentTypes": {
       "Actor": {
         "character": {"htmlFields": ["description","gmNotes"]},
+        "npc": {"htmlFields": ["description","gmNotes"]},
         "farm": {"htmlFields": ["description","gmNotes"]},
         "ship": {"htmlFields": ["description","gmNotes"]}
       },
@@ -43,6 +49,7 @@
         "family": {"htmlFields": ["description","gmNotes"]},
         "gear": {"htmlFields": ["description","gmNotes"]},
         "hitloc": {"htmlFields": ["description","gmNotes"]},
+        "npcpower": {"htmlFields": ["description","gmNotes"]},
         "passion": {"htmlFields": ["description","gmNotes"]},
         "rune": {"htmlFields": ["description","gmNotes"]},
         "runescript": {"htmlFields": ["description","gmNotes"]},

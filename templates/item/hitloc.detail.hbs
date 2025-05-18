@@ -32,9 +32,22 @@
 
     {{#if isGM}}
       <div class="new-row" title="{{localize 'AOV.gridPosHint'}}">{{localize 'AOV.gridPos'}}</div>
-      <div class="centre"><input class="gear-input centre" name='system.gridPos' type='text' value='{{item.system.gridPos}}'  data-dtype="Number"/></div>
+        <div class="centre"><input class="gear-input centre" name='system.gridPos' type='text' value='{{item.system.gridPos}}'  data-dtype="Number"/></div>
       <div class="new-row"></div>
       <br>
+    {{/if}}
+
+    {{#if hasOwner}}
+      {{#unless isChar}}
+        <div class="new-row" title="{{localize 'AOV.armourPoints'}}">{{localize 'AOV.armourPointsAbbr'}}</div>
+        <div class="centre"><input class="gear-input centre" name='system.npcAP' type='text' value='{{item.system.npcAP}}'  data-dtype="Number"/></div>
+        <div class="new-row"></div>
+        <br>
+        <div class="new-row">{{localize 'AOV.damage'}}</div>
+        <div class="centre"><input class="gear-input centre" name='system.npcDmg' type='text' value='{{item.system.npcDmg}}'  data-dtype="Number"/></div>
+        <div class="new-row"></div>
+        <br>        
+      {{/unless}}
     {{/if}}
 
   </div>

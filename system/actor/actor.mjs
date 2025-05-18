@@ -18,6 +18,7 @@ export class AOVActor extends Actor {
 
     //Prepare data for different actor types
     this._prepareCharacterData(actorData);
+    this._prepareNPCData(actorData);
   }
 
   //Prepare Character specific data
@@ -144,6 +145,39 @@ export class AOVActor extends Actor {
     systemData.hp.value = systemData.hp.max - totalDmg
   }
 
+  //Prepare NPC specific data
+  async _prepareNPCData(actorData) {
+    if (actorData.type !== 'npc') return;
+    const systemData = actorData.system;
+    systemData.actualEnc = 0
+    await this._prepStats(actorData)
+    await this._prepDerivedStats(actorData)
+
+    let totalDmg = 0
+    for (let itm of actorData.items) {
+      //Go through Hit Locations and calc AP, Max HP, and current HP
+      if (itm.type === 'hitloc') {
+
+        //Calc Max HP
+        if (itm.system.locType ===  'general') {
+          itm.system.hpMax = 0
+        } else {
+          itm.system.hpMax = Math.max(Math.ceil(systemData.hp.max / 3),2) + (itm.system.hpMod ?? 0)
+        }
+        itm.system.currHp = itm.system.hpMax - itm.system.npcDmg
+        totalDmg += itm.system.npcDmg
+      } else if (itm.type === 'skill'){
+        itm.system.total = (itm.system.base ?? 0) + (itm.system.effects ?? 0)
+      } else if (itm.type === 'weapon') {
+        itm.system.total = (itm.system.npcBase ?? 0) + (itm.system.effects ?? 0)
+      }
+    }      
+
+    systemData.hp.value = systemData.hp.max - totalDmg
+  }
+
+
+
   getRollData() {
     const data = super.getRollData();
 
@@ -175,18 +209,18 @@ export class AOVActor extends Actor {
 
   // Calculate derived scores
   _prepDerivedStats(actorData) {
-    if (this.type === 'character') {
       const systemData = actorData.system;
       systemData.hp.max = AOVActor._calcMaxHP(systemData);
       systemData.mp.max = AOVActor._calcMaxMP(systemData);
-      systemData.healRate = AOVActor._calcHealRate(systemData);
-      systemData.reputation.total = (systemData.reputation.base ?? 0) + (systemData.reputation.xp ?? 0);
-      systemData.status.total = (systemData.status.base ?? 0) + (systemData.status.xp ?? 0);
       systemData.moveRate = (systemData.move.base ?? 0) + (systemData.move.bonus ?? 0);
       if (systemData.move.penalty !=0) {
         systemData.moveRate = Math.ceil(systemData.moveRate * systemData.move.penalty)
       }
       systemData.dmgBonus = AOVActor._damMod(systemData);
+      if (this.type === 'character') {
+      systemData.healRate = AOVActor._calcHealRate(systemData);
+      systemData.reputation.total = (systemData.reputation.base ?? 0) + (systemData.reputation.xp ?? 0);
+      systemData.status.total = (systemData.status.base ?? 0) + (systemData.status.xp ?? 0);
       systemData.maxEnc = AOVActor._maxEnc(systemData);
       systemData.age = game.settings.get('aov', 'gameYear') - systemData.birthYear;
 

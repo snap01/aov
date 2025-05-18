@@ -53,18 +53,19 @@ export class AOVActorItemDrop {
       if (nItm.type === 'weapon') {
         //Set weapon current HP to Max
         nItm.system.currHP = nItm.system.maxHP
-        //Check if actor has the relevant skill and if not then add it
-        let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
-        if (currentList.length < 1) {
-          let extraSkill = await game.aov.cid.fromCID(nItm.system.skillCID)
-          if (extraSkill.length>0) {
-            let xItm = extraSkill[0].toObject()
-            xItm.system.base = await this._AOVcalcBase(xItm, actor);
-            newItemData.push(xItm)
+        //Check if CHaracter has the relevant skill and if not then add it
+        if (actor.type ==='character') {
+          let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
+          if (currentList.length < 1) {
+            let extraSkill = await game.aov.cid.fromCID(nItm.system.skillCID)
+            if (extraSkill.length>0) {
+              let xItm = extraSkill[0].toObject()
+              xItm.system.base = await this._AOVcalcBase(xItm, actor);
+              newItemData.push(xItm)
+            }
           }
         }
       }
-
       //If we've got this far then the item can be added
       newItemData.push(nItm);
     }

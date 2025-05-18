@@ -264,10 +264,10 @@
     <div class="ship-seige">
       <div class="left upper">{{localize 'AOV.ship.siegeEngines'}}</div>
       {{#if isLocked}}
-        <div class="centre stat-input bottom-line">{{system.engine1}}</div>
-        <div class="centre stat-input bottom-line">{{system.engine2}}</div>
-        <div class="centre stat-input bottom-line">{{system.engine3}}</div>
-        <div class="centre stat-input bottom-line">{{system.engine4}}</div>
+        <div class="centre stat-input bottom-line">{{#if (eq system.engine1 '')}}&nbsp{{else}}{{system.engine1}}{{/if}}</div>
+        <div class="centre stat-input bottom-line">{{#if (eq system.engine2 '')}}&nbsp{{else}}{{system.engine2}}{{/if}}</div>
+        <div class="centre stat-input bottom-line">{{#if (eq system.engine3 '')}}&nbsp{{else}}{{system.engine3}}{{/if}}</div>
+        <div class="centre stat-input bottom-line">{{#if (eq system.engine4 '')}}&nbsp{{else}}{{system.engine4}}{{/if}}</div>
       {{else}}
         <input class="stat-input centre" name='system.engine1' type='text'
           value='{{actor.system.engine1}}' />

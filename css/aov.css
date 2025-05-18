@@ -26,6 +26,7 @@
   --aov-title-font: "IMFellDWPica";
   --aov-primary-font-size: 14px;
   --aov-title-font-size: 16px;
+  --aov-heading-font-size: 20px;
 }
 
 body.theme-light .application.aov,
@@ -87,18 +88,6 @@ body.theme-dark.application .aov {
   border-radius: 3px;
 }
 
-
-.application.aov.character, .application.aov.ship {
-  .window-content {
-    padding: 0px;
-  }
-}
-
-/*Allow menu on left of character sheet to be visible*/
-.application.aov.character {
-  overflow: visible !important;
-}
-
 .rollable:hover,
 .rollable:focus,
 .contextmenu:hover,
@@ -112,67 +101,6 @@ body.theme-dark.application .aov {
   font-weight: bold;
   cursor: pointer;
 }
-
-.character-notes .prosemirror,
-.character-notes prose-mirror {
-  height: 450px;
-}
-
-.ship-notes .prosemirror,
-.ship-notes prose-mirror {
-  height: 450px;
-}
-
-.prosemirror .editor-content,
-prose-mirror .editor-content {
-  position: absolute;
-  overflow: hidden auto;
-  inset: 0;
-  outline: 0 solid transparent;
-  cursor: var(--cursor-text);
-  border: 1px solid;
-  padding-left: 2px;
-  padding-right: 20px;
-}
-
-.prosemirror button.toggle,
-prose-mirror button.toggle {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  z-index: 1;
-  opacity: 0.5;
-}
-
-.aov.character, .aov.ship {
-  .window-content {
-    font-family: var(--aov-primary-font);
-    color: var(--aov-primary-font-colour);
-    font-size: var(--aov-primary-font-size);
-    background-image: url('../art-assets/charSheet.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-}
-
-.aov.character, .aov.ship {
-  .sheet-header {
-    padding-left: 20px;
-    padding-right: 20px;
-    border: none;
-    cursor: default;
-  }
-}
-
-.aov.farm {
-  font-family: var(--aov-primary-font);
-  color: var(--aov-primary-font-colour);
-  font-size: var(--aov-primary-font-size);
-  background-image: url('../art-assets/stone.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 
 .aov.item {
   font-family: var(--aov-primary-font);
@@ -194,10 +122,7 @@ prose-mirror button.toggle {
   padding: 5px;
 }
 
-.aov .sheet-header .profile-img {
-  flex: 0 0 100px;
-  height: 100px;
-}
+
 
 .aov .sheet-header .item-img {
   flex: 0 0 60px;
@@ -234,34 +159,7 @@ prose-mirror button.toggle {
 }
 
 
-.app .header-button.edit-cid-warning,
-.application .window-header .header-control.edit-cid-warning {
-  color: red;
-}
 
-.aov .cid-editor {
-  a.copy-to-clipboard {
-    flex: 0 0 20px;
-    align-self: center;
-    text-align: right;
-  }
-
-  fieldset.item-sheet-properties {
-    label {
-      height: auto;
-      white-space: break-spaces;
-    }
-
-    span.warning {
-      outline: 2px dashed rgba(255, 100, 0, 0.3);
-      background-color: rgba(255, 100, 0, 0.3);
-    }
-
-    td.shorttext {
-      text-align: center;
-    }
-  }
-}
 
 .aov .character.tab {
   padding-left: 25px;
@@ -347,24 +245,6 @@ prose-mirror button.toggle {
   padding: 0;
   overflow-y: auto;
   scrollbar-width: thin;
-}
-
-.aov .skill-list {
-  list-style: none;
-  display: block;
-  column-count: 2;
-  padding: 0;
-  margin: 0;
-}
-
-.aov .skillDev-list {
-  list-style: none;
-  display: block;
-  column-count: 1;
-  padding: 0px;
-  margin: 0px;
-  border-left:var(--aov-primary-font-colour) 1px solid;
-  border-bottom:var(--aov-primary-font-colour) 1px solid;
 }
 
 .aov .charHitLoc {
@@ -592,11 +472,7 @@ prose-mirror button.toggle {
 }
 
 
-.aov .character-header {
-  display: grid;
-  grid-template-columns: 450px 200px;
-  grid-column-gap: 4px;
-}
+
 
 .aov .ship-header {
   display: grid;
@@ -657,10 +533,7 @@ prose-mirror button.toggle {
   padding-right: 7px;
 }
 
-.aov .charNameHeader {
-  padding-left: 14px;
-  padding-top: 26px;
-}
+
 
 .aov .statsTitle {
   font-size: var(--aov-title-font-size);
@@ -680,13 +553,7 @@ prose-mirror button.toggle {
   grid-column-gap: 5px;
 }
 
-.aov .actorName-grid {
-  font-size: var(--aov-title-font-size);
-  display: grid;
-  grid-template-columns: 80px 350px;
-  grid-column-gap: 5px;
-  padding-bottom: 10px;
-}
+
 
 .aov .icon16 {
   font-size: 16px;
@@ -775,18 +642,6 @@ prose-mirror button.toggle {
   border-left: transparent;
   border-right: transparent;
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
-  background: none;
-  outline: none;
-}
-
-.aov input.skillDev-input {
-  color: var(--aov-secondary-font-colour);
-  font-size: var(--aov-primary-font-size);
-  max-height: calc(var(--aov-primary-font-size));
-  text-align: center;
-  padding: 0px;
-  border-radius: 0px;
-  border: transparent;
   background: none;
   outline: none;
 }
@@ -1129,5 +984,13 @@ nav.aov.sheet-tabs.tabs {
   grid-template-columns: 150px 400px;
   column-gap: 5px;
   row-gap:5px;
+}
+
+.aov textarea.npcpower {
+  font-family:var(--aov-primary-font);
+  background: transparent;
+  width: 560px;
+  max-height: 215px;
+  min-height: 215px;
 }
 

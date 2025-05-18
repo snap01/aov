@@ -29,6 +29,7 @@ export default function Init() {
 
   //Declare Data Models
   CONFIG.Actor.dataModels.character = models.AOVCharacterModel
+  CONFIG.Actor.dataModels.npc = models.AOVNPCModel
   CONFIG.Actor.dataModels.farm = models.AOVFarmModel
   CONFIG.Actor.dataModels.ship = models.AOVShipModel
   CONFIG.Item.dataModels.devotion = models.AOVDevotionModel
@@ -45,6 +46,7 @@ export default function Init() {
   CONFIG.Item.dataModels.rune = models.AOVRuneModel
   CONFIG.Item.dataModels.runescript = models.AOVRunescriptModel
   CONFIG.Item.dataModels.seidur = models.AOVSeidurModel
+  CONFIG.Item.dataModels.npcpower = models.AOVNPCPowerModel
 
   CID.init()
   registerSheets()

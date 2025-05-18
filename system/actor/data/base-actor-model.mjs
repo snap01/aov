@@ -37,6 +37,8 @@ export default class AOVActorBaseModel extends AOVDataModel {
         age: new fields.NumberField({ ...requiredInteger, initial: 0 }),
         xp: new fields.NumberField({ ...requiredInteger, initial: 0 }),
         effects: new fields.NumberField({ ...requiredInteger, initial: 0 }),
+        formula:new fields.StringField({ required: true, blank: true }),
+        average: new fields.StringField({ required: true, blank: true }),
       });
       return obj;
     }, {}));

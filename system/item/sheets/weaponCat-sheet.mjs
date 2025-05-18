@@ -1,4 +1,4 @@
-import { AoVItemSheet } from "./item-sheet.mjs"
+import { AoVItemSheet } from "./base-item-sheet.mjs"
 
 export class AoVWeaponCatSheet extends AoVItemSheet {
   constructor(options = {}) {

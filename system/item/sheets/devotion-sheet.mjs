@@ -1,4 +1,4 @@
-import { AoVItemSheet } from "./item-sheet.mjs"
+import { AoVItemSheet } from "./base-item-sheet.mjs"
 import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
 export class AoVDevotionSheet extends AoVItemSheet {

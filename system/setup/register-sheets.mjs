@@ -1,4 +1,5 @@
 import { AoVCharacterSheet } from '../actor/sheets/character-sheet.mjs';
+import { AoVNPCSheet } from '../actor/sheets/npc-sheet.mjs';
 import { AoVFarmSheet } from '../actor/sheets/farm-sheet.mjs';
 import { AoVShipSheet } from '../actor/sheets/ship-sheet.mjs';
 import { AoVGearSheet } from '../item/sheets/gear-sheet.mjs';
@@ -15,6 +16,7 @@ import { AoVArmourSheet } from '../item/sheets/armour-sheet.mjs';
 import { AoVRuneSheet } from '../item/sheets/rune-sheet.mjs';
 import { AoVRuneScriptSheet } from '../item/sheets/runescript-sheet.mjs';
 import { AoVSeidurSheet } from '../item/sheets/seidur-sheet.mjs';
+import { AoVNPCPowerSheet } from '../item/sheets/npcpower-sheet.mjs';
 
 export function registerSheets() {
 
@@ -34,6 +36,10 @@ export function registerSheets() {
   collections.Actors.registerSheet('aov', AoVCharacterSheet, {
     types: ['character'],
     makeDefault: true
+  });
+  collections.Actors.registerSheet('aov', AoVNPCSheet, {
+  types: ['npc'],
+  makeDefault: true
   });
   collections.Actors.registerSheet('aov', AoVFarmSheet, {
     types: ['farm'],
@@ -99,6 +105,10 @@ export function registerSheets() {
   });
     collections.Items.registerSheet('aov', AoVSeidurSheet, {
     types: ['seidur'],
+    makeDefault: true
+  });
+    collections.Items.registerSheet('aov', AoVNPCPowerSheet, {
+    types: ['npcpower'],
     makeDefault: true
   });
 }

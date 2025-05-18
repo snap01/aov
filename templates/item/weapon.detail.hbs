@@ -136,29 +136,21 @@
     {{/if}}
 
     {{#if hasOwner}}
-      <div class="new-row">{{localize 'AOV.equipped'}}</div>
-      <div class="" >
-        <select class="gear-input" data-handle-change name="system.equipStatus">
-          {{selectOptions equippedOptions selected=item.system.equipStatus}}
-        </select>
-      </div>
+      {{#if isChar}}
+        <div class="new-row">{{localize 'AOV.equipped'}}</div>
+        <div class="" >
+          <select class="gear-input" data-handle-change name="system.equipStatus">
+            {{selectOptions equippedOptions selected=item.system.equipStatus}}
+          </select>
+        </div>
+      {{else}}
+        <div class="new-row">{{localize 'AOV.baseScore'}}%</div>
+        <div class=""><input class="gear-input centre" name='system.npcBase' type='number' value='{{item.system.npcBase}}'/></div>
+      {{/if}}
       <div class="new-row"></div>
       <br>
     {{/if}}
 
 
-
-
-
-
-
-
-
-
-
-    {{#if hasOwner}}
-      <div class="new-row"></div>
-      <br>
-    {{/if}}
   </div>
 </section>

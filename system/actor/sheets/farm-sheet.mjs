@@ -1,4 +1,4 @@
-import { AoVActorSheet } from "./actor-sheet.mjs"
+import { AoVActorSheet } from "./base-actor-sheet.mjs"
 import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
 export class AoVFarmSheet extends AoVActorSheet {

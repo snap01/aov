@@ -1,5 +1,5 @@
-import { AoVActorSheet } from "./system/actor/sheets/actor-sheet.mjs";
-import { AoVItemSheet } from "./system/item/sheets/item-sheet.mjs";
+import { AoVActorSheet } from "./system/actor/sheets/base-actor-sheet.mjs";
+import { AoVItemSheet } from "./system/item/sheets/base-item-sheet.mjs";
 import { AOVMenu } from "./system/setup/menu.mjs";
 import renderSceneControls from "./system/hooks/render-scene-controls.mjs";
 
