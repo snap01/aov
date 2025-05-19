@@ -2,7 +2,7 @@
 
   <div class="gear-detail-grid">
     <div class="new-row">{{localize 'AOV.category'}}</div>
-    {{#if isGM}}
+    {{#if canEdit}}
       <div class="" >
         <select class="gear-input" data-handle-change name="system.category">
           {{selectOptions skillCatOptions selected=item.system.category}}
@@ -16,7 +16,7 @@
 
     {{#if (eq system.category 'cbt')}}
       <div class="new-row">{{localize 'AOV.weaponTypeCat'}}</div>
-      {{#if isGM}}
+      {{#if canEdit}}
         <div class="" >
           <select class="gear-input" data-handle-change name="system.weaponType">
             {{selectOptions weaponTypeOptions selected=item.system.weaponType}}
@@ -26,7 +26,7 @@
         <div class="gear-input centre">{{weaponTypeName}}</div>
       {{/if}}
 
-      {{#if isGM}}
+      {{#if canEdit}}
         <div class="" >
           <select class="gear-input" data-handle-change name="system.weaponCat">
             {{selectOptions weaponCatOptions selected=item.system.weaponCat}}
@@ -44,7 +44,7 @@
 
 
     <div class="new-row">{{localize 'AOV.baseScoreOption'}}</div>
-    {{#if isGM}}
+    {{#if canEdit}}
       <div class="" >
         <select class="gear-input" data-handle-change name="system.baseVal">
           {{selectOptions baseSkillOptions selected=item.system.baseVal}}
@@ -57,7 +57,7 @@
     <br>
 
     <div class="new-row" title="{{localize 'AOV.commonSkillHint'}}">{{localize 'AOV.commonSkill'}}</div>
-    <div class="centre" {{#if isGM}}data-action="itemToggle"{{/if}} data-property="common">
+    <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="common">
       <a class="icon16">
         <i class="fa-regular {{#if system.common}}fa-square-check{{else}}fa-square{{/if}}"></i>
       </a>
@@ -66,7 +66,7 @@
     <div class="new-row"></div>
     <br>
     <div class="new-row" title="{{localize 'AOV.specHint'}}">{{localize 'AOV.spec'}}</div>
-    <div class="centre" {{#if isGM}}data-action="itemToggle"{{/if}} data-property="specSkill"><a class="icon16">
+    <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="specSkill"><a class="icon16">
       {{#if system.specSkill}}
         <i class="fa-regular fa-square-check"></i></a></div>
         <div class="new-row">{{localize 'AOV.specialisation'}}</div>
@@ -81,7 +81,7 @@
     <br>
 
     <div class="new-row" title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
-    <div class="centre" {{#if isGM}}data-action="itemToggle"{{/if}} data-property="noXP"><a class="icon16">
+    <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="noXP"><a class="icon16">
       {{#if system.noXP}}
         <i class="fa-regular fa-square-check"></i>
       {{else}}
@@ -92,19 +92,19 @@
     <div class="new-row"></div>
     <br>
     <div class="new-row">{{localize 'AOV.baseScore'}}</div>
-    {{#if isGM}}
-      <div class="centre"><input class="gear-input centre" name='system.base' type='text' value='{{item.system.base}}'  data-dtype="Number"/></div>
+    {{#if canEdit}}
+      <div class="centre"><input class="gear-input centre" name='system.base' type='number' value='{{item.system.base}}'/></div>
     {{else}}
       <div class="centre">{{system.base}}</div>
     {{/if}}
     {{#if hasOwner}}
       {{#if isChar}}
         <div class="new-row">{{localize 'AOV.experience'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.xp' type='text' value='{{item.system.xp}}'  data-dtype="Number"/></div>
+        <div class="centre"><input class="gear-input centre" name='system.xp' type='number' value='{{item.system.xp}}'/></div>
         <div class="new-row">{{localize 'AOV.homeland'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.home' type='text' value='{{item.system.home}}'  data-dtype="Number"/></div>
+        <div class="centre"><input class="gear-input centre" name='system.home' type='number' value='{{item.system.home}}'/></div>
         <div class="new-row">{{localize 'AOV.personal'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.pers' type='text' value='{{item.system.pers}}'  data-dtype="Number"/></div>
+        <div class="centre"><input class="gear-input centre" name='system.pers' type='number' value='{{item.system.pers}}'/></div>
         <div class="new-row">{{localize 'AOV.effects'}}</div>
         <div class="centre terIcon">{{system.effects}}</div>
         <div class="new-row">{{localize 'AOV.catBonus'}}</div>

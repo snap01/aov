@@ -16,7 +16,7 @@
             <option value="+">{{localize 'AOV.add'}}</option>
             <option value="-" {{#if effect.negative}} selected="selected" {{/if}}>{{localize 'AOV.subtract'}}</option>
           </select>
-          <input type="text" value="{{effect.value}}" data-dtype="Number"/>
+          <input type="number" value="{{effect.value}}"/>
           <a class="control-button"><i class="item-control fas fa-trash"></i></a>
         </div>
       {{/each}}

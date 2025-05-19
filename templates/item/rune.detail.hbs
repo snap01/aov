@@ -2,61 +2,84 @@
 
   <div>{{localize 'AOV.meaning'}}</div>
   <div class="rune-input-small">
-    {{#if isGM}}
+    {{#if canEdit}}
       <textarea class="secIcon" name='system.meaning'>{{item.system.meaning}}</textarea>
     {{else}}
-      {{item.system.meaning}}
+      <span class="indent">{{item.system.meaning}}</span>
     {{/if}}
   </div>
   <br>
   <div>{{localize 'AOV.areas'}}</div>
   <div class="rune-input">
-    {{#if isGM}}
+    {{#if canEdit}}
       <textarea class="secIcon" name='system.areas'>{{item.system.areas}}</textarea>
     {{else}}
-      {{item.system.areas}}
+      <span class="indent">{{item.system.areas}}</span>
     {{/if}}
   </div>
 
   <br>
   <div class="">{{localize 'AOV.uses'}}</div>
   <div class="rune-input-large">
-    <textarea class="secIcon" name='system.use1'>{{item.system.use1}}</textarea>
+    {{#if canEdit}}
+      <textarea class="secIcon" name='system.use1'>{{item.system.use1}}</textarea>
+    {{else}}
+      <span class="indent">{{item.system.use1}}</span>
+    {{/if}}
   </div>
   <div class="rune-input-large">
-    <textarea class="secIcon" name='system.use2'>{{item.system.use2}}</textarea>
+    {{#if canEdit}}
+      <textarea class="secIcon" name='system.use2'>{{item.system.use2}}</textarea>
+    {{else}}
+      <span class="indent">{{item.system.use2}}</span>
+    {{/if}}
   </div>
   <div class="rune-input-large">
-    <textarea class="secIcon" name='system.use3'>{{item.system.use3}}</textarea>
+    {{#if canEdit}}
+      <textarea class="secIcon" name='system.use3'>{{item.system.use3}}</textarea>
+    {{else}}
+      <span class="indent">{{item.system.use3}}</span>
+    {{/if}}
   </div>
   <br>
 
   <div class="rune-detail-grid">
-    <div class="new-row">{{localize 'AOV.effects'}}</div>
-    <div class="centre">{{localize 'AOV.amount'}}</div>
-    <div class="new-row">
-      <select class="gear-input" data-handle-change name="system.effect1">
-        {{selectOptions effectOptions selected=item.system.effect1}}
-      </select>
+    {{#if canEdit}}
+      <div class="new-row">{{localize 'AOV.effects'}}</div>
+      <div class="centre">{{localize 'AOV.amount'}}</div>
+      <div class="new-row">
+        <select class="gear-input" data-handle-change name="system.effect1">
+          {{selectOptions effectOptions selected=item.system.effect1}}
+        </select>
+      </div>
+        <input class="gear-input" name='system.value1' type='text' value='{{item.system.value1}}'/>
+
+      <div class="new-row">
+        <select class="gear-input" data-handle-change name="system.effect2">
+          {{selectOptions effectOptions selected=item.system.effect2}}
+        </select>
+      </div>
+        <input class="gear-input" name='system.value2' type='text' value='{{item.system.value2}}'/>
+
+      <div class="new-row">
+        <select class="gear-input" data-handle-change name="system.effect3">
+          {{selectOptions effectOptions selected=item.system.effect3}}
+        </select>
+      </div>
+        <input class="gear-input" name='system.value3' type='text' value='{{item.system.value3}}'/>
+    {{else}}
+      <div class="new-row">{{localize 'AOV.effects'}}</div>
+      <div class="centre">{{localize 'AOV.amount'}}</div>
+      <div class="new-row indent">{{lookup effectOptions item.system.effect1}}</div>
+      <div class="centre bottom-line">{{item.system.value1}}</div>
+
+
+      <div class="new-row indent">{{lookup effectOptions item.system.effect2}}</div>
+      <div class="centre bottom-line">{{item.system.value2}}</div>
+
+      <div class="new-row indent">{{lookup effectOptions item.system.effect3}}</div>
+      <div class="centre bottom-line">{{item.system.value3}}</div>
+    {{/if}}
     </div>
-      <input class="gear-input" name='system.value1' type='text' value='{{item.system.value1}}'/>
 
-
-    <div class="new-row">
-      <select class="gear-input" data-handle-change name="system.effect2">
-        {{selectOptions effectOptions selected=item.system.effect2}}
-      </select>
-    </div>
-      <input class="gear-input" name='system.value2' type='text' value='{{item.system.value2}}'/>
-
-
-    <div class="new-row">
-      <select class="gear-input" data-handle-change name="system.effect3">
-        {{selectOptions effectOptions selected=item.system.effect3}}
-      </select>
-    </div>
-      <input class="gear-input" name='system.value3' type='text' value='{{item.system.value3}}'/>
-
-
-  </div>
 </section>

@@ -25,8 +25,7 @@
         data-action='viewDoc'>{{item.name}}</div>
       <div class='gear-name terIcon centre'>{{item.system.actlEnc}}</div>
       <div class='gear-name centre'>
-        <input class="gear-input item-quantity" name='system.quantity' type='text' value='{{item.system.quantity}}'
-          data-dtype="Number" />
+        <input class="gear-input item-quantity" name='system.quantity' type='number' value='{{item.system.quantity}}'/>
       </div>
       <div class='gear-name centre' data-action="itemToggle" data-property="equipStatus"><a class="">
           {{#if (eq item.system.equipStatus 1)}}

@@ -2,51 +2,61 @@
 
   <div class="gear-detail-grid">
     <div class="new-row">{{localize 'AOV.locType'}}</div>
-    {{#if isGM}}
+    {{#if canEdit}}
       <div class="" >
         <select class="gear-input" data-handle-change name="system.locType">
           {{selectOptions hitLocTypes selected=item.system.locType}}
         </select>
       </div>
+      {{#unless (eq system.locType 'general')}}
+        <div class="new-row">{{localize 'AOV.hitLocLow'}}</div>
+        <div class="centre"><input class="gear-input centre" name='system.lowRoll' type='number' value='{{item.system.lowRoll}}'/></div>
+        <div class="new-row">{{localize 'AOV.hitLocHigh'}}</div>
+        <div class="centre"><input class="gear-input centre" name='system.highRoll' type='number' value='{{item.system.highRoll}}'/></div>
+        <div class="new-row"></div>
+        <br>
+        <div class="new-row">{{localize 'AOV.hitLocMod'}}</div>
+        <div class="centre"><input class="gear-input centre" name='system.hpMod' type='number' value='{{item.system.hpMod}}'/></div>
+        <div class="new-row"></div>
+        <br>
+        <div class="new-row" title="{{localize 'AOV.gridPosHint'}}">{{localize 'AOV.gridPos'}}</div>
+        <div class="centre"><input class="gear-input centre" name='system.gridPos' type='number' value='{{item.system.gridPos}}'/></div>
+        <div class="new-row"></div>
+        <br>
+      {{/unless}}
+
     {{else}}
       <div class="gear-input centre">{{hitLocName}}</div>
+      {{#unless (eq system.locType 'general')}}
+        <div class="new-row">{{localize 'AOV.hitLocLow'}}</div>
+        <div class="centre bottom-line">{{item.system.lowRoll}}</div>
+        <div class="new-row">{{localize 'AOV.hitLocHigh'}}</div>
+        <div class="centre bottom-line">{{item.system.highRoll}}</div>
+        <div class="new-row"></div>
+        <br>
+        <div class="new-row">{{localize 'AOV.hitLocMod'}}</div>
+        <div class="centre bottom-line">{{item.system.hpMod}}</div>
+        <div class="new-row"></div>
+        <br>
+        <div class="new-row" title="{{localize 'AOV.gridPosHint'}}">{{localize 'AOV.gridPos'}}</div>
+        <div class="centre bottom-line">{{item.system.gridPos}}</div>
+        <div class="new-row"></div>
+        <br>
+      {{/unless}}
     {{/if}}
     <div class="new-row"></div>
     <br>
 
-
-
-    {{#unless (eq system.locType 'general')}}
-      <div class="new-row">{{localize 'AOV.hitLocLow'}}</div>
-      <div class="centre"><input class="gear-input centre" name='system.lowRoll' type='text' value='{{item.system.lowRoll}}'  data-dtype="Number"/></div>
-      <div class="new-row">{{localize 'AOV.hitLocHigh'}}</div>
-      <div class="centre"><input class="gear-input centre" name='system.highRoll' type='text' value='{{item.system.highRoll}}'  data-dtype="Number"/></div>
-      <div class="new-row"></div>
-      <br>
-
-      <div class="new-row">{{localize 'AOV.hitLocMod'}}</div>
-      <div class="centre"><input class="gear-input centre" name='system.hpMod' type='text' value='{{item.system.hpMod}}'  data-dtype="Number"/></div>
-      <div class="new-row"></div>
-      <br>
-    {{/unless}}
-
-    {{#if isGM}}
-      <div class="new-row" title="{{localize 'AOV.gridPosHint'}}">{{localize 'AOV.gridPos'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.gridPos' type='text' value='{{item.system.gridPos}}'  data-dtype="Number"/></div>
-      <div class="new-row"></div>
-      <br>
-    {{/if}}
-
     {{#if hasOwner}}
       {{#unless isChar}}
         <div class="new-row" title="{{localize 'AOV.armourPoints'}}">{{localize 'AOV.armourPointsAbbr'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.npcAP' type='text' value='{{item.system.npcAP}}'  data-dtype="Number"/></div>
+        <div class="centre"><input class="gear-input centre" name='system.npcAP' type='number' value='{{item.system.npcAP}}'/></div>
         <div class="new-row"></div>
         <br>
         <div class="new-row">{{localize 'AOV.damage'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.npcDmg' type='text' value='{{item.system.npcDmg}}'  data-dtype="Number"/></div>
+        <div class="centre"><input class="gear-input centre" name='system.npcDmg' type='number' value='{{item.system.npcDmg}}'/></div>
         <div class="new-row"></div>
-        <br>        
+        <br>
       {{/unless}}
     {{/if}}
 

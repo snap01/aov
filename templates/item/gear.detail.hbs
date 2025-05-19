@@ -1,12 +1,23 @@
 <section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
 
   <div class="gear-detail-grid">
-    <div>{{localize 'AOV.encumberance'}}</div>
-    <input class="gear-input" name='system.enc' type='text' value='{{item.system.enc}}' data-dtype="Number" />
-    <div class="new-row"></div>
-    <br>
-    <div class="new-row">{{localize 'AOV.quantity'}}</div>
-    <input class="gear-input" name='system.quantity' type='text' value='{{item.system.quantity}}' data-dtype="Number" />
+    {{#if canEdit}}
+      <div>{{localize 'AOV.encumberance'}}</div>
+      <input class="gear-input" name='system.enc' type='number' value='{{item.system.enc}}'/>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.quantity'}}</div>
+      <input class="gear-input" name='system.quantity' type='number' value='{{item.system.quantity}}'/>
+    {{else}}
+      <div>{{localize 'AOV.encumberance'}}</div>
+      <div class="centre bottom-line">{{item.system.enc}}</div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row">{{localize 'AOV.quantity'}}</div>
+      <div class="centre bottom-line">{{item.system.quantity}}</div>
+
+    {{/if}}
+
 
     {{#if hasOwner}}
       <div class="new-row"></div>

@@ -48,6 +48,10 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
         isChar = true
       }
     }
+    let canEdit = false
+    if (this.document.isOwner || game.user.isGM) {
+      canEdit = true
+    }
     return {
       editable: this.isEditable,
       owner: this.document.isOwner,
@@ -60,11 +64,13 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
       fields: this.document.schema.fields,
       config: CONFIG.AOV,
       isChar: isChar,
+      canEdit: canEdit
     };
   }
 
   // Handle changing a Document's image.
   static async _onEditImage(event, target) {
+    console.log("TEST")
     const attr = target.dataset.edit;
     const current = foundry.utils.getProperty(this.document, attr);
     const { img } = this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??

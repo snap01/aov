@@ -8,8 +8,8 @@ export class AOVActorItemDrop {
       let nItm = thisItem.toObject()
       let nItmCidFlag = nItm.flags.aov?.cidFlag?.id
 
-      //Can't drop certain types of items
-      if (['wound','runescript'].includes(nItm.type)) {
+      //Can't drop certain types of items of any actors
+      if (['wound','runescript',"seidur","thrall", "family","weaponcat"].includes(nItm.type)) {
         ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.cantTransfer', { itemType: game.i18n.localize('TYPES.Item.'+ nItm.type)}));
         continue;
       }
@@ -26,8 +26,14 @@ export class AOVActorItemDrop {
         continue;
       }
 
-      //Check for duplicate passions and devotions
-      if (['passion','devotion'].includes(nItm.type)){
+      //Can't drop any items on a ship or farm
+      if (actor.type === 'ship') {
+        ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.cantDropItem', { itemType: game.i18n.localize('TYPES.Item.'+ nItm.type), actorType: game.i18n.localize('TYPES.Actor.'+ actor.type)}));
+        continue;
+      }
+
+      //Check for duplicate passions, hit-locations and devotions
+      if (['passion','devotion','hitloc'].includes(nItm.type)){
         let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
         if (currentList.length > 0) {
           ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.dupItem', { itemName: (nItm.name +"(" + nItmCidFlag +")") }));
@@ -46,14 +52,16 @@ export class AOVActorItemDrop {
         }
       }
 
+      //If adding a skill and it's a character then calculate the base score
       if (actor.type === 'character' && nItm.type === 'skill') {
         nItm.system.base = await this._AOVcalcBase(nItm, actor);
       }
 
+      //If it's a weapon
       if (nItm.type === 'weapon') {
         //Set weapon current HP to Max
         nItm.system.currHP = nItm.system.maxHP
-        //Check if CHaracter has the relevant skill and if not then add it
+        //Check if Character has the relevant skill and if not then add it
         if (actor.type ==='character') {
           let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
           if (currentList.length < 1) {
@@ -66,6 +74,8 @@ export class AOVActorItemDrop {
           }
         }
       }
+
+
       //If we've got this far then the item can be added
       newItemData.push(nItm);
     }

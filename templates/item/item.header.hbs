@@ -1,7 +1,11 @@
 <header class='item sheet-header'>
   <div class="item-header">
       <div class='document-name' style="margin-top:16px">
-        <input name='name' type='text' value='{{item.name}}'/>
+        {{#if canEdit}}
+          <input name='name' type='text' value='{{item.name}}'/>
+        {{else}}
+          <div class="secIcon">{{item.name}}</div>
+        {{/if}}
       </div>
     <img class='item-img' src='{{item.img}}' data-edit='img' data-action='onEditImage' title='{{item.name}}' height='60' width='60'/>
   </div>

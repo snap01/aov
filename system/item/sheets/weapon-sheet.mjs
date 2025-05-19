@@ -42,7 +42,7 @@ export class AoVWeaponSheet extends AoVItemSheet {
       context.weaponSkillName = ""
     }
     context.damTypeList = await AOVSelectLists.dmgTypeOptions()
-    context.damTypeName = game.i18n.localize('AOV.DmgType,' + context.system.damType)
+    context.damTypeName = game.i18n.localize('AOV.DamType.' + context.system.damType)
     context.equippedOptions = await AOVSelectLists.equippedOptions(this.document.type)
 
     return context

@@ -1,8 +1,13 @@
 <section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
 
   <div class="gear-detail-grid">
-    <div>{{localize 'AOV.ideals'}}</div>
-    <input class="gear-input" style="grid-column: 2 / span2;" name='system.ideals' type='text' value='{{item.system.ideals}}'/>
+    {{#if canEdit}}
+      <div>{{localize 'AOV.ideals'}}</div>
+      <input class="gear-input" style="grid-column: 2 / span2;" name='system.ideals' type='text' value='{{item.system.ideals}}'/>
+    {{else}}
+      <div>{{localize 'AOV.ideals'}}</div>
+      <div class="centre bottom-line" style="grid-column: 2 / span2;">{{item.system.ideals}}</div>
+    {{/if}}
 
     {{#if hasOwner}}
       <div class="new-row"></div>

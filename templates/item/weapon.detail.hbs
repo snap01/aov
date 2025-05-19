@@ -2,7 +2,7 @@
 
   <div class="weapon-detail-grid">
 
-    {{#if isGM}}
+    {{#if canEdit}}
       <div class="new-row">{{localize 'AOV.weaponSkill'}}</div>
       <div class="" >
         <select class="gear-input" data-handle-change name="system.skillCID">
@@ -29,9 +29,9 @@
       <br>
       <div class="new-row">{{localize 'AOV.minSTRDEX'}}</div>
       <div class="minstrdex">
-        <span class="centre"><input class="gear-input centre" name='system.minStr' type='text' value='{{item.system.minStr}}'  data-dtype="Number"/></span>
+        <span class="centre"><input class="gear-input centre" name='system.minStr' type='number' value='{{item.system.minStr}}'/></span>
         <span class="centre"> / </span>
-        <span class="centre"><input class="gear-input centre" name='system.minDex' type='text' value='{{item.system.minDex}}'  data-dtype="Number"/></span>
+        <span class="centre"><input class="gear-input centre" name='system.minDex' type='number' value='{{item.system.minDex}}'/></span>
       </div>
       <div class="new-row"></div>
       <br>
@@ -48,12 +48,12 @@
       <div class="new-row"></div>
       <br>
       <div class="new-row">{{localize 'AOV.encumberance'}}</div>
-      <div class=""><input class="gear-input centre" name='system.enc' type='text' value='{{item.system.enc}}'  data-dtype="Number"/></div>
+      <div class=""><input class="gear-input centre" name='system.enc' type='number' value='{{item.system.enc}}'/></div>
       <div class="new-row"></div>
       <br>
       {{#if (eq item.system.weaponType 'missile')}}
         <div class="new-row">{{localize 'AOV.range'}}</div>
-        <div class=""><input class="gear-input centre" name='system.range' type='text' value='{{item.system.range}}'  data-dtype="Number"/></div>
+        <div class=""><input class="gear-input centre" name='system.range' type='number' value='{{item.system.range}}'/></div>
       {{else}}
         <div class="new-row">{{localize 'AOV.length'}}</div>
         <div class=""><input class="gear-input centre" name='system.length' type='text' value='{{item.system.length}}'/></div>
@@ -61,20 +61,20 @@
       <div class="new-row"></div>
       <br>
       <div class="new-row">{{localize 'AOV.cost'}}</div>
-      <div class=""><input class="gear-input centre" name='system.cost' type='text' value='{{item.system.cost}}'  data-dtype="Number"/></div>
+      <div class=""><input class="gear-input centre" name='system.cost' type='number' value='{{item.system.cost}}'/></div>
       <div class="new-row"></div>
       <br>
       {{#if hasOwner}}
         <div class="new-row">{{localize 'AOV.hpCurr'}}</div>
         <div class="minstrdex">
-          <span class="centre"><input class="gear-input centre" name='system.currHP' type='text' value='{{item.system.currHP}}'  data-dtype="currHP"/></span>
+          <span class="centre"><input class="gear-input centre" name='system.currHP' type='number' value='{{item.system.currHP}}'/></span>
           <span class="centre"> / </span>
-          <span class="centre"><input class="gear-input centre" name='system.maxHP' type='text' value='{{item.system.maxHP}}'  data-dtype="maxHP"/></span>
+          <span class="centre"><input class="gear-input centre" name='system.maxHP' type='number' value='{{item.system.maxHP}}'/></span>
         </div>
       {{else}}
         <div class="new-row">{{localize 'AOV.hpMax'}}</div>
         <div class="">
-          <input class="gear-input centre" name='system.maxHP' type='text' value='{{item.system.maxHP}}'  data-dtype="maxHP"/>
+          <input class="gear-input centre" name='system.maxHP' type='number' value='{{item.system.maxHP}}'/>
         </div>
       {{/if}}
       <div class="new-row"></div>
@@ -123,13 +123,13 @@
       {{#if hasOwner}}
         <div class="new-row">{{localize 'AOV.hpCurr'}}</div>
         <div class="minstrdex">
-          <span class="centre"><input class="gear-input centre" name='system.currHP' type='text' value='{{item.system.currHP}}'  data-dtype="currHP"/></span>
+          <span class="centre"><input class="gear-input centre" name='system.currHP' type='number' value='{{item.system.currHP}}'/></span>
           <span class="centre"> / </span>
           <span class="centre">{{item.system.maxHP}}</span>
         </div>
       {{else}}
         <div class="new-row">{{localize 'AOV.hpMax'}}</div>
-        <div class="">{{item.system.maxHP}}</div>
+        <div class="centre">{{item.system.maxHP}}</div>
       {{/if}}
       <div class="new-row"></div>
       <br>
