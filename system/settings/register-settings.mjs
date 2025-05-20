@@ -54,7 +54,7 @@ export async function registerSettings() {
   game.settings.register('aov', 'systemVersion', {
     name: 'AoV System Version',
     scope: 'world',
-    config: true,
+    config: false,
     type: String,
     default: ""
   })

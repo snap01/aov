@@ -31,12 +31,13 @@ export class AoVSkillSheet extends AoVItemSheet {
     context.baseSkillName = game.i18n.localize("AOV." + context.system.baseVal);
     context.weaponTypeOptions = await AOVSelectLists.weaponType()
     context.weaponTypeName = game.i18n.localize("AOV." + context.system.weaponType);
+    context.weaponCatName = ""
     if (context.system.category === 'cbt') {
       context.weaponCatOptions = await AOVSelectLists.getWeaponCategories();
       let weaponCat = await game.aov.cid.fromCID(context.system.weaponCat);
-      context.weaponCatName = weaponCat[0].name ?? ""
-    } else {
-      context.weaponCatName = ""
+      if (weaponCat.length>0) {
+        context.weaponCatName = weaponCat[0].name ?? ""
+      }
     }
     context.system.total = (context.system.base ?? 0) + (context.system.xp ?? 0) + (context.system.home ?? 0) + (context.system.pers ?? 0) + (context.system.effects ?? 0)
     context.system.catBonus = 0
