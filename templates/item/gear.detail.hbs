@@ -2,14 +2,14 @@
 
   <div class="gear-detail-grid">
     {{#if canEdit}}
-      <div>{{localize 'AOV.encumberance'}}</div>
+      <div>{{localize 'AOV.encumbrance'}}</div>
       <input class="gear-input" name='system.enc' type='number' value='{{item.system.enc}}'/>
       <div class="new-row"></div>
       <br>
       <div class="new-row">{{localize 'AOV.quantity'}}</div>
       <input class="gear-input" name='system.quantity' type='number' value='{{item.system.quantity}}'/>
     {{else}}
-      <div>{{localize 'AOV.encumberance'}}</div>
+      <div>{{localize 'AOV.encumbrance'}}</div>
       <div class="centre bottom-line">{{item.system.enc}}</div>
       <div class="new-row"></div>
       <br>
