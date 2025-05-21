@@ -16,7 +16,7 @@ export async function updateWorld({ bypassVersionCheck=false }={}) {
     const response = await foundry.applications.api.DialogV2.prompt({
       position: {
         width:500,
-        height: 350,
+        height: 450,
       },
       classes:['aov', 'item'],
       window: {

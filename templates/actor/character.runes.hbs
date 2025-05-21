@@ -43,7 +43,7 @@
   </ol>
   <br>
 
-  {{!--Runes List--}}
+  {{!--Rune Scripts List--}}
   <ol class='gear-list'>
     <li class='item gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} runescript-grid'>
       <div class='left'>{{localize "TYPES.Item.runescript"}}</div>
@@ -63,7 +63,7 @@
     <li class='item runescript-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
       <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.runescript")}}'
         data-action='viewDoc'>{{item.name}}</div>
-      <div class="truncate" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
+      <div class="truncate" style ="padding-top: 5px;" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
       {{#unless ../isLocked}}
       <div class='gear-controls centre'>
         <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.runescript")}}'
@@ -97,7 +97,7 @@
     <li class='item runescript-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
       <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.seidur")}}'
         data-action='viewDoc'>{{item.name}}</div>
-      <div class="truncate" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
+      <div class="truncate" style ="padding-top: 5px;" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
       {{#unless ../isLocked}}
       <div class='gear-controls centre'>
         <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.seidur")}}'
