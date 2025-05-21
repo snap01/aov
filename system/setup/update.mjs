@@ -14,13 +14,13 @@ export async function updateWorld({ bypassVersionCheck=false }={}) {
     if (foundry.utils.isNewerVersion('13.1', currentVersion ?? '0')) {
     const content = await foundry.applications.handlebars.renderTemplate('systems/aov/templates/updates/update13.1.hbs')
     const response = await foundry.applications.api.DialogV2.prompt({
+      position: {
+        width:500,
+        height: 350,
+      },
+      classes:['aov', 'item'],
       window: {
         title: "Update",
-        classes: ['aov'],
-        position: {
-          width: 500,
-          height: 840
-        },
       },
       content,
       modal: true
