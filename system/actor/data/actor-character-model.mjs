@@ -14,10 +14,12 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     schema.reputation = new fields.SchemaField({
       base: new fields.NumberField({ ...requiredInteger, initial: 5 }),
       xp: new fields.NumberField({ ...requiredInteger, initial: 0 }),
+      effects: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
     schema.status = new fields.SchemaField({
       base: new fields.NumberField({ ...requiredInteger, initial: 25 }),
       xp: new fields.NumberField({ ...requiredInteger, initial: 0 }),
+      effects: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
     schema.hrBonus = new fields.NumberField({ ...requiredInteger, initial: 0 }); // Healing Rate Bonus
     schema.birthYear = new fields.NumberField({ ...requiredInteger, initial: 955 });

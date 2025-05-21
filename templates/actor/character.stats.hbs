@@ -6,6 +6,7 @@
       <div class='centre'>{{localize 'AOV.base'}}</div>
       <div class='centre'>{{localize 'AOV.age'}}</div>
       <div class='centre'>{{localize 'AOV.exp'}}</div>
+      <div class='centre'>{{localize 'AOV.effects'}}</div>
       <div class='centre'>{{localize 'AOV.total'}}</div>
     </li>
 
@@ -27,6 +28,7 @@
         <input class="stat-val" name='system.abilities.{{key}}.xp' type='number' value='{{ability.xp}}'/>
       </div>
       {{/if}}
+      <div class='stat-val centre terIcon'>{{ability.effects}}</div>
       <div class='stat-val centre terIcon'>{{ability.total}}</div>
     </li>
     {{/each}}
@@ -46,6 +48,7 @@
         <input class="stat-input" name='system.reputation.xp' type='number' value='{{system.reputation.xp}}'/>
       </div>
       {{/if}}
+      <div class='stat-val centre terIcon'>{{system.reputation.effects}}</div>
       <div class='stat-val centre terIcon'>{{system.reputation.total}}</div>
     </li>
     <li class='statsgrid'>
@@ -63,6 +66,7 @@
         <input class="stat-input" name='system.status.xp' type='text' value='{{system.status.xp}}'/>
       </div>
       {{/if}}
+      <div class='stat-val centre terIcon'>{{system.status.effects}}</div>
       <div class='stat-val centre terIcon'>{{system.status.total}}</div>
     </li>
   </ol>

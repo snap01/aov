@@ -47,10 +47,10 @@ export default class AOVShipModel extends AOVActorBaseModel {
       head: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Sailing - head wind
     });
     schema.row = new fields.SchemaField({
-      before: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - before wind
-      quarter: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - quarter wind
-      half: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - halfbefore wind
-      head: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - head wind
+      back: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - back oars
+      cruise: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - cruise
+      race: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - race
+      crew: new fields.NumberField({ ...requiredInteger, initial: 0 }), //Rowing - crew modifier
     });
     schema.engine1 = new fields.StringField({ required: true, blank: true, initial: "" }); //Siege Engine 1
     schema.engine2 = new fields.StringField({ required: true, blank: true, initial: "" }); //Siege Engine 1

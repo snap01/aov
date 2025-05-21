@@ -247,3 +247,48 @@
   background: none;
   outline: none;
 }
+
+.aov .statsgrid {
+  display: grid;
+  grid-template-columns: 75px 50px 50px 50px 50px 75px;
+  grid-column-gap: 5px;
+}
+
+.aov.character .hitLocGrid {
+  display: grid;
+  background-image: url('../art-assets/warrior.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 70%;
+  grid-template-columns: 100px 100px 100px;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  grid-template-rows: 75px 75px 75px 75px;
+}
+
+.aov .hitlocCell {
+  border: 2px solid black;
+  border-radius: 3px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.aov .hitLocCellAtt {
+  display: grid;
+  grid-template-columns: 30px 28px 10px 28px ;
+}
+
+.aov.character .hitLocDev {
+  display: block;
+  background-image: url('../art-assets/warrior.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 70%;
+  min-height: 315px
+}
+
+.aov.character .hitLocGridDev {
+  display: grid;
+  grid-template-columns: 150px 100px 50px;
+  height:20px;
+}

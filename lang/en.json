@@ -453,6 +453,7 @@
     },
     "ship": {
       "additionalCrew": "Additional Crew",
+      "backOars": "Back Oars",
       "barge": "Barge",
       "beam": "Beam",
       "before": "Before",
@@ -461,6 +462,7 @@
       "capacityAbbr": "Cap",
       "captain": "Captain",
       "crew": "Crew",
+      "cruise": "Cruise",
       "currentMin": "Current / Minumum crew levels",
       "half": "Half",
       "head": "Head",
@@ -474,6 +476,7 @@
       "navigate": "Navigate",
       "passengers": "Passengers",
       "quarter": "Quarter",
+      "race": "Race",
       "rowers": "Rowers",
       "rowing": "Rowing Speed",
       "sailing": "Sailing Speed",
