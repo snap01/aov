@@ -2,18 +2,18 @@
 
   <div class="gear-detail-grid">
     {{#if canEdit}}
-      <div>{{localize 'AOV.encumbrance'}}</div>
+      <div class="bold">{{localize 'AOV.encumbrance'}}</div>
       <input class="gear-input" name='system.enc' type='number' value='{{item.system.enc}}'/>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.quantity'}}</div>
+      <div class="new-row bold">{{localize 'AOV.quantity'}}</div>
       <input class="gear-input" name='system.quantity' type='number' value='{{item.system.quantity}}'/>
     {{else}}
-      <div>{{localize 'AOV.encumbrance'}}</div>
+      <div class="bold">{{localize 'AOV.encumbrance'}}</div>
       <div class="centre bottom-line">{{item.system.enc}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.quantity'}}</div>
+      <div class="new-row bold">{{localize 'AOV.quantity'}}</div>
       <div class="centre bottom-line">{{item.system.quantity}}</div>
 
     {{/if}}
@@ -22,7 +22,7 @@
     {{#if hasOwner}}
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.equipped'}}</div>
+      <div class="new-row bold">{{localize 'AOV.equipped'}}</div>
       <div class="">
         <select class="gear-input" data-handle-change name="system.equipStatus">
           {{selectOptions equippedOptions selected=item.system.equipStatus}}

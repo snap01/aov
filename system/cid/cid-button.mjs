@@ -12,7 +12,7 @@ export function addCIDSheetHeaderButton(headerButtons, sheet) {
     icon: 'fas fa-fingerprint',
     onclick: () => {
       if (game.user.isGM) {
-        new CIDEditor(sheet.object, {}).render(true, { focus: true })
+        new CIDEditor({ document: sheet.document }, {}).render(true, { focus: true })
       }
     }
   }

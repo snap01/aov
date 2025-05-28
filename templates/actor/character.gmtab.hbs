@@ -1,5 +1,5 @@
 <section class='character tab gmTab {{tab.cssClass}}' data-group='primary' data-tab='gmTab'>
-  <div>{{localize 'AOV.gmNotes'}}</div>
+  <div class="bold">{{localize 'AOV.gmNotes'}}</div>
 
   {{! Editor for description}}
   <div class="item-notes">
@@ -11,17 +11,17 @@
   <br>
   {{! Bonuses etc}}
 
-  <div>{{localize 'AOV.bonuses'}}</div>
+  <div class="bold">{{localize 'AOV.bonuses'}}</div>
   <div class="statBonus">
-    <div class="gear-name left new-row">{{localize 'AOV.maxHPBonus'}}</div>
+    <div class="gear-name left new-row bold">{{localize 'AOV.maxHPBonus'}}</div>
     <div class='gear-name centre'>
       <input class="stat-input" name='system.hp.bonus' type='number' value='{{system.hp.bonus}}'/>
     </div>
-    <div class="gear-name left new-row">{{localize 'AOV.maxMPBonus'}}</div>
+    <div class="gear-name left new-row bold">{{localize 'AOV.maxMPBonus'}}</div>
     <div class='gear-name centre'>
       <input class="stat-input" name='system.mp.bonus' type='number' value='{{system.mp.bonus}}'/>
     </div>
-    <div class="gear-name left new-row">{{localize 'AOV.healRateBonus'}}</div>
+    <div class="gear-name left new-row bold">{{localize 'AOV.healRateBonus'}}</div>
     <div class='gear-name centre'>
       <input class="stat-input" name='system.hrBonus' type='number' value='{{system.hrBonus}}'  />
     </div>

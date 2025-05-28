@@ -2,17 +2,17 @@
 
   <div class="gear-detail-grid">
     {{#if canEdit}}
-      <div>{{localize 'AOV.ideals'}}</div>
+      <div class="bold">{{localize 'AOV.ideals'}}</div>
       <input class="gear-input" style="grid-column: 2 / span2;" name='system.ideals' type='text' value='{{item.system.ideals}}'/>
     {{else}}
-      <div>{{localize 'AOV.ideals'}}</div>
+      <div class="bold">{{localize 'AOV.ideals'}}</div>
       <div class="centre bottom-line" style="grid-column: 2 / span2;">{{item.system.ideals}}</div>
     {{/if}}
 
     {{#if hasOwner}}
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.devPoints'}}</div>
+      <div class="new-row bold">{{localize 'AOV.devPoints'}}</div>
         <div class="" >
           <select class="gear-input" data-handle-change name="system.dp">
             {{selectOptions dpOptions selected=item.system.dp}}

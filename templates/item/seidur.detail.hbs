@@ -3,25 +3,25 @@
 
   <div class="gear-detail-grid">
 
-    <div class="new-row line-space">{{localize 'AOV.realm.label'}}</div>
+    <div class="new-row line-space bold">{{localize 'AOV.realm.label'}}</div>
     <div>
       <select class="gear-input" data-handle-change name='system.realm'>
         {{selectOptions realmList selected=item.system.realm}}
       </select>
     </div>
-    <div class="new-row line-space">{{localize 'AOV.duration.label'}}</div>
+    <div class="new-row line-space bold">{{localize 'AOV.duration.label'}}</div>
     <div>
       <select class="gear-input" data-handle-change name='system.duration'>
         {{selectOptions durationList selected=item.system.duration}}
       </select>
     </div>
-    <div class="new-row line-space">{{localize 'AOV.distance.label'}}</div>
+    <div class="new-row line-space bold">{{localize 'AOV.distance.label'}}</div>
     <div>
       <select class="gear-input" data-handle-change name='system.distance'>
         {{selectOptions distanceList selected=item.system.distance}}
       </select>
     </div>
-    <div class="new-row line-space">{{localize 'AOV.dimension.label'}}</div>
+    <div class="new-row line-space bold">{{localize 'AOV.dimension.label'}}</div>
     <div>
       <select class="gear-input" data-handle-change name='system.dimension'>
         {{selectOptions dimensionList selected=item.system.dimension}}
@@ -31,14 +31,14 @@
     <div class="new-row"></div>
     <br>
 
-    <div class="new-row">{{localize 'AOV.mp'}}</div>
+    <div class="new-row bold">{{localize 'AOV.mp'}}</div>
     <div class="terIcon centre">{{mpCost}}</div>
-    <div class="new-row">{{localize 'AOV.lockedMP'}}</div>
+    <div class="new-row bold">{{localize 'AOV.lockedMP'}}</div>
     <div class="terIcon centre">{{mpLocked}}</div>
   </div>
   <br>
 
-  <div>{{localize 'AOV.impact'}}</div>
+  <div class="bold">{{localize 'AOV.impact'}}</div>
   <div class="rune-input-large">
     <textarea class="secIcon" name='system.shortDesc'>{{item.system.shortDesc}}</textarea>
   </div>

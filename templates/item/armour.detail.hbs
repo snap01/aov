@@ -2,19 +2,19 @@
 
   <div class="gear-detail-grid">
     {{#if canEdit}}
-      <div class="new-row">{{localize 'AOV.armourType'}}</div>
+      <div class="new-row bold">{{localize 'AOV.armourType'}}</div>
       <input class="gear-input" name='system.type' type='text' value='{{item.system.type}}'/>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.material'}}</div>
+      <div class="new-row bold">{{localize 'AOV.material'}}</div>
       <input class="gear-input" name='system.material' type='text' value='{{item.system.material}}'/>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.coverage'}}</div>
+      <div class="new-row bold">{{localize 'AOV.coverage'}}</div>
       <input class="gear-input" name='system.coverage' type='text' value='{{item.system.coverage}}'/>
       <div class="new-row"></div>
       <br>
-      <div class="new-row" title="{{localize 'AOV.hitLocationsHint'}}">{{localize 'AOV.hitLocations'}}</div>
+      <div class="new-row bold" title="{{localize 'AOV.hitLocationsHint'}}">{{localize 'AOV.hitLocations'}}</div>
       <div class="minstrdex">
         <span class="centre"><input class="gear-input centre" name='system.lowLoc' type='number' value='{{item.system.lowLoc}}'/></span>
         <span class="centre"> / </span>
@@ -22,57 +22,57 @@
       </div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.absorbs'}}</div>
+      <div class="new-row bold">{{localize 'AOV.absorbs'}}</div>
       <input class="gear-input" name='system.map' type='number' value='{{item.system.map}}'/>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.encumbrance'}}</div>
+      <div class="new-row bold">{{localize 'AOV.encumbrance'}}</div>
       <input class="gear-input" name='system.enc' type='number' value='{{item.system.enc}}'/>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.cost'}}</div>
+      <div class="new-row bold">{{localize 'AOV.cost'}}</div>
       <input class="gear-input" name='system.cost' type='number' value='{{item.system.cost}}'/>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.moveQuietly'}}</div>
+      <div class="new-row bold">{{localize 'AOV.moveQuietly'}}</div>
       <input class="gear-input" name='system.mqPenalty' type='number' value='{{item.system.mqPenalty}}'/>
     {{else}}
-      <div class="new-row">{{localize 'AOV.armourType'}}</div>
+      <div class="new-row bold">{{localize 'AOV.armourType'}}</div>
       <div class="centre bottom-line">{{item.system.type}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.material'}}</div>
+      <div class="new-row bold">{{localize 'AOV.material'}}</div>
       <div class="centre bottom-line">{{item.system.material}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.coverage'}}</div>
+      <div class="new-row bold">{{localize 'AOV.coverage'}}</div>
       <div class="centre bottom-line">{{item.system.coverage}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row" title="{{localize 'AOV.hitLocationsHint'}}">{{localize 'AOV.hitLocations'}}</div>
+      <div class="new-row bold" title="{{localize 'AOV.hitLocationsHint'}}">{{localize 'AOV.hitLocations'}}</div>
       <div class="centre bottom-line">{{item.system.lowLoc}} - {{item.system.highLoc}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.absorbs'}}</div>
+      <div class="new-row bold">{{localize 'AOV.absorbs'}}</div>
       <div class="centre bottom-line">{{item.system.map}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.encumbrance'}}</div>
+      <div class="new-row bold">{{localize 'AOV.encumbrance'}}</div>
       <div class="centre bottom-line">{{item.system.enc}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.cost'}}</div>
+      <div class="new-row bold">{{localize 'AOV.cost'}}</div>
       <div class="centre bottom-line">{{item.system.cost}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.moveQuietly'}}</div>
+      <div class="new-row bold">{{localize 'AOV.moveQuietly'}}</div>
       <div class="centre bottom-line">{{item.system.mqPenalty}}</div>
     {{/if}}
 
     {{#if hasOwner}}
       <div class="new-row"></div>
       <br>
-      <div class="new-row">{{localize 'AOV.equipped'}}</div>
+      <div class="new-row bold">{{localize 'AOV.equipped'}}</div>
       <div class="">
         <select class="gear-input" data-handle-change name="system.equipStatus">
           {{selectOptions equippedOptions selected=item.system.equipStatus}}

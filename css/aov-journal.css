@@ -1,0 +1,144 @@
+.aov.journal-sheet,
+.aovJnl {
+  font-family: var(--aov-primary-font);
+  color: var(--aov-jnl-main-col);
+  text-align:justify;
+
+    h3 {
+      color: var(--aov-jnl-pri-col);
+      font-family: var(--aov-secondary-font);
+      font-size: 20px;
+    }
+
+    .quote {
+      text-align:center;
+      text-transform:uppercase;
+      color: var(--aov-jnl-sec-col);
+      font-family: var(--aov-secondary-font);
+      font-weight: bold;
+    }
+
+    .attrib {
+      font-family: var(--aov-secondary-font);
+      text-align:center;
+      color: var(--aov-jnl-sec-col);
+
+    }
+
+    .indent {
+      text-indent: 20px;
+    }
+
+    .main {
+      color: var(--aov-jnl-main-col);
+    }
+
+    .play {
+      color: var(--aov-jnl-sec-col);
+      border: 1px black solid;
+      padding:5px;
+      margin: 5px;
+      background-color:cornsilk;
+      .heading {
+        font-family: var(--aov-secondary-font);
+        text-align: center;
+        font-size:18px;
+      }
+    }
+
+    .rules {
+      color: var(--aov-jnl-ter-col);
+      border: 1px black solid;
+      padding:5px;
+      margin: 5px;
+      background-color:cornsilk;
+      .heading {
+        font-family: var(--aov-secondary-font);
+        text-align: center;
+        font-size:18px;
+      }
+    }
+
+    .action {
+      color: var(--aov-jnl-pri-col);
+      border: 1px black solid;
+      padding:5px;
+      margin: 5px;
+      background-color:cornsilk;
+      .heading {
+        font-family: var(--aov-secondary-font);
+      }
+    }
+
+    ul.jnl {
+      margin: 0.5em 0 0 0;
+    }
+
+    .rules ul.jnl li::marker {
+      content: 'Þ ';
+      font-size:15px;
+      color:var(--aov-jnl-ter-col);
+    }
+
+
+    ul.jnl li::marker {
+      content: 'Þ ';
+      font-size:15px;
+      color:var(--aov-jnl-pri-col);
+    }
+
+    ol.jnl li::marker {
+      color:var(--aov-jnl-pri-col);
+    }
+
+    table {
+      margin-left:10px;
+      width: calc(100% - 20px);
+      color: var(--aov-jnl-main-col);
+    }
+
+    table td {
+      padding: 0px 0px 0px 5px;
+      border-left: 1px solid white;
+      border-right: 1px solid white;
+      &.merged {
+        vertical-align: middle;
+        border-bottom: 1px solid black;
+      }
+    }
+
+    table tbody tr:nth-child(odd) {
+      background-color: var(--table-row-color-even);
+    }
+
+    table tbody tr:nth-child(even) {
+      background-color: var(--table-row-color-odd);
+    }
+
+    .glossary p{
+      text-indent: -20px;
+      padding-left: 20px;
+    }
+
+    .example {
+      padding-left: 20px;
+      color: var(--aov-jnl-sec-col);
+    }
+
+    a.content-link {
+      background: none;
+      border: none;
+      border-radius: 0;
+      white-space: pre-wrap;
+      word-break: normal;
+      color: rgb(156, 7, 156);
+      font-weight: bold;
+      margin: 0px;
+      padding: 0px;
+      text-indent: 0px;
+      i {
+        display:none;
+      }
+  }
+}
+

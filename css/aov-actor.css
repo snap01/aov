@@ -179,6 +179,7 @@
   border: transparent;
   background: none;
   outline: none;
+  box-shadow: none;
 }
 
 .aov .npc-weapon-grid {
@@ -227,6 +228,7 @@
   border-bottom: 1px var(--aov-primary-font-colour) solid;
   background: none;
   outline: none;
+  box-shadow: none;
 }
 
 .aov .npc-stat-input {
@@ -246,6 +248,7 @@
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
   background: none;
   outline: none;
+  box-shadow: none;
 }
 
 .aov .statsgrid {
@@ -291,4 +294,17 @@
   display: grid;
   grid-template-columns: 150px 100px 50px;
   height:20px;
+}
+
+.aov .distinct {
+  max-height:40px;
+  min-height: 40px;
+  padding-top: 3px;
+}
+.aov .distinctFeat{
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: var(--aov-primary-font);
+  box-shadow: none;
 }

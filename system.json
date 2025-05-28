@@ -24,7 +24,8 @@
       "css/aov.css",
       "css/aov-actor.css",
       "css/aov-cid.css",
-      "css/aov-prosemirror.css"
+      "css/aov-prosemirror.css",
+      "css/aov-journal.css"
     ],
     "languages": [
       {

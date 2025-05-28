@@ -1,11 +1,11 @@
 <section class='farm tab thralls {{tab.cssClass}}' data-group='primary' data-tab='thralls'>
   <ol class='charHitLoc' style="padding-top: 10px;">
     <li class="thralls-grid primBackCol">
-      <div class='left'>{{localize 'AOV.name'}}</div>
-      <div class='centre'>{{localize 'AOV.born'}}</div>
-      <div class='centre'>{{localize 'AOV.died'}}</div>
-      <div class='centre'>{{localize 'AOV.gender'}}</div>
-      <div class='centre'>
+      <div class='left bold'>{{localize 'AOV.name'}}</div>
+      <div class='centre bold'>{{localize 'AOV.born'}}</div>
+      <div class='centre bold'>{{localize 'AOV.died'}}</div>
+      <div class='centre bold'>{{localize 'AOV.gender'}}</div>
+      <div class='centre bold'>
         {{#if @root.editable}}
         <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.thrall")}}'
           data-action='createDoc' data-document-class='Item' data-type='thrall'>

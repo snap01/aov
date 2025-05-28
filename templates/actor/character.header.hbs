@@ -5,9 +5,9 @@
     {{!Character Name}}
     <div class="charNameHeader">
       <div class='header-fields actorName-grid'>
-        <div>{{localize 'AOV.name'}}</div>
+        <div class="bold">{{localize 'AOV.name'}}</div>
         <div class='document-name'><input class="stat-input" name='name' type='text' value='{{actor.name}}' /></div>
-        <div>{{localize 'AOV.nickname'}}</div>
+        <div class="bold">{{localize 'AOV.nickname'}}</div>
         <div class='document-name'><input class="stat-input" name='system.nickname' type='text'
             value='{{actor.system.nickname}}' /></div>
       </div>
@@ -46,7 +46,7 @@
       <div class="characteristics">
         {{#each system.abilities as |ability key|}}
         <div class="ability-cell centre bold" data-characteristic="{{key}}">{{ability.label}}</div>
-        <div class="ability-cell centre terIcon">{{ability.total}}</div>
+        <div class="ability-cell centre bold terIcon">{{ability.total}}</div>
         {{/each}}
       </div>
     </div>
@@ -55,30 +55,30 @@
     <div class="derivedStats">
       <div class="ability-cell left bold" title="{{localize 'AOV.hp'}}">{{localize 'AOV.hpAbbr'}}</div>
       <div class='stat-grid'>
-        <span class="ability-cell centre terIcon">{{system.hp.value}}</span>
+        <span class="ability-cell centre terIcon bold">{{system.hp.value}}</span>
         <span class="ability-cell centre"> / </span>
-        <span class="ability-cell centre terIcon">{{system.hp.max}}</span>
+        <span class="ability-cell centre terIcon bold">{{system.hp.max}}</span>
       </div>
       <div class="ability-cell left bold" title="{{localize 'AOV.mp'}}">{{localize 'AOV.mpAbbr'}}</div>
       <div class='stat-grid'>
-        <input class="ability-cell" type='text' name='system.mp.value' value='{{system.mp.value}}'
+        <input class="ability-cell bold" type='text' name='system.mp.value' value='{{system.mp.value}}'
           data-dtype='Number' />
         <span class="centre"> / </span>
-        <div class="ability-cell centre terIcon">{{system.mp.max}}</div>
+        <div class="ability-cell centre terIcon bold">{{system.mp.max}}</div>
       </div>
       <div class="ability-cell left bold upper" title="{{localize 'AOV.reput'}}">{{localize 'AOV.reputAbbr'}}</div>
-      <div class="ability-cell centre terIcon">{{system.reputation.total}}%</div>
+      <div class="ability-cell centre terIcon bold">{{system.reputation.total}}%</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.healRate'}}">{{localize 'AOV.healRateAbbr'}}</div>
-      <div class="ability-cell centre terIcon">{{system.healRate}}</div>
+      <div class="ability-cell centre terIcon bold">{{system.healRate}}</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.dmgBonus'}}">{{localize 'AOV.dmgBonusAbbr'}}</div>
-      <div class="ability-cell centre terIcon">{{system.dmgBonus}}</div>
+      <div class="ability-cell centre terIcon bold">{{system.dmgBonus}}</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.mr'}}">{{localize 'AOV.mrAbbr'}}</div>
-      <div class="ability-cell centre terIcon">{{system.moveRate}}</div>
+      <div class="ability-cell centre terIcon bold">{{system.moveRate}}</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.encHint'}}">{{localize 'AOV.encumbranceAbbr'}}</div>
       <div class='stat-grid'>
-        <span class="ability-cell centre terIcon">{{system.actualEnc}}</span>
+        <span class="ability-cell centre terIcon bold">{{system.actualEnc}}</span>
         <span class="ability-cell centre"> / </span>
-        <span class="ability-cell centre terIcon">{{system.maxEnc}}</span>
+        <span class="ability-cell centre terIcon bold">{{system.maxEnc}}</span>
       </div>
     </div>
 

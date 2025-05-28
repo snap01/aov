@@ -1,6 +1,6 @@
 <section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
 
-  <div>{{localize 'AOV.meaning'}}</div>
+  <div class="bold">{{localize 'AOV.meaning'}}</div>
   <div class="rune-input-small">
     {{#if canEdit}}
       <textarea class="secIcon" name='system.meaning'>{{item.system.meaning}}</textarea>
@@ -9,7 +9,7 @@
     {{/if}}
   </div>
   <br>
-  <div>{{localize 'AOV.areas'}}</div>
+  <div class="bold">{{localize 'AOV.areas'}}</div>
   <div class="rune-input">
     {{#if canEdit}}
       <textarea class="secIcon" name='system.areas'>{{item.system.areas}}</textarea>
@@ -19,7 +19,7 @@
   </div>
 
   <br>
-  <div class="">{{localize 'AOV.uses'}}</div>
+  <div class="bold">{{localize 'AOV.uses'}}</div>
   <div class="rune-input-large">
     {{#if canEdit}}
       <textarea class="secIcon" name='system.use1'>{{item.system.use1}}</textarea>
@@ -45,8 +45,8 @@
 
   <div class="rune-detail-grid">
     {{#if canEdit}}
-      <div class="new-row">{{localize 'AOV.effects'}}</div>
-      <div class="centre">{{localize 'AOV.amount'}}</div>
+      <div class="new-row bold">{{localize 'AOV.effects'}}</div>
+      <div class="centre bold">{{localize 'AOV.amount'}}</div>
       <div class="new-row">
         <select class="gear-input" data-handle-change name="system.effect1">
           {{selectOptions effectOptions selected=item.system.effect1}}
@@ -68,8 +68,8 @@
       </div>
         <input class="gear-input" name='system.value3' type='text' value='{{item.system.value3}}'/>
     {{else}}
-      <div class="new-row">{{localize 'AOV.effects'}}</div>
-      <div class="centre">{{localize 'AOV.amount'}}</div>
+      <div class="new-row bold">{{localize 'AOV.effects'}}</div>
+      <div class="centre bold">{{localize 'AOV.amount'}}</div>
       <div class="new-row indent">{{lookup effectOptions item.system.effect1}}</div>
       <div class="centre bottom-line">{{item.system.value1}}</div>
 

@@ -208,6 +208,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const passions = [];
     const devSkills = [];
     const hitLocs = [];
+    const devHitLocs = [];
     const temphitLocs = [];
     const wounds = [];
     const devotions = [];
@@ -273,6 +274,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
           itm.system.label = itm.system.lowRoll + "-" + itm.system.highRoll
         }
         temphitLocs.push(itm)
+        devHitLocs.push(itm)
       } else if (itm.type === 'wound') {
         wounds.push(itm)
       } else if (itm.type === 'devotion') {
@@ -345,6 +347,15 @@ export class AoVCharacterSheet extends AoVActorSheet {
       }
     }
 
+    //Sort DevHitLocs by location
+    devHitLocs.sort(function (a, b) {
+      let x = a.system.highRoll;
+      let y = b.system.highRoll;
+      if (x < y) { return 1 };
+      if (x > y) { return -1 };
+      return 0;
+    })
+
     //Sort Armour on Hit Loc
     armours.sort(function (a, b) {
       let x = a.system.highLoc;
@@ -359,6 +370,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.passions = passions.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.devSkills = devSkills.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.hitLocs = hitLocs;
+    context.devHitLocs = devHitLocs;
     context.wounds = wounds;
     context.devotions = devotions.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.families = families.sort(function (a, b) {return a.name.localeCompare(b.name)});

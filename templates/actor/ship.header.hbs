@@ -5,9 +5,9 @@
     {{!Character Name}}
     <div class="charNameHeader">
       <div class='header-fields actorName-grid'>
-        <div>{{localize 'AOV.name'}}</div>
+        <div class="bold" >{{localize 'AOV.name'}}</div>
         <div class='document-name'><input class="stat-input" name='name' type='text' value='{{actor.name}}' /></div>
-        <div>{{localize 'AOV.ship.shipType'}}</div>
+        <div class="bold">{{localize 'AOV.ship.shipType'}}</div>
         <div class='document-name'><input class="stat-input" name='system.shipType' type='text'
             value='{{actor.system.shipType}}' /></div>
       </div>
@@ -44,26 +44,26 @@
 
     <div class='header-fields captain'>
       {{#if isLocked}}
-        <div class="new-row" >{{localize 'AOV.ship.captain'}}</div>
+        <div class="new-row bold" >{{localize 'AOV.ship.captain'}}</div>
         <div class='centre bottom-line ability-cell'>{{actor.system.captain}}</div>
-        <div class="" >{{localize 'AOV.ship.boatShip'}}</div>
+        <div class="bold " >{{localize 'AOV.ship.boatShip'}}</div>
         <div class='centre bottom-line ability-cell'>{{actor.system.boat}}</div>
-        <div class="new-row" >{{localize 'AOV.ship.helmsman'}}</div>
+        <div class="new-row bold" >{{localize 'AOV.ship.helmsman'}}</div>
         <div class='centre bottom-line ability-cell'>{{actor.system.helmsman}}</div>
-        <div class="" >{{localize 'AOV.ship.navigate'}}</div>
+        <div class="bold" >{{localize 'AOV.ship.navigate'}}</div>
         <div class='centre bottom-line ability-cell'>{{actor.system.navigate}}</div>
 
       {{else}}
-        <div class="new-row" >{{localize 'AOV.ship.captain'}}</div>
+        <div class="new-row bold" >{{localize 'AOV.ship.captain'}}</div>
         <div class='ability-cell'><input class="stat-input" name='system.captain' type='text'
           value='{{actor.system.captain}}' /></div>
-        <div class="" >{{localize 'AOV.ship.boatShip'}}</div>
+        <div class="bold" >{{localize 'AOV.ship.boatShip'}}</div>
         <div class='ability-cell'><input class="stat-input" name='system.boat' type='number'
           value='{{actor.system.boat}}' /></div>
-        <div class="new-row" >{{localize 'AOV.ship.helmsman'}}</div>
+        <div class="new-row bold" >{{localize 'AOV.ship.helmsman'}}</div>
         <div class='ability-cell'><input class="stat-input" name='system.helmsman' type='text'
           value='{{actor.system.helmsman}}' /></div>
-        <div class="" >{{localize 'AOV.ship.navigate'}}</div>
+        <div class="bold " >{{localize 'AOV.ship.navigate'}}</div>
         <div class='ability-cell'><input class="stat-input" name='system.navigate' type='number'
           value='{{actor.system.navigate}}' /></div>
       {{/if}}
@@ -77,66 +77,66 @@
       <div>
         {{#if isLocked}}
           <div class="shipStats">
-            <div title="{{localize 'AOV.ship.hullQuality'}}">{{localize "AOV.ship.hullQualityAbbr"}}</div>
+            <div class="bold" title="{{localize 'AOV.ship.hullQuality'}}">{{localize "AOV.ship.hullQualityAbbr"}}</div>
             <div class="ability-cell centre bottom-line" style="grid-column: 2 / 5;">{{system.hull.value}}</div>
-            <div class="new-row" title="{{localize 'AOV.ship.seaWorthy'}}">{{localize "AOV.ship.seaWorthyAbbr"}}</div>
+            <div class="new-row bold" title="{{localize 'AOV.ship.seaWorthy'}}">{{localize "AOV.ship.seaWorthyAbbr"}}</div>
             <div class='ability-cell'><input class="stat-input centre" name='system.seaworthy.value' type='number'
               value='{{actor.system.seaworthy.value}}' />
             </div>
             <div class="centre">/</div>
             <div class="ability-cell centre bottom-line">{{system.seaworthy.max}}</div>
-            <div class="new-row" title="{{localize 'AOV.ship.structuralPoints'}}">{{localize "AOV.ship.structuralPointsAbbr"}}</div>
+            <div class="new-row bold" title="{{localize 'AOV.ship.structuralPoints'}}">{{localize "AOV.ship.structuralPointsAbbr"}}</div>
             <div class='ability-cell'><input class="stat-input centre" name='system.sp.value' type='number'
               value='{{actor.system.sp.value}}' />
             </div>
             <div class="centre">/</div>
             <div class="ability-cell centre bottom-line">{{system.sp.max}}</div>
-            <div >{{localize "AOV.ship.length"}}</div>
+            <div class="bold">{{localize "AOV.ship.length"}}</div>
             <div class="ability-cell centre bottom-line" style="grid-column: 2 / 5;">{{system.length}}</div>
-            <div >{{localize "AOV.ship.beam"}}</div>
+            <div class="bold">{{localize "AOV.ship.beam"}}</div>
             <div class="ability-cell centre bottom-line" style="grid-column: 2 / 5;">{{system.beam}}</div>
-            <div >{{localize "AOV.Ability.siz"}}</div>
+            <div class="bold">{{localize "AOV.Ability.siz"}}</div>
             <div class="ability-cell centre bottom-line" style="grid-column: 2 / 5;">{{system.size}}</div>
-            <div title="{{localize "AOV.ship.capacity"}}">{{localize "AOV.ship.capacityAbbr"}}</div>
+            <div class="bold" title="{{localize "AOV.ship.capacity"}}">{{localize "AOV.ship.capacityAbbr"}}</div>
             <div class="ability-cell centre bottom-line" style="grid-column: 2 / 5;">{{system.cargo}}</div>
           </div>
         {{else}}
           <div class="shipStats">
-            <div title="{{localize 'AOV.ship.hullQuality'}}">{{localize "AOV.ship.hullQualityAbbr"}}</div>
+            <div class="bold" title="{{localize 'AOV.ship.hullQuality'}}">{{localize "AOV.ship.hullQualityAbbr"}}</div>
             <div class='ability-cell' style="grid-column: 2 / 5;">
               <input class="stat-input centre" name='system.hull.value' type='number'
               value='{{actor.system.hull.value}}' />
             </div>
-            <div class="new-row" title="{{localize 'AOV.ship.seaWorthy'}}">{{localize "AOV.ship.seaWorthyAbbr"}}</div>
+            <div class="new-row bold" title="{{localize 'AOV.ship.seaWorthy'}}">{{localize "AOV.ship.seaWorthyAbbr"}}</div>
             <div class="ability-cell"><input class="stat-input centre" name='system.seaworthy.value' type='number'
               value='{{actor.system.seaworthy.value}}' /></div>
             <div class="centre">/</div>
             <div><input class="stat-input centre" name='system.seaworthy.max' type='number'
               value='{{actor.system.seaworthy.max}}' />
             </div>
-            <div class="new-row" title="{{localize 'AOV.ship.structuralPoints'}}">{{localize "AOV.ship.structuralPointsAbbr"}}</div>
+            <div class="new-row bold" title="{{localize 'AOV.ship.structuralPoints'}}">{{localize "AOV.ship.structuralPointsAbbr"}}</div>
             <div class="ability-cell"><input class="stat-input centre" name='system.sp.value' type='number'
               value='{{actor.system.sp.value}}' /></div>
             <div class="centre">/</div>
             <div><input class="stat-input centre" name='system.sp.max' type='number'
               value='{{actor.system.sp.max}}' />
             </div>
-            <div>{{localize "AOV.ship.length"}}</div>
+            <div class="bold">{{localize "AOV.ship.length"}}</div>
             <div class='ability-cell' style="grid-column: 2 / 5;">
               <input class="stat-input centre" name='system.length' type='number'
               value='{{actor.system.length}}' />
             </div>
-            <div>{{localize "AOV.ship.beam"}}</div>
+            <div class="bold">{{localize "AOV.ship.beam"}}</div>
             <div class='ability-cell' style="grid-column: 2 / 5;">
               <input class="stat-input centre" name='system.beam' type='number'
               value='{{actor.system.beam}}' />
             </div>
-            <div>{{localize "AOV.Ability.siz"}}</div>
+            <div class="bold">{{localize "AOV.Ability.siz"}}</div>
             <div class='ability-cell' style="grid-column: 2 / 5;">
               <input class="stat-input centre" name='system.size' type='number'
               value='{{actor.system.size}}' />
             </div>
-            <div title="{{localize "AOV.ship.capacity"}}">{{localize "AOV.ship.capacityAbbr"}}</div>
+            <div class="bold" title="{{localize "AOV.ship.capacity"}}">{{localize "AOV.ship.capacityAbbr"}}</div>
             <div class='ability-cell' style="grid-column: 2 / 5;">
               <input class="stat-input centre" name='system.cargo' type='number'
               value='{{actor.system.cargo}}' />
@@ -233,36 +233,36 @@
 
   <div class="ship-extra">
     <div class="ship-speeds">
-      <div class="left upper new-row" style="grid-column: 1/3;">{{localize 'AOV.ship.sailing'}}</div>
-      <div class="left upper" style="grid-column: 3/5;">{{localize 'AOV.ship.rowing'}}</div>
-      <div class="left new-row">{{localize 'AOV.ship.before'}}</div>
+      <div class="left upper new-row bold" style="grid-column: 1/3;">{{localize 'AOV.ship.sailing'}}</div>
+      <div class="left upper bold" style="grid-column: 3/5;">{{localize 'AOV.ship.rowing'}}</div>
+      <div class="left new-row bold">{{localize 'AOV.ship.before'}}</div>
         <input class="stat-input centre" name='system.sail.before' type='number'
           value='{{actor.system.sail.before}}' />
-      <div class="left">{{localize 'AOV.ship.backOars'}}</div>
+      <div class="left bold">{{localize 'AOV.ship.backOars'}}</div>
         <input class="stat-input centre" name='system.row.back' type='number'
           value='{{actor.system.row.back}}' />
-      <div class="left new-row">{{localize 'AOV.ship.quarter'}}</div>
+      <div class="left new-row bold">{{localize 'AOV.ship.quarter'}}</div>
         <input class="stat-input centre" name='system.sail.quarter' type='number'
           value='{{actor.system.sail.quarter}}' />
-      <div class="left">{{localize 'AOV.ship.cruise'}}</div>
+      <div class="left bold">{{localize 'AOV.ship.cruise'}}</div>
         <input class="stat-input centre" name='system.row.cruise' type='number'
           value='{{actor.system.row.cruise}}' />
-      <div class="left new-row">{{localize 'AOV.ship.half'}}</div>
+      <div class="left new-row bold">{{localize 'AOV.ship.half'}}</div>
         <input class="stat-input centre" name='system.sail.half' type='number'
           value='{{actor.system.sail.half}}' />
-      <div class="left">{{localize 'AOV.ship.race'}}</div>
+      <div class="left bold">{{localize 'AOV.ship.race'}}</div>
         <input class="stat-input centre" name='system.row.race' type='number'
           value='{{actor.system.row.race}}' />
-      <div class="left new-row">{{localize 'AOV.ship.head'}}</div>
+      <div class="left new-row bold">{{localize 'AOV.ship.head'}}</div>
         <input class="stat-input centre" name='system.sail.head' type='number'
           value='{{actor.system.sail.head}}' />
-      <div class="left">{{localize 'AOV.ship.crew'}}</div>
+      <div class="left bold">{{localize 'AOV.ship.crew'}}</div>
         <input class="stat-input centre" name='system.row.crew' type='number'
           value='{{actor.system.row.crew}}' />
     </div>
 
     <div class="ship-seige">
-      <div class="left upper">{{localize 'AOV.ship.siegeEngines'}}</div>
+      <div class="left upper bold">{{localize 'AOV.ship.siegeEngines'}}</div>
       {{#if isLocked}}
         <div class="centre stat-input bottom-line">{{#if (eq system.engine1 '')}}&nbsp{{else}}{{system.engine1}}{{/if}}</div>
         <div class="centre stat-input bottom-line">{{#if (eq system.engine2 '')}}&nbsp{{else}}{{system.engine2}}{{/if}}</div>
@@ -283,7 +283,7 @@
   <br>
   <div style = "padding-left:13px; padding-right: 13px;">
     {{! Editor for notes}}
-    <div>{{localize 'AOV.ship.shipsLog'}}</div>
+    <div class="bold">{{localize 'AOV.ship.shipsLog'}}</div>
     <div class="ship-notes">
       {{#if editable}}
         <prose-mirror name="system.description" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}"

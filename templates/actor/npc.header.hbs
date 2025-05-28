@@ -5,7 +5,7 @@
     {{!Character Name}}
     <div class="charNameHeader">
       <div class='header-fields npcName-grid'>
-        <div>{{localize 'AOV.name'}}</div>
+        <div class="bold">{{localize 'AOV.name'}}</div>
         <div class='document-name'><input class="stat-input" name='name' type='text' value='{{actor.name}}' /></div>
         <div class="right" style="grid-column: 1 / 3;">
           <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewStat' }}"  data-tabval="1"> <i class="mediumIcon fas fas fa-user"></i></a>
@@ -95,12 +95,12 @@
     {{!Hit Locations Section}}
     <ol class='hit-loc-grid'>
       <div class='hit-loc-row primBackCol'>
-        <div class="indent hit-loc-cell">{{localize 'AOV.hitLocation'}}</div>
-        <div class="centre hit-loc-cell">{{localize 'AOV.d20'}}</div>
-        <div class="centre hit-loc-cell">{{localize 'AOV.armourPointsAbbr'}}</div>
-        <div class="centre hit-loc-cell">{{localize 'AOV.damageAbbr'}}</div>
-        <div class="centre hit-loc-cell">{{localize 'AOV.hpAbbr'}}</div>
-        <div class="centre hit-loc-cell">&nbsp</div>
+        <div class="indent hit-loc-cell bold">{{localize 'AOV.hitLocation'}}</div>
+        <div class="centre hit-loc-cell bold">{{localize 'AOV.d20'}}</div>
+        <div class="centre hit-loc-cell bold">{{localize 'AOV.armourPointsAbbr'}}</div>
+        <div class="centre hit-loc-cell bold">{{localize 'AOV.damageAbbr'}}</div>
+        <div class="centre hit-loc-cell bold">{{localize 'AOV.hpAbbr'}}</div>
+        <div class="centre hit-loc-cell bold">&nbsp</div>
       </div>
 
       {{#each hitLocs as |item id|}}
@@ -139,7 +139,7 @@
     {{!Skills Section}}
     <ol class='npc-skill-grid'>
       <div class='npc-skill-row primBackCol'>
-        <div class="">{{localize 'AOV.skills'}}</div>
+        <div class="bold">{{localize 'AOV.skills'}}</div>
         <div class="centre">%</div>
         <div class="centre">
           {{#if @root.editable}}
@@ -175,12 +175,12 @@
     {{!Weapons Section}}
     <ol class='npc-weapon-grid'>
       <div class='npc-weapon-row primBackCol'>
-        <div class="">{{localize 'TYPES.Item.weapon'}}</div>
-        <div class="centre">{{localize 'AOV.dmgBonusAbbr'}}</div>
-        <div class="centre">{{localize 'AOV.damage'}}</div>
-        <div class="centre">{{localize 'AOV.hpAbbr'}}</div>
-        <div class="centre">%</div>
-        <div class="centre">
+        <div class="bold">{{localize 'TYPES.Item.weapon'}}</div>
+        <div class="centre bold">{{localize 'AOV.dmgBonusAbbr'}}</div>
+        <div class="centre bold">{{localize 'AOV.damage'}}</div>
+        <div class="centre bold">{{localize 'AOV.hpAbbr'}}</div>
+        <div class="centre bold">%</div>
+        <div class="centre bold">
           {{#if @root.editable}}
             <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.weapon")}}'
               data-action='createDoc' data-document-class='Item' data-type='weapon'>
@@ -223,9 +223,9 @@
     {{!Powers Section}}
     <ol class='npc-weapon-grid'>
       <div class='npc-power-row primBackCol'>
-        <div class="">{{localize 'TYPES.Item.npcpower'}}</div>
-        <div class="">{{localize 'AOV.description'}}</div>
-        <div class="centre">
+        <div class="bold">{{localize 'TYPES.Item.npcpower'}}</div>
+        <div class="bold">{{localize 'AOV.description'}}</div>
+        <div class="centre bold">
           {{#if @root.editable}}
             <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.npcpower")}}'
               data-action='createDoc' data-document-class='Item' data-type='npcpower'>
@@ -260,7 +260,7 @@
     {{!Gear Section}}
     <ol class='npc-skill-grid'>
       <div class='npc-gear-row primBackCol'>
-        <div class="">{{localize 'TYPES.Item.gear'}}</div>
+        <div class="bold">{{localize 'TYPES.Item.gear'}}</div>
           {{#if @root.editable}}
             <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.gear")}}'
               data-action='createDoc' data-document-class='Item' data-type='gear'>
@@ -295,7 +295,7 @@
   {{!Tab View 2 - NPC Description}}
   {{#if (eq system.tabView "2")}}
     {{!Notes Section}}
-    <div class="" style="margin: 10px 0px 0px 10px;">{{localize 'AOV.notes'}}</div>
+    <div class="bold" style="margin: 10px 0px 0px 10px;">{{localize 'AOV.notes'}}</div>
     <div class="npc-notes" style="margin: 10px 0px 0px 10px;">
       {{#if editable}}
         <prose-mirror name="system.description" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}"
@@ -311,11 +311,11 @@
 
   {{!Tab View 3 - NPC base stats}}
   {{#if (eq system.tabView "3")}}
-    <div class="" style="margin: 10px 0px 0px 10px;">{{localize 'AOV.baseStats'}}</div>
+    <div class="bold" style="margin: 10px 0px 0px 10px;">{{localize 'AOV.baseStats'}}</div>
     <div class="npc-base-stats-grid">
-      <div class="indent primBackCol">{{localize 'AOV.characteristics'}}</div>
-      <div class="centre primBackCol">{{localize 'AOV.roll'}}</div>
-      <div class="centre primBackCol">{{localize 'AOV.average'}}</div>
+      <div class="indent primBackCol bold">{{localize 'AOV.characteristics'}}</div>
+      <div class="centre primBackCol bold">{{localize 'AOV.roll'}}</div>
+      <div class="centre primBackCol bold">{{localize 'AOV.average'}}</div>
       {{#each system.abilities as |ability key|}}
             <div class="ability-cell bold indent" data-characteristic="{{key}}">{{ability.label}}</div>
             {{#if ../isLocked}}

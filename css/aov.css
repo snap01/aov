@@ -1,8 +1,8 @@
 @font-face {
-  font-family: 'Farnham';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../art-assets/Farnham-Text.otf') format('woff2');
+font-family: "Farnham";
+font-weight: 400;
+font-style: normal;
+src: url('../art-assets/FarnhamText-Regular.otf') format('woff2');
 }
 
 @font-face {
@@ -23,10 +23,15 @@
 
 :root {
   --aov-primary-font: "Farnham";
+  --aov-secondary-font: "Charcuterie";
   --aov-title-font: "IMFellDWPica";
   --aov-primary-font-size: 14px;
   --aov-title-font-size: 16px;
   --aov-heading-font-size: 20px;
+  --aov-jnl-main-col: black;
+  --aov-jnl-pri-col: rgb(68, 111, 94);
+  --aov-jnl-sec-col: rgb(163, 16, 8);
+  --aov-jnl-ter-col: rgba(21, 114, 164, 0.76);
 }
 
 body.theme-light .application.aov,
@@ -381,6 +386,7 @@ body.theme-dark.application .aov {
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
   background: none;
   outline: none;
+  box-shadow: none;
 }
 
 .aov .item-header {
@@ -429,6 +435,7 @@ body.theme-dark.application .aov {
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
   background: none;
   outline: none;
+  box-shadow: none;
 }
 
 .aov select.gear-input {
@@ -444,6 +451,7 @@ body.theme-dark.application .aov {
   max-height: calc(var(--aov-primary-font-size) + 2px);
   text-align: center;
   outline: none;
+  box-shadow: none;
 }
 
 .aov input.stat-input {
@@ -459,6 +467,7 @@ body.theme-dark.application .aov {
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
   background: none;
   outline: none;
+  box-shadow: none;
 }
 
 .aov select.stat-input {
@@ -598,18 +607,6 @@ body.theme-dark.application .aov {
   grid-column-gap: 5px;
 }
 
-.aov .distinct {
-  max-height:40px;
-  min-height: 40px;
-  padding-top: 3px;
-}
-.aov .distinctFeat{
-  width: 100%;
-  background: none;
-  border: none;
-  font-family: var(--aov-primary-font);
-}
-
 .aov .derivedStats {
   display: grid;
   grid-template-columns: 40px 60px;
@@ -640,6 +637,7 @@ body.theme-dark.application .aov {
   border-bottom: 1px var(--aov-secondary-font-colour) solid;
   background: none;
   outline: none;
+  box-shadow:none;
 }
 
 .aov .character.tab{
@@ -919,6 +917,7 @@ nav.aov.sheet-tabs.tabs {
   width: 560px;
   max-height: 45px;
   min-height: 45px;
+  box-shadow: none;
 }
 
 .aov .rune-input-large textarea{
@@ -927,6 +926,7 @@ nav.aov.sheet-tabs.tabs {
   width: 560px;
   max-height: 65px;
   min-height: 65px;
+  box-shadow: none;
 }
 
 .aov .rune-input-small textarea{
@@ -935,6 +935,7 @@ nav.aov.sheet-tabs.tabs {
   width: 560px;
   max-height: 27px;
   min-height: 27px;
+  box-shadow: none;
 }
 
 .aov .rune-detail-grid {
@@ -966,5 +967,6 @@ nav.aov.sheet-tabs.tabs {
   width: 560px;
   max-height: 215px;
   min-height: 215px;
+  box-shadow: none;
 }
 

@@ -1,11 +1,11 @@
 {{! GMNotes Tab }}
 <section class='item tab gmTab {{tab.cssClass}}' data-group='primary' data-tab='gmTab'>
-  <div>{{localize 'AOV.gmNotes'}}</div>
+  <div class="bold">{{localize 'AOV.gmNotes'}}</div>
 
   {{! Editor for description}}
   <div class="item-notes">
      <prose-mirror name="system.gmNotes" data-document-u-u-i-d="{{item.uuid}}" value="{{system.gmNotes}}" collaborate="true" toggled="true">
         {{{enrichedGMNotes}}}
-      </prose-mirror>   
+      </prose-mirror>
   </div>
 </section>

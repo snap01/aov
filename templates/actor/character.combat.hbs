@@ -61,7 +61,7 @@
 
       <ol class="charHitLoc">
         <div class="hitLocDev">
-          {{#each hitLocs as |item id|}}
+          {{#each devHitLocs as |item id|}}
             {{#unless (eq item.name 'blank')}}
               <li class="hitLocGridDev" data-item-id='{{item._id}}' data-document-class='Item'>
                 <div class="upper rollable" data-action='viewDoc'>{{item.name}}</div>

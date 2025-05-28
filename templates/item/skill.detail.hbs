@@ -1,7 +1,7 @@
 <section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
 
   <div class="gear-detail-grid">
-    <div class="new-row">{{localize 'AOV.category'}}</div>
+    <div class="new-row bold">{{localize 'AOV.category'}}</div>
     {{#if canEdit}}
       <div class="" >
         <select class="gear-input" data-handle-change name="system.category">
@@ -15,7 +15,7 @@
     <br>
 
     {{#if (eq item.system.category 'cbt')}}
-      <div class="new-row">{{localize 'AOV.weaponTypeCat'}}</div>
+      <div class="new-row bold">{{localize 'AOV.weaponTypeCat'}}</div>
       {{#if canEdit}}
         <div class="" >
           <select class="gear-input" data-handle-change name="system.weaponType">
@@ -43,7 +43,7 @@
 
 
 
-    <div class="new-row">{{localize 'AOV.baseScoreOption'}}</div>
+    <div class="new-row bold">{{localize 'AOV.baseScoreOption'}}</div>
     {{#if canEdit}}
       <div class="" >
         <select class="gear-input" data-handle-change name="system.baseVal">
@@ -56,7 +56,7 @@
     <div class="new-row"></div>
     <br>
 
-    <div class="new-row" title="{{localize 'AOV.commonSkillHint'}}">{{localize 'AOV.commonSkill'}}</div>
+    <div class="new-row bold" title="{{localize 'AOV.commonSkillHint'}}">{{localize 'AOV.commonSkill'}}</div>
     <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="common">
       <a class="icon16">
         <i class="fa-regular {{#if system.common}}fa-square-check{{else}}fa-square{{/if}}"></i>
@@ -65,7 +65,7 @@
 
     <div class="new-row"></div>
     <br>
-    <div class="new-row" title="{{localize 'AOV.specHint'}}">{{localize 'AOV.spec'}}</div>
+    <div class="new-row bold" title="{{localize 'AOV.specHint'}}">{{localize 'AOV.spec'}}</div>
     <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="specSkill"><a class="icon16">
       {{#if system.specSkill}}
         <i class="fa-regular fa-square-check"></i></a></div>
@@ -80,7 +80,7 @@
     <div class="new-row"></div>
     <br>
 
-    <div class="new-row" title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
+    <div class="new-row bold" title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
     <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="noXP"><a class="icon16">
       {{#if system.noXP}}
         <i class="fa-regular fa-square-check"></i>
@@ -91,7 +91,7 @@
     </div>
     <div class="new-row"></div>
     <br>
-    <div class="new-row">{{localize 'AOV.baseScore'}}</div>
+    <div class="new-row bold">{{localize 'AOV.baseScore'}}</div>
     {{#if canEdit}}
       <div class="centre"><input class="gear-input centre" name='system.base' type='number' value='{{item.system.base}}'/></div>
     {{else}}
@@ -99,24 +99,24 @@
     {{/if}}
     {{#if hasOwner}}
       {{#if isChar}}
-        <div class="new-row">{{localize 'AOV.experience'}}</div>
+        <div class="new-row bold">{{localize 'AOV.experience'}}</div>
         <div class="centre"><input class="gear-input centre" name='system.xp' type='number' value='{{item.system.xp}}'/></div>
-        <div class="new-row">{{localize 'AOV.homeland'}}</div>
+        <div class="new-row bold">{{localize 'AOV.homeland'}}</div>
         <div class="centre"><input class="gear-input centre" name='system.home' type='number' value='{{item.system.home}}'/></div>
-        <div class="new-row">{{localize 'AOV.personal'}}</div>
+        <div class="new-row bold">{{localize 'AOV.personal'}}</div>
         <div class="centre"><input class="gear-input centre" name='system.pers' type='number' value='{{item.system.pers}}'/></div>
-        <div class="new-row">{{localize 'AOV.effects'}}</div>
+        <div class="new-row bold">{{localize 'AOV.effects'}}</div>
         <div class="centre terIcon">{{system.effects}}</div>
-        <div class="new-row">{{localize 'AOV.catBonus'}}</div>
+        <div class="new-row bold">{{localize 'AOV.catBonus'}}</div>
         <div class="centre terIcon">{{system.catBonus}}</div>
       {{/if}}
-      <div class="new-row">{{localize 'AOV.total'}}</div>
+      <div class="new-row bold">{{localize 'AOV.total'}}</div>
       <div class="centre">{{system.total}}</div>
       <div class="new-row"></div>
       <br>
 
       {{#unless system.noXP}}
-        <div class="new-row" title="{{localize 'AOV.xpCheckHint'}}">{{localize 'AOV.xpCheck'}}</div>
+        <div class="new-row bold" title="{{localize 'AOV.xpCheckHint'}}">{{localize 'AOV.xpCheck'}}</div>
         <div class="centre" data-action="itemToggle" data-property="xpCheck"><a class="icon16">
           {{#if system.xpCheck}}
             <i class="fa-regular fa-square-check"></i>

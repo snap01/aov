@@ -2,7 +2,7 @@
 
 
   <div class="runescript-runes">
-    <div>{{localize 'AOV.runes'}}</div>
+    <div class="bold">{{localize 'AOV.runes'}}</div>
     <div></div>
     <div class="new-row">
       <select class="gear-input" data-handle-change name='system.runes.rune1'>
@@ -52,11 +52,11 @@
     <div></div>
     <br>
 
-    <div class="new-row">{{localize 'AOV.mp'}}</div>
+    <div class="new-row bold">{{localize 'AOV.mp'}}</div>
     <div class="terIcon">{{system.mpCost}}</div>
-    <div class="new-row">{{localize 'AOV.maxEffects'}}</div>
+    <div class="new-row bold">{{localize 'AOV.maxEffects'}}</div>
     <div class="terIcon">{{system.maxEff}}</div>
-    <div class="new-row">{{localize 'AOV.oddRunes'}}</div>
+    <div class="new-row bold">{{localize 'AOV.oddRunes'}}</div>
     {{#if system.effective}}
       <div class="terIcon">{{localize 'AOV.yes'}}</div>
     {{else}}
@@ -65,7 +65,7 @@
   </div>
   <br>
 
-  <div>{{localize 'AOV.impact'}}</div>
+  <div class="bold">{{localize 'AOV.impact'}}</div>
   <div class="rune-input-large">
     <textarea class="secIcon" name='system.shortDesc'>{{item.system.shortDesc}}</textarea>
   </div>
