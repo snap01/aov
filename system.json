@@ -3,10 +3,10 @@
     "title": "Age of Vikings",
     "description": "Age of Vikings by Chaosium Inc for Foundry VTT",
 
-    "version": "13.1",
+    "version": "13.2",
     "compatibility": {
       "minimum": 13,
-      "verified": "13.342"
+      "verified": "13.344"
     },
 
     "authors": [
@@ -139,7 +139,7 @@
     ],
 
     "manifest": "https://github.com/Genii-Locorum/aov/releases/latest/download/system.json",
-    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.1/system.zip",
+    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.2/system.zip",
     "url": "https://github.com/Genii-Locorum/aov",
     "license": "LICENSE.txt",
     "readme": "README.md",
