@@ -26,6 +26,7 @@ export class AOVActor extends Actor {
     if (actorData.type !== 'character') return;
     const systemData = actorData.system;
     systemData.actualEnc = 0
+    systemData.lockedMP = 0
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
@@ -87,9 +88,20 @@ export class AOVActor extends Actor {
         itm.system.mpCost = runedetails.cost;
         itm.system.maxEff = runedetails.maxEff;
         itm.system.effective = runedetails.effective;
+        if (itm.system.prepared) {
+          systemData.lockedMP = systemData.lockedMP + itm.system.mpCost
+        }
+      } else if (itm.type === 'seidur') {
+        let seidurdetails = await AOVActor.seidurMPCost(itm)
+        if (itm.system.prepared) {
+          systemData.lockedMP = systemData.lockedMP + seidurdetails.mpLocked
+        }
       }
+
     }
     systemData.actualEnc = Math.floor(systemData.actualEnc)
+    systemData.mp.max = systemData.mp.max - systemData.lockedMP
+
 
 
     //Go through items a second time to calculate a second round of values
@@ -311,13 +323,21 @@ export class AOVActor extends Actor {
       let commonSkills=[];
       for (let thisItem of skillList) {
         if (!thisItem.system.common) {continue}
+        let skillCount = await actor.items.filter(itm=>itm.flags.aov?.cidFlag?.id === thisItem.flags.aov?.cidFlag?.id)
+        if (skillCount.length > 0) {continue}
         let nItm = thisItem.toObject()
         nItm.system.base = await AOVActorItemDrop._AOVcalcBase(nItm, actor);
         commonSkills.push(nItm)
       }
       let newSkills = await actor.createEmbeddedDocuments("Item", commonSkills);
       let passionList = await game.aov.cid.fromCIDRegexBest({ cidRegExp: /^i.passion\./, type: 'i' })
-      let commonPassions = passionList.filter(itm=>itm.system.common)
+      let commonPassions = []
+      for (let thisItem of passionList) {
+        if (!thisItem.system.common) {continue}
+        let passionCount = await actor.items.filter(itm=>itm.flags.aov?.cidFlag?.id === thisItem.flags.aov?.cidFlag?.id)
+        if (passionCount.length > 0) {continue}
+        commonPassions.push(thisItem)
+      }
       let newPassions = await actor.createEmbeddedDocuments("Item", commonPassions);
     }
 
@@ -485,9 +505,18 @@ export class AOVActor extends Actor {
 
   //Seidur Spell Magic Point Cost
   static async seidurMPCost (seidur)
- {
-  let cost = (seidur.system.dimension ??0 ) + (seidur.system.distance ??0 ) + (seidur.system.duration ?? 0 )
+ {let cost = 0
+  if (seidur.system.dimension >0 ) {
+    cost = cost + Math.max(((seidur.system.dimension-1)*3),1)
+   }
+  if (seidur.system.distance >0 ) {
+    cost = cost + Math.max(((seidur.system.distance-1)*3),1)
+   }
+  if (seidur.system.duration >0 ) {
+    cost = cost + Math.max(((seidur.system.duration-1)*3),1)
+   }      
   let mpLocked = Math.max((seidur.system.dimension ??0 ) , (seidur.system.distance ??0 ) , (seidur.system.duration ?? 0 ) )
-  return {cost, mpLocked}
+  let castTime = cost * 10
+  return {cost, mpLocked, castTime}
  }
 }

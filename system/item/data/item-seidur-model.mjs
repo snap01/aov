@@ -11,6 +11,7 @@ export default class AOVSeidurModel extends AOVItemBaseModel {
     schema.distance = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Distance of spell
     schema.dimension = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Dimension of spell
     schema.shortDesc = new fields.StringField({ required: true, blank: true, initial: "" }); //Short Description
+    schema.prepared = new fields.BooleanField({ initial: false });   //Spell is active
     return schema
   }
 

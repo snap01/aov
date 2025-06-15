@@ -4,11 +4,29 @@
   color: var(--aov-jnl-main-col);
   text-align:justify;
 
+    .noJustify {
+      text-align: start;
+    }
+
     h3 {
       color: var(--aov-jnl-pri-col);
       font-family: var(--aov-secondary-font);
       font-size: 20px;
     }
+
+    h4 {
+      color: var(--aov-jnl-pri-col);
+      font-family: var(--aov-secondary-font);
+      font-size: 18px;
+    }
+
+    h5 {
+      color: var(--aov-jnl-pri-col);
+      font-family: var(--aov-secondary-font);
+      font-size: 16px;
+      font-style: italic;
+    }
+
 
     .quote {
       text-align:center;
@@ -27,6 +45,10 @@
 
     .indent {
       text-indent: 20px;
+    }
+
+    .upper {
+      text-transform: uppercase;
     }
 
     .main {
@@ -56,6 +78,11 @@
         font-family: var(--aov-secondary-font);
         text-align: center;
         font-size:18px;
+      }
+      h3 {
+        color: var(--aov-jnl-ter-col); 
+        text-align: center;
+        text-transform:uppercase;               
       }
     }
 
@@ -118,6 +145,14 @@
     .glossary p{
       text-indent: -20px;
       padding-left: 20px;
+      &.indent {
+        text-indent: 0px;
+      }
+    }
+
+    .timeline p{
+      text-indent: -30px;
+      padding-left: 30px;
     }
 
     .example {

@@ -1,10 +1,8 @@
 <section class='character tab runes {{tab.cssClass}}' data-group='primary' data-tab='runes'>
   <div class="armour-grid">
-    <div>Locked Magic Points</div>
-    <input class="ability-cell" type='number' name='system.mp.locked' value='{{system.mp.locked}}'
-          data-dtype='Number' />
+    <div class="ability-cell">{{localize 'AOV.lockedMP'}}</div>
+    <div class="ability-cell terIcon" >{{system.lockedMP}}</div>
   </div>
-  <br>
 
   {{!--Runes List--}}
   <ol class='gear-list'>
@@ -47,6 +45,7 @@
   <ol class='gear-list'>
     <li class='item gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} runescript-grid'>
       <div class='left'>{{localize "TYPES.Item.runescript"}}</div>
+      <div class='centre'title='{{localize "AOV.prepared"}}'>{{localize 'AOV.preparedAbbr'}}</div>
       <div class='centre'>{{localize 'AOV.impact'}}</div>
       {{#unless ../isLocked}}
       <div class='centre'>
@@ -63,6 +62,13 @@
     <li class='item runescript-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
       <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.runescript")}}'
         data-action='viewDoc'>{{item.name}}</div>
+      <div class="centre" style ="padding-top: 5px;" data-action="itemToggle" data-property="prepared"><a>
+        {{#if item.system.prepared}}
+          <i class="fa-regular fa-square-check"></i>
+        {{else}}
+          <i class="fa-regular fa-square"></i>
+        {{/if}}  
+      </a></div>  
       <div class="truncate" style ="padding-top: 5px;" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
       {{#unless ../isLocked}}
       <div class='gear-controls centre'>
@@ -81,6 +87,7 @@
   <ol class='gear-list'>
     <li class='item gear-header {{#if singleColour}}primBackCol{{else}}terBackCol{{/if}} runescript-grid'>
       <div class='left'>{{localize "TYPES.Item.seidur"}}</div>
+      <div class='centre'title='{{localize "AOV.active"}}'>{{localize 'AOV.activeAbbr'}}</div>
       <div class='centre'>{{localize 'AOV.impact'}}</div>
       {{#unless ../isLocked}}
       <div class='centre'>
@@ -97,6 +104,13 @@
     <li class='item runescript-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
       <div class="new-row gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.seidur")}}'
         data-action='viewDoc'>{{item.name}}</div>
+      <div class="centre" style ="padding-top: 5px;" data-action="itemToggle" data-property="prepared"><a>
+        {{#if item.system.prepared}}
+          <i class="fa-regular fa-square-check"></i>
+        {{else}}
+          <i class="fa-regular fa-square"></i>
+        {{/if}}  
+      </a></div>         
       <div class="truncate" style ="padding-top: 5px;" title="{{item.system.shortDesc}}">{{item.system.shortDesc}}</div>
       {{#unless ../isLocked}}
       <div class='gear-controls centre'>

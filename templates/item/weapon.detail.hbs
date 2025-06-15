@@ -51,7 +51,7 @@
       <div class=""><input class="gear-input centre" name='system.enc' type='number' value='{{item.system.enc}}'/></div>
       <div class="new-row"></div>
       <br>
-      {{#if (eq item.system.weaponType 'missile')}}
+      {{#if isRange}}
         <div class="new-row bold">{{localize 'AOV.range'}}</div>
         <div class=""><input class="gear-input centre" name='system.range' type='number' value='{{item.system.range}}'/></div>
       {{else}}

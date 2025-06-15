@@ -236,29 +236,47 @@
       <div class="left upper new-row bold" style="grid-column: 1/3;">{{localize 'AOV.ship.sailing'}}</div>
       <div class="left upper bold" style="grid-column: 3/5;">{{localize 'AOV.ship.rowing'}}</div>
       <div class="left new-row bold">{{localize 'AOV.ship.before'}}</div>
-        <input class="stat-input centre" name='system.sail.before' type='number'
-          value='{{actor.system.sail.before}}' />
+        <div class="stat-input centre">{{before}}</div>
       <div class="left bold">{{localize 'AOV.ship.backOars'}}</div>
+      {{#if isLocked}}
+        <div class="stat-input centre">{{actor.system.row.back}}</div>
+      {{else}}
         <input class="stat-input centre" name='system.row.back' type='number'
           value='{{actor.system.row.back}}' />
+      {{/if}}
       <div class="left new-row bold">{{localize 'AOV.ship.quarter'}}</div>
-        <input class="stat-input centre" name='system.sail.quarter' type='number'
-          value='{{actor.system.sail.quarter}}' />
-      <div class="left bold">{{localize 'AOV.ship.cruise'}}</div>
+        <div class="stat-input centre">{{quarter}}</div>
+      <div class="left bold">{{localize 'AOV.ship.cruise'}}</div>        
+      {{#if isLocked}}
+        <div class="stat-input centre">{{actor.system.row.cruise}}</div>
+      {{else}}
         <input class="stat-input centre" name='system.row.cruise' type='number'
           value='{{actor.system.row.cruise}}' />
+      {{/if}}    
       <div class="left new-row bold">{{localize 'AOV.ship.half'}}</div>
-        <input class="stat-input centre" name='system.sail.half' type='number'
-          value='{{actor.system.sail.half}}' />
+        <div class="stat-input centre">{{half}}</div>
       <div class="left bold">{{localize 'AOV.ship.race'}}</div>
+      {{#if isLocked}}
+        <div class="stat-input centre">{{actor.system.row.race}}</div>
+      {{else}}
         <input class="stat-input centre" name='system.row.race' type='number'
           value='{{actor.system.row.race}}' />
+      {{/if}}    
       <div class="left new-row bold">{{localize 'AOV.ship.head'}}</div>
-        <input class="stat-input centre" name='system.sail.head' type='number'
-          value='{{actor.system.sail.head}}' />
+        <div class="stat-input centre">{{head}}</div>
       <div class="left bold">{{localize 'AOV.ship.crew'}}</div>
+      {{#if isLocked}}
+        <div class="stat-input centre">{{actor.system.row.crew}}</div>
+      {{else}}      
         <input class="stat-input centre" name='system.row.crew' type='number'
           value='{{actor.system.row.crew}}' />
+      {{/if}}    
+      <div class="left bold">{{localize 'AOV.windSpeed'}}</div>    
+        <div class="" style="grid-column: 2 / 5;">
+          <select class="stat-input" data-handle-change name="system.wind">
+            {{selectOptions windTypes selected=actor.system.wind}}
+          </select>
+        </div>      
     </div>
 
     <div class="ship-seige">
@@ -281,18 +299,7 @@
     </div>
   </div>
   <br>
-  <div style = "padding-left:13px; padding-right: 13px;">
-    {{! Editor for notes}}
-    <div class="bold">{{localize 'AOV.ship.shipsLog'}}</div>
-    <div class="ship-notes">
-      {{#if editable}}
-        <prose-mirror name="system.description" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}"
-          collaborate="true" toggled="true">
-          {{{enrichedDescription}}}
-        </prose-mirror>
-      {{else}}
-        {{{enrichedDescription}}}
-      {{/if}}
-    </div>
-  </div>
+
+
+  
 </header>

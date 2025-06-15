@@ -146,7 +146,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     const prop = target.dataset.property;
     const itemId = target.closest(".item").dataset.itemId;
     const item = this.actor.items.get(itemId);
-    if (['xpCheck',"treated"].includes(prop)) {
+    if (['xpCheck',"treated","prepared"].includes(prop)) {
       checkProp = { [`system.${prop}`]: !item.system[prop] }
     } else if (prop === 'equipStatus') {
       let newVal = item.system.equipStatus + 1

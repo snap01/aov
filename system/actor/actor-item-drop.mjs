@@ -63,7 +63,7 @@ export class AOVActorItemDrop {
         nItm.system.currHP = nItm.system.maxHP
         //Check if Character has the relevant skill and if not then add it
         if (actor.type ==='character') {
-          let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItmCidFlag)
+          let currentList = await actor.items.filter(i=>i.flags.aov?.cidFlag?.id === nItm.system.skillCID)
           if (currentList.length < 1) {
             let extraSkill = await game.aov.cid.fromCID(nItm.system.skillCID)
             if (extraSkill.length>0) {

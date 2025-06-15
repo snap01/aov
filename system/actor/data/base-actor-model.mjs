@@ -19,7 +19,6 @@ export default class AOVActorBaseModel extends AOVDataModel {
       max: new fields.NumberField({ ...requiredInteger, initial: 5 }),
       bonus: new fields.NumberField({ ...requiredInteger, initial: 0 }),
       effects: new fields.NumberField({ ...requiredInteger, initial: 0 }),
-      locked: new fields.NumberField({ ...requiredInteger, initial: 0 })
     });
     schema.description = new fields.StringField({ required: true, blank: true });
     schema.gmNotes = new fields.StringField({ required: true, blank: true });

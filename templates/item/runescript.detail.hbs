@@ -52,6 +52,15 @@
     <div></div>
     <br>
 
+    <div class="new-row bold">{{localize 'AOV.prepared'}}</div>
+    <div class="" data-action="itemToggle" data-property="prepared"><a class="icon16">
+      {{#if system.prepared}}
+        <i class="fa-regular fa-square-check"></i>
+      {{else}}
+        <i class="fa-regular fa-square"></i>
+      {{/if}}
+    </a></div>
+
     <div class="new-row bold">{{localize 'AOV.mp'}}</div>
     <div class="terIcon">{{system.mpCost}}</div>
     <div class="new-row bold">{{localize 'AOV.maxEffects'}}</div>

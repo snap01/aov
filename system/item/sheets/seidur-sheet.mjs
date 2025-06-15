@@ -33,6 +33,7 @@ export class AoVSeidurSheet extends AoVItemSheet {
     let seidurdetails = await AOVActor.seidurMPCost (this.item);
     context.mpCost = seidurdetails.cost;
     context.mpLocked = seidurdetails.mpLocked;
+    context.castTime = seidurdetails.castTime;
     context.tabs = this._getTabs(options.parts);
     return context
   }

@@ -35,7 +35,7 @@ src: url('../art-assets/FarnhamText-Regular.otf') format('woff2');
 }
 
 body.theme-light .application.aov,
-body.theme-light.application .aov {
+body.theme-light.application .aov{
   --aov-primary-font-colour: black;
   --aov-secondary-font-colour: rgb(163, 16, 8);
   --aov-title-font-colour: rgb(68, 111, 94);
@@ -59,19 +59,19 @@ body.theme-light.application .aov {
 
 }
 
+
 body.theme-dark .application.aov,
 body.theme-dark.application .aov {
-  --aov-primary-font-colour: white;
-  --aov-secondary-font-colour: rgba(187, 248, 251, 1);
-  --aov-title-font-colour: rgb(116, 252, 252);
-  --primary-back-colour: rgba(127, 127, 127, 0.5);
-  --secondary-back-colour: rgba(44, 44, 44, 0.5);
+  --aov-primary-font-colour: black;
+  --aov-secondary-font-colour: rgb(163, 16, 8);
+  --aov-title-font-colour: rgb(68, 111, 94);
+  --primary-back-colour: rgba(68, 111, 94, 0.5);
+  --secondary-back-colour: rgba(21, 115, 164, 0.5);
   --tertiary-back-colour: rgba(131, 57, 36, 0.5);
-  --background-colour: rgba(255, 255, 255, 0.05);
-  --actor-rollable-colour: white;
-  --actor-rollable-shadow: rgb(0, 255, 255);
-  --primary-icon-colour: white;
-  --secondary-icon-colour: rgb(0, 255, 255);
+  --actor-rollable-colour: black;
+  --actor-rollable-shadow: red;
+  --primary-icon-colour: black;
+  --secondary-icon-colour: rgb(171, 36, 12);
   --tertiary-icon-colour: rgb(68, 111, 94);
   --character-sheet-tab-blue: rgb(21, 115, 164);
   --character-sheet-tab-green: rgb(68, 111, 94);
@@ -82,6 +82,14 @@ body.theme-dark.application .aov {
   --character-sheet-tab-green: url('../art-assets/ribbon-green.svg');
   --character-sheet-tab-red: url('../art-assets/ribbon-red.svg');
   --character-sheet-tab-yellow: url('../art-assets/ribbon-yellow.svg');
+}
+
+
+body.theme-dark .application.aov.sheet,
+.themed.theme-dark.application.aov.sheet {
+  section.window-content {
+    backdrop-filter: none;
+  }
 }
 
 /*Half the padding on windows*/
@@ -357,7 +365,7 @@ body.theme-dark.application .aov {
 
 .aov .runescript-grid {
   display: grid;
-  grid-template-columns: 150px 420px 30px;
+  grid-template-columns: 150px 30px 385px 30px;
   grid-column-gap: 5px;
   padding-left: 5px;
 }
@@ -664,6 +672,8 @@ body.theme-dark.application .aov {
 /*General Tabs*/
 nav.aov.sheet-tabs.tabs {
   background: none;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 

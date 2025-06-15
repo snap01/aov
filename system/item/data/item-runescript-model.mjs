@@ -18,6 +18,7 @@ export default class AOVRunescriptModel extends AOVItemBaseModel {
       rune9 : new fields.StringField({required: true, blank: true, initial: "none"}),
     })
     schema.shortDesc = new fields.StringField({ required: true, blank: true, initial: "" }); //Short Description
+    schema.prepared = new fields.BooleanField({ initial: false });   //Runescript is prepared
 
     return schema
   }

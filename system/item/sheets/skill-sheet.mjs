@@ -10,7 +10,7 @@ export class AoVSkillSheet extends AoVItemSheet {
     classes: ['skill'],
     position: {
       width: 600,
-      height: 570
+      height: 590
     },
   }
 
@@ -29,6 +29,12 @@ export class AoVSkillSheet extends AoVItemSheet {
     context.skillCatName = game.i18n.localize("AOV.skillCat." + context.system.category);
     context.baseSkillOptions = await AOVSelectLists.baseSkill()
     context.baseSkillName = game.i18n.localize("AOV." + context.system.baseVal);
+    context.realmList = await AOVSelectLists.realmList();
+    context.realmName = game.i18n.localize("AOV.realm" + context.system.realm);
+    context.isSeidur = false
+    if (context.flags.aov?.cidFlag?.id === 'i.skill.seiour-magic') {
+      context.isSeidur = true
+    }
     context.weaponTypeOptions = await AOVSelectLists.weaponType()
     context.weaponTypeName = game.i18n.localize("AOV." + context.system.weaponType);
     context.weaponCatName = ""

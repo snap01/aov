@@ -115,6 +115,21 @@
       <div class="new-row"></div>
       <br>
 
+      {{#if isSeidur}}
+        <div class="new-row bold">{{localize 'AOV.realm.label'}}</div>
+        {{#if canEdit}}
+          <div class="" >
+            <select class="gear-input" data-handle-change name="system.realm">
+              {{selectOptions realmList selected=item.system.realm}}
+            </select>
+          </div>
+        {{else}}
+          <div class="gear-input centre">{{realmName}}</div>
+        {{/if}}
+        <div class="new-row"></div>
+        <br>
+      {{/if}}
+
       {{#unless system.noXP}}
         <div class="new-row bold" title="{{localize 'AOV.xpCheckHint'}}">{{localize 'AOV.xpCheck'}}</div>
         <div class="centre" data-action="itemToggle" data-property="xpCheck"><a class="icon16">

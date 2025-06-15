@@ -31,10 +31,20 @@
     <div class="new-row"></div>
     <br>
 
+    <div class="new-row bold">{{localize 'AOV.active'}}</div>
+    <div class="centre" data-action="itemToggle" data-property="prepared"><a class="icon16">
+      {{#if system.prepared}}
+        <i class="fa-regular fa-square-check"></i>
+      {{else}}
+        <i class="fa-regular fa-square"></i>
+      {{/if}}
+    </a></div>
     <div class="new-row bold">{{localize 'AOV.mp'}}</div>
     <div class="terIcon centre">{{mpCost}}</div>
     <div class="new-row bold">{{localize 'AOV.lockedMP'}}</div>
     <div class="terIcon centre">{{mpLocked}}</div>
+    <div class="new-row bold">{{localize 'AOV.ritualTime'}}</div>
+    <div class="terIcon centre">{{castTime}}</div>
   </div>
   <br>
 

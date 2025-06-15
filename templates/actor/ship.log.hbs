@@ -1,0 +1,19 @@
+{{! Description Tab }}
+<section class='ship tab log {{tab.cssClass}}' data-group='primary' data-tab='log'>
+
+  <div style = "padding-left:35px; padding-right: 35px;">
+    <br>
+    {{! Editor for notes}}
+    <div class="bold">{{localize 'AOV.ship.shipsLog'}}</div>
+    <div class="ship-notes">
+      {{#if editable}}
+        <prose-mirror name="system.description" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}"
+          collaborate="true" toggled="true">
+          {{{enrichedDescription}}}
+        </prose-mirror>
+      {{else}}
+        {{{enrichedDescription}}}
+      {{/if}}
+    </div>
+  </div>
+</section>

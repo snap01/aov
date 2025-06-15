@@ -1,0 +1,110 @@
+{{! Description Tab }}
+<section class='ship tab speeds {{tab.cssClass}}' data-group='primary' data-tab='speeds'>
+  <br>
+  <div style = "padding-left:35px; padding-right: 35px;">
+    <div class="ship-seige">
+      <div class="left bold">{{localize 'AOV.ship.sailing'}}</div>
+    </div>
+    <div class="sailing-speeds">
+      <div class="left new-row bold">{{localize 'AOV.windSpeed'}}</div>
+      <div class="centre bold">{{localize 'AOV.ship.before'}}</div>
+      <div class="centre bold">{{localize 'AOV.ship.quarter'}}</div>
+      <div class="centre bold">{{localize 'AOV.ship.half'}}</div>
+      <div class="centre bold">{{localize 'AOV.ship.head'}}</div>            
+
+      {{#if isLocked}}
+        <div class="left new-row">{{localize 'AOV.wind.calm'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.calm.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.calm.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.calm.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.calm.head}}</div>                        
+        <div class="left new-row">{{localize 'AOV.wind.lightair'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightair.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightair.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightair.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightair.head}}</div>  
+        <div class="left new-row">{{localize 'AOV.wind.breeze'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.breeze.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.breeze.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.breeze.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.breeze.head}}</div>  
+        <div class="left new-row">{{localize 'AOV.wind.lightwind'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightwind.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightwind.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightwind.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.lightwind.head}}</div>  
+        <div class="left new-row">{{localize 'AOV.wind.moderatewind'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.moderatewind.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.moderatewind.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.moderatewind.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.moderatewind.head}}</div>  
+        <div class="left new-row">{{localize 'AOV.wind.strongwind'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.strongwind.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.strongwind.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.strongwind.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.strongwind.head}}</div>  
+        <div class="left new-row">{{localize 'AOV.wind.freshgale'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.freshgale.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.freshgale.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.freshgale.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.freshgale.head}}</div>  
+        <div class="left new-row">{{localize 'AOV.wind.wholegale'}}</div>
+        <div class="stat-input centre">{{actor.system.sail.wholegale.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.wholegale.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.wholegale.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.wholegale.head}}</div>  
+        <div class="left new-row">{{localize 'AOV.wind.hurricane'}}</div>                        
+        <div class="stat-input centre">{{actor.system.sail.hurricane.before}}</div>
+        <div class="stat-input centre">{{actor.system.sail.hurricane.quarter}}</div>
+        <div class="stat-input centre">{{actor.system.sail.hurricane.half}}</div>
+        <div class="stat-input centre">{{actor.system.sail.hurricane.head}}</div>  
+      {{else}}
+        <div class="left new-row">{{localize 'AOV.wind.calm'}}</div>
+        <input class="stat-input centre" name='system.sail.calm.before' type='text' value='{{actor.system.sail.calm.before}}'/>
+        <input class="stat-input centre" name='system.sail.calm.quarter' type='text' value='{{actor.system.sail.calm.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.calm.half' type='text' value='{{actor.system.sail.calm.half}}'/>
+        <input class="stat-input centre" name='system.sail.calm.head' type='text' value='{{actor.system.sail.calm.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.lightair'}}</div>
+        <input class="stat-input centre" name='system.sail.lightair.before' type='text' value='{{actor.system.sail.lightair.before}}'/>
+        <input class="stat-input centre" name='system.sail.lightair.quarter' type='text' value='{{actor.system.sail.lightair.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.lightair.half' type='text' value='{{actor.system.sail.lightair.half}}'/>
+        <input class="stat-input centre" name='system.sail.lightair.head' type='text' value='{{actor.system.sail.lightair.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.breeze'}}</div>
+        <input class="stat-input centre" name='system.sail.breeze.before' type='text' value='{{actor.system.sail.breeze.before}}'/>
+        <input class="stat-input centre" name='system.sail.breeze.quarter' type='text' value='{{actor.system.sail.breeze.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.breeze.half' type='text' value='{{actor.system.sail.breeze.half}}'/>
+        <input class="stat-input centre" name='system.sail.breeze.head' type='text' value='{{actor.system.sail.breeze.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.lightwind'}}</div>
+        <input class="stat-input centre" name='system.sail.lightwind.before' type='text' value='{{actor.system.sail.lightwind.before}}'/>
+        <input class="stat-input centre" name='system.sail.lightwind.quarter' type='text' value='{{actor.system.sail.lightwind.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.lightwind.half' type='text' value='{{actor.system.sail.lightwind.half}}'/>
+        <input class="stat-input centre" name='system.sail.lightwind.head' type='text' value='{{actor.system.sail.lightwind.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.moderatewind'}}</div>
+        <input class="stat-input centre" name='system.sail.moderatewind.before' type='text' value='{{actor.system.sail.moderatewind.before}}'/>
+        <input class="stat-input centre" name='system.sail.moderatewind.quarter' type='text' value='{{actor.system.sail.moderatewind.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.moderatewind.half' type='text' value='{{actor.system.sail.moderatewind.half}}'/>
+        <input class="stat-input centre" name='system.sail.moderatewind.head' type='text' value='{{actor.system.sail.moderatewind.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.strongwind'}}</div>
+        <input class="stat-input centre" name='system.sail.strongwind.before' type='text' value='{{actor.system.sail.strongwind.before}}'/>
+        <input class="stat-input centre" name='system.sail.strongwind.quarter' type='text' value='{{actor.system.sail.strongwind.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.strongwind.half' type='text' value='{{actor.system.sail.strongwind.half}}'/>
+        <input class="stat-input centre" name='system.sail.strongwind.head' type='text' value='{{actor.system.sail.strongwind.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.freshgale'}}</div>
+        <input class="stat-input centre" name='system.sail.freshgale.before' type='text' value='{{actor.system.sail.freshgale.before}}'/>
+        <input class="stat-input centre" name='system.sail.freshgale.quarter' type='text' value='{{actor.system.sail.freshgale.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.freshgale.half' type='text' value='{{actor.system.sail.freshgale.half}}'/>
+        <input class="stat-input centre" name='system.sail.freshgale.head' type='text' value='{{actor.system.sail.freshgale.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.wholegale'}}</div>
+        <input class="stat-input centre" name='system.sail.wholegale.before' type='text' value='{{actor.system.sail.wholegale.before}}'/>
+        <input class="stat-input centre" name='system.sail.wholegale.quarter' type='text' value='{{actor.system.sail.wholegale.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.wholegale.half' type='text' value='{{actor.system.sail.wholegale.half}}'/>
+        <input class="stat-input centre" name='system.sail.wholegale.head' type='text' value='{{actor.system.sail.wholegale.head}}'/>
+        <div class="left new-row">{{localize 'AOV.wind.hurricane'}}</div>                        
+        <input class="stat-input centre" name='system.sail.hurricane.before' type='text' value='{{actor.system.sail.hurricane.before}}'/>
+        <input class="stat-input centre" name='system.sail.hurricane.quarter' type='text' value='{{actor.system.sail.hurricane.quarter}}'/>
+        <input class="stat-input centre" name='system.sail.hurricane.half' type='text' value='{{actor.system.sail.hurricane.half}}'/>
+        <input class="stat-input centre" name='system.sail.hurricane.head' type='text' value='{{actor.system.sail.hurricane.head}}'/>
+      {{/if}}    
+    </div>
+    </div>
+</section>

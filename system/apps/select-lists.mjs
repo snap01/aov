@@ -265,4 +265,20 @@ export class AOVSelectLists {
     return options;
   }
 
+  //Wind Type
+  static async windTypes() {
+    let options={
+      "calm": game.i18n.localize("AOV.wind.calm"),
+      "lightair": game.i18n.localize("AOV.wind.lightair"),
+      "breeze": game.i18n.localize("AOV.wind.breeze"),
+      "lightwind": game.i18n.localize("AOV.wind.lightwind"),
+      "moderatewind": game.i18n.localize("AOV.wind.moderatewind"),
+      "strongwind": game.i18n.localize("AOV.wind.strongwind"),
+      "freshgale": game.i18n.localize("AOV.wind.freshgale"),
+      "wholegale": game.i18n.localize("AOV.wind.wholegale"),
+      "hurricane": game.i18n.localize("AOV.wind.hurricane"),
+    };
+
+    return options
+  }
 }

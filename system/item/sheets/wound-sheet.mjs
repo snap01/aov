@@ -27,6 +27,9 @@ export class AoVWoundSheet extends AoVItemSheet {
     if (context.hasOwner) {
       let actorId = this.item.parent._id
       let actor = await game.actors.get(actorId)
+      if (!actor) {
+        actor = await fromUuid(this.item.parent.uuid)
+      }
       context.hitLocs = await AOVSelectLists.getHitLocOptions(actor)
     }
 

@@ -9,7 +9,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['character'],
+    classes: ['character','themed', 'theme-light'],
     position: {
       width: 700,
       height: 950
@@ -19,12 +19,13 @@ export class AoVCharacterSheet extends AoVActorSheet {
   static PARTS = {
     header: { template: 'systems/aov/templates/actor/character.header.hbs' },
     tabs: { template: 'systems/aov/templates/actor/character-tab.hbs' },
-    gmTab: {
-      template: 'systems/aov/templates/actor/character.gmtab.hbs',
-      scrollable: [''],
-    },
+//    tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },    
     notes: {
       template: 'systems/aov/templates/actor/character.notes.hbs',
+      scrollable: [''],
+    },
+    gmTab: {
+      template: 'systems/aov/templates/actor/character.gmtab.hbs',
       scrollable: [''],
     },
     family: {
@@ -61,12 +62,13 @@ export class AoVCharacterSheet extends AoVActorSheet {
     super._configureRenderOptions(options);
     //Common parts to the character - this is the order they are show on the sheet
     options.parts = ['header'];
+    options.parts.push('tabs')     
     //GM only tabs
     if (game.user.isGM) {
       options.parts.push('gmTab');
     }
     //Last tab is at the top of the list on the character sheet
-    options.parts.push('tabs', 'stats', 'notes', 'family', 'gear', 'devotions', 'runes', 'combat', 'skills');
+    options.parts.push('stats', 'notes', 'family', 'gear', 'devotions', 'runes', 'combat', 'skills');
   }
 
   _getTabs(parts) {

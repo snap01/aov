@@ -70,7 +70,6 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
 
   // Handle changing a Document's image.
   static async _onEditImage(event, target) {
-    console.log("TEST")
     const attr = target.dataset.edit;
     const current = foundry.utils.getProperty(this.document, attr);
     const { img } = this.document.constructor.getDefaultArtwork?.(this.document.toObject()) ??
@@ -149,7 +148,7 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
     event.preventDefault();
     let checkProp = {};
     const prop = target.dataset.property
-    if (['noXP', 'xpCheck', 'specSkill','common','treated'].includes(prop)) {
+    if (['noXP', 'xpCheck', 'specSkill','common','treated','prepared'].includes(prop)) {
       checkProp = { [`system.${prop}`]: !this.item.system[prop] }
     } else { return }
 
