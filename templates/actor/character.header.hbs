@@ -64,7 +64,7 @@
         <input class="ability-cell bold" type='text' name='system.mp.value' value='{{system.mp.value}}'
           data-dtype='Number' />
         <span class="centre"> / </span>
-        <div class="ability-cell centre terIcon bold">{{system.mp.max}}</div>
+        <div class="ability-cell centre terIcon bold" title="{{localize 'AOV.maxMP' value=system.mp.max}}">{{system.mp.availMax}}</div>
       </div>
       <div class="ability-cell left bold upper" title="{{localize 'AOV.reput'}}">{{localize 'AOV.reputAbbr'}}</div>
       <div class="ability-cell centre terIcon bold">{{system.reputation.total}}%</div>

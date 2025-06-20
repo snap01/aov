@@ -27,6 +27,8 @@ export default class AOVActorBaseModel extends AOVDataModel {
     schema.alphaSkills = new fields.BooleanField({ initial: false });  //Flag to list the skills in alphabetical order
     schema.showRunes = new fields.BooleanField({ initial: true });  //Flag to show the runes
     schema.parryBonus = new fields.NumberField({ ...requiredInteger, initial: 0  });  //Parry Bonus
+    schema.beserkerOpt = new fields.BooleanField({ initial: false });  //Can the actor go beserk
+    schema.beserkerStat = new fields.BooleanField({ initial: false });  //Is the actor go beserk
 
 
     // Iterate over ability names and create a new SchemaField for each.

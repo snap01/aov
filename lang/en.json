@@ -40,6 +40,8 @@
     "damage": "Damage",
     "damageAbbr": "Dmg",
     "damageType": "Damage Type",
+    "db": "+db",
+    "dbHalf" : "+½db",
     "deleteDoc": "Double click to delete {type}",
     "description": "Description",
     "details": "Details",
@@ -108,6 +110,7 @@
     "maxEnc": "Maximum Encumbrance",
     "maxEncAbbr": "ME",
     "maxHPBonus": "Max HP Bonus",
+    "maxMP": "Max MP excl locked = {value}",
     "maxMPBonus": "Max MP Bonus",
     "meaning": "Meaning",
     "meanings": "Meanings",
@@ -131,6 +134,7 @@
     "noXP": "No XP Allowed",
     "noXPHint": "If ticked, these skills can not be improved via experience",
     "oddRunes": "Valid Runescript",
+    "options": "Options",
     "packed": "Packed",
     "parryBonus": "Parry Bonus",
     "personal": "Personal",
@@ -142,6 +146,7 @@
     "quantity": "Quantity",
     "quantityAbbr": "Qty",
     "range": "Range",
+    "recalcBase": "Recalculate non-fixed Base Scores",
     "relationship": "Relationship",
     "reput": "Reputation",
     "reputAbbr": "Rep",
@@ -474,6 +479,9 @@
       "limb": "Limb"
 
     },
+    "npcOptions": {
+      "beserker": "Beserker"
+    },
     "Omens": {
       "cursed": "Cursed",
       "illfavoured": "Ill-favoured",
@@ -511,6 +519,8 @@
       "gameYearHint": "The current year of play",
       "gameYearSettings": "Game Year Settings",
       "gameYearSettingsHint": "Change setting for the year of play",
+      "npcSettings": "NPC Settings",
+      "npcSettingsHint": "Change settings for NPCs",
       "omens": "Omens",
       "omensHint": "The omens for the current game year",
       "primaryBackColour": "Primary Background Colour",
@@ -524,7 +534,13 @@
       "secondaryFontColour": "Secondary Font Colour",
       "secondaryFontColourHint": "Colour for the titles etc",
       "singleColourBar": "Single Colour Bars",
-      "singleColourBarHint": "Mutliple header bars on the same tab will be the same colour"
+      "singleColourBarHint": "Mutliple header bars on the same tab will be the same colour",
+      "tokenDropMode": "When creating NPC :",
+      "tokenDropModeAsk": "Ask",
+      "tokenDropModeAverage": "Average",
+      "tokenDropModeHint": "Default behavior for NPC with rollable stats.",
+      "tokenDropModeIgnore": "Ignore",
+      "tokenDropModeRoll": "Roll"
     },
     "ship": {
       "additionalCrew": "Additional Crew",
@@ -596,6 +612,16 @@
       "speeds": "Sailing Speeds",
       "stats": "Stats",
       "thralls": "Thralls"
+    },
+
+    "TokenCreationRoll": {
+      "Averaged": "{name} characteristics averaged",
+      "ButtonAverage": "Average Stats",
+      "ButtonRoll": "Random Stats",
+      "ButtonSkip": "Do nothing",
+      "Prompt": "Please select an option for creating stats",
+      "Rolled": "{name} characteristics rolled",
+      "Title": "NPC Token Creation"
     },
 
     "wind": {

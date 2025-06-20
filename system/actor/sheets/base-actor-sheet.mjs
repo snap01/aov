@@ -1,6 +1,7 @@
 const { api, sheets } = foundry.applications;
 import { CIDEditor } from "../../cid/cid-editor.mjs";
 import { AOVActorItemDrop } from "../actor-item-drop.mjs";
+import { AOVActor } from "../actor.mjs";
 
 
 export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
@@ -28,6 +29,9 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       createDoc: this._createDoc,
       deleteDoc: this._deleteDoc,
       itemToggle: this._itemToggle,
+      randomStats: this._randomStats,
+      averageStats: this._averageStats,
+      recalc: this._recalcBase,
     }
   }
 
@@ -130,7 +134,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     event.stopPropagation();
     let checkProp={}
     let prop = target.dataset.property
-    if (['locked', 'uncommon', 'alphaSkills','showRunes'].includes(prop)) {
+    if (['locked', 'uncommon', 'alphaSkills','showRunes','beserkerOpt','beserkerStat'].includes(prop)) {
       checkProp = { [`system.${prop}`]: !this.actor.system[prop] }
     } else {
       return
@@ -195,10 +199,27 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       }
       newItem.sheet.render();
     }
-
-
   }
 
+  //Roll Random Stats
+  static async _randomStats(event, target){
+    await this.actor.rollCharacteristicsValue()
+  }
+ 
+  //Roll Average Stats
+  static async _averageStats(event, target){
+    await this.actor.averageCharacteristicsValue()
+  }
+
+  //Recalc Base Skill Scores
+  static async _recalcBase() {
+    if (this.actor.type !='character') {return}
+    let skillList = await this.actor.items.filter(itm=>itm.type ==='skill').filter(nItm=> nItm.system.baseVal !='fixed')
+      for (let skill of skillList) {
+        let base = await AOVActorItemDrop._AOVcalcBase(skill, this.actor);
+        await skill.update({'system.base': base})
+      }
+    }  
 
   //----------------
 
@@ -370,5 +391,4 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       return
     }
   }
-
 }

@@ -158,15 +158,15 @@
 
 .aov .npc-skill-grid {
   display: grid;
-  grid-template-columns: 140px 140px 140px;
-  grid-column-gap: 5px;
+  grid-template-columns: 210px 210px;
+  grid-column-gap: 10px;
   padding: 0px;
   margin: 10px 0 0 13px;
 }
 
 .aov .npc-skill-row {
   display: grid;
-  grid-template-columns: 90px 30px 20px;
+  grid-template-columns: 150px 40px 20px;
   margin: 0px;
 }
 
@@ -253,7 +253,7 @@
 
 .aov .statsgrid {
   display: grid;
-  grid-template-columns: 75px 50px 50px 50px 50px 75px;
+  grid-template-columns: 75px 50px 50px 50px 50px 75px 150px;
   grid-column-gap: 5px;
 }
 

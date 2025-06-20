@@ -11,6 +11,7 @@ export default class AOVNPCModel extends AOVActorBaseModel {
       bonus: new fields.NumberField({ ...requiredInteger, initial: 0 }),
       penalty: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
+    schema.movement = new fields.StringField({ required: true, blank: true, initial: "10" });
     schema.persType = new fields.StringField({ required: true, blank: true });
     schema.tabView = new fields.StringField({ required: true, blank: true, initial: "1" });
     schema.spiritAn = new fields.StringField({ required: true, blank: true });

@@ -118,8 +118,9 @@
       <div class='new-row left'>{{localize 'TYPES.Item.weapon'}}</div>
       <div class='centre'>%</div>
       <div class='centre'>{{localize 'AOV.damage'}}</div>
+      <div class='centre'>{{localize 'AOV.dmgBonusAbbr'}}</div>
       <div class='centre'>{{localize 'AOV.encumbranceAbbr'}}</div>
-      <div class='centre' style="grid-column: 5 / 8;">{{localize 'AOV.hpAbbr'}}</div>
+      <div class='centre' style="grid-column: 6 / 9;">{{localize 'AOV.hpAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
       <div class='centre'>{{localize 'AOV.range'}}</div>
     </div>
@@ -130,6 +131,7 @@
               data-action='viewDoc'>{{item.name}}</div>
         <div class='gear-name centre terIcon'>{{item.system.total}}</div>
         <div class='gear-name centre' title="{{item.system.damTypeLabel}}">{{item.system.damage}}</div>
+        <div class='gear-name centre terIcon'>{{item.system.dbLabel}}</div>
         <div class='gear-name centre terIcon'>{{item.system.actlEnc}}</div>
         <div class="centre skill-inline"><input class="ability-cell centre" name='system.currHP'
           type='number' value='{{item.system.currHP}}' data-field="currHP"/>

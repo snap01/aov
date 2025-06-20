@@ -14,7 +14,7 @@
       font-size: 20px;
     }
 
-    h4 {
+    .title, h4 {
       color: var(--aov-jnl-pri-col);
       font-family: var(--aov-secondary-font);
       font-size: 18px;
@@ -51,6 +51,10 @@
       text-transform: uppercase;
     }
 
+    .centre {
+      text-align: center;
+    }
+
     .main {
       color: var(--aov-jnl-main-col);
     }
@@ -83,6 +87,11 @@
         color: var(--aov-jnl-ter-col); 
         text-align: center;
         text-transform:uppercase;               
+      }
+      h4 {
+      color: var(--aov-jnl-ter-col);
+      font-family: var(--aov-secondary-font);
+      font-size: 18px;        
       }
     }
 

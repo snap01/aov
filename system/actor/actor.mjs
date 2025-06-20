@@ -100,7 +100,7 @@ export class AOVActor extends Actor {
 
     }
     systemData.actualEnc = Math.floor(systemData.actualEnc)
-    systemData.mp.max = systemData.mp.max - systemData.lockedMP
+    systemData.mp.availMax = systemData.mp.max - systemData.lockedMP
 
 
 
@@ -224,12 +224,13 @@ export class AOVActor extends Actor {
       const systemData = actorData.system;
       systemData.hp.max = AOVActor._calcMaxHP(systemData);
       systemData.mp.max = AOVActor._calcMaxMP(systemData);
+      systemData.mp.availMax = systemData.mp.max - (systemData.mp.locked ?? 0);
+      systemData.dmgBonus = AOVActor._damMod(systemData);
+      if (this.type === 'character') {
       systemData.moveRate = (systemData.move.base ?? 0) + (systemData.move.bonus ?? 0);
       if (systemData.move.penalty !=0) {
         systemData.moveRate = Math.ceil(systemData.moveRate * systemData.move.penalty)
       }
-      systemData.dmgBonus = AOVActor._damMod(systemData);
-      if (this.type === 'character') {
       systemData.healRate = AOVActor._calcHealRate(systemData);
       systemData.reputation.total = (systemData.reputation.base ?? 0) + (systemData.reputation.xp ?? 0);
       systemData.status.total = (systemData.status.base ?? 0) + (systemData.status.xp ?? 0);
@@ -355,14 +356,18 @@ export class AOVActor extends Actor {
     } else if (powBonus > 0) {
       powBonus--;
     }
-    maxHP = maxHP + sizBonus + powBonus + systemData.hp.bonus + (systemData.hp.effects ?? 0);
+    maxHP = maxHP + sizBonus + powBonus
+    if (systemData.beserkerStat) {
+      maxHP = maxHP * 2
+    }
+    maxHP = maxHP + systemData.hp.bonus + (systemData.hp.effects ?? 0);
     return maxHP;
   }
 
   //Calculate Max Magic Points
   static _calcMaxMP(systemData) {
     let maxMP = systemData.abilities.pow.total;
-    maxMP = maxMP + systemData.mp.bonus + (systemData.mp.effects ?? 0) - (systemData.mp.locked ?? 0);
+    maxMP = maxMP + systemData.mp.bonus + (systemData.mp.effects ?? 0)
     return maxMP;
   }
 
@@ -519,4 +524,92 @@ export class AOVActor extends Actor {
   let castTime = cost * 10
   return {cost, mpLocked, castTime}
  }
+
+  //Used for Rolling NPCs when token dropped
+  get hasRollableCharacteristics() {
+    for (const [, value] of Object.entries(this.system.abilities)) {
+      if (isNaN(Number(value.formula))) return true
+      if (isNaN(Number(value.average))) return true
+    }
+    return false
+  }
+
+  static async dropChoice(document, options) {
+    let choice = await foundry.applications.api.DialogV2.wait({
+      window: { title: game.i18n.localize('AOV.TokenCreationRoll.Title') },
+      content: game.i18n.localize('AOV.TokenCreationRoll.Prompt'),
+      buttons: [
+        {
+          label: game.i18n.localize('AOV.TokenCreationRoll.ButtonRoll'),
+          action: "roll",
+          callback: async () => {
+            await document._object.actor.rollCharacteristicsValue()
+            ui.notifications.info(game.i18n.format('AOV.TokenCreationRoll.Rolled', { name: document.object.actor.name }))
+            document._object.actor.locked = true
+          }
+        },
+        {
+          label: game.i18n.localize('AOV.TokenCreationRoll.ButtonAverage'),
+            action: "average",
+            callback: async () => {
+              await document._object.actor.averageCharacteristicsValue()
+              ui.notifications.info(game.i18n.format('AOV.TokenCreationRoll.Averaged', { name: document.object.actor.name }))
+              document._object.actor.locked = true
+            }
+        },
+        {
+          label: game.i18n.localize('AOV.TokenCreationRoll.ButtonSkip'),
+          action: "skip"
+        },
+      ]
+    })
+  }
+
+  //Roll Random Stats
+  async rollCharacteristicsValue() {
+    console.log("trigger")
+    const abilities = {}
+    for (const [key, value] of Object.entries(this.system.abilities)) {
+      if (value.formula && !value.formula.startsWith('@')) {
+        const r = new Roll(value.formula)
+        await r.evaluate()
+        if (r.total) {
+          abilities[`system.abilities.${key}.value`] = Math.floor(
+            r.total
+          )
+        }
+      }
+    }
+    await this.update(abilities)
+    await this.updateVitals()
+  }
+
+  //Roll Average Stats
+  async averageCharacteristicsValue() {
+    const abilities = {}
+    for (const [key, value] of Object.entries(this.system.abilities)) {
+      if (value.average && !value.average.startsWith('@')) {
+        const r = new Roll(value.average)
+       await r.evaluate()
+        if (r.total) {
+          abilities[`system.abilities.${key}.value`] = Math.floor(
+            r.total
+          )
+        }
+      }    
+    }
+    await this.update(abilities)
+    await this.updateVitals()
+  }
+
+  //Update Current HP, MP etc and HPL when Rolled or Average Roll
+  async updateVitals() {
+    let checkProp = {
+      'system.hp.value': this.system.hp.max,
+      'system.mp.value': this.system.mp.max,
+    }
+    await this.update(checkProp)
+  }
+
+
 }

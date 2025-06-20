@@ -2,6 +2,7 @@ import { AOVSelectLists } from '../../apps/select-lists.mjs';
 import { AoVActorSheet } from "./base-actor-sheet.mjs"
 import { AOVActiveEffect } from '../../apps/active-effects.mjs';
 import { AOVActiveEffectSheet } from '../../sheets/aov-active-effect-sheet.mjs'
+import { AOVActor } from '../actor.mjs';
 
 export class AoVNPCSheet extends AoVActorSheet {
   constructor(options = {}) {
@@ -27,9 +28,11 @@ export class AoVNPCSheet extends AoVActorSheet {
     super._configureRenderOptions(options);
     //Common parts to the character - this is the order they are show on the sheet
     options.parts = ['header'];
+    console.log(this.actor)
   }
 
   _getTabs(parts) {
+    /*
     // If you have sub-tabs this is necessary to change
     const tabGroup = 'primary';
     // Default tab for first time it's rendered this session
@@ -50,11 +53,12 @@ export class AoVNPCSheet extends AoVActorSheet {
       tabs[partId] = tab;
       return tabs;
     }, {});
+    */
   }
 
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
-    context.tabs = this._getTabs(options.parts);
+    //context.tabs = this._getTabs(options.parts);
     context.persTypeOptions = await AOVSelectLists.persType();
     context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
     context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
@@ -109,9 +113,9 @@ export class AoVNPCSheet extends AoVActorSheet {
         hitLocs.push(itm)
       } else if (itm.type === 'weapon') {
         itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)
-        itm.system.dbLabel = "+db"
+        itm.system.dbLabel = game.i18n.localize('AOV.db')
         if (itm.system.weaponType === 'thrown') {
-          itm.system.dbLabel = "½ db"
+          itm.system.dbLabel = game.i18n.localize('AOV.dbHalf')
         } else if (itm.system.weaponType === 'missile') {
           itm.system.dbLabel = ""
         }
@@ -126,8 +130,8 @@ export class AoVNPCSheet extends AoVActorSheet {
     hitLocs.sort(function (a, b) {
       let x = a.system.lowRoll;
       let y = b.system.lowRoll;
-      if (x < y) { return -1 };
-      if (x > y) { return 1 };
+      if (x < y) { return 1 };
+      if (x > y) { return -1 };
       return 0;
     })
 
@@ -162,8 +166,10 @@ export class AoVNPCSheet extends AoVActorSheet {
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
     let newVal = event.target.value
     let field = ""
-    if (event.target.dataset.field === 'name') {
-      field = event.target.dataset.field
+    if (event.target.dataset.field === 'itemName') {
+      field = 'name'
+    } else if (event.target.dataset.field === 'powerDescription') {
+      field = 'system.description'
     } else {
       field = "system." + event.target.dataset.field
     }

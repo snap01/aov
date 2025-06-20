@@ -1,3 +1,16 @@
+## 13.4
+-  There are now some NPC options on the Base Stats Tab (e.g. Beserker)
+-  These determine whether the NPC can have these statuses
+-  Toggling the actual status on/off (e.g. actually going beserk) is done from the main NPC tab (only visible if the option is toggled on)
+-  Not all effects are automated (e.g. Max damage, or loss of Magic Points) but some are (e.g. Double HP)
+-  There is a game settings menu for NPCs where you can determine the default behaviour when a new token is created on a scene
+-  When dropping a new NPC token on a scene stats can be generated from the "Roll" or "Average" formulae on the Base Stats tab (or nothing can happen)
+-  There are also icons on the NPC sheet to let you re-roll the stats
+-  Fixed an issue with NPC where skills, weapons etc were being added to the NPC name
+-  Character sheet combat tab now shows what type of damage bonus will be added on weapon (DB, 1/2DB or none)
+-  Character sheet rune spells and sediur spells now show prepared/active spells at the top of the list
+-  There is a new icon on the "stats" tab on the character sheet that will (for characters only) recalc the base scores of skills where the Base Score Option is not "fixed"
+
 ## 13.3
 - Seidur spell MP costs corrected and displays the ritual casting time
 - Adding a weapon no longer adds duplicate weapon skills
@@ -9,7 +22,7 @@
 - You can now toggle runescripts on/off as prepared from either the Item sheet or the Character sheet - this will impact Locked MP
 - You can now toggle seidur spells on/off as active from either the Item sheet or the Character sheet - this will impact Locked MP
 - Locked MP are now calculated rather than input and Max MP are reduced accordingly
-- YOu can now record Eells of vaðmál owned on the stats tab
+- You can now record Eells of vaðmál owned on the stats tab
 
 
 ## 13.2

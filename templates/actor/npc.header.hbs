@@ -7,7 +7,21 @@
       <div class='header-fields npcName-grid'>
         <div class="bold">{{localize 'AOV.name'}}</div>
         <div class='document-name'><input class="stat-input" name='name' type='text' value='{{actor.name}}' /></div>
-        <div class="right" style="grid-column: 1 / 3;">
+        <div class="left">
+          {{#if system.beserkerOpt}}
+            <a class="{{#unless system.beserkerStat}}fade{{/unless}} secIcon" title="{{ localize 'AOV.npcOptions.beserker' }}" data-action="toggleActor" data-property="beserkerStat">
+              <i class="mediumIcon fas fa-axe-battle"></i>
+            </a>
+          {{/if}}
+
+        </div>
+
+        <div class="right">
+          {{#unless isLocked}}
+            <a class="secIcon" title="{{ localize 'AOV.TokenCreationRoll.ButtonRoll' }}" data-action="randomStats"> <i class="mediumIcon fas fa-dice"></i></a>
+            <a class="secIcon" title="{{ localize 'AOV.TokenCreationRoll.ButtonAverage' }}" data-action="averageStats"> <i class="mediumIcon fas fa-scale-balanced"></i> </a>
+            <a style="color: transparent; text-shadow:none;"><i class="fas fa-dice"></i></a>
+          {{/unless}}
           <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewStat' }}"  data-tabval="1"> <i class="mediumIcon fas fas fa-user"></i></a>
           <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewNotes' }}" data-tabval="2"> <i class="mediumIcon fas fa-scroll"></i> </a>
           <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewBaseStat' }}" data-tabval="3"> <i class="mediumIcon fas fa-user-magnifying-glass"></i></a>
@@ -19,21 +33,21 @@
     {{!Icons}}
     <div class="right">
       {{#if isLocked}}
-        <div><a class="icon20 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.unlock"}}'>
+        <div><a class="icon17 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.unlock"}}'>
           <i class="fas fa-lock"></i>
         </a></div>
       {{else}}
-        <div><a class="icon20 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.lock"}}'>
+        <div><a class="icon17 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.lock"}}'>
           <i class="fas fa-lock-open"></i>
         </a></div>
       {{/if}}
       {{#if isLinked}}
-        <div><a class="icon20 terIcon" title='{{localize "AOV.linked"}}'><i class="fas fa-link"></i></a></div>
+        <div><a class="icon17 terIcon" title='{{localize "AOV.linked"}}'><i class="fas fa-link"></i></a></div>
       {{else}}
-        <div><a class="icon20 terIcon" title='{{localize "AOV.unlinked"}}'><i class="fas fa-link-slash"></i></a></div>
+        <div><a class="icon17 terIcon" title='{{localize "AOV.unlinked"}}'><i class="fas fa-link-slash"></i></a></div>
       {{/if}}
       {{#if isSynth}}
-        <div><a class="icon20 terIcon" title='{{localize "AOV.synth"}}'><i class="fas fa-people-group"></i></a></div>
+        <div><a class="icon17 terIcon" title='{{localize "AOV.synth"}}'><i class="fas fa-people-group"></i></a></div>
       {{/if}}
     </div>
   </div>
@@ -66,17 +80,17 @@
           <div class="ability-cell left bold" title="{{localize 'AOV.mp'}}">{{localize 'AOV.mpAbbr'}}</div>
           <div class="ability-cell centre terIcon"><input class="stat-input" name='system.mp.value' type='number' value='{{system.mp.value}}' /></div>
           <div class="ability-cell centre"> / </div>
-          <div class="ability-cell centre terIcon">{{system.mp.max}}</div>
+          <div class="ability-cell centre terIcon">{{system.mp.availMax}}</div>
 
           <div class="ability-cell left bold" title="{{localize 'AOV.dmgBonus'}}">{{localize 'AOV.dmgBonusAbbr'}}</div>
           <div class="ability-cell centre terIcon" style="grid-column: 2 / 5;">{{system.dmgBonus}}</div>
 
           <div class="ability-cell left bold" title="{{localize 'AOV.mr'}}">{{localize 'AOV.mrAbbr'}}</div>
           {{#if isLocked}}
-            <div class="ability-cell centre terIcon" style="grid-column: 2 / 5;">{{system.moveRate}}</div>
+            <div class="ability-cell centre terIcon" style="grid-column: 2 / 5;">{{system.movement}}</div>
           {{else}}
             <div class="ability-cell centre terIcon" style="grid-column: 2 / 5;">
-              <input class="stat-input" name='system.move.base' type='text' value='{{system.move.base}}'/>
+              <input class="stat-input" name='system.movement' type='text' value='{{system.movement}}'/>
             </div>
           {{/if}}
         </div>
@@ -156,8 +170,8 @@
               <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
               <div class="centre terIcon">{{item.system.total}}</div>
             {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='name'
-                type='text' value='{{item.name}}' data-field="name"></div>
+              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                type='text' value='{{item.name}}' data-field="itemName"></div>
               <div class="centre skill-inline"><input class="skillDev-input centre" name='system.base'
                 type='number' value='{{item.system.base}}' data-field="base"/></div>
             {{/if}}
@@ -199,8 +213,8 @@
                 type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
               <div class="centre terIcon">{{item.system.total}}</div>
             {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='name'
-                type='text' value='{{item.name}}' data-field="name"></div>
+              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                type='text' value='{{item.name}}' data-field="itemName"></div>
               <div class="centre">{{item.system.dbLabel}}</div>
               <div class="centre skill-inline" title="{{item.system.damTypeLabel}}"><input class="skillDev-input centre" name='system.damage'
                 type='text' value='{{item.system.damage}}' data-field="damage"/></div>
@@ -240,10 +254,10 @@
               <div class="rollable truncate" title="{{item.name}}" data-action='viewDoc'>{{item.name}}</div>
               <div class="truncate" title ="{{item.system.description}}">{{item.system.description}}</div>
             {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='name'
-                type='text' value='{{item.name}}' data-field="name"></div>
-              <div class="skill-inline"><input class="skillDev-input" name='system.description'
-                type='text' value='{{item.system.description}}' data-field="description"/></div>
+              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                type='text' value='{{item.name}}' data-field="itemName"></div>
+              <div class="skill-inline"><input class="skillDev-input" name='system.powerDescription'
+                type='text' value='{{item.system.description}}' data-field="powerDescription"/></div>
             {{/if}}
             {{#unless ../isLocked}}
                 <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
@@ -274,8 +288,8 @@
             {{#if ../isLocked}}
               <div class="rollable truncate" title="{{item.name}}" data-action='viewDoc'>{{item.name}}</div>
             {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='name'
-                type='text' value='{{item.name}}' data-field="name"></div>
+              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                type='text' value='{{item.name}}' data-field="itemName"></div>
             {{/if}}
             <div>
               {{#unless ../isLocked}}
@@ -326,13 +340,19 @@
               <div class="npc-stat-input"><input class="npc-stat-input" name='system.abilities.{{key}}.average' type='text' value='{{ability.average}}' /></div>
             {{/if}}
           {{/each}}
-
-
-
-
     </div>
-
-
+    <br>
+    <div class="bold" style="margin: 10px 0px 0px 10px;">{{localize 'AOV.options'}}</div>
+    <div class="npc-base-stats-grid">
+      <div class="indent">{{localize 'AOV.npcOptions.beserker'}}</div>
+      <div class="centre" data-action="toggleActor" data-property="beserkerOpt">
+        <a class="icon16">
+          <i class="fa-regular {{#if system.beserkerOpt}}fa-square-check{{else}}fa-square{{/if}}"></i>
+        </a>
+      </div>
+      <div class=" new-row indent">{{localize 'AOV.maxHPBonus'}}</div>      
+      <input class="stat-input" name='system.hp.bonus' type='number' value='{{system.hp.bonus}}'/>
+    </div>
   {{/if}}
 
 </header>

@@ -285,6 +285,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
         families.push(itm)
       } else if (itm.type === 'weapon') {
         itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)
+        itm.system.dbLabel = game.i18n.localize('AOV.db')
+        if (itm.system.weaponType === 'thrown') {
+          itm.system.dbLabel = game.i18n.localize('AOV.dbHalf')
+        } else if (itm.system.weaponType === 'missile') {
+          itm.system.dbLabel = ""
+        }
         weapons.push(itm)
       } else if (itm.type === 'armour') {
         itm.system.armourLocLabel = itm.system.lowLoc
@@ -367,6 +373,32 @@ export class AoVCharacterSheet extends AoVActorSheet {
       return 0;
     })
 
+    //Sort Runescripts on Prepared then name
+    runescripts.sort(function (a, b) {
+      let x = a.name;
+      let y = b.name;
+      let r = a.system.prepared
+      let s = b.system.prepared
+      if (r < s) { return 1 };
+      if (r > s) { return -1 };     
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
+      return 0;
+    })
+
+    //Sort Seidur Spells on Active then name
+    seidurs.sort(function (a, b) {
+      let x = a.name;
+      let y = b.name;
+      let r = a.system.prepared
+      let s = b.system.prepared
+      if (r < s) { return 1 };
+      if (r > s) { return -1 };     
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
+      return 0;
+    })    
+
     context.gear = gear.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.skills = skills;
     context.passions = passions.sort(function (a, b) {return a.name.localeCompare(b.name)});
@@ -381,8 +413,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.weapons = weapons.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.armours = armours;
     context.runes = runes.sort(function (a, b) {return a.name.localeCompare(b.name)});
-    context.runescripts = runescripts.sort(function (a, b) {return a.name.localeCompare(b.name)});
-    context.seidurs = seidurs.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.runescripts = runescripts;
+    context.seidurs = seidurs;
   }
 
 

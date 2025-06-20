@@ -8,6 +8,11 @@
       <div class='centre'>{{localize 'AOV.exp'}}</div>
       <div class='centre'>{{localize 'AOV.effects'}}</div>
       <div class='centre'>{{localize 'AOV.total'}}</div>
+      <div class='right'>
+        <a class="mediumIcon secIcon" data-action="recalc" title="{{ localize 'AOV.recalcBase'}}">
+          <i class="fas fa-arrows-rotate"></i>
+        </a>
+      </div>
     </li>
 
     {{#each system.abilities as |ability key|}}

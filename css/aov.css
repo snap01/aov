@@ -420,7 +420,7 @@ body.theme-dark .application.aov.sheet,
 
 .aov .weapons-list-grid {
   display: grid;
-  grid-template-columns: 160px 50px 125px 50px 30px 10px 30px 40px 80px 30px;
+  grid-template-columns: 160px 50px 110px 35px 35px 30px 10px 30px 40px 80px 30px;
   grid-column-gap: 5px;
 }
 
@@ -570,6 +570,11 @@ body.theme-dark .application.aov.sheet,
 
 .aov .icon16 {
   font-size: 16px;
+  align-items: center;
+}
+
+.aov .icon17 {
+  font-size: 17px;
   align-items: center;
 }
 

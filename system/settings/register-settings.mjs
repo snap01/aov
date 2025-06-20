@@ -1,6 +1,7 @@
 import { AOVDisplaySettings } from "./settings-displayOptions.mjs";
 import { AOVCIDSettings } from "./settings-cidOptions.mjs";
 import { AOVGameYearSettings } from "./settings-gameYear.mjs";
+import { AOVNPCSettings } from "./settings-npcOptions.mjs";
 
 export async function registerSettings() {
   //Game Year Settings Button
@@ -12,6 +13,16 @@ export async function registerSettings() {
     restricted: true
   })
   AOVGameYearSettings.registerSettings()
+
+  //NPC Settings Button
+  game.settings.registerMenu('aov', 'npcSettings', {
+    name: 'AOV.Settings.npcSettingsHint',
+    label: 'AOV.Settings.npcSettings',
+    icon: 'fas fa-hydra',
+    type: AOVNPCSettings,
+    restricted: true
+  })
+  AOVNPCSettings.registerSettings()
 
   //Display Settings Button
   game.settings.registerMenu('aov', 'displayOptions', {
