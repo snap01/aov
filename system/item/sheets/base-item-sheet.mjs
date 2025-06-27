@@ -13,6 +13,9 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
       width: 600,
       height: 520
     },
+    window: {
+      resizable: true,
+    },    
     tag: "form",
     form: {
       submitOnChange: true,

@@ -2,7 +2,7 @@ const { api, sheets } = foundry.applications;
 import { CIDEditor } from "../../cid/cid-editor.mjs";
 import { AOVActorItemDrop } from "../actor-item-drop.mjs";
 import { AOVActor } from "../actor.mjs";
-
+import { AOVRollType } from "../../apps/roll-types.mjs";
 
 export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   constructor(options = {}) {
@@ -15,6 +15,9 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     position: {
       width: 587,
       height: 800
+    },
+    window: {
+      resizable: true,
     },
     tag: "form",
     dragDrop: [{ dragSelector: '[data-drag]', dropSelector: null }],
@@ -32,6 +35,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       randomStats: this._randomStats,
       averageStats: this._averageStats,
       recalc: this._recalcBase,
+      diceroll: this._diceroll,
     }
   }
 
@@ -220,6 +224,12 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
         await skill.update({'system.base': base})
       }
     }  
+    
+  //Dice Check
+  static async _diceroll(event,target) {
+    await AOVRollType._onDetermineCheck(event, target.dataset, this.document)
+  }
+    
 
   //----------------
 

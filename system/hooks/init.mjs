@@ -12,7 +12,8 @@ export default function Init() {
   //Add classes to global game object
   game.aov = {
     AOVActor,
-    AOVItem
+    AOVItem,
+    rollItemMacro
   }
   //Add Custom Configuration
   CONFIG.AOV = AOV;
@@ -55,4 +56,62 @@ export default function Init() {
   // but will still apply to the Actor from within the Item
   // if the transfer property on the Active Effect is true.
   CONFIG.ActiveEffect.legacyTransferral = true;
+
+  Hooks.on("hotbarDrop", (bar, data, slot) => {
+    if (game.user) {
+      createItemMacro(data, slot);
+      return false;
+    }
+  });
+
+}
+
+//  Hotbar Macros
+async function createItemMacro(data, slot) {
+  // First, determine if this is a valid owned item.
+  if (data.type !== "Item") return;
+  if (!data.uuid.includes("Actor.") && !data.uuid.includes("Token.")) {
+    return ui.notifications.warn(game.i18n.localize("AOV.noMacroItemOwner"));
+  }
+  // If it is, retrieve it based on the uuid.
+  const item = await Item.fromDropData(data);
+
+  // Create the macro command using the uuid.
+  const command = `game.aov.rollItemMacro("${data.uuid}");`;
+  let macro = game.macros.find(
+    (m) => m.name === item.name && m.command === command,
+  );
+  if (!macro) {
+    macro = await Macro.create({
+      name: item.name,
+      type: "script",
+      img: item.img,
+      command: command,
+      flags: { "aov.itemMacro": true },
+    });
+  }
+  game.user.assignHotbarMacro(macro, slot);
+  return false;
+}
+
+//Create a Macro from an Item drop.
+function rollItemMacro(itemUuid) {
+  // Reconstruct the drop data so that we can load the item.
+  const dropData = {
+    type: "Item",
+    uuid: itemUuid,
+  };
+  // Load the item from the uuid.
+  Item.fromDropData(dropData).then((item) => {
+    // Determine if the item loaded and if it's an owned item.
+    if (!item || !item.parent) {
+      const itemName = item?.name ?? itemUuid;
+      return ui.notifications.warn(
+        game.i18n.format("AOV.noMacroItemFound", { itemName }),
+      );
+    }
+
+    // Trigger the item roll
+    item.roll();
+  });
 }

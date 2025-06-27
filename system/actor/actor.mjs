@@ -567,7 +567,6 @@ export class AOVActor extends Actor {
 
   //Roll Random Stats
   async rollCharacteristicsValue() {
-    console.log("trigger")
     const abilities = {}
     for (const [key, value] of Object.entries(this.system.abilities)) {
       if (value.formula && !value.formula.startsWith('@')) {

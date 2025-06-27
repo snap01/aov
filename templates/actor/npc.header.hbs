@@ -62,9 +62,9 @@
     <div class="npcHeader">
         <div class="npc-stats-grid">
           {{#each system.abilities as |ability key|}}
-            <div class="ability-cell bold" data-characteristic="{{key}}">{{ability.label}}</div>
+            <div class="ability-cell bold">{{ability.label}}</div>
             {{#if ../isLocked}}
-              <div class="ability-cell centre terIcon bottom-line">{{ability.total}}</div>
+              <div class="ability-cell centre terIcon rollable bottom-line" data-action="diceroll" data-property="ability" data-characteristic="{{key}}" data-tooltip="AOV.rolls.abilityRoll">{{ability.total}}</div>
             {{else}}
               <div class="ability-cell"><input class="stat-input" name='system.abilities.{{key}}.value' type='text' value='{{ability.value}}' /></div>
             {{/if}}
@@ -168,7 +168,7 @@
           <li class='item npc-skill-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
             {{#if ../isLocked}}
               <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
-              <div class="centre terIcon">{{item.system.total}}</div>
+              <div class="centre rollable terIcon" data-action="diceroll" data-property="skill" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.skillRoll">{{item.system.total}}</div>
             {{else}}
               <div class="skill-inline"><input class="skillDev-input left" name='itemName'
                 type='text' value='{{item.name}}' data-field="itemName"></div>
@@ -207,8 +207,8 @@
           <li class='item npc-weapon-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
             {{#if ../isLocked}}
               <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
-              <div class="centre">{{item.system.dbLabel}}</div>
-              <div class="centre" title="{{item.system.damTypeLabel}}">{{item.system.damage}}</div>
+              <div class="centre" title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
+              <div class="centre rollable" data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
               <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
                 type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
               <div class="centre terIcon">{{item.system.total}}</div>

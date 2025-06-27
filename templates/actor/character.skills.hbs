@@ -56,7 +56,7 @@
             {{else}}
               <div></div>
             {{/unless}}
-            <div class='gear-name centre terIcon'>{{item.system.total}}</div>
+            <div class='gear-name centre rollable terIcon' data-action="diceroll" data-property="skill" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.skillRoll">{{item.system.total}}</div>
             {{#unless ../isLocked}}
               <div class='gear-controls centre'>
                 <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.skill")}}'

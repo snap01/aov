@@ -1,0 +1,55 @@
+<section id="check-roll-form">
+  
+
+  {{#if (eq cardType 'NO')}}
+    {{#if (eq rollType 'DM')}}
+      <div class = "diff-label bold">{{ localize 'AOV.rolls.DM'}}      
+    {{else}}
+        <div class = "diff-label bold">{{ localize 'AOV.card.NO'}}
+    {{/if}}
+  {{/if}}
+
+  {{#unless (eq decision 'choose')}}
+    : {{label}}
+  {{/unless}}
+  </div>  
+  <br>
+
+  {{#if (eq rollType 'CH')}}
+  <div class="flexrow">
+    <label title = "{{ localize 'AOV.card.difficultyHint' }}" >{{localize "AOV.card.difficulty"}}</label>   
+    <select class="stat-input" data-handle-change name="diffOption">
+      {{selectOptions diffOptions selected="simple"}}
+    </select>
+  </div>
+  <br>
+  {{/if}}
+
+  {{#if (eq rollType 'DM')}}
+    <div class="flexrow">
+      <label title = "{{ localize 'AOV.card.attackSuccessHint' }}" >{{localize "AOV.card.attackSuccess"}}</label>   
+       <select class="stat-input" data-handle-change name="dmgLevel">
+        {{selectOptions dmgLevels selected="2"}}
+      </select>
+    </div>
+    <br>
+
+    {{#if (eq damType 'ct')}}
+      <div class="flexrow">
+        <label title = "{{ localize 'AOV.card.attackDamTypeHint' }}" >{{localize "AOV.card.attackDamType"}}</label>   
+        <select class="stat-input" data-handle-change name="ctOption">
+          {{selectOptions ctOptions selected="i"}}
+        </select>
+      </div>
+      <br>
+    {{/if}}
+  {{else}}
+    <div class="flexrow">
+      <label title = "{{ localize 'AOV.card.checkBonusHint' }}" >{{localize "AOV.card.checkBonus"}}</label>   
+        <input data-handle-change class="centre" type="number" value="{{flatMod}}" name="checkBonus">
+    </div>
+  {{/if}}  
+  <br>
+    
+
+  </section>

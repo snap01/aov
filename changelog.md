@@ -1,3 +1,10 @@
+## 13.5
+-  Actor and Item sheets are now resizeable
+-  You can now make unopposed Characteristic, Skill and Pssion rolls from Characters and NPCs (opposed rolls etc will follow in due course)
+-  You can also make weapon damage rolls from Characters and NPCs
+-  Expand the Roll Result Chat Cards to see more information about the roll
+-  You can drag Skills and Passions from characters to the macro hotbar and use these to trigger those rolls
+
 ## 13.4
 -  There are now some NPC options on the Base Stats Tab (e.g. Beserker)
 -  These determine whether the NPC can have these statuses

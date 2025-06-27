@@ -130,8 +130,8 @@
         <div class="new-row gear-name left rollable truncate" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.weapon")}}'
               data-action='viewDoc'>{{item.name}}</div>
         <div class='gear-name centre terIcon'>{{item.system.total}}</div>
-        <div class='gear-name centre' title="{{item.system.damTypeLabel}}">{{item.system.damage}}</div>
-        <div class='gear-name centre terIcon'>{{item.system.dbLabel}}</div>
+        <div class='gear-name centre rollable' data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
+        <div class='gear-name centre terIcon' title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
         <div class='gear-name centre terIcon'>{{item.system.actlEnc}}</div>
         <div class="centre skill-inline"><input class="ability-cell centre" name='system.currHP'
           type='number' value='{{item.system.currHP}}' data-field="currHP"/>

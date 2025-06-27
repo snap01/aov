@@ -1,3 +1,6 @@
+import { AOVCheck } from "../apps/checks.mjs"
+import { isCtrlKey } from "../apps/helper.mjs";  
+
 export class AOVItem extends Item {
 
   prepareData() {
@@ -88,6 +91,45 @@ export class AOVItem extends Item {
     operation.renderSheet = false;
     // noinspection ES6MissingAwait
     cls.createDocuments(toCreate, operation);
+  }
+
+  //Handle clickable rolls from macros
+  async roll() {
+    const item = this;
+    const actor = this.actor;
+    let ctrlKey = isCtrlKey(event ?? false);
+    let altKey = event.altKey;
+    let shiftKey = event.shiftKey;
+    let cardType = "NO";
+    let rollType = "";
+    let skillId = "";
+    let itemId = "";
+    switch (item.type) {
+      case 'passion':
+        rollType = 'PA';
+        skillId = item._id;
+        break
+      case 'skill':     
+        rollType = 'SK';
+        skillId = item._id;
+        break
+      default:
+        item.sheet.render(true);
+        return
+    }            
+
+      AOVCheck._trigger({
+          rollType,
+          cardType,
+          shiftKey,
+          skillId,
+          itemId,
+          event,
+          actor,
+          characteristic: false
+      })
+
+    return
   }
 
 }

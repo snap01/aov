@@ -153,6 +153,7 @@
     "results": "Results",
     "ritualTime": "Ritual Time (mins)",
     "roll": "Roll",
+    "rollDice": "Roll Dice",
     "runes": "Runes",
     "showRunes": "Toggle this to show/hide the known runes",
     "size": "Size",
@@ -229,6 +230,26 @@
     "ItemsActorDirectory": "Update all Actors in directory",
     "ItemsUpdate": "Update"
     },
+
+    "card": {
+      "attackDamType": "Damage Type",
+      "attackDamTypeHint": "For Cut and Thrust weapons choose impaling or slashing damage",
+      "attackSuccess": "Attack Success Level",
+      "attackSuccessHint": "Enter the success level of the attack causing damage",
+      "bonus": "Bonus",
+      "checkBonus": "Bonus to this roll",
+      "checkBonusHint": "Enter bonus as a positive, and penalty as a negative",
+      "damType": "Damage Type",
+      "diceRoll": "Roll Total",
+      "diceRolled": "Dice Rolled",
+      "difficulty": "Difficulty Level",
+      "difficultyHint": "Select the difficulty level", 
+      "NO": "Unopposed",
+      "rawScore": "Raw Score",
+      "rollMods": "Check Roll Modifiers",
+      "successLevel": "Success Level"
+    },
+
     "CIDFlag": {
       "documents-in-compendiums": "{count} documents in compendiums",
       "documents-in-world": "{count} documents in the world",
@@ -462,8 +483,10 @@
       "cantDropItem": "You can not add a {itemType} item to a {actorType}.",
       "cantDropActor": "You can not add a {itemType} actor to a {actorType}.",
       "cantTransfer": "You can't transfer a {itemType} between actors",
+      "cardInvalid": "Card Type {type} is not recognised",
       "dupItem": "{itemName} already exists on this sheet and can not be added again",
-      "noCIDFlag": "Can't add {itemName} as it does not have a Chaosium ID"
+      "noCIDFlag": "Can't add {itemName} as it does not have a Chaosium ID",
+      "rollInvalid": "Roll Type {type} is not recognised"
     },
     "Farm": {
       "dairy": "Dairy",
@@ -504,6 +527,31 @@
       "mind": "Mind",
       "spirit": "Spirit",
       "weave": "Weave"
+    },
+
+    "resultLevel": {
+      "0": "Fumble",
+      "1": "Fail",
+      "2": "Success",
+      "3": "Special",
+      "4": "Critical"
+    },    
+
+    "rolls": {
+      "abilityRoll": "<p>Click for a normal/unopposed Ability roll.</p> <p>Hold SHIFT for a quick roll</p>",
+      "damageRoll": "<p>Click to roll the weapon damage.</p> <p>Hold SHIFT for a quick roll</p>",
+      "passionRoll": "<p>Click for a normal/unopposed Passion roll.</p> <p>Hold SHIFT for a quick roll</p>",
+      "skillRoll": "<p>Click for a normal/unopposed Skill roll.</p> <p>Hold SHIFT for a quick roll</p>",
+      "simple": "Simple",
+      "easy": "Easy",
+      "moderate": "Moderate",
+      "hard": "Hard",
+      "veryhard": "Very Hard",
+      "impossible": "Impossible",
+      "CH": "Ability Roll",
+      "SK": "Skill Roll",
+      "PA": "Passion Roll",
+      "DM": "Damage Roll"
     },
 
     "Settings": {

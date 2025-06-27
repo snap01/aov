@@ -28,7 +28,6 @@ export class AoVNPCSheet extends AoVActorSheet {
     super._configureRenderOptions(options);
     //Common parts to the character - this is the order they are show on the sheet
     options.parts = ['header'];
-    console.log(this.actor)
   }
 
   _getTabs(parts) {

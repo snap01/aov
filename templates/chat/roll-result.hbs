@@ -1,0 +1,77 @@
+<form class="aov">
+  <div class="">
+    <ol class="op-list">
+      {{#each chatCard as |c key|}}
+        <div class="dice-roll" data-action="expandRoll">
+          <li class='actor-roll'>
+            <img class="open-actor" src="{{c.particImg}}" height="50" width="50" title="{{c.particName}}"/>
+            <div class="roll-details">
+              <div class="header">
+                <div class='name'>
+                  <span class="tag">{{c.particName}}</span>
+                </div>
+              </div>
+              <div class="header">
+                <div class='name'>
+                  {{#if (eq c.rollType 'DM')}}
+                    <span class="tag">{{c.label}} ({{c.rollFormula}})</span>
+                  {{else}}
+                    <span class="tag">{{c.label}} ({{c.targetScore}})</span>
+                  {{/if}}  
+                </div>
+              </div>
+
+              {{#if (eq c.rollType 'DM')}}
+                <span class="pending">{{localize 'AOV.damage'}}: {{c.rollVal}}
+
+              {{else}}
+                {{#if (eq c.resultLevel 4)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
+                {{/if}}
+              
+                {{#if (eq c.resultLevel 3)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
+                {{/if}}
+          
+                {{#if (eq c.resultLevel 2)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i>
+                {{/if}}
+              
+                {{#if (eq c.resultLevel 1)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-fail fas fa-skull"></i>
+                {{/if}}
+              
+                {{#if (eq c.resultLevel 0)}}
+                  <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class=" result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i>
+                {{/if}}     
+              {{/if}}  
+            </span>
+            </div>
+          </li>
+          <div class="actor-roll dice-tooltip">
+            <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
+              {{#if (eq c.rollType 'DM')}}
+                <div class="rollHidden">{{localize 'AOV.card.damType'}}: {{c.damTypeLabel}}</div>    
+                <div class="rollHidden">{{localize 'AOV.card.successLevel'}}: {{c.successLevelLabel}}</div>                              
+              {{else}}
+                {{#if (eq rollType 'CH')}}
+                  <div class="rollHidden">{{localize 'AOV.card.difficulty'}}: {{c.diffLabel}}</div>
+                {{/if}}
+                <div class="rollHidden">{{localize 'AOV.card.rawScore'}}: {{c.rawScore}}</div>
+                <div class="rollHidden"> {{localize 'AOV.card.bonus'}}:
+                  {{#if (lt c.flatMod 1)}}
+                    {{c.flatMod}}
+                  {{else}}
+                    +{{c.flatMod}}
+                  {{/if}}
+                </div>
+              {{/if}}
+              <div class="rollHidden">{{localize 'AOV.card.diceRolled'}}: {{c.diceRolled}}</div>
+              <div class="rollHidden bottom-line">{{localize 'AOV.card.diceRoll'}}: {{c.rollResult}}</div>
+            </div>  
+          </div>  
+        </div>  
+      {{/each}}
+    </ol>
+  </div>
+</form>  

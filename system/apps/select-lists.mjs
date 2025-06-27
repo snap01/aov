@@ -153,6 +153,25 @@ export class AOVSelectLists {
     return options;
   }
 
+  //Damage Levels
+  static async dmgLevels() {
+    let options = {
+      "2": game.i18n.localize("AOV.resultLevel.2"),
+      "3": game.i18n.localize("AOV.resultLevel.3"),
+      "4": game.i18n.localize("AOV.resultLevel.4"),
+    };
+    return options;
+  }
+
+  //Cut&Thrust damage
+  static async cutThrust() {
+    let options = {
+      "i": game.i18n.localize("AOV.DamType.i"),
+      "s": game.i18n.localize("AOV.DamType.s"),
+    };
+    return options;    
+  }
+
   //Effect Options
   static async effectOptions() {
     let options = {
@@ -281,4 +300,21 @@ export class AOVSelectLists {
 
     return options
   }
+
+  //Ability Difficulty Options
+  static async difficultyOptions() {
+    let options = {
+      "simple": game.i18n.localize("AOV.rolls.simple")+" x5",
+      "easy": game.i18n.localize("AOV.rolls.easy")+" x4",
+      "moderate": game.i18n.localize("AOV.rolls.moderate")+" x3",
+      "hard": game.i18n.localize("AOV.rolls.hard")+" x2",
+      "veryhard": game.i18n.localize("AOV.rolls.veryhard")+" x1",
+      "impossible": game.i18n.localize("AOV.rolls.impossible")+" x½",
+    };
+    return options;
+  }
+
 }
+
+
+

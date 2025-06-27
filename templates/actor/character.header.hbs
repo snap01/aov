@@ -45,8 +45,8 @@
     <div class="ability-grid new-row" style="min-height:130px;">
       <div class="characteristics">
         {{#each system.abilities as |ability key|}}
-        <div class="ability-cell centre bold" data-characteristic="{{key}}">{{ability.label}}</div>
-        <div class="ability-cell centre bold terIcon">{{ability.total}}</div>
+        <div class="ability-cell centre bold">{{ability.label}}</div>
+        <div class="ability-cell centre bold rollable terIcon" data-action="diceroll" data-property="ability" data-characteristic="{{key}}" data-tooltip="AOV.rolls.abilityRoll">{{ability.total}}</div>
         {{/each}}
       </div>
     </div>
