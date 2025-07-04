@@ -14,7 +14,7 @@
     font-family: var(--aov-primary-font);
     color: var(--aov-primary-font-colour);
     font-size: var(--aov-primary-font-size);
-    background-image: url('../art-assets/charSheet.jpg');
+    background-image: url('../art-assets/charSheetV2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0px;
@@ -26,7 +26,7 @@
     font-family: var(--aov-primary-font);
     color: var(--aov-primary-font-colour);
     font-size: var(--aov-primary-font-size);
-    background-image: url('../art-assets/npcSheet.jpg');
+    background-image: url('../art-assets/npcSheetv2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0px;
@@ -83,7 +83,7 @@
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
-  background-image: url('../art-assets/stone.jpg');
+  background-image: url('../art-assets/lightstone.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -191,9 +191,14 @@
 
 .aov .npc-weapon-row {
   display: grid;
-  grid-template-columns:190px 35px 70px 35px 45px 30px;
+  grid-template-columns:175px 45px 70px 35px 50px 30px;
   grid-column-gap:5px;
   margin: 0px;
+}
+
+.aov .npc-weapon-hp {
+  display: grid;
+  grid-template-columns: 20px 10px 20px;
 }
 
 .aov .npc-power-row {
@@ -315,4 +320,11 @@
   display: grid;
   grid-template-columns: 150px 100px 100px 100px 100px;
   grid-column-gap: 10px;
+}
+
+.aov .distinct-features {
+  width: 250px;
+  height: 35px;
+  overflow: hidden;
+  text-overflow:ellipsis;
 }

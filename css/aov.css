@@ -29,9 +29,9 @@ src: url('../art-assets/FarnhamText-Regular.otf') format('woff2');
   --aov-title-font-size: 16px;
   --aov-heading-font-size: 20px;
   --aov-jnl-main-col: black;
-  --aov-jnl-pri-col: rgb(68, 111, 94);
+  --aov-jnl-pri-col: rgb(56, 97, 81);
   --aov-jnl-sec-col: rgb(163, 16, 8);
-  --aov-jnl-ter-col: rgba(21, 114, 164, 0.76);
+  --aov-jnl-ter-col: rgb(21, 114, 164);
   --aov-chat-success: rgb(8, 111, 94);
   --aov-chat-fail: rgb(163, 16, 8);
   --aov-chat-other: rgb(237, 181, 37);
@@ -94,6 +94,8 @@ body.theme-dark .application.aov.sheet,
   }
 }
 
+
+
 /*Half the padding on windows*/
 .application.aov .window-content {
   flex: 1;
@@ -121,12 +123,12 @@ body.theme-dark .application.aov.sheet,
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
-  background-image: url('../art-assets/stone.jpg');
+  background-image: url('../art-assets/lightstone.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.aov.aovTab {
+.aovTab {
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
   font-size: var(--aov-primary-font-size);
@@ -197,6 +199,7 @@ body.theme-dark .application.aov.sheet,
   color: var(--aov-secondary-font-colour);
   max-height: calc(var(--aov-title-font-size) + 3.5px);
   outline: none;
+  background: none;
 }
 
 .aov .left {
@@ -453,6 +456,7 @@ body.theme-dark .application.aov.sheet,
   font-size: var(--aov-primary-font-size);
   max-height: calc(var(--aov-primary-font-size) + 5.5px);
   text-align: center;
+  background: none;
 }
 
 .aov input.stat-input {
@@ -997,7 +1001,7 @@ nav.aov.sheet-tabs.tabs {
 }
 
 .chat-message {
-  background-image: url('../art-assets/stone.jpg');
+  background-image: url('../art-assets/lightstone.jpg');
   background-size: auto;
   font-family: var( --aov-primary-font);
 }
@@ -1060,6 +1064,20 @@ nav.aov.sheet-tabs.tabs {
   margin: 2px 0;
   display: inline-block;
   text-align: center;
+  &.winner {
+    background: var(--aov-chat-other);
+  }
+}
+
+.aov .re-list {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 2px;
 }
 
 .aov .bottom-line {
@@ -1093,4 +1111,8 @@ nav.aov.sheet-tabs.tabs {
 .aov .result-yellow {
   color:var(--aov-chat-other);
   width: 18px;  
+}
+
+.aov .resolve {
+  width: 100%;
 }

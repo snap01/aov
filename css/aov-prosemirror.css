@@ -6,7 +6,8 @@
 
 .npc-notes .prosemirror,
 .npc-notes prose-mirror {
-  height: 570px;
+  min-height: 185px;
+  height: 100%;
   width: 435px
 }
 
@@ -17,6 +18,7 @@
 
 .prosemirror .editor-content,
 prose-mirror .editor-content {
+  color: var(--aov-primary-font-colour);
   position: absolute;
   overflow: hidden auto;
   inset: 0;
@@ -34,4 +36,8 @@ prose-mirror button.toggle {
   right: 2px;
   z-index: 1;
   opacity: 0.5;
+}
+.prosemirror .journal-page-content,
+prose-mirror .journal-page-content {
+  color: var(--aov-primary-font-colour);
 }

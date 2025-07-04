@@ -23,7 +23,6 @@
             <a style="color: transparent; text-shadow:none;"><i class="fas fa-dice"></i></a>
           {{/unless}}
           <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewStat' }}"  data-tabval="1"> <i class="mediumIcon fas fas fa-user"></i></a>
-          <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewNotes' }}" data-tabval="2"> <i class="mediumIcon fas fa-scroll"></i> </a>
           <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewBaseStat' }}" data-tabval="3"> <i class="mediumIcon fas fa-user-magnifying-glass"></i></a>
 
         </div>
@@ -114,7 +113,16 @@
         <div class="centre hit-loc-cell bold">{{localize 'AOV.armourPointsAbbr'}}</div>
         <div class="centre hit-loc-cell bold">{{localize 'AOV.damageAbbr'}}</div>
         <div class="centre hit-loc-cell bold">{{localize 'AOV.hpAbbr'}}</div>
-        <div class="centre hit-loc-cell bold">&nbsp</div>
+        <div class="centre hit-loc-cell bold">
+          {{#if isLocked}}
+            <div class="centre hit-loc-cell">&nbsp</div>
+          {{else}}
+            <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.hitloc")}}'
+              data-action='createDoc' data-document-class='Item' data-type='hitloc'>
+              <i class='fas fa-plus'></i>
+            </a>
+          {{/if}}
+        </div>
       </div>
 
       {{#each hitLocs as |item id|}}
@@ -137,7 +145,11 @@
             {{/if}}
             <div class="centre hit-loc-cell skill-inline"><input class="skillDev-input centre" name='system.npcDmg'
               type='number' value='{{item.system.npcDmg}}' data-field="npcDmg"/></div>
-            <div class="centre hit-loc-cell terIcon">{{item.system.currHp}} / {{item.system.hpMax}}</div>
+            {{#if (eq item.system.locType 'general')}}            
+              <div class="centre hit-loc-cell terIcon"></div>
+            {{else}}  
+              <div class="centre hit-loc-cell terIcon">{{item.system.currHp}} / {{item.system.hpMax}}</div>
+            {{/if}}
             <div class='hit-loc-cell gear-controls centre'>
               {{#unless ../isLocked}}
                 <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
@@ -190,10 +202,10 @@
     <ol class='npc-weapon-grid'>
       <div class='npc-weapon-row primBackCol'>
         <div class="bold">{{localize 'TYPES.Item.weapon'}}</div>
-        <div class="centre bold">{{localize 'AOV.dmgBonusAbbr'}}</div>
-        <div class="centre bold">{{localize 'AOV.damage'}}</div>
-        <div class="centre bold">{{localize 'AOV.hpAbbr'}}</div>
         <div class="centre bold">%</div>
+        <div class="centre bold">{{localize 'AOV.damage'}}</div>
+        <div class="centre bold">{{localize 'AOV.dmgBonusAbbr'}}</div>
+        <div class="centre bold">{{localize 'AOV.hpAbbr'}}</div>
         <div class="centre bold">
           {{#if @root.editable}}
             <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.weapon")}}'
@@ -207,21 +219,33 @@
           <li class='item npc-weapon-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
             {{#if ../isLocked}}
               <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
-              <div class="centre" title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
-              <div class="centre rollable" data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
-              <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
-                type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
               <div class="centre terIcon">{{item.system.total}}</div>
+              <div class="centre rollable" data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
+              <div class="centre" title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
+              <div class="centre npc-weapon-hp">
+                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
+                  type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
+                <div class="centre"> / </div>
+                <div class="centre terIcon">{{item.system.maxHP}}</div>
+              </div>
+
+
             {{else}}
               <div class="skill-inline"><input class="skillDev-input left" name='itemName'
                 type='text' value='{{item.name}}' data-field="itemName"></div>
-              <div class="centre">{{item.system.dbLabel}}</div>
-              <div class="centre skill-inline" title="{{item.system.damTypeLabel}}"><input class="skillDev-input centre" name='system.damage'
-                type='text' value='{{item.system.damage}}' data-field="damage"/></div>
-              <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
-                type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
               <div class="centre skill-inline"><input class="skillDev-input centre" name='system.npcBase'
                 type='number' value='{{item.system.npcBase}}' data-field="npcBase"/></div>
+              <div class="centre skill-inline" title="{{item.system.damTypeLabel}}"><input class="skillDev-input centre" name='system.damage'
+                type='text' value='{{item.system.damage}}' data-field="damage"/></div>
+              <div class="centre">{{item.system.dbLabel}}</div>
+              <div class="centre npc-weapon-hp">
+                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
+                  type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
+                <div class="ability-cell centre"> / </div>
+                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.maxHP'
+                  type='number' value='{{item.system.maxHP}}' data-field="maxHP"/></div>                                
+              </div>
+
             {{/if}}
             {{#unless ../isLocked}}
                 <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
@@ -303,11 +327,7 @@
         </li>
       {{/each}}
     </ol>
-  {{/if}}
 
-
-  {{!Tab View 2 - NPC Description}}
-  {{#if (eq system.tabView "2")}}
     {{!Notes Section}}
     <div class="bold" style="margin: 10px 0px 0px 10px;">{{localize 'AOV.notes'}}</div>
     <div class="npc-notes" style="margin: 10px 0px 0px 10px;">
@@ -320,8 +340,8 @@
         {{{enrichedDescription}}}
       {{/if}}
     </div>
-  {{/if}}
 
+  {{/if}}
 
   {{!Tab View 3 - NPC base stats}}
   {{#if (eq system.tabView "3")}}

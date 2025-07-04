@@ -10,20 +10,29 @@ export class AOVRollType {
     let rollType = RollType.CHARACTERISTIC
     let characteristic = false
     let skillId = false
-//    if (event.altKey) {
-//      cardType = CardType.OPPOSED;
-//    } else if (ctrlKey) {
-//      cardType = CardType.FIXED;
-//    }        
-
     if (detail.property === 'ability') {
       characteristic = detail.characteristic
+      if (ctrlKey) {
+        cardType = CardType.FIXED
+      } else if (event.altKey) {
+        cardType = CardType.RESISTANCE
+      }
     } else if (detail.property === 'skill') {
       rollType = RollType.SKILL
       skillId = detail.skillId
+      if (ctrlKey) {
+        cardType = CardType.AUGMENT        
+      } else if (event.altKey) {
+        cardType = CardType.OPPOSED
+      }
     } else if (detail.property === 'passion') {
       rollType = RollType.PASSION
       skillId = detail.skillId
+      if (ctrlKey) {
+        cardType = CardType.AUGMENT        
+      } else if(event.altKey) {
+        cardType = CardType.OPPOSED
+      }
     } else if (detail.property === 'damage') {
       rollType = RollType.DAMAGE
       skillId = detail.skillId    
@@ -40,12 +49,5 @@ export class AOVRollType {
       characteristic,
       skillId,
     })
-    
-
- 
- 
- 
   } 
-
-  
 }

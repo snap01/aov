@@ -356,7 +356,7 @@ export class AOVActor extends Actor {
     } else if (powBonus > 0) {
       powBonus--;
     }
-    maxHP = maxHP + sizBonus + powBonus
+    maxHP = Math.max(maxHP + sizBonus + powBonus,1)
     if (systemData.beserkerStat) {
       maxHP = maxHP * 2
     }
@@ -417,7 +417,13 @@ export class AOVActor extends Actor {
     return bonus
   }
 
-  //Negative Skill Cat
+  //Negative Primary Skill Cat
+  static _skillCatNeg(score) {
+    let bonus = (Math.ceil(score / 4) - 3) * 5
+    return -bonus
+  }
+
+  //Negative Secondary Skill Cat
   static _skillCatNeg(score) {
     let bonus = (Math.ceil(score / 4) - 3) * 5
     if (bonus < 0) {

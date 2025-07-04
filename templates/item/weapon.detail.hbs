@@ -13,7 +13,7 @@
       <br>
       <div class="new-row bold">{{localize 'AOV.weaponType'}}</div>
       <div class="" >
-        <select class="gear-input" data-handle-change name="system.weaponType">
+        <select class="gear-input weapon-type" data-handle-change name="system.weaponType">
           {{selectOptions weaponTypeOptions selected=item.system.weaponType}}
         </select>
       </div>
@@ -35,8 +35,14 @@
       </div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row bold">{{localize 'AOV.damage'}}</div>
+      <div class="new-row bold">{{localize 'AOV.damage'}} / {{localize 'AOV.modifier'}}</div>
       <div class="centre"><input class="gear-input centre" name='system.damage' type='text' value='{{item.system.damage}}'/></div>
+      <div class="" >
+        <select class="gear-input" data-handle-change name="system.damMod">
+          {{selectOptions damModList selected=item.system.damMod}}
+        </select>
+      </div>
+      
       <div class="new-row"></div>
       <br>
       <div class="new-row bold">{{localize 'AOV.damageType'}}</div>
@@ -96,8 +102,9 @@
       <div class="centre">{{item.system.minStr}} / {{item.system.minDex}}</div>
       <div class="new-row"></div>
       <br>
-      <div class="new-row bold">{{localize 'AOV.damage'}}</div>
+      <div class="new-row bold">{{localize 'AOV.damage'}} / {{localize 'AOV.modifier'}}</div>
       <div class="gear-input centre">{{item.system.damage}}</div>
+      <div class="gear-input centre">{{damModName}}</div>
       <div class="new-row"></div>
       <br>
       <div class="new-row bold">{{localize 'AOV.damageType'}}</div>

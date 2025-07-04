@@ -1,0 +1,77 @@
+<form class="aov">
+  <div class="">
+    <ol class="op-list">
+      {{#each chatCard as |c key|}}
+        <div class="dice-roll {{#if (gt key 0)}}expanded{{/if}}" data-action="expandRoll">
+          <li class='actor-roll'>
+            <img class="open-actor" src="{{c.particImg}}" height="53" width="53" title="{{c.particName}}" />
+            <div class="roll-details">
+              <div class='name'>
+                <span class="tag bold">{{c.particName}}</span>
+              </div>
+              <div class="header roll-truncate">
+                <div class='name'>
+                  <span class="tag">{{c.label}} ({{c.targetScore}})</span>
+                    {{#if (eq key 0)}}
+                      ({{localize 'AOV.card.main'}})
+                    {{else}}
+                      ({{localize 'AOV.card.AU'}})
+                    {{/if}} 
+                  </span>
+                </div>
+                {{#unless (eq ../state 'closed')}}
+                  <a class="gm-visible-only cardbutton" data-rank='{{key}}' data-preset="remove-roll" title="{{localize 'AOV.card.remove'}}"><i class="far fa-times-circle"></i></a>
+                {{/unless}}
+              </div>  
+                {{#if (eq ../state 'closed')}}
+                  <div>
+                    {{#if (eq c.resultLevel 4)}}
+                      <span class="pending {{#if (eq c.successLevel 2)}} winner {{/if}}">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
+                    {{/if}}
+                  
+                    {{#if (eq c.resultLevel 3)}}
+                      <span class="pending {{#if (eq c.successLevel 2)}} winner {{/if}}">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
+                    {{/if}}
+              
+                    {{#if (eq c.resultLevel 2)}}
+                      <span class="pending {{#if (eq c.successLevel 2)}} winner {{/if}}">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i>
+                    {{/if}}
+                  
+                    {{#if (eq c.resultLevel 1)}}
+                      <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-fail fas fa-skull"></i>
+                    {{/if}}
+                  
+                    {{#if (eq c.resultLevel 0)}}
+                      <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class=" result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i>
+                    {{/if}}                       
+                  </div>  
+                {{else}}
+                  <div></div>  
+                {{/if}}
+              </div>
+          </li>
+            <div class="actor-roll dice-tooltip">
+              <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
+                <div class="rollHidden">{{localize 'AOV.card.rawScore'}}: {{c.rawScore}}</div>
+                <div class="rollHidden">{{localize 'AOV.card.augAdjust'}}: {{c.augAdj}}</div>
+                <div class="rollHidden">{{localize 'AOV.card.scoreAdjust'}}: {{c.targetAdj}}</div>                
+                <div class="rollHidden bottom-line"> {{localize 'AOV.card.bonus'}}:
+                  {{#if (lt c.flatMod 1)}}
+                    {{c.flatMod}}
+                  {{else}}
+                    +{{c.flatMod}}
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+      {{/each}}
+    </ol>
+  </div>
+  {{#unless (eq state 'closed')}}
+    <button class='resolve cardbutton gm-visible-only' data-preset='resolve-au-card' type="button">{{localize 'AOV.card.resolveCard'}}</button>
+    <button class='resolve cardbutton gm-visible-only' data-preset='close-card' type="button">{{localize 'AOV.card.closeCard'}}</button>
+  {{/unless}}
+</form>

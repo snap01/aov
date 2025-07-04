@@ -1,5 +1,6 @@
-import { AOVCheck } from "../apps/checks.mjs"
+import { RollType, AOVCheck, CardType } from "../apps/checks.mjs"
 import { isCtrlKey } from "../apps/helper.mjs";  
+
 
 export class AOVItem extends Item {
 
@@ -100,18 +101,28 @@ export class AOVItem extends Item {
     let ctrlKey = isCtrlKey(event ?? false);
     let altKey = event.altKey;
     let shiftKey = event.shiftKey;
-    let cardType = "NO";
+    let cardType = CardType.UNOPPOSED;
     let rollType = "";
     let skillId = "";
     let itemId = "";
     switch (item.type) {
       case 'passion':
-        rollType = 'PA';
+        rollType = RollType.PASSION;
         skillId = item._id;
+        if (ctrlKey) {
+          cardType = CardType.AUGMENT        
+        } else if(event.altKey) {
+          cardType = CardType.OPPOSED
+        }        
         break
       case 'skill':     
-        rollType = 'SK';
+        rollType = RollType.SKILL;
         skillId = item._id;
+        if (ctrlKey) {
+          cardType = CardType.AUGMENT        
+        } else if (event.altKey) {
+          cardType = CardType.OPPOSED
+        }
         break
       default:
         item.sheet.render(true);
@@ -133,3 +144,5 @@ export class AOVItem extends Item {
   }
 
 }
+ 
+    

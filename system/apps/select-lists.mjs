@@ -314,6 +314,16 @@ export class AOVSelectLists {
     return options;
   }
 
+  //Damage Modifer Types
+  static async damModOptions() {
+    let options = {
+      "d": game.i18n.localize("AOV.DamMod.d"),
+      "h": game.i18n.localize("AOV.DamMod.h"),
+      "n": game.i18n.localize("AOV.DamMod.n"),
+    };
+    return options;    
+  }
+
 }
 
 

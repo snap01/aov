@@ -285,12 +285,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
         families.push(itm)
       } else if (itm.type === 'weapon') {
         itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)
-        itm.system.dbLabel = game.i18n.localize('AOV.db')
-        if (itm.system.weaponType === 'thrown') {
-          itm.system.dbLabel = game.i18n.localize('AOV.dbHalf')
-        } else if (itm.system.weaponType === 'missile') {
-          itm.system.dbLabel = ""
-        }
+        itm.system.dbLabel = game.i18n.localize('AOV.DamMod.'+itm.system.damMod)
         weapons.push(itm)
       } else if (itm.type === 'armour') {
         itm.system.armourLocLabel = itm.system.lowLoc

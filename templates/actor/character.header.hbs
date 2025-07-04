@@ -66,20 +66,16 @@
         <span class="centre"> / </span>
         <div class="ability-cell centre terIcon bold" title="{{localize 'AOV.maxMP' value=system.mp.max}}">{{system.mp.availMax}}</div>
       </div>
-      <div class="ability-cell left bold upper" title="{{localize 'AOV.reput'}}">{{localize 'AOV.reputAbbr'}}</div>
-      <div class="ability-cell centre terIcon bold">{{system.reputation.total}}%</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.healRate'}}">{{localize 'AOV.healRateAbbr'}}</div>
       <div class="ability-cell centre terIcon bold">{{system.healRate}}</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.dmgBonus'}}">{{localize 'AOV.dmgBonusAbbr'}}</div>
       <div class="ability-cell centre terIcon bold">{{system.dmgBonus}}</div>
       <div class="ability-cell left bold" title="{{localize 'AOV.mr'}}">{{localize 'AOV.mrAbbr'}}</div>
       <div class="ability-cell centre terIcon bold">{{system.moveRate}}</div>
-      <div class="ability-cell left bold" title="{{localize 'AOV.encHint'}}">{{localize 'AOV.encumbranceAbbr'}}</div>
-      <div class='stat-grid'>
-        <span class="ability-cell centre terIcon bold">{{system.actualEnc}}</span>
-        <span class="ability-cell centre"> / </span>
-        <span class="ability-cell centre terIcon bold">{{system.maxEnc}}</span>
-      </div>
+      <div class="ability-cell left bold upper" title="{{localize 'AOV.reput'}}">{{localize 'AOV.reputAbbr'}}</div>
+      <div class="ability-cell centre terIcon bold">{{system.reputation.total}}%</div>
+      <div class="ability-cell left bold" title="{{localize 'AOV.status'}}">{{localize 'AOV.statusAbbr'}}</div>
+      <div class="ability-cell centre terIcon bold">{{system.status.total}}%</div>
     </div>
 
     {{!Personal}}
@@ -114,7 +110,7 @@
       <div class="personalSec distinct">
         <div class="ability-cell left bold" title="{{localize 'AOV.distFeatures'}}">{{localize 'AOV.distFeaturesAbbr'}}
         </div>
-        <div class='ability-cell centre truncate' title="{{actor.system.distFeatures}}">{{actor.system.distFeatures}}</div>
+        <div class='ability-cell centre distinct-features' title="{{actor.system.distFeatures}}">{{actor.system.distFeatures}}</div>
       </div>
       {{else}}
       <div class="personalSec">
@@ -163,8 +159,15 @@
       <img class='profile-img' src='{{actor.img}}' data-edit='img' data-action='onEditImage' height='100' width='100' />
       <br>
       <div class="centre" style="padding-top:4px;">
-        <span class="ability-cell left bold" title="{{localize 'AOV.status'}}">{{localize 'AOV.statusAbbr'}}: </span>
-        <span class="ability-cell centre terIcon">{{system.status.total}}%</span>
+      <div class="ability-cell left bold" title="{{localize 'AOV.encHint'}}">{{localize 'AOV.encumbranceAbbr'}}:&nbsp
+        <span class="ability-cell centre terIcon bold">{{system.actualEnc}}</span>
+        <span class="ability-cell centre"> / </span>
+        <span class="ability-cell centre terIcon bold">{{system.maxEnc}}</span>
+      </div>
+
+
+
+
       </div>
     </div>
 

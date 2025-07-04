@@ -9,7 +9,7 @@ export class AoVNPCPowerSheet extends AoVItemSheet {
     classes: ['wound'],
     position: {
       width: 600,
-      height: 420
+      height: 465
     },
   }
 

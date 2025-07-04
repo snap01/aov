@@ -4,7 +4,7 @@
       {{#each chatCard as |c key|}}
         <div class="dice-roll" data-action="expandRoll">
           <li class='actor-roll'>
-            <img class="open-actor" src="{{c.particImg}}" height="50" width="50" title="{{c.particName}}"/>
+            <img class="open-actor" src="{{c.particImg}}" height="53" width="53" title="{{c.particName}}"/>
             <div class="roll-details">
               <div class="header">
                 <div class='name'>
@@ -16,7 +16,11 @@
                   {{#if (eq c.rollType 'DM')}}
                     <span class="tag">{{c.label}} ({{c.rollFormula}})</span>
                   {{else}}
-                    <span class="tag">{{c.label}} ({{c.targetScore}})</span>
+                    <span class="tag">{{c.label}} 
+                      {{#if (eq ../cardType 'FI')}}    
+                        [{{c.rawScore}} v {{c.oppRes}}]
+                      {{/if}}  
+                    ({{c.targetScore}}) </span>
                   {{/if}}  
                 </div>
               </div>
@@ -55,7 +59,12 @@
                 <div class="rollHidden">{{localize 'AOV.card.successLevel'}}: {{c.successLevelLabel}}</div>                              
               {{else}}
                 {{#if (eq rollType 'CH')}}
-                  <div class="rollHidden">{{localize 'AOV.card.difficulty'}}: {{c.diffLabel}}</div>
+                  {{#if (eq ../cardType 'NO')}}
+                    <div class="rollHidden">{{localize 'AOV.card.difficulty'}}: {{c.diffLabel}}</div>
+                  {{/if}}
+                  {{#if (eq ../cardType 'FI')}}
+                    <div class="rollHidden">{{localize 'AOV.card.oppRes'}}: {{c.oppRes}}</div>
+                  {{/if}}                  
                 {{/if}}
                 <div class="rollHidden">{{localize 'AOV.card.rawScore'}}: {{c.rawScore}}</div>
                 <div class="rollHidden"> {{localize 'AOV.card.bonus'}}:

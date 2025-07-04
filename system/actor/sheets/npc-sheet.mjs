@@ -31,28 +31,6 @@ export class AoVNPCSheet extends AoVActorSheet {
   }
 
   _getTabs(parts) {
-    /*
-    // If you have sub-tabs this is necessary to change
-    const tabGroup = 'primary';
-    // Default tab for first time it's rendered this session
-    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'notes';
-    return parts.reduce((tabs, partId) => {
-      const tab = {
-        cssClass: '',
-        group: tabGroup,
-        id: '',
-        icon: '',
-        label: 'AOV.Tabs.',
-      };
-      switch (partId) {
-        case 'header':
-          return tabs;
-      }
-      if (this.tabGroups[tabGroup] === tab.id) tab.cssClass = 'active';
-      tabs[partId] = tab;
-      return tabs;
-    }, {});
-    */
   }
 
   async _prepareContext(options) {
@@ -109,16 +87,13 @@ export class AoVNPCSheet extends AoVActorSheet {
         } else {
           itm.system.label = itm.system.lowRoll + "-" + itm.system.highRoll
         }
+        itm.system.order = itm.system.lowRoll
+        if (itm.system.order === 0) {itm.system.order = 999}
         hitLocs.push(itm)
       } else if (itm.type === 'weapon') {
         itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)
-        itm.system.dbLabel = game.i18n.localize('AOV.db')
-        if (itm.system.weaponType === 'thrown') {
-          itm.system.dbLabel = game.i18n.localize('AOV.dbHalf')
-        } else if (itm.system.weaponType === 'missile') {
-          itm.system.dbLabel = ""
-        }
-          weapons.push(itm)
+        itm.system.dbLabel = game.i18n.localize('AOV.DamMod.'+itm.system.damMod)
+        weapons.push(itm)
       } else if (itm.type === 'npcpower') {
           powers.push(itm)
       }
@@ -127,18 +102,32 @@ export class AoVNPCSheet extends AoVActorSheet {
 
     //Sort Hit Locs by D20
     hitLocs.sort(function (a, b) {
-      let x = a.system.lowRoll;
-      let y = b.system.lowRoll;
-      if (x < y) { return 1 };
-      if (x > y) { return -1 };
+      let x = a.system.order;
+      let y = b.system.order;
+      if (x < y) { return -1 };
+      if (x > y) { return 1 };
       return 0;
     })
+
+    //Sort Power by Priority Order then alphabetically
+    powers.sort(function (a, b) {
+      let r = a.name;
+      let s = b.name;
+      let x = a.system.priority;
+      let y = b.system.priority;
+      if (x < y) { return 1 };
+      if (x > y) { return -1 };
+      if (r < s) { return -1 };
+      if (s > r) { return 1 };
+      return 0;
+    })
+
 
     context.gears = gears.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.skills = skills.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.hitLocs = hitLocs;
     context.weapons = weapons.sort(function (a, b) {return a.name.localeCompare(b.name)});
-    context.powers = powers.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.powers = powers;
   }
 
 

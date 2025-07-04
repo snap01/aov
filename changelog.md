@@ -1,3 +1,13 @@
+## 13.6
+-  Added Fixed Resistance Rolls for Characteristics (i.e. againt Poison rather than a character or NPC characteristic)
+-  Opposed rolls for Skills and Passions added
+-  Augmented rolls for Skills and Passions added
+-  NPC "Notes" have been moved from their own tab to below the equipment
+-  Some small tweaks to layout of certain areas (e.g. Status/Rep/ENC on the character sheet or NPC Weapon Layout)
+-  Some small tweaks to abbrevations e.g. DB becomes DM (Damage Modifer) or MR becomes MOV
+-  Weapons now have a selectable "Damage Modifier Type" - this will always be updated when you change the Weapon Type but you can then override it.  A migration script will update this for existing in world actors/items - but not for compendia
+-  Actor and Item sheets have a lighter background to provide better contrast with the text colours
+
 ## 13.5
 -  Actor and Item sheets are now resizeable
 -  You can now make unopposed Characteristic, Skill and Pssion rolls from Characters and NPCs (opposed rolls etc will follow in due course)

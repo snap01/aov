@@ -1,4 +1,6 @@
 import { AOVUtilities } from "./utilities.mjs";
+import { RECard } from "../chat/resistance-chat.mjs";
+
 export class AOVSystemSocket {
 
   static async callSocket(data) {
@@ -7,7 +9,12 @@ export class AOVSystemSocket {
 
     switch (data.type) {
       case 'updateChar':
-          AOVUtilities.updateCharSheets();
+        AOVUtilities.updateCharSheets();
+        break;
+      case 'REAdd':
+        if (data.to === game.user.id) {
+          RECard.REAdd(data.value.config, data.value.msgId);
+        }
         break;
     }
   }

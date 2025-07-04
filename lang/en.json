@@ -40,8 +40,8 @@
     "damage": "Damage",
     "damageAbbr": "Dmg",
     "damageType": "Damage Type",
-    "db": "+db",
-    "dbHalf" : "+½db",
+    "db": "+dm",
+    "dbHalf" : "+½dm",
     "deleteDoc": "Double click to delete {type}",
     "description": "Description",
     "details": "Details",
@@ -51,10 +51,11 @@
     "devPoints": "Devotion Points",
     "devPointsAbbr": "DP",
     "died": "Died",
+    "dispPriority": "Display Priority",
     "distFeatures": "Distictive Features",
     "distFeaturesAbbr": "Features",
-    "dmgBonus": "Damage Bonus",
-    "dmgBonusAbbr": "DB",
+    "dmgBonus": "Damage Modifier",
+    "dmgBonusAbbr": "DM",
     "effect": "Effect",
     "effects": "Effects",
     "effectsShort": "Eff",
@@ -117,18 +118,20 @@
     "melee": "Melee",
     "missile": "Missile",
     "minSTRDEX": "Min STR / DEX",
+    "modifier": "Modifier",
     "moveQuietly":"Move Quietly Penalty",
     "moveQuietlyAbbr": "MQ Penalty",
     "mp": "Magic Points",
     "mpAbbr": "MP",
     "mr": "Movement Rate",
-    "mrAbbr": "MR",
+    "mrAbbr": "MOV",
     "name": "Name",
     "nameMean": "Name Meaning",
     "nameMeanAbbr": "Meaning",
     "naturalWpn": "Natural Weapon",
     "nickname": "Nickname",
     "no": "No",
+    "noAvailableGM":"There are no GMs available to carry out this action",
     "noneSelected": "Nothing Selected",
     "notes": "Notes",
     "noXP": "No XP Allowed",
@@ -160,16 +163,16 @@
     "skill": "Skill",
     "skills": "Skills",
     "slowed": "Slowed",
-    "sourceItem": "Source Item",
+    "sourceItem": "Active Effects - Source",
     "spec": "Specialised Skill",
     "specHint": "These skills have specialisations - such as Speak Language where you need to enter the specific language",
     "special":"Special",
     "specialisation": "Specialisation",
     "specify": "Specify",
     "spiritAn": "Spirit Animal",
-    "spiritAnAbbr": "Spirit",
+    "spiritAnAbbr": "Spirit Animal",
     "status": "Status",
-    "statusAbbr": "Status",
+    "statusAbbr": "STS",
     "stored": "Stored",
     "submit": "Submit",
     "subtract": "Subtract",
@@ -232,22 +235,39 @@
     },
 
     "card": {
+      "active": "Active",
       "attackDamType": "Damage Type",
       "attackDamTypeHint": "For Cut and Thrust weapons choose impaling or slashing damage",
       "attackSuccess": "Attack Success Level",
       "attackSuccessHint": "Enter the success level of the attack causing damage",
+      "AU": "Augment",
+      "augAdjust": "Augmentation",
       "bonus": "Bonus",
       "checkBonus": "Bonus to this roll",
       "checkBonusHint": "Enter bonus as a positive, and penalty as a negative",
+      "closeCard": "Close Card",
       "damType": "Damage Type",
       "diceRoll": "Roll Total",
       "diceRolled": "Dice Rolled",
       "difficulty": "Difficulty Level",
       "difficultyHint": "Select the difficulty level", 
+      "FI": "Resistance",
+      "main": "Main Roll",
+      "oppRes": "Oppossed Resistance",
+      "oppResHint": "Enter the score (e.g. poison POT) to be resisted",
       "NO": "Unopposed",
+      "OP": "Opposed",
+      "passive": "Passive",
       "rawScore": "Raw Score",
+      "RE": "Resistance",
+      "remove":"Remove this roll from the card",
+      "resolveCard": "Resolve Card",
+      "resolveMax": "Maximum participants added, please resolve the roll",
+      "resolveMore": "There needs to be 2 participants to resolve this roll",
       "rollMods": "Check Roll Modifiers",
-      "successLevel": "Success Level"
+      "scoreAdjust": "Score Adjustment",
+      "successLevel": "Success Level",
+      "targetScore": "Success Chance"
     },
 
     "CIDFlag": {
@@ -424,6 +444,11 @@
       "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The Chaosium ID should use the English translation of the {type} to support localization across all languages.",
       "title": "Edit Chaosium ID (CID)"
     },
+    "DamMod": {
+      "n":"",
+      "d": "+dm",
+      "h": "+½dm"
+    },
     "DamType": {
       "c": "Crushing",
       "ct": "Cut & Thrust",
@@ -500,7 +525,6 @@
       "general": "General",
       "head": "Head",
       "limb": "Limb"
-
     },
     "npcOptions": {
       "beserker": "Beserker"
@@ -538,10 +562,10 @@
     },    
 
     "rolls": {
-      "abilityRoll": "<p>Click for a normal/unopposed Ability roll.</p> <p>Hold SHIFT for a quick roll</p>",
+      "abilityRoll": "<p>Click for a normal/unopposed Ability roll.</p> <p>Hold ALT for a Resistance roll against a Character/NPC</p> <p>Hold CTRL for a Resistance roll against a Fixed target</p> <p>Hold SHIFT for a quick roll</p>",
       "damageRoll": "<p>Click to roll the weapon damage.</p> <p>Hold SHIFT for a quick roll</p>",
-      "passionRoll": "<p>Click for a normal/unopposed Passion roll.</p> <p>Hold SHIFT for a quick roll</p>",
-      "skillRoll": "<p>Click for a normal/unopposed Skill roll.</p> <p>Hold SHIFT for a quick roll</p>",
+      "passionRoll": "<p>Click for a normal/unopposed Passion roll.</p> <p>Hold ALT for an Opposed roll</p> <p>Hold CTRL for an Augmented roll</p> <p>Hold SHIFT for a quick roll</p>",
+      "skillRoll": "<p>Click for a normal/unopposed Skill roll.</p> <p>Hold ALT for an Opposed roll</p> <p>Hold CTRL for an Augmented roll</p> <p>Hold SHIFT for a quick roll</p>",
       "simple": "Simple",
       "easy": "Easy",
       "moderate": "Moderate",
@@ -642,6 +666,13 @@
       "spi": "Spirit Animal",
       "ste": "Stealth"
     },
+
+    "successLevel": {
+      "0": "Loser",
+      "1": "Tie",
+      "2": "Winner"
+    }, 
+
     "Tabs": {
       "combat": "Combat",
       "description": "Notes",

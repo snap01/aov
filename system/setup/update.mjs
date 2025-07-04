@@ -24,6 +24,16 @@ export async function updateWorld({ bypassVersionCheck=false }={}) {
       await updateDialog ('systems/aov/templates/updates/update13.5.hbs')  
     } 
 
+    //Message if current system is less that Version 13.6
+    if (foundry.utils.isNewerVersion('13.6', currentVersion ?? '0')) {
+      let response = await updateDialog ('systems/aov/templates/updates/update13.6.hbs')  
+      if (!response) {
+        ui.notifications.warn("Item Migration to Version 13.6 cancelled");
+        return}
+      await damTypeUpdate()
+    } 
+
+
    await game.settings.set("aov", "systemVersion", targetVersion);
 }
 
@@ -41,4 +51,48 @@ export async function updateDialog(msg) {
     content,
     modal: true
   })
+  return response
+}
+
+export async function damTypeUpdate() {
+  //Update World Items
+  for (let item of game.items) {
+    if (item.type != 'weapon') {continue}
+    if (item.system.weaponType === 'missile') {
+      await item.update({'system.damMod': "n"})
+    } else if (item.system.weaponType === 'thrown') {
+      await item.update({'system.damMod': "h"})
+    }
+  }
+
+  //Update Items in World Actors
+  for (let actor of game.actors) {
+    for (let item of actor.items) {
+      if (item.type != 'weapon') {continue}
+      if (item.system.weaponType === 'missile') {
+        await item.update({'system.damMod': "n"})
+      } else if (item.system.weaponType === 'thrown') {
+        await item.update({'system.damMod': "h"})
+      }
+    }
+  }  
+
+
+  // Update Items in  Scenes [Token] Actors
+  for (const scene of game.scenes) {
+    for (const token of scene.tokens) {
+      if (token.actorLink) {continue}
+      for (let item of token.delta.items) {
+        if (item.type != 'weapon') {continue}
+        if (item.system.weaponType === 'missile') {
+         await item.update({'system.damMod': "n"})
+        } else if (item.system.weaponType === 'thrown') {
+          await item.update({'system.damMod': "h"})
+        }
+      }
+    }  
+  }
+
+  return  
+
 }
