@@ -3,6 +3,16 @@
   <div class = "diff-label bold">{{ cardLabel}}:</div>      
   <br>
 
+  {{#if askDodge}}
+    <div class="flexrow">
+      <label title = "{{ localize 'AOV.card.dodgeCombatHint' }}" >{{localize "AOV.card.dodgeCombat"}}</label>   
+        <input data-handle-change class="centre" type="checkbox" value="yes" name="dodgeCombat" checked>
+    </div>
+    <br>
+  {{/if}}
+
+
+
   {{#if askFixed}}
     <div class="flexrow">
       <label title = "{{ localize 'AOV.card.oppResHint' }}" >{{localize "AOV.card.oppRes"}}</label>   
@@ -25,7 +35,7 @@
     <div class="flexrow">
       <label title = "{{ localize 'AOV.card.attackSuccessHint' }}" >{{localize "AOV.card.attackSuccess"}}</label>   
        <select class="stat-input" data-handle-change name="dmgLevel">
-        {{selectOptions dmgLevels selected="2"}}
+        {{selectOptions dmgLevels selected="{{successLevel}}" }}
       </select>
     </div>
     <br>

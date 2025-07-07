@@ -123,13 +123,19 @@
       <div class='centre' style="grid-column: 6 / 9;">{{localize 'AOV.hpAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
       <div class='centre'>{{localize 'AOV.range'}}</div>
+      <div class='centre'>
+        <a class='centre rollable' title='{{localize "AOV.dodge"}}'
+              data-action="dodge">
+              <i class='fas fa-person-running'></i>
+            </a>
+      </div>
     </div>
 
     {{#each weapons as |item id|}}
       <li class="item weapons-list-grid" data-item-id='{{item._id}}' data-document-class='Item'>
         <div class="new-row gear-name left rollable truncate" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.weapon")}}'
               data-action='viewDoc'>{{item.name}}</div>
-        <div class='gear-name centre terIcon'>{{item.system.total}}</div>
+        <div class='gear-name centre terIcon rollable' data-action="diceroll" data-property="combat" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.combatRoll">{{item.system.total}}</div>
         <div class='gear-name centre rollable' data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
         <div class='gear-name centre terIcon' title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
         <div class='gear-name centre terIcon'>{{item.system.actlEnc}}</div>

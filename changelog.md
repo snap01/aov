@@ -1,3 +1,11 @@
+## 13.7
+-  Fixed an issue where dice rolls weren't matching results on opposed/resistance/augment cards
+-  Critical damage now causes maximum "special damage" + rolled damage bonus
+-  Combat rolls have been added, along with fumble and damage rolls
+-  There are special instructions on the wiki about how to add Dodge rolls to a combat roll
+-  When mutliple parties roll dice in one roll (e.g. combat) and Dice So Nice is used the colours of the dice should match the user who initiated the roll
+-  It is important the you use Chaosium IDs 'i.skill.dodge' and 'rt..fumbles' for the Dodge Skill and Fumble table respectively.
+
 ## 13.6
 -  Added Fixed Resistance Rolls for Characteristics (i.e. againt Poison rather than a character or NPC characteristic)
 -  Opposed rolls for Skills and Passions added

@@ -36,7 +36,11 @@ export class AOVRollType {
     } else if (detail.property === 'damage') {
       rollType = RollType.DAMAGE
       skillId = detail.skillId    
-    } else {
+    } else if (detail.property === 'combat') {
+      rollType = RollType.WEAPON
+      cardType = CardType.COMBAT
+      skillId = detail.skillId    
+    }else {
       return
     }
 
@@ -48,6 +52,7 @@ export class AOVRollType {
       token: actor.token,
       characteristic,
       skillId,
+      origID: game.user._id
     })
   } 
 }

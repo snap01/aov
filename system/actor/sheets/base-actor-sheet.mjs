@@ -3,6 +3,7 @@ import { CIDEditor } from "../../cid/cid-editor.mjs";
 import { AOVActorItemDrop } from "../actor-item-drop.mjs";
 import { AOVActor } from "../actor.mjs";
 import { AOVRollType } from "../../apps/roll-types.mjs";
+import { AOVCheck } from "../../apps/checks.mjs";
 
 export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   constructor(options = {}) {
@@ -36,6 +37,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       averageStats: this._averageStats,
       recalc: this._recalcBase,
       diceroll: this._diceroll,
+      dodge: this._dodge,
     }
   }
 
@@ -230,6 +232,25 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     await AOVRollType._onDetermineCheck(event, target.dataset, this.document)
   }
     
+  //Dodge - add Dodge roll to Combat
+  static async _dodge(event,target) {
+    let skillId = this.actor.items.filter(i=>i.flags.aov?.cidFlag?.id === 'i.skill.dodge')
+    if (!skillId || skillId.length<1) {
+      ui.notifications.warn(game.i18n.localize('AOV.card.noDodge'))
+      return
+    }
+          AOVCheck._trigger({
+              rollType: "SK",
+              cardType: "CO",
+              shiftKey: false,
+              skillId: skillId[0]._id,
+              itemId: skillId[0]._id,
+              event,
+              actor: this.actor,
+              characteristic: false
+          })    
+  }
+
 
   //----------------
 

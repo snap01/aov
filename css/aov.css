@@ -35,6 +35,7 @@ src: url('../art-assets/FarnhamText-Regular.otf') format('woff2');
   --aov-chat-success: rgb(8, 111, 94);
   --aov-chat-fail: rgb(163, 16, 8);
   --aov-chat-other: rgb(237, 181, 37);
+  --aov-title-font-colour: rgb(68, 111, 94);
 }
 
 body.theme-light .application.aov,
@@ -425,7 +426,7 @@ body.theme-dark .application.aov.sheet,
 
 .aov .weapons-list-grid {
   display: grid;
-  grid-template-columns: 160px 50px 110px 35px 35px 30px 10px 30px 40px 80px 30px;
+  grid-template-columns: 160px 50px 110px 35px 35px 30px 10px 30px 40px 60px 30px;
   grid-column-gap: 5px;
 }
 
@@ -1115,4 +1116,14 @@ nav.aov.sheet-tabs.tabs {
 
 .aov .resolve {
   width: 100%;
+}
+
+.aov .combat-result{
+  margin: 3px 0 3px 0;
+  font-weight: bold;
+  text-align: center;
+  border: 1px darkslategrey solid;
+  border-radius: 3px;
+  background-color: rgba(74, 133, 133, 0.75);
+
 }

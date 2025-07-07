@@ -20,6 +20,11 @@
       color: var(--aov-jnl-pri-col);
       font-family: var(--aov-secondary-font);
       font-size: 20px;
+      margin-bottom: 0px;
+    }
+
+    h4, h5 {
+      margin-bottom: 0px;
     }
 
     .title, h4 {
@@ -121,9 +126,14 @@
     .rules ul.jnl li::marker {
       content: 'Þ ';
       font-size:15px;
-      color:var(--aov-jnl-ter-col);
+      color:var(--aov-jnl-pri-col);
     }
 
+    .play ul.jnl li::marker {
+      content: 'Þ ';
+      font-size:15px;
+      color:var(--aov-jnl-sec-col);
+    }
 
     ul.jnl li::marker {
       content: 'Þ ';
@@ -131,7 +141,7 @@
       color:var(--aov-jnl-pri-col);
     }
 
-    ol.jnl li::marker {
+    ol li::marker {
       color:var(--aov-jnl-pri-col);
     }
 
@@ -150,6 +160,11 @@
         border-bottom: 1px solid black;
       }
     }
+
+    table.mob tbody tr:first-child {
+      background-color: var(--aov-title-font-colour);
+      color: white;
+    } 
 
     table tbody tr:nth-child(odd) {
       background-color: var(--table-row-color-even);

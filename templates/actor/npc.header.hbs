@@ -219,7 +219,7 @@
           <li class='item npc-weapon-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
             {{#if ../isLocked}}
               <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
-              <div class="centre terIcon">{{item.system.total}}</div>
+              <div class="centre terIcon rollable" data-action="diceroll" data-property="combat" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.combatRoll">{{item.system.total}}</div>
               <div class="centre rollable" data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
               <div class="centre" title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
               <div class="centre npc-weapon-hp">

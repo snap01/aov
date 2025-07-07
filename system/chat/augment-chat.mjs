@@ -33,7 +33,6 @@ export class AUCard {
           diceRolled = diceRolled + roll.dice[diceRoll].values[thisDice]
         }
       }
-      await OPCard.showDiceRoll(cCard)
 
       let resultLevel = await AOVCheck.successLevel({
         targetScore: revisedtargetScore,
@@ -67,6 +66,7 @@ export class AUCard {
         }
       }
       cCard.augAdj = augAdj
+      await OPCard.showDiceRoll(cCard)
       newchatCards.unshift(cCard)
     }
 

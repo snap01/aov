@@ -41,8 +41,6 @@ export class OPCard {
             diceRolled = diceRolled + roll.dice[diceRoll].values[thisDice]
           }
         }
-        await OPCard.showDiceRoll(i)
-
         let resultLevel = await AOVCheck.successLevel({
           targetScore: revisedtargetScore,
           rollResult: rollResult,
@@ -60,6 +58,7 @@ export class OPCard {
         } else {
           i.successLevel = 2 //Winner
         }
+        await OPCard.showDiceRoll(i)
         newchatCards.push(i)
     }    
 
@@ -103,6 +102,8 @@ export class OPCard {
 
   static async showDiceRoll(chatCard) {
     //If this is an Opposed or Combat roll then for the dice to roll if Dice so Nice used
+
+    let thisUser = game.users.get(chatCard.origID)
     if (game.modules.get('dice-so-nice')?.active) {
       let tens = Math.floor(chatCard.rollResult / 10)
       let units = chatCard.rollResult - (10 * tens)
@@ -130,7 +131,7 @@ export class OPCard {
           ]
         }]
       }
-      game.dice3d.show(diceData, game.user, true, null, false)  //Dice Data,user,sync,whispher,blind
+      game.dice3d.show(diceData, thisUser, true, null, false)  //Dice Data,user,sync,whispher,blind
     } else {
       await game.audio.play("sounds/dice.wav")
     }
