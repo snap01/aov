@@ -2,6 +2,7 @@ import { AOVDisplaySettings } from "./settings-displayOptions.mjs";
 import { AOVCIDSettings } from "./settings-cidOptions.mjs";
 import { AOVGameYearSettings } from "./settings-gameYear.mjs";
 import { AOVNPCSettings } from "./settings-npcOptions.mjs";
+import { AOVCreateSettings } from "./settings-creationOptions.mjs";
 
 export async function registerSettings() {
   //Game Year Settings Button
@@ -13,6 +14,16 @@ export async function registerSettings() {
     restricted: true
   })
   AOVGameYearSettings.registerSettings()
+
+  //Character Creation Settings Button
+  game.settings.registerMenu('aov', 'createSettings', {
+    name: 'AOV.Settings.createSettingsHint',
+    label: 'AOV.Settings.createSettings',
+    icon: 'fas fa-user',
+    type: AOVCreateSettings,
+    restricted: true
+  })
+  AOVCreateSettings.registerSettings()
 
   //NPC Settings Button
   game.settings.registerMenu('aov', 'npcSettings', {
@@ -54,12 +65,12 @@ export async function registerSettings() {
     default: false
   })
 
-  game.settings.register('aov', 'xpEnabled', {
-    name: 'Enable XP gain',
+  game.settings.register('aov', 'createEnabled', {
+    name: 'Creation phase gain',
     scope: 'world',
     config: false,
     type: Boolean,
-    default: true
+    default: false
   })
 
   game.settings.register('aov', 'systemVersion', {

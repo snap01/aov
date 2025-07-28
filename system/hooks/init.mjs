@@ -48,6 +48,9 @@ export default function Init() {
   CONFIG.Item.dataModels.runescript = models.AOVRunescriptModel
   CONFIG.Item.dataModels.seidur = models.AOVSeidurModel
   CONFIG.Item.dataModels.npcpower = models.AOVNPCPowerModel
+  CONFIG.Item.dataModels.species = models.AOVSpeciesModel
+  CONFIG.Item.dataModels.homeland = models.AOVHomelandModel
+  CONFIG.Item.dataModels.history = models.AOVHistoryModel
 
   CID.init()
   registerSheets()

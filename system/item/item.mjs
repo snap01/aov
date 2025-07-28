@@ -1,5 +1,5 @@
 import { RollType, AOVCheck, CardType } from "../apps/checks.mjs"
-import { isCtrlKey } from "../apps/helper.mjs";  
+import { isCtrlKey } from "../apps/helper.mjs";
 
 
 export class AOVItem extends Item {
@@ -53,6 +53,13 @@ export class AOVItem extends Item {
   static async createDialog(data={}, createOptions={}, { types, ...options }={}) {
     //Enter the document types you want to remove from the side bar create option - 'base' is removed in the super
     const invalid = ["wound", "family", "runescript", "seidur", "thrall","npcpower"];
+
+    //TODO - remove when module ready
+    if (!game.modules.get('aov-core-rulebook')?.active) {
+      invalid.push('species','homeland','history')
+    }
+    //TODO
+
     if (!types) types = this.TYPES.filter(type => !invalid.includes(type));
     else types = types.filter(type => !invalid.includes(type));
     return super.createDialog(data, createOptions, { types, ...options });
@@ -110,16 +117,16 @@ export class AOVItem extends Item {
         rollType = RollType.PASSION;
         skillId = item._id;
         if (ctrlKey) {
-          cardType = CardType.AUGMENT        
+          cardType = CardType.AUGMENT
         } else if(event.altKey) {
           cardType = CardType.OPPOSED
-        }        
+        }
         break
-      case 'skill':     
+      case 'skill':
         rollType = RollType.SKILL;
         skillId = item._id;
         if (ctrlKey) {
-          cardType = CardType.AUGMENT        
+          cardType = CardType.AUGMENT
         } else if (event.altKey) {
           cardType = CardType.OPPOSED
         }
@@ -127,7 +134,7 @@ export class AOVItem extends Item {
       default:
         item.sheet.render(true);
         return
-    }            
+    }
 
       AOVCheck._trigger({
           rollType,
@@ -144,5 +151,4 @@ export class AOVItem extends Item {
   }
 
 }
- 
-    
+

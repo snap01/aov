@@ -17,6 +17,9 @@ import { AoVRuneSheet } from '../item/sheets/rune-sheet.mjs';
 import { AoVRuneScriptSheet } from '../item/sheets/runescript-sheet.mjs';
 import { AoVSeidurSheet } from '../item/sheets/seidur-sheet.mjs';
 import { AoVNPCPowerSheet } from '../item/sheets/npcpower-sheet.mjs';
+import { AoVSpeciesSheet } from '../item/sheets/species-sheet.mjs';
+import { AoVHomelandSheet } from '../item/sheets/homeland-sheet.mjs';
+import { AoVHistorySheet } from '../item/sheets/history-sheet.mjs';
 
 export function registerSheets() {
 
@@ -109,6 +112,18 @@ export function registerSheets() {
   });
     collections.Items.registerSheet('aov', AoVNPCPowerSheet, {
     types: ['npcpower'],
+    makeDefault: true
+  });
+    collections.Items.registerSheet('aov', AoVSpeciesSheet, {
+    types: ['species'],
+    makeDefault: true
+  });
+    collections.Items.registerSheet('aov', AoVHomelandSheet, {
+    types: ['homeland'],
+    makeDefault: true
+  });
+    collections.Items.registerSheet('aov', AoVHistorySheet, {
+    types: ['history'],
     makeDefault: true
   });
 }

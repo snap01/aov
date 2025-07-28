@@ -4,6 +4,10 @@ import { AOVActorItemDrop } from "../actor-item-drop.mjs";
 import { AOVActor } from "../actor.mjs";
 import { AOVRollType } from "../../apps/roll-types.mjs";
 import { AOVCheck } from "../../apps/checks.mjs";
+import AOVDialog from "../../setup/aov-dialog.mjs"
+import { COCard } from "../../chat/combat-chat.mjs";
+import { AOVCharCreate } from "../charCreate.mjs";
+import { AOVCharDevelop } from "../charDevelop.mjs";
 
 export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
   constructor(options = {}) {
@@ -38,6 +42,20 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       recalc: this._recalcBase,
       diceroll: this._diceroll,
       dodge: this._dodge,
+      resetSpecies: this._resetSpecies,
+      resetHomeland: this._resetHomeland,
+      rollName: this._rollName,
+      rollStats: this._rollStats,
+      rollPersonality: this._rollPersonality,
+      persSkills: this._persSkills,
+      devotions: this._devotions,
+      family: this._family,
+      farm: this._farm,
+      weapons: this._weapons,
+      features:this._features,
+      history: this._history,
+      resethistory: this._resethistory,
+      experience: this._expRoll,
     }
   }
 
@@ -76,7 +94,9 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       isLinked: this.actor.prototypeToken?.actorLink === true,
       isSynth: this.actor.isToken,
       singleColour: game.settings.get('aov','singleColourBar'),
-      isDevelop: game.settings.get('aov','developmentEnabled')
+      isDevelop: game.settings.get('aov','developmentEnabled'),
+      isCreate: game.settings.get('aov','createEnabled'),
+      isSelectGender: game.settings.get('aov','binaryGender'),
     };
   }
 
@@ -156,7 +176,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     const prop = target.dataset.property;
     const itemId = target.closest(".item").dataset.itemId;
     const item = this.actor.items.get(itemId);
-    if (['xpCheck',"treated","prepared"].includes(prop)) {
+    if (['xpCheck',"treated","prepared","depend"].includes(prop)) {
       checkProp = { [`system.${prop}`]: !item.system[prop] }
     } else if (prop === 'equipStatus') {
       let newVal = item.system.equipStatus + 1
@@ -211,7 +231,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
   static async _randomStats(event, target){
     await this.actor.rollCharacteristicsValue()
   }
- 
+
   //Roll Average Stats
   static async _averageStats(event, target){
     await this.actor.averageCharacteristicsValue()
@@ -225,13 +245,13 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
         let base = await AOVActorItemDrop._AOVcalcBase(skill, this.actor);
         await skill.update({'system.base': base})
       }
-    }  
-    
+    }
+
   //Dice Check
   static async _diceroll(event,target) {
     await AOVRollType._onDetermineCheck(event, target.dataset, this.document)
   }
-    
+
   //Dodge - add Dodge roll to Combat
   static async _dodge(event,target) {
     let skillId = this.actor.items.filter(i=>i.flags.aov?.cidFlag?.id === 'i.skill.dodge')
@@ -248,7 +268,116 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
               event,
               actor: this.actor,
               characteristic: false
-          })    
+          })
+  }
+
+  //Reset Species
+  static async _resetSpecies(event, target) {
+    if (event.detail === 2) {  //Only perform on double click
+      AOVCharCreate.resetSpecies(target, this.actor)
+    }
+  }
+
+  //Reset Homeland
+  static async _resetHomeland(event, target) {
+    if (event.detail === 2) {  //Only perform on double click
+      AOVCharCreate.resetHomeland(target, this.actor)
+    }
+  }
+
+  //Roll Character Name
+  static async _rollName (event, target) {
+    AOVCharCreate.characName (this.actor, target)
+  }
+
+  //Roll Stats for Character
+  static async _rollStats (event, target) {
+    let type = target.dataset.type
+    switch (type) {
+      case 'random':
+        AOVCharCreate.rollRandom (this.actor)
+        break
+      case 'assign':
+        AOVCharCreate.assignRandom (this.actor)
+        break
+      case 'points':
+        AOVCharCreate.usePoints (this.actor)
+        break
+    }
+    await this._recalcBase
+    return
+  }
+
+  //Roll Personality
+  static async _rollPersonality(event, target) {
+    AOVCharCreate.rollPersonality(this.actor)
+  }
+
+  //Select Personal Skills
+  static async _persSkills (event, target) {
+    AOVCharCreate.persSkills(this.actor)
+  }
+
+  //Select Devotions
+  static async _devotions (event, target) {
+    AOVCharCreate.devotions(this.actor)
+  }
+
+  //Create Family
+  static async _family (event, target) {
+    AOVCharCreate.family(this.actor)
+  }
+
+  //Create Farm
+  static async _farm (event, target) {
+    if (game.user.isGM) {
+      AOVCharCreate.farm(this.actor)
+    } else {
+      let actor = this.actor
+      const availableGM = game.users.find(d => d.active && d.isGM)?.id
+      if (availableGM) {
+        game.socket.emit('system.aov', {
+          type: 'createFarm',
+          to: availableGM,
+          value: { actor }
+        })
+      } else {
+        ui.notifications.warn(game.i18n.localize('AOV.noAvailableGM'))
+      }
+    }
+  }
+
+  //Choose Weapons
+  static async _weapons(event, target) {
+    AOVCharCreate.selectWeapons(this.actor)
+  }
+
+  //Roll Distinctive Features
+  static async _features (event,target) {
+    AOVCharCreate.features(this.actor)
+  }
+
+  //Roll Family History
+  static async _history (event,target) {
+    AOVCharCreate.history(this.actor)
+  }
+
+  //Reset Family History
+  static async _resethistory (event,target) {
+    if (event.detail === 2) {  //Only perform on double click
+      const confirm = await AOVDialog.confirm({
+        window: { title: game.i18n.localize('AOV.confirm') },
+        content: game.i18n.localize('AOV.eraseHistory')
+      })
+      if (confirm) {
+        AOVCharCreate.resetHistory(this.actor)
+      }
+    }
+  }
+
+  //Experience Rolls
+  static async _expRoll (event, target) {
+    AOVCharDevelop.expRolls(this.actor)
   }
 
 

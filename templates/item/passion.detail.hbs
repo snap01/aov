@@ -32,9 +32,13 @@
     {{/if}}
 
     {{#if hasOwner}}
+      <div class="new-row bold">{{localize 'AOV.homeland'}}</div>
+      <div class="centre"><input class="gear-input centre" name='system.home' type='number' value='{{item.system.home}}'></div>
+      <div class="new-row bold">{{localize 'TYPES.Item.history'}}</div>
+      <div class="centre"><input class="gear-input centre" name='system.history' type='number' value='{{item.system.history}}'></div>
       <div class="new-row bold">{{localize 'AOV.family'}}</div>
       <div class="centre"><input class="gear-input centre" name='system.family' type='number' value='{{item.system.family}}'></div>
-      <div class="new-row bold">{{localize 'AOV.exp'}}</div>
+      <div class="new-row bold">{{localize 'AOV.experience'}}</div>
       <div class="centre"><input class="gear-input centre" name='system.xp' type='number' value='{{item.system.xp}}'></div>
       <div class="new-row bold">{{localize 'AOV.total'}}</div>
       <div class="centre terIcon">{{system.total}}</div>

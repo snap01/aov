@@ -54,7 +54,7 @@
   .actorName-grid {
     font-size: var(--aov-title-font-size);
     display: grid;
-    grid-template-columns: 80px 350px;
+    grid-template-columns: 80px 325px 20px;
     grid-column-gap: 5px;
     padding-bottom: 10px;
   }
@@ -258,7 +258,7 @@
 
 .aov .statsgrid {
   display: grid;
-  grid-template-columns: 75px 50px 50px 50px 50px 75px 150px;
+  grid-template-columns: 75px 50px 50px 50px 50px 75px 80px 25px 10px 25px 95px;
   grid-column-gap: 5px;
 }
 
@@ -327,4 +327,25 @@
   height: 35px;
   overflow: hidden;
   text-overflow:ellipsis;
+}
+
+.aov .classList {
+  display: grid;
+  grid-template-columns: 75px 200px;
+  grid-column-gap: 5px;
+}
+
+.aov .creation {
+  background: var(--aov-chat-other);
+}
+
+.aov .flexcell {
+  align-self: center;
+}
+
+.aov .statsCreate {
+  display: grid;
+  width: 305px;
+  margin-left: 5px;
+  grid-template-columns: 75px 75px 50px 50px 50px ;
 }

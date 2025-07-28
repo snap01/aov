@@ -20,7 +20,7 @@
             data-action='viewDoc'>{{item.name}}</div>
         <div class='centre'>{{item.system.born}}</div>
         <div class='centre'>{{item.system.died}}</div>
-        <div class='centre'>{{item.system.gender}}</div>
+        <div class='centre'>{{item.system.genderLabel}}</div>
         {{#unless isLocked}}
           <div class='centre'>
             <a class='item-control' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.thrall")}}'

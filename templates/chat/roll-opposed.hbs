@@ -18,45 +18,46 @@
                 {{#unless (eq ../state 'closed')}}
                   <a class="gm-visible-only cardbutton" data-rank='{{key}}' data-preset="remove-roll" title="{{localize 'AOV.card.remove'}}"><i class="far fa-times-circle"></i></a>
                 {{/unless}}
-              </div>  
+              </div>
                 {{#if (eq ../state 'closed')}}
                   <div>
                     {{#if (eq c.resultLevel 4)}}
                       <span class="pending {{#if (eq c.successLevel 2)}} winner {{/if}}">{{c.successLevelLabel}} - {{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
                     {{/if}}
-                  
+
                     {{#if (eq c.resultLevel 3)}}
                       <span class="pending {{#if (eq c.successLevel 2)}} winner {{/if}}">{{c.successLevelLabel}} - {{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
                     {{/if}}
-              
+
                     {{#if (eq c.resultLevel 2)}}
                       <span class="pending {{#if (eq c.successLevel 2)}} winner {{/if}}">{{c.successLevelLabel}} - {{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i>
                     {{/if}}
-                  
+
                     {{#if (eq c.resultLevel 1)}}
                       <span class="pending">{{c.successLevelLabel}} - {{c.resultLabel}}: {{c.rollVal}} <i class="result-fail fas fa-skull"></i>
                     {{/if}}
-                  
+
                     {{#if (eq c.resultLevel 0)}}
                       <span class="pending">{{c.successLevelLabel}} - {{c.resultLabel}}: {{c.rollVal}} <i class=" result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i>
-                    {{/if}}                       
-                  </div>  
+                    {{/if}}
+                  </div>
                 {{else}}
-                  <div></div>  
+                  <div></div>
                 {{/if}}
               </div>
           </li>
             <div class="actor-roll dice-tooltip">
               <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
                 <div class="rollHidden">{{localize 'AOV.card.rawScore'}}: {{c.rawScore}}</div>
-                <div class="rollHidden">{{localize 'AOV.card.scoreAdjust'}}: {{c.targetAdj}}</div>                
-                <div class="rollHidden bottom-line"> {{localize 'AOV.card.bonus'}}:
+                <div class="rollHidden">{{localize 'AOV.card.scoreAdjust'}}: {{c.targetAdj}}</div>
+                <div class="rollHidden"> {{localize 'AOV.card.bonus'}}:
                   {{#if (lt c.flatMod 1)}}
                     {{c.flatMod}}
                   {{else}}
                     +{{c.flatMod}}
                   {{/if}}
                 </div>
+                <div class="rollHidden bottom-line"> {{localize 'AOV.encPenalty'}}: {{c.encPenalty}}</div>
               </div>
             </div>
 

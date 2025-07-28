@@ -19,7 +19,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
   static PARTS = {
     header: { template: 'systems/aov/templates/actor/character.header.hbs' },
     tabs: { template: 'systems/aov/templates/actor/character-tab.hbs' },
-//    tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },    
+//    tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
     notes: {
       template: 'systems/aov/templates/actor/character.notes.hbs',
       scrollable: [''],
@@ -56,19 +56,31 @@ export class AoVCharacterSheet extends AoVActorSheet {
       template: 'systems/aov/templates/actor/character.runes.hbs',
       scrollable: [''],
     },
+    history: {
+      template: 'systems/aov/templates/actor/character.history.hbs',
+      scrollable: [''],
+    },
   }
 
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     //Common parts to the character - this is the order they are show on the sheet
     options.parts = ['header'];
-    options.parts.push('tabs')     
+    options.parts.push('tabs')
     //GM only tabs
     if (game.user.isGM) {
       options.parts.push('gmTab');
     }
     //Last tab is at the top of the list on the character sheet
-    options.parts.push('stats', 'notes', 'family', 'gear', 'devotions', 'runes', 'combat', 'skills');
+    options.parts.push('stats','notes')
+
+    //TODO - remove when module ready
+    if (game.modules.get('aov-core-rulebook')?.active) {
+      options.parts.push('history')
+    }
+    //TODO
+
+    options.parts.push('family', 'gear', 'devotions', 'runes', 'combat', 'skills');
   }
 
   _getTabs(parts) {
@@ -100,44 +112,54 @@ export class AoVCharacterSheet extends AoVActorSheet {
           tab.colour = 'tab-blue';
           if (singleColour) tab.colour = 'tab-green'
           break;
-        case 'runes': {
+        case 'runes':
           tab.id = 'runes';
           tab.label += 'magic';
           tab.colour = 'tab-red';
           if (singleColour) tab.colour = 'tab-green'
           break;
-        }
-        case 'devotions': {
+
+        case 'devotions':
           tab.id = 'devotions';
           tab.label += 'devotions';
-          tab.colour = 'tab-blue';
+          tab.colour = 'tab-green';
           if (singleColour) tab.colour = 'tab-green'
           break;
-        }
         case 'gear':
           tab.id = 'gear';
           tab.label += 'gear';
+          tab.colour = 'tab-blue';
+          if (singleColour) tab.colour = 'tab-green'
+          break;
+
+        case 'family':
+          tab.id = 'family';
+          tab.label += 'family';
           tab.colour = 'tab-red';
           if (singleColour) tab.colour = 'tab-green'
           break;
-        case 'family': {
-          tab.id = 'family';
-          tab.label += 'family';
+
+          case 'history':
+          tab.id = 'history';
+          tab.label += 'history';
           tab.colour = 'tab-green';
+          if (singleColour) tab.colour = 'tab-green'
           break;
-        }
+
           case 'notes':
           tab.id = 'notes';
           tab.label += 'notes';
           tab.colour = 'tab-blue';
           if (singleColour) tab.colour = 'tab-green'
           break;
-        case 'stats': {
+
+        case 'stats':
           tab.id = 'stats';
           tab.label += 'stats';
-          tab.colour = 'tab-green';
+          tab.colour = 'tab-red';
+          if (singleColour) tab.colour = 'tab-green'
           break;
-        }
+
         case 'gmTab':
           tab.id = 'gmTab';
           tab.label += 'gmTab';
@@ -154,8 +176,31 @@ export class AoVCharacterSheet extends AoVActorSheet {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
     context.persTypeOptions = await AOVSelectLists.persType();
+    context.persTypeOptions = Object.assign({"":""},context.persTypeOptions)
     context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
+    if (this.actor.system.persType === "") {context.persName = ""}
     context.dpOptions = await AOVSelectLists.dpOptions();
+    context.hasSpecies = context.system.speciesID
+    context.hasHome = context.system.homeID
+    context.useRandom = game.settings.get('aov','randomDice')
+    context.useAssign = game.settings.get('aov','allocatedDice')
+    context.usePoints = game.settings.get('aov','allocatePoints')
+    context.genderOptions = await AOVSelectLists.genderOptions();
+    context.genderOptions = Object.assign({"":""},context.genderOptions)
+    context.genderName = game.i18n.localize('AOV.' + context.system.gender)
+    if (context.system.gender === "") {context.genderName = ""}
+    if (!context.usePoints && !context.useAssign) {
+      context.useRandom = true
+    }
+    //TODO - remove when module ready
+    context.allowEdit = false;
+    if (context.isCreate || (!game.modules.get('aov-core-rulebook')?.active && !context.isLocked)) {
+      context.allowEdit = true;
+    }
+    context.hasModule = game.modules.get('aov-core-rulebook')?.active
+    //TODO
+
+
     await this._prepareItems(context);
     return context
   }
@@ -169,6 +214,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
       case 'family':
       case 'runes':
       case 'devotions':
+      case 'history':
         context.tab = context.tabs[partId];
         break;
       case 'notes':
@@ -222,6 +268,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     const runes = [];
     const runescripts = [];
     const seidurs = [];
+    const histories = [];
 
     //Not strictly items but get farm actors to get thrall items
     for (let farmUuid of this.document.system.farms) {
@@ -244,19 +291,23 @@ export class AoVCharacterSheet extends AoVActorSheet {
         });
         for (let fItm of farm.items) {
           if (fItm.type==='thrall') {
+            let genderLabel = fItm.system.gender
+            if (context.isSelectGender) {
+              genderLabel = game.i18n.localize('AOV.'+fItm.system.gender)
+            }
             thralls.push({
               'uuid': fItm.uuid,
               'name': fItm.name,
               'born': fItm.system.born,
               'died': fItm.system.died,
-              'gender': fItm.system.gender,
+              'genderLabel': genderLabel,
               'farmName': farm.name
             })
           }
         }
       }
     }
-
+    context.thrallCount = thralls.length
 
     for (let itm of this.document.items) {
       if (itm.type === 'gear') {
@@ -282,6 +333,11 @@ export class AoVCharacterSheet extends AoVActorSheet {
       } else if (itm.type === 'devotion') {
         devotions.push(itm)
       } else if (itm.type === 'family') {
+        if (context.isSelectGender) {
+          itm.system.genderLabel = game.i18n.localize('AOV.'+itm.system.gender)
+        } else {
+          itm.system.genderLabel = itm.system.gender
+        }
         families.push(itm)
       } else if (itm.type === 'weapon') {
         itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)
@@ -299,6 +355,10 @@ export class AoVCharacterSheet extends AoVActorSheet {
         runescripts.push(itm)
       } else if (itm.type === 'seidur') {
         seidurs.push(itm)
+      } else if (itm.type === 'history') {
+        itm.system.shortDesc = itm.system.description.replace(/(<([^>]+)>)/ig, '')
+        itm.system.order = itm.flags.aov?.cidFlag?.id
+        histories.push(itm)
       }
     }
 
@@ -375,7 +435,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
       let r = a.system.prepared
       let s = b.system.prepared
       if (r < s) { return 1 };
-      if (r > s) { return -1 };     
+      if (r > s) { return -1 };
       if (x < y) { return -1 };
       if (x > y) { return 1 };
       return 0;
@@ -388,11 +448,24 @@ export class AoVCharacterSheet extends AoVActorSheet {
       let r = a.system.prepared
       let s = b.system.prepared
       if (r < s) { return 1 };
-      if (r > s) { return -1 };     
+      if (r > s) { return -1 };
       if (x < y) { return -1 };
       if (x > y) { return 1 };
       return 0;
-    })    
+    })
+
+    //Sort Histories on Year then name
+    histories.sort(function (a, b) {
+      let x = a.system.order;
+      let y = b.system.order;
+      let r = a.system.year
+      let s = b.system.year
+      if (r < s) { return 1 };
+      if (r > s) { return -1 };
+      if (x < y) { return 1 };
+      if (x > y) { return -1 };
+      return 0;
+    })
 
     context.gear = gear.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.skills = skills;
@@ -410,6 +483,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.runes = runes.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.runescripts = runescripts;
     context.seidurs = seidurs;
+    context.histories = histories;
   }
 
 

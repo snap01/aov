@@ -7,6 +7,8 @@ export default class AOVPassionModel extends AOVItemBaseModel {
     const requiredInteger = { required: true, nullable: false, integer: true };
     const schema = super.defineSchema();
     schema.base = new fields.NumberField({ ...requiredInteger, initial: 0 });  //Base score of passion%
+    schema.home = new fields.NumberField({ ...requiredInteger, initial: 0 });  //Homeland score of passion%
+    schema.history = new fields.NumberField({ ...requiredInteger, initial: 0 });  //History bonus for passion%
     schema.family = new fields.NumberField({ ...requiredInteger, initial: 0 });  //Family score of passion%
     schema.xp = new fields.NumberField({ ...requiredInteger, initial: 0 });  //Acquired XP for passion%
     schema.noXP = new fields.BooleanField({ initial: false }); //Can passion get XP check

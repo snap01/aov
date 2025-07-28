@@ -9,6 +9,33 @@
       <div class="centre bottom-line" style="grid-column: 2 / span2;">{{item.system.ideals}}</div>
     {{/if}}
 
+    <div class="new-row">&nbsp</div>
+    <div class="new-row">&nbsp</div>
+
+    {{!-- Selected Skills --}}
+    <div class="bold new-row" style="padding-top: 16px;">{{ localize "AOV.worshipSkill"}}</div>
+    <div class="horizontalboxed {{#if isGM}} droppable {{/if}}" style="grid-column: 2/4;" data-drag="true">
+      <ol class="item-list">
+        {{#unless hasSkills}}
+          <div style="grid-column 2/4;">{{localize 'AOV.dropHere' itemType=(localize "TYPES.Item.skill")}}</div>
+        {{/unless}}
+        {{#each skills as |item|}}
+          <li class="item flexrow" data-item-id="{{item.uuid}}" data-cid="{{item.cid}}">
+            <div class="item-name flexrow">
+              <div class="item-view font14" title="{{item.cid}}">{{item.name}}</div>
+            </div>
+            <div class="item-controls">
+              {{#if ../isGM}}
+                <a class="item-control item-delete" title="{{localize 'AOV.deleteDoc' type=(localize "TYPES.Item.skill")}}"><i class="fas fa-trash"></i></a>
+              {{/if}}
+            </div>
+          </li>
+        {{/each}}
+      </ol>
+    </div>
+    <br>
+
+
     {{#if hasOwner}}
       <div class="new-row"></div>
       <br>

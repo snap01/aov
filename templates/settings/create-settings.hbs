@@ -1,0 +1,45 @@
+<div class="aov settingsForm flexcol" autocomplete="off">
+    <h2 class="bold">{{localize 'AOV.Settings.createSettings'}}</h2>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.randomDice'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked optSet.randomDice.value}} name="randomDice">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.randomDiceHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.allocatedDice'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked optSet.allocatedDice.value}} name="allocatedDice">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.allocatedDiceHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.allocatePoints'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked optSet.allocatePoints.value}} name="allocatePoints">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.allocatePointsHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.binaryGender'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked optSet.binaryGender.value}} name="binaryGender">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.binaryGenderHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.addThralls'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked optSet.addThralls.value}} name="addThralls">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.addThrallsHint'}}</p>
+    </div>
+
+    <br>
+  </div>

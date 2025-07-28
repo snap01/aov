@@ -1,0 +1,43 @@
+<section class="aov assign-dice" id="assign-dice-form">
+  <br>
+  <div class='bold'>{{ localize 'AOV.assignDice' }}</div>
+  <br>
+
+  <div class="assignList">
+    <div class="ability-cell centre bold">{{ localize 'AOV.roll' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.none' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.Ability.str' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.Ability.con' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.Ability.siz' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.Ability.dex' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.Ability.int' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.Ability.pow' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.Ability.cha' }}</div>
+    <div class="ability-cell centre bold">{{ localize 'AOV.total' }}</div>
+    <div class="ability-cell centre bold"></div>
+    <div class="ability-cell centre bold str">{{results.str.adjVal}}</div>
+    <div class="ability-cell centre bold con">{{results.con.adjVal}}</div>
+    <div class="ability-cell centre bold siz">{{results.siz.adjVal}}</div>
+    <div class="ability-cell centre bold dex">{{results.dex.adjVal}}</div>
+    <div class="ability-cell centre bold int">{{results.int.adjVal}}</div>
+    <div class="ability-cell centre bold pow">{{results.pow.adjVal}}</div>
+    <div class="ability-cell centre bold cha">{{results.cha.adjVal}}</div>
+
+    {{#each dice as |die key|}}
+        <div class="ability-cell bold centre new-row">{{die.value}}</div>
+        <input class="rollable centre none none-{{key}}" data-set={{key}} data-stat= "none" type="radio" id={{key}} name={{key}} value="none" checked>
+        <input class="rollable centre" data-set={{key}} data-stat= "str" type="radio" id={{key}} name={{key}} value="str">
+        <input class="rollable centre" data-set={{key}} data-stat= "con" type="radio" id={{key}} name={{key}} value="con">
+        <input class="rollable centre" data-set={{key}} data-stat= "siz" type="radio" id={{key}} name={{key}} value="siz">
+        <input class="rollable centre" data-set={{key}} data-stat= "dex" type="radio" id={{key}} name={{key}} value="dex">
+        <input class="rollable centre" data-set={{key}} data-stat= "int" type="radio" id={{key}} name={{key}} value="int">
+        <input class="rollable centre" data-set={{key}} data-stat= "pow" type="radio" id={{key}} name={{key}} value="pow">
+        <input class="rollable centre" data-set={{key}} data-stat= "cha" type="radio" id={{key}} name={{key}} value="cha">
+
+
+    {{/each}}
+  </div>
+
+  <br>
+
+</section>

@@ -1,4 +1,5 @@
 import { AoVItemSheet } from "./base-item-sheet.mjs"
+import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
 export class AoVFamilySheet extends AoVItemSheet {
   constructor(options = {}) {
@@ -24,6 +25,7 @@ export class AoVFamilySheet extends AoVItemSheet {
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
+    context.genderOptions = await AOVSelectLists.genderOptions()
 
     return context
   }

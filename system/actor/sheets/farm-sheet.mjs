@@ -39,6 +39,10 @@ export class AoVFarmSheet extends AoVActorSheet {
 
     for (let itm of this.document.items) {
       if (itm.type === 'thrall') {
+        itm.system.genderLabel = itm.system.gender
+        if (context.isSelectGender) {
+          itm.system.genderLabel = game.i18n.localize('AOV.'+itm.system.gender)
+        }
         thralls.push(itm)
       }
     }

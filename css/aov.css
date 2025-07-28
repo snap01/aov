@@ -129,6 +129,11 @@ body.theme-dark .application.aov.sheet,
   background-size: cover;
 }
 
+.aov .item.details {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .aovTab {
   font-family: var(--aov-primary-font);
   color: var(--aov-primary-font-colour);
@@ -310,6 +315,18 @@ body.theme-dark .application.aov.sheet,
 
 }
 
+.aov .history-grid {
+  display: grid;
+  grid-template-columns: 50px 150px 360px 30px;
+  grid-column-gap: 5px;
+  padding-left: 5px;
+}
+
+.aov .history-item {
+  display: grid;
+  grid-template-columns: 400px 30px;
+}
+
 .aov .skill-grid {
   display: grid;
   grid-template-columns: 175px 35px 50px 30px;
@@ -320,7 +337,7 @@ body.theme-dark .application.aov.sheet,
 .aov .skillDev-grid {
   display: grid;
   width:636px;
-  grid-template-columns: auto 120px 45px 45px 45px 45px 45px 45px 50px;
+  grid-template-columns: auto 90px 45px 45px 45px 45px 45px 45px 45px 45px 50px;
   padding-left: 5px;
   margin:0px;
   border-right:var(--aov-primary-font-colour) 1px solid;
@@ -350,7 +367,7 @@ body.theme-dark .application.aov.sheet,
 
 .aov .family-grid{
   display: grid;
-  grid-template-columns: 175px 125px 145px 65px 65px 30px;
+  grid-template-columns: 175px 100px 135px 35px 65px 65px 30px;
   grid-column-gap: 5px;
   padding-left: 5px;
 }
@@ -621,6 +638,12 @@ body.theme-dark .application.aov.sheet,
   grid-column-gap: 5px;
 }
 
+.aov .personalSecCreate {
+  display: grid;
+  grid-template-columns: max-content auto 20px;
+  grid-column-gap: 5px;
+}
+
 .aov .personalSecDbl {
   display: grid;
   grid-template-columns: 150px 150px;
@@ -844,9 +867,9 @@ nav.aov.sheet-tabs.tabs {
 }
 
 .aov .effects-grid {
-  width: 645px;
+  width: 635px;
   display: grid;
-  grid-template-columns: 250px 260px 70px 50px;
+  grid-template-columns: 240px 260px 70px 50px;
   padding-left: 5px;
 }
 
@@ -1106,12 +1129,12 @@ nav.aov.sheet-tabs.tabs {
 
 .aov .result-fail {
   color:var(--aov-chat-fail);
-  width: 18px;  
+  width: 18px;
 }
 
 .aov .result-yellow {
   color:var(--aov-chat-other);
-  width: 18px;  
+  width: 18px;
 }
 
 .aov .resolve {
@@ -1125,5 +1148,39 @@ nav.aov.sheet-tabs.tabs {
   border: 1px darkslategrey solid;
   border-radius: 3px;
   background-color: rgba(74, 133, 133, 0.75);
+}
 
+.aov .species-abilities-grid {
+  display: grid;
+  grid-template-columns: 50px 100px 50px 50px;
+  column-gap: 10px;
+}
+
+.aov .horizontalboxed {
+  border-top: 1px darkslategray solid;
+  border-bottom: 1px darkslategray solid;
+}
+
+.aov .selectList {
+  display: grid;
+  margin-left: 5px;
+  grid-template-columns: 30px 250px;
+}
+
+.aov .dialog-content.standard-form {
+  gap: 5px;
+}
+
+.aov .assign-dice {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  font-size: 20px;
+  margin: 2px 0;
+}
+
+.aov .assignList {
+  display: grid;
+  grid-template-columns: repeat(9, 35px);
+  column-gap: 5px;
+  padding-left: 5px
 }

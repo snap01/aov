@@ -26,12 +26,30 @@ export class AOVActor extends Actor {
     if (actorData.type !== 'character') return;
     const systemData = actorData.system;
     systemData.actualEnc = 0
+    systemData.encPenalty = 0
+    systemData.encPenaltyLabel = "0 " + game.i18n.localize('AOV.mrAbbr') +"/0%"
     systemData.lockedMP = 0
+    let totDam = 0
+    systemData.dependents = await (actorData.items.filter(itm=>itm.type === 'family').filter(dItm=>dItm.system.depend).filter(fItm=>!fItm.system.died)).length
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
-    for (let itm of actorData.items) {
+    //Set Species ID
+    let actSpecies = actorData.items.filter(itm =>itm.type==='species')[0]
+    if (actSpecies) {
+      systemData.speciesID = actSpecies._id
+      systemData.speciesName = actSpecies.name
+    }
+    //Set Homeland ID
+    let actHome = actorData.items.filter(itm =>itm.type==='homeland')[0]
+    if (actHome) {
+      systemData.homeID = actHome._id
+      systemData.homeName = actHome.name
+    }
 
+
+
+    for (let itm of actorData.items) {
       //Does the item have transferrable effects
       if (['gear'].includes(itm.type)) {
         if (itm.transferredEffects.length > 0) {
@@ -43,7 +61,7 @@ export class AOVActor extends Actor {
 
       if (itm.type === 'skill') {
         //Calculate Total Chance
-        itm.system.total = (itm.system.base ?? 0) + (itm.system.xp ?? 0) + (itm.system.home ?? 0) + (itm.system.pers ?? 0) + (itm.system.effects ?? 0)
+        itm.system.total = (itm.system.base ?? 0) + (itm.system.xp ?? 0) + (itm.system.home ?? 0) + Number(itm.system.history ?? 0) + (itm.system.pers ?? 0) + (itm.system.dev ?? 0) + (itm.system.effects ?? 0)
         itm.system.catBonus = actorData.system[itm.system.category] ?? 0
         itm.system.catLabel = game.i18n.localize('AOV.skillCat.' + itm.system.category)
         if (itm.system.total > 0) {
@@ -72,10 +90,11 @@ export class AOVActor extends Actor {
         }
 
       } else if (itm.type === 'passion') {
-        itm.system.total = Number(itm.system.base ?? 0) + Number(itm.system.family ?? 0) + Number(itm.system.xp ?? 0);
+        itm.system.total = Number(itm.system.base ?? 0) + Number(itm.system.home ?? 0) + Number(itm.system.history ?? 0) + Number(itm.system.family ?? 0) + Number(itm.system.xp ?? 0);
       } else if (itm.type === 'wound') {
         let loc = await actorData.items.get(itm.system.hitLocId)
         if (loc) {itm.system.label = loc.name ?? ""}
+        totDam = totDam + itm.system.damage
       } else if (['gear','weapon','armour'].includes(itm.type)) {
         if (itm.system.equipStatus === 1 ) {
           itm.system.actlEnc = itm.system.enc * (itm.system.quantity ?? 1)
@@ -97,10 +116,10 @@ export class AOVActor extends Actor {
           systemData.lockedMP = systemData.lockedMP + seidurdetails.mpLocked
         }
       }
-
     }
     systemData.actualEnc = Math.floor(systemData.actualEnc)
     systemData.mp.availMax = systemData.mp.max - systemData.lockedMP
+    systemData.hp.value = systemData.hp.max - totDam
 
 
 
@@ -136,9 +155,7 @@ export class AOVActor extends Actor {
           }
         }
         itm.system.currHp = itm.system.hpMax - totalWnds
-        totalDmg += totalWnds
       }
-
       //Go through Weapons and calc best score from weapon skill and half the category score
       if (itm.type === 'weapon'){
         let weaponSkill = await actorData.items.filter(i=>i.flags.aov?.cidFlag?.id === itm.system.skillCID)
@@ -154,7 +171,9 @@ export class AOVActor extends Actor {
         itm.system.total = Math.max(weaponScore,Math.ceil(catScore/2))
       }
     }
-    systemData.hp.value = systemData.hp.max - totalDmg
+
+    //Calculate ENC penalites
+    await this._eNCPenalty (actorData)
   }
 
   //Prepare NPC specific data
@@ -183,7 +202,8 @@ export class AOVActor extends Actor {
       } else if (itm.type === 'weapon') {
         itm.system.total = (itm.system.npcBase ?? 0) + (itm.system.effects ?? 0)
       }
-    }      
+    }
+
 
     systemData.hp.value = systemData.hp.max - totalDmg
   }
@@ -214,7 +234,11 @@ export class AOVActor extends Actor {
   //Prepare Stats
   _prepStats(actorData) {
     for (let [key, ability] of Object.entries(actorData.system.abilities)) {
-      ability.total = ability.value + ability.xp + ability.age + (ability.effects ?? 0)
+      if(actorData.type === 'character'){
+        ability.total = Math.max(Math.min((ability.value + ability.xp + ability.age + (ability.effects ?? 0)), ability.max),0)
+      } else {
+        ability.total = ability.value + ability.xp + ability.age + (ability.effects ?? 0)
+      }
       ability.deriv = ability.total * 5
     }
   }
@@ -232,7 +256,7 @@ export class AOVActor extends Actor {
         systemData.moveRate = Math.ceil(systemData.moveRate * systemData.move.penalty)
       }
       systemData.healRate = AOVActor._calcHealRate(systemData);
-      systemData.reputation.total = (systemData.reputation.base ?? 0) + (systemData.reputation.xp ?? 0);
+      systemData.reputation.total = (systemData.reputation.base ?? 0) + (systemData.reputation.xp ?? 0) + (systemData.reputation.history ?? 0);
       systemData.status.total = (systemData.status.base ?? 0) + (systemData.status.xp ?? 0);
       systemData.maxEnc = AOVActor._maxEnc(systemData);
       systemData.age = game.settings.get('aov', 'gameYear') - systemData.birthYear;
@@ -276,6 +300,15 @@ export class AOVActor extends Actor {
     }
   }
 
+//Calculate ENC penalties etc
+_eNCPenalty (actorData) {
+  const systemData = actorData.system;
+  if (systemData.maxEnc > systemData.actualEnc) {return}
+  let penalty = Math.floor(systemData.actualEnc - systemData.maxEnc)
+  systemData.moveRate = systemData.moveRate - penalty
+  systemData.encPenalty = penalty * -5
+  systemData.encPenaltyLabel = -penalty + " "+ game.i18n.localize('AOV.mrAbbr') +"/" + systemData.encPenalty +"%"
+}
 
 
   //Create a new actor - When creating an actor set basics including tokenlink, bars, displays sight
@@ -319,11 +352,12 @@ export class AOVActor extends Actor {
     }
 
     if (data.type === 'character') {
-      //Get list of skills and passions then add to actor
-      let skillList = await game.aov.cid.fromCIDRegexBest({ cidRegExp: /^i.skill\./, type: 'i' })
+      //Get list of skills
+      let skillList = await AOVSelectLists.preLoadCategoriesCategories()
+      skillList = skillList.filter(itm=>itm.type==='skill').filter(itm=>itm.system.common)
       let commonSkills=[];
       for (let thisItem of skillList) {
-        if (!thisItem.system.common) {continue}
+        //if (!thisItem.system.common) {continue}
         let skillCount = await actor.items.filter(itm=>itm.flags.aov?.cidFlag?.id === thisItem.flags.aov?.cidFlag?.id)
         if (skillCount.length > 0) {continue}
         let nItm = thisItem.toObject()
@@ -331,15 +365,6 @@ export class AOVActor extends Actor {
         commonSkills.push(nItm)
       }
       let newSkills = await actor.createEmbeddedDocuments("Item", commonSkills);
-      let passionList = await game.aov.cid.fromCIDRegexBest({ cidRegExp: /^i.passion\./, type: 'i' })
-      let commonPassions = []
-      for (let thisItem of passionList) {
-        if (!thisItem.system.common) {continue}
-        let passionCount = await actor.items.filter(itm=>itm.flags.aov?.cidFlag?.id === thisItem.flags.aov?.cidFlag?.id)
-        if (passionCount.length > 0) {continue}
-        commonPassions.push(thisItem)
-      }
-      let newPassions = await actor.createEmbeddedDocuments("Item", commonPassions);
     }
 
 
@@ -525,7 +550,7 @@ export class AOVActor extends Actor {
    }
   if (seidur.system.duration >0 ) {
     cost = cost + Math.max(((seidur.system.duration-1)*3),1)
-   }      
+   }
   let mpLocked = Math.max((seidur.system.dimension ??0 ) , (seidur.system.distance ??0 ) , (seidur.system.duration ?? 0 ) )
   let castTime = cost * 10
   return {cost, mpLocked, castTime}
@@ -601,7 +626,7 @@ export class AOVActor extends Actor {
             r.total
           )
         }
-      }    
+      }
     }
     await this.update(abilities)
     await this.updateVitals()

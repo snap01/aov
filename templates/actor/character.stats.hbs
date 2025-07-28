@@ -1,6 +1,9 @@
 <section class='character tab stats {{tab.cssClass}}' data-group='primary' data-tab='stats'>
 
+
+
   <ol class='gear-list'>
+    {{!-- Stats Grid --}}
     <li class='gear-header primBackCol statsgrid'>
       <div class='left'>{{localize 'AOV.name'}}</div>
       <div class='centre'>{{localize 'AOV.base'}}</div>
@@ -8,86 +11,272 @@
       <div class='centre'>{{localize 'AOV.exp'}}</div>
       <div class='centre'>{{localize 'AOV.effects'}}</div>
       <div class='centre'>{{localize 'AOV.total'}}</div>
-      <div class='right'>
-        <a class="mediumIcon secIcon" data-action="recalc" title="{{ localize 'AOV.recalcBase'}}">
+      <div class='centre'>{{localize 'AOV.dice'}}</div>
+      <div class='centre' style="grid-column: 8 / 11;">{{localize 'AOV.minMax'}}</div>
+      <div class='centre'>
+        <a class="icon20 secIcon" data-action="recalc" title="{{ localize 'AOV.recalcBase'}}">
           <i class="fas fa-arrows-rotate"></i>
         </a>
       </div>
+
     </li>
 
     {{#each system.abilities as |ability key|}}
-    <li class='statsgrid' data-characteristic="{{key}}">
-      <div class="stat-val left rollable new-row">{{ability.label}}</div>
-      {{#if ../isLocked}}
-      <div class='stat-val centre'>{{ability.value}}</div>
-      <div class='stat-val centre'>{{ability.age}}</div>
-      <div class='stat-val centre'>{{ability.xp}}</div>
+      <li class='statsgrid' data-characteristic="{{key}}">
+        <div class="stat-val bold left rollable new-row">{{ability.label}}</div>
+      {{#if ../allowEdit}}
+        <div class='stat-val centre'>
+          <input class="stat-val" name='system.abilities.{{key}}.value' type='number' value='{{ability.value}}'/>
+        </div>
       {{else}}
-      <div class='stat-val centre'>
-        <input class="stat-val" name='system.abilities.{{key}}.value' type='number' value='{{ability.value}}'/>
-      </div>
-      <div class='stat-val centre'>
-        <input class="stat-val" name='system.abilities.{{key}}.age' type='number' value='{{ability.age}}'/>
-      </div>
-      <div class='stat-val centre'>
-        <input class="stat-val" name='system.abilities.{{key}}.xp' type='number' value='{{ability.xp}}'/>
-      </div>
+        <div class='stat-val centre'>{{ability.value}}</div>
+      {{/if}}
+
+      {{#if ../isLocked}}
+        <div class='stat-val centre'>{{ability.age}}</div>
+        <div class='stat-val centre'>{{ability.xp}}</div>
+      {{else}}
+        <div class='stat-val centre'>
+          <input class="stat-val" name='system.abilities.{{key}}.age' type='number' value='{{ability.age}}'/>
+        </div>
+        <div class='stat-val centre'>
+          <input class="stat-val" name='system.abilities.{{key}}.xp' type='number' value='{{ability.xp}}'/>
+        </div>
       {{/if}}
       <div class='stat-val centre terIcon'>{{ability.effects}}</div>
       <div class='stat-val centre terIcon'>{{ability.total}}</div>
+      {{#if ../isLocked}}
+        <div class='stat-val centre terIcon'>{{ability.formula}}</div>
+        <div class='stat-val centre terIcon'>{{ability.min}}</div>
+        <div class='stat-val centre terIcon'>/</div>
+        <div class='stat-val centre terIcon'>{{ability.max}}</div>
+      {{else}}
+        {{#if ../hasSpecies}}
+          <div class='stat-val centre terIcon'>{{ability.formula}}</div>
+          <div class='stat-val centre terIcon'>{{ability.min}}</div>
+          <div class='stat-val centre terIcon'>/</div>
+          <div class='stat-val centre terIcon'>{{ability.max}}</div>
+        {{else}}
+          <div class='stat-val centre'>
+             <input class="stat-val" name='system.abilities.{{key}}.formula' type='text' value='{{ability.formula}}'/>
+          </div>
+          <div class='stat-val centre terIcon'>
+             <input class="stat-val" name='system.abilities.{{key}}.min' type='number' value='{{ability.min}}'/>
+          </div>
+          <div class='stat-val centre terIcon'>/</div>
+          <div class='stat-val centre terIcon'>
+             <input class="stat-val" name='system.abilities.{{key}}.max' type='number' value='{{ability.max}}'/>
+          </div>
+        {{/if}}
+      {{/if}}
     </li>
     {{/each}}
     <br>
+
+    {{!-- Reputation, Status --}}
+    <li class='gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} statsgrid'>
+      <div class='left'></div>
+      <div class='centre'>{{localize 'AOV.base'}}</div>
+      <div class='centre' title="{{localize 'AOV.history'}}">{{localize 'AOV.historyAbbr'}}</div>
+      <div class='centre'>{{localize 'AOV.exp'}}</div>
+      <div class='centre'>{{localize 'AOV.effects'}}</div>
+      <div class='centre'>{{localize 'AOV.total'}}</div>
+    </li>
+
+
     <li class='statsgrid'>
-      <div class="stat-val left rollable new-row">{{localize 'AOV.reput'}}</div>
-      {{#if ../isLocked}}
-      <div class='stat-val centre'>{{system.reputation.base}}</div>
-      <div></div>
-      <div class='stat-val centre'>{{system.reputation.xp}}</div>
-      {{else}}
+      <div class="stat-val bold left new-row">{{localize 'AOV.reput'}}</div>
+      {{#if allowEdit}}
       <div class='stat-val centre'>
         <input class="stat-input" name='system.reputation.base' type='number' value='{{system.reputation.base}}'/>
       </div>
-      <div></div>
+      <div class='stat-val centre'>
+        <input class="stat-input" name='system.reputation.history' type='number' value='{{system.reputation.history}}'/>
+      </div>
       <div class='stat-val centre'>
         <input class="stat-input" name='system.reputation.xp' type='number' value='{{system.reputation.xp}}'/>
       </div>
+      {{else}}
+        <div class='stat-val centre'>{{system.reputation.base}}</div>
+        <div class='stat-val centre'>{{system.reputation.history}}</div>
+        {{#if isLocked}}
+          <div class='stat-val centre'>{{system.reputation.xp}}</div>
+        {{else}}
+          <div class='stat-val centre'>
+            <input class="stat-input" name='system.reputation.xp' type='number' value='{{system.reputation.xp}}'/>
+          </div>
+        {{/if}}
       {{/if}}
       <div class='stat-val centre terIcon'>{{system.reputation.effects}}</div>
       <div class='stat-val centre terIcon'>{{system.reputation.total}}</div>
     </li>
+
     <li class='statsgrid'>
-      <div class="stat-val left rollable new-row">{{localize 'AOV.status'}}</div>
-      {{#if ../isLocked}}
-      <div class='stat-val centre'>{{system.status.base}}</div>
-      <div></div>
-      <div class='stat-val centre'>{{system.status.xp}}</div>
+      <div class="stat-val bold left new-row">{{localize 'AOV.status'}}</div>
+      {{#if allowEdit}}
+        <div class='stat-val centre'>
+          <input class="stat-input" name='system.status.base' type='number' value='{{system.status.base}}'/>
+        </div>
+        <div></div>
+        <div class='stat-val centre'>
+          <input class="stat-input" name='system.status.xp' type='text' value='{{system.status.xp}}'/>
+        </div>
       {{else}}
-      <div class='stat-val centre'>
-        <input class="stat-input" name='system.status.base' type='number' value='{{system.status.base}}'/>
-      </div>
-      <div></div>
-      <div class='stat-val centre'>
-        <input class="stat-input" name='system.status.xp' type='text' value='{{system.status.xp}}'/>
-      </div>
+        <div class='stat-val centre'>{{system.status.base}}</div>
+        <div></div>
+        {{#if isLocked}}
+          <div class='stat-val centre'>{{system.status.xp}}</div>
+        {{else}}
+          <div class='stat-val centre'>
+            <input class="stat-input" name='system.status.xp' type='text' value='{{system.status.xp}}'/>
+          </div>
+        {{/if}}
       {{/if}}
       <div class='stat-val centre terIcon'>{{system.status.effects}}</div>
       <div class='stat-val centre terIcon'>{{system.status.total}}</div>
     </li>
+
+    <br>
+
+    {{#if hasModule}}
+    {{!-- Species, Homeland --}}
+    <li class="classList" data-item-id='{{system.speciesID}}' data-document-class='Item'>
+      <div class="stat-val bold {{#if isCreate}}creation{{/if}}">{{localize 'TYPES.Item.species'}}</div>
+      {{#if hasSpecies}}
+        <div class="stat-val terIcon rollable" data-action='viewDoc'>{{system.speciesName}}
+          {{#if isCreate}}
+            <a class="secIcon" style="padding-left: 10px;" data-action="resetSpecies" title="{{ localize 'AOV.resetSpecies'}}"><i class="far fa-times-circle"></i></a>
+          {{/if}}
+        </div>
+      {{else}}
+        {{#if isLocked}}
+          <div class="stat-val ">{{system.species}}</div>
+        {{else}}
+          <div class="stat-val"><input class="stat-input" style="text-align: left;" name="system.species" type="text" value="{{system.species}}"/></div>
+        {{/if}}
+      {{/if}}
+    </li>
+
+    <li class="classList" data-item-id='{{system.homeID}}' data-document-class='Item'>
+      <div class="stat-val bold {{#if isCreate}}creation{{/if}}">{{localize 'TYPES.Item.homeland'}}</div>
+      {{#if hasHome}}
+        <div class="stat-val terIcon rollable" data-action='viewDoc'>{{system.homeName}}
+          {{#if isCreate}}
+            <a class="secIcon" style="padding-left: 10px;" data-action="resetHomeland" title="{{ localize 'AOV.resetHomeland'}}"><i class="far fa-times-circle"></i></a>
+          {{/if}}
+        </div>
+      {{else}}
+        {{#if isLocked}}
+          <div class="stat-val ">{{system.home}}</div>
+        {{else}}
+          <div class="stat-val"><input class="stat-input" style="text-align: left;" name="system.home" type="text" value="{{system.home}}"/></div>
+        {{/if}}
+      {{/if}}
+    </li>
+    {{/if}}
+
+    {{!-- Vaðmál --}}
     <li class='statsgrid'>
-      <div class="stat-val left rollable new-row">{{localize 'AOV.vadmal'}}</div>
+      <div class="stat-val bold left new-row">{{localize 'AOV.vadmal'}}</div>
       <div class='stat-val centre'>
         <input class="stat-input" name='system.vadmal' type='number' value='{{system.vadmal}}'/>
       </div>
     </li>
-
-
   </ol>
 
   <br>
 
+  {{!-- Character Creation Options --}}
+  {{#if isCreate}}
+    <div class="effects-grid gear-header creation">
+       <div style="grid-column: 1 / 4;">{{ localize 'AOV.charCreate' }}</div>
+     </div>
+    <div class="statsgrid">
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3; padding-top:3px;">{{localize 'AOV.characteristics'}}</div>
+          {{#if useRandom}}
+            <div class="stat-val rollable centre">
+              <a class="icon20 secIcon" data-action="rollStats" data-type="random" title="{{ localize 'AOV.rollRandom'}}">
+                <i class="fas fa-dice"></i>
+              </a>
+            </div>
+          {{/if}}
+          {{#if useAssign}}
+            <div class="stat-val rollable centre">
+              <a class="icon20 secIcon" data-action="rollStats" data-type="assign" title="{{ localize 'AOV.assignDice'}}">
+                <i class="fas fa-dice-d6"></i>
+              </a>
+            </div>
+          {{/if}}
+          {{#if usePoints}}
+            <div class="stat-val rollable centre">
+              <a class="icon20 secIcon" data-action="rollStats" data-type="points" title="{{ localize 'AOV.usePoints'}}">
+                <i class="fas fa-pencil"></i>
+              </a>
+            </div>
+          {{/if}}
+
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.history'}}</div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 secIcon"  data-action="history" title="{{ localize 'AOV.historyHint'}}"><i class="fas fa-scroll-old"></i></a>
+        </div>
+        <div></div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 priIcon fade"  data-action="resethistory" title="{{ localize 'AOV.historyresetHint'}}"><i class="fas fa-broom-wide"></i></a>
+        </div>
+
+
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.personalSkills'}}</div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 secIcon"  data-action="persSkills" title="{{ localize 'AOV.personalSkillsHint'}}"><i class="far fa-list-check"></i></a>
+        </div>
+
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.devotions'}}</div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 secIcon"  data-action="devotions" title="{{ localize 'AOV.devotionsHint'}}"><i class="fas fa-user-beard-bolt"></i></a>
+        </div>
+
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.family'}}</div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 secIcon"  data-action="family" title="{{ localize 'AOV.familyHint'}}"><i class="fas fa-family"></i></a>
+        </div>
+
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'TYPES.Actor.farm'}}</div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 secIcon"  data-action="farm" title="{{ localize 'AOV.farmHint'}}"><i class="fas fa-cow"></i></a>
+        </div>
+
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.weapons'}}</div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 secIcon"  data-action="weapons" title="{{ localize 'AOV.weaponsHint'}}"><i class="fas fa-swords"></i></a>
+        </div>
+
+        <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.distFeatures'}}</div>
+        <div class="stat-val rollable centre">
+            <a class="icon20 secIcon"  data-action="features" title="{{ localize 'AOV.distFeatures'}}"><i class="fas fa-user-pen"></i></a>
+        </div>
+
+    </div>
+
+    <br>
+  {{/if}}
+
+ {{!-- Character Creation Options --}}
+  {{#if isDevelop}}
+    <div class="effects-grid gear-header creation">
+      <div style="grid-column: 1 / 4;">{{ localize 'AOV.devPhase' }}</div>
+    </div>
+    <div class="statsgrid">
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.experience'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 secIcon"  data-action="experience" title="{{ localize 'AOV.experienceHint'}}"><i class="fas fa-dice-three"></i></a>
+      </div>
+    </div>
+    <br>
+  {{/if}}
+
+  {{!-- Active Effects --}}
   <ol class="gear-list">
-    <div class="effects-grid gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}}">
+    <div class="effects-grid gear-header {{#if singleColour}}primBackCol{{else}}terBackCol{{/if}}">
       <div class="diff-label left">{{localize 'AOV.sourceItem'}}</div>
       <div class="diff-label centre">{{localize 'AOV.effect'}}</div>
       <div class="diff-label centre">{{localize 'AOV.amount'}}</div>

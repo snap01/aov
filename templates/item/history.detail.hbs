@@ -1,0 +1,121 @@
+<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
+  <br>
+  <div class="gear-detail-grid">
+    <div class="new-row bold" >{{localize 'AOV.year'}}</div>
+    {{#if canEdit}}
+      <div class="centre"><input class="gear-input centre" name='system.year' type='number' value='{{item.system.year}}'/></div>
+    {{else}}
+      <div class="centre">{{system.year}}</div>
+    {{/if}}
+
+    <div class="new-row bold" >{{localize 'AOV.reputBonus'}}</div>
+    {{#if canEdit}}
+      <div class="centre"><input class="gear-input centre" name='system.reputation' type='text' value='{{item.system.reputation}}'/></div>
+    {{else}}
+      <div class="centre">{{system.reputation}}</div>
+    {{/if}}
+
+    <div class="new-row bold" title="{{localize 'AOV.diedHint'}}">{{localize 'AOV.died'}}</div>
+    <div class="centre" {{#if canEdit}} data-action="itemToggle"{{/if}} data-property="dies">
+      <a class="icon16">
+        <i class="fa-regular {{#if system.dies}}fa-square-check{{else}}fa-square{{/if}}"></i>
+      </a>
+    </div>
+
+  </div>
+  <br>
+
+  {{!-- Selected Skills --}}
+  <div class="bold">{{ localize "AOV.skills"}}</div>
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}}" data-drag="true">
+    <ol class="item-list">
+      {{#unless hasSkills}}
+        <div>{{localize 'AOV.dropHere' itemType=(localize "TYPES.Item.skill")}}</div>
+      {{/unless}}
+      {{#each skills as |item|}}
+        <li class="item flexrow" data-item-id="{{item.uuid}}" data-cid="{{item.cid}}">
+          <div class="item-name flexrow">
+            <div class="item-view font14" title="{{item.cid}}">{{item.name}} ({{#unless (lt item.bonus 0)}}+{{/unless}}{{item.bonus}}%)
+            </div>
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" data-coll = "skills" title="{{localize 'AOV.deleteDoc' type=(localize "TYPES.Item.skill")}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+  <br>
+
+ {{!-- Selected Passions --}}
+  <div class="bold">{{ localize "AOV.passions"}}</div>
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} passions" data-drag="true">
+    <ol class="item-list">
+      {{#unless hasPassions}}
+        <div>{{localize 'AOV.dropHere' itemType=(localize "TYPES.Item.passion")}}</div>
+      {{/unless}}
+      {{#each passions as |item|}}
+        <li class="item flexrow" data-item-id="{{item.uuid}}" data-cid="{{item.cid}}">
+          <div class="item-name flexrow">
+            <div class="item-view font14" title="{{item.cid}}">{{item.name}} ({{item.bonus}})</div>
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" data-coll = "passions" title="{{localize 'AOV.deleteDoc' type=(localize "TYPES.Item.passion")}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+  <br>
+
+  {{!-- Selected Equipment --}}
+  <div class="bold">{{ localize "AOV.gear"}}</div>
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} equipment" data-drag="true">
+    <ol class="item-list">
+      {{#unless hasEquip}}
+        <div>{{localize 'AOV.dropHere' itemType=(localize "AOV.gear")}}</div>
+      {{/unless}}
+      {{#each equipment as |item|}}
+        <li class="item flexrow" data-item-id="{{item.uuid}}" data-cid="{{item.cid}}">
+          <div class="item-name flexrow">
+            <div class="item-view font14" title="{{item.cid}}">{{item.name}}</div>
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" data-coll = "equipment" title="{{localize 'AOV.deleteDoc' type=(localize "AOV.gear")}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+  <br>
+
+  {{!-- History Tables --}}
+  <div class="bold">{{ localize "AOV.familyHistory"}}</div>
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}} historyToday" data-drag="true">
+    <ol class="item-list">
+      {{#unless hasTables}}
+        <div>{{localize 'AOV.dropHere' itemType=(localize "AOV.historyTable")}}</div>
+      {{/unless}}
+      {{#each historyTables as |item|}}
+        <li class="item history-item" data-item-id="{{item.uuid}}" data-cid="{{item.cid}}">
+          <div class="item-name flexrow">
+            <div class="item-view font14" title="{{item.cid}}">{{item.name}} ({{item.label}})</div>
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" data-coll = "historyToday" title="{{localize 'AOV.deleteDoc' type=(localize "AOV.historyTable")}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+  <br>
+
+</section>

@@ -1,3 +1,12 @@
+## 13.8
+-  Devotions now have the option to add a skill to them so that the relevant worship skill is added/set during character creation or if devotion added to character sheet
+-  Fixed an issue with current HP calculation
+-  Family members now have a dependents flag - do they count towards Skyr consumption
+-  Added Character Creation game settings that set options to roll stats and whether gender is binary (selected) or free text.
+-  Farms now have individual data points for sheep, horses and cattle rather than just one text box (it is now on the GM tab and will be removed in due course)
+-  An additional GM Tool added  - applies natural healing to all characters (even if player not logged on)
+-  ENC Penalties are calculated (check tooltip on ENC and MOV) and penalties are applied automatically to MOV and relevant skill rolls
+
 ## 13.7
 -  Fixed an issue where dice rolls weren't matching results on opposed/resistance/augment cards
 -  Critical damage now causes maximum "special damage" + rolled damage bonus

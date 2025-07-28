@@ -14,6 +14,20 @@
     <div class="new-row"></div>
     <br>
 
+    {{#if (eq item.system.category 'zzz')}}
+      <div class="new-row bold">{{localize 'AOV.picks'}}</div>
+      {{#if canEdit}}
+        <div class="centre"><input class="gear-input centre" name='system.picks' type='number' value='{{item.system.picks}}'/></div>
+      {{else}}
+        <div class="gear-input centre">{{system.picks}}</div>
+      {{/if}}
+      <div class="new-row"></div>
+      <br>
+    {{/if}}
+
+
+
+
     {{#if (eq item.system.category 'cbt')}}
       <div class="new-row bold">{{localize 'AOV.weaponTypeCat'}}</div>
       {{#if canEdit}}
@@ -42,105 +56,138 @@
 
 
 
-
-    <div class="new-row bold">{{localize 'AOV.baseScoreOption'}}</div>
-    {{#if canEdit}}
-      <div class="" >
-        <select class="gear-input" data-handle-change name="system.baseVal">
-          {{selectOptions baseSkillOptions selected=item.system.baseVal}}
-        </select>
-      </div>
-    {{else}}
-      <div class="gear-input centre">{{baseSkillName}}</div>
-    {{/if}}
-    <div class="new-row"></div>
-    <br>
-
-    <div class="new-row bold" title="{{localize 'AOV.commonSkillHint'}}">{{localize 'AOV.commonSkill'}}</div>
-    <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="common">
-      <a class="icon16">
-        <i class="fa-regular {{#if system.common}}fa-square-check{{else}}fa-square{{/if}}"></i>
-      </a>
-    </div>
-
-    <div class="new-row"></div>
-    <br>
-    <div class="new-row bold" title="{{localize 'AOV.specHint'}}">{{localize 'AOV.spec'}}</div>
-    <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="specSkill"><a class="icon16">
-      {{#if system.specSkill}}
-        <i class="fa-regular fa-square-check"></i></a></div>
-        <div class="new-row">{{localize 'AOV.specialisation'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.specialisation' type='text' value='{{item.system.specialisation}}'/></div>
-
+    {{#unless (eq item.system.category 'zzz')}}
+      <div class="new-row bold">{{localize 'AOV.baseScoreOption'}}</div>
+      {{#if canEdit}}
+        <div class="" >
+          <select class="gear-input" data-handle-change name="system.baseVal">
+            {{selectOptions baseSkillOptions selected=item.system.baseVal}}
+          </select>
+        </div>
       {{else}}
-        <i class="fa-regular fa-square"></i></a></div>
+        <div class="gear-input centre">{{baseSkillName}}</div>
       {{/if}}
-
-
-    <div class="new-row"></div>
-    <br>
-
-    <div class="new-row bold" title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
-    <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="noXP"><a class="icon16">
-      {{#if system.noXP}}
-        <i class="fa-regular fa-square-check"></i>
-      {{else}}
-        <i class="fa-regular fa-square"></i>
-      {{/if}}
-      </a>
-    </div>
-    <div class="new-row"></div>
-    <br>
-    <div class="new-row bold">{{localize 'AOV.baseScore'}}</div>
-    {{#if canEdit}}
-      <div class="centre"><input class="gear-input centre" name='system.base' type='number' value='{{item.system.base}}'/></div>
-    {{else}}
-      <div class="centre">{{system.base}}</div>
-    {{/if}}
-    {{#if hasOwner}}
-      {{#if isChar}}
-        <div class="new-row bold">{{localize 'AOV.experience'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.xp' type='number' value='{{item.system.xp}}'/></div>
-        <div class="new-row bold">{{localize 'AOV.homeland'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.home' type='number' value='{{item.system.home}}'/></div>
-        <div class="new-row bold">{{localize 'AOV.personal'}}</div>
-        <div class="centre"><input class="gear-input centre" name='system.pers' type='number' value='{{item.system.pers}}'/></div>
-        <div class="new-row bold">{{localize 'AOV.effects'}}</div>
-        <div class="centre terIcon">{{system.effects}}</div>
-        <div class="new-row bold">{{localize 'AOV.catBonus'}}</div>
-        <div class="centre terIcon">{{system.catBonus}}</div>
-      {{/if}}
-      <div class="new-row bold">{{localize 'AOV.total'}}</div>
-      <div class="centre">{{system.total}}</div>
       <div class="new-row"></div>
       <br>
 
-      {{#if isSeidur}}
-        <div class="new-row bold">{{localize 'AOV.realm.label'}}</div>
-        {{#if canEdit}}
-          <div class="" >
-            <select class="gear-input" data-handle-change name="system.realm">
-              {{selectOptions realmList selected=item.system.realm}}
-            </select>
-          </div>
+      <div class="new-row bold" title="{{localize 'AOV.commonSkillHint'}}">{{localize 'AOV.commonSkill'}}</div>
+      <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="common">
+        <a class="icon16">
+          <i class="fa-regular {{#if system.common}}fa-square-check{{else}}fa-square{{/if}}"></i>
+        </a>
+      </div>
+
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row bold" title="{{localize 'AOV.specHint'}}">{{localize 'AOV.spec'}}</div>
+      <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="specSkill"><a class="icon16">
+        {{#if system.specSkill}}
+          <i class="fa-regular fa-square-check"></i></a></div>
+          <div class="new-row">{{localize 'AOV.specialisation'}}</div>
+          <div class="centre"><input class="gear-input centre" name='system.specialisation' type='text' value='{{item.system.specialisation}}'/></div>
+
         {{else}}
-          <div class="gear-input centre">{{realmName}}</div>
+          <i class="fa-regular fa-square"></i></a></div>
         {{/if}}
+
+
+      <div class="new-row"></div>
+      <br>
+
+      <div class="new-row bold" title="{{localize 'AOV.noXPHint'}}">{{localize 'AOV.noXP'}}</div>
+      <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="noXP"><a class="icon16">
+        {{#if system.noXP}}
+          <i class="fa-regular fa-square-check"></i>
+        {{else}}
+          <i class="fa-regular fa-square"></i>
+        {{/if}}
+        </a>
+      </div>
+      <div class="new-row"></div>
+      <br>
+      <div class="new-row bold">{{localize 'AOV.baseScore'}}</div>
+      {{#if canEdit}}
+        <div class="centre"><input class="gear-input centre" name='system.base' type='number' value='{{item.system.base}}'/></div>
+      {{else}}
+        <div class="centre">{{system.base}}</div>
+      {{/if}}
+      {{#if hasOwner}}
+        {{#if isChar}}
+          <div class="new-row bold">{{localize 'TYPES.Item.homeland'}}</div>
+          <div class="centre"><input class="gear-input centre" name='system.home' type='number' value='{{item.system.home}}'/></div>
+          <div class="new-row bold">{{localize 'TYPES.Item.history'}}</div>
+          <div class="centre"><input class="gear-input centre" name='system.history' type='number' value='{{item.system.history}}'/></div>
+          <div class="new-row bold">{{localize 'AOV.personal'}}</div>
+          <div class="centre"><input class="gear-input centre" name='system.pers' type='number' value='{{item.system.pers}}'/></div>
+          <div class="new-row bold">{{localize 'TYPES.Item.devotion'}}</div>
+          <div class="centre"><input class="gear-input centre" name='system.dev' type='number' value='{{item.system.dev}}'/></div>
+          <div class="new-row bold">{{localize 'AOV.experience'}}</div>
+          <div class="centre"><input class="gear-input centre" name='system.xp' type='number' value='{{item.system.xp}}'/></div>
+          <div class="new-row bold">{{localize 'AOV.effects'}}</div>
+          <div class="centre terIcon">{{system.effects}}</div>
+          <div class="new-row bold">{{localize 'AOV.catBonus'}}</div>
+          <div class="centre terIcon">{{system.catBonus}}</div>
+        {{/if}}
+        <div class="new-row bold">{{localize 'AOV.total'}}</div>
+        <div class="centre">{{system.total}}</div>
         <div class="new-row"></div>
         <br>
-      {{/if}}
 
-      {{#unless system.noXP}}
-        <div class="new-row bold" title="{{localize 'AOV.xpCheckHint'}}">{{localize 'AOV.xpCheck'}}</div>
-        <div class="centre" data-action="itemToggle" data-property="xpCheck"><a class="icon16">
-          {{#if system.xpCheck}}
-            <i class="fa-regular fa-square-check"></i>
+        {{#if isSeidur}}
+          <div class="new-row bold">{{localize 'AOV.realm.label'}}</div>
+          {{#if canEdit}}
+            <div class="" >
+              <select class="gear-input" data-handle-change name="system.realm">
+                {{selectOptions realmList selected=item.system.realm}}
+              </select>
+            </div>
           {{else}}
-            <i class="fa-regular fa-square"></i>
+            <div class="gear-input centre">{{realmName}}</div>
           {{/if}}
-        </a></div>
-      {{/unless}}
+          <div class="new-row"></div>
+          <br>
+        {{/if}}
 
-    {{/if}}
+        {{#unless system.noXP}}
+          <div class="new-row bold" title="{{localize 'AOV.xpCheckHint'}}">{{localize 'AOV.xpCheck'}}</div>
+          <div class="centre" data-action="itemToggle" data-property="xpCheck"><a class="icon16">
+            {{#if system.xpCheck}}
+              <i class="fa-regular fa-square-check"></i>
+            {{else}}
+              <i class="fa-regular fa-square"></i>
+            {{/if}}
+          </a></div>
+        {{/unless}}
+      {{/if}}
+    {{/unless}}
   </div>
+
+
+
+    {{#if (eq item.system.category 'zzz')}}
+      {{!-- Selected Skills --}}
+      <div class="bold">{{ localize "AOV.skillOptions"}}</div>
+      <div class="horizontalboxed {{#if isGM}} droppable {{/if}}" data-drag="true">
+        <ol class="item-list">
+          {{#unless hasSkills}}
+            <div>{{localize 'AOV.dropHere' itemType=(localize "TYPES.Item.skill")}}</div>
+          {{/unless}}
+          {{#each skills as |item|}}
+            <li class="item flexrow" data-item-id="{{item.uuid}}" data-cid="{{item.cid}}">
+              <div class="item-name flexrow">
+                <div class="item-view font14" title="{{item.cid}}">{{item.name}}</div>
+              </div>
+              <div class="item-controls">
+                {{#if ../isGM}}
+                  <a class="item-control item-delete" title="{{localize 'AOV.deleteDoc' type=(localize "TYPES.Item.skill")}}"><i class="fas fa-trash"></i></a>
+                {{/if}}
+              </div>
+            </li>
+          {{/each}}
+        </ol>
+      </div>
+      <br>
+    {{/if}}
+
+
 </section>

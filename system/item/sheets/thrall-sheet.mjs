@@ -1,4 +1,5 @@
 import { AoVItemSheet } from "./base-item-sheet.mjs"
+import { AOVSelectLists } from "../../apps/select-lists.mjs"
 
 export class AoVThrallSheet extends AoVItemSheet {
   constructor(options = {}) {
@@ -24,7 +25,7 @@ export class AoVThrallSheet extends AoVItemSheet {
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-
+    context.genderOptions = await AOVSelectLists.genderOptions()
     return context
   }
 
@@ -98,9 +99,9 @@ export class AoVThrallSheet extends AoVItemSheet {
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     //Only show GM tab if you are GM
-    options.parts = ['header', 'tabs', 'details','description'];
+    options.parts = ['header', 'tabs', 'details', 'description'];
     if (game.user.isGM) {
-        options.parts.push('gmTab');
+      options.parts.push('gmTab');
     }
   }
 

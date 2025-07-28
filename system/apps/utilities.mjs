@@ -115,34 +115,64 @@ export class AOVUtilities {
     game.socket.emit('system.aov', {
       type: 'updateChar'
     })
-    AOVUtilities.updateCharSheets()
+    AOVUtilities.updateCharSheets(true)
   }
 
-  static async toggleXPGain (toggle) {
-    let state = await game.settings.get('aov', 'xpEnabled')
-    await game.settings.set('aov', 'xpEnabled', !state)
+  static async toggleCreate (toggle) {
+    let state = await game.settings.get('aov', 'createEnabled')
+    await game.settings.set('aov', 'createEnabled', !state)
     ui.notifications.info(
       state
-        ? game.i18n.localize('AOV.xpGainDisabled')
-        : game.i18n.localize('AOV.xpGainEnabled')
+        ? game.i18n.localize('AOV.createDisabled')
+        : game.i18n.localize('AOV.createEnabled')
     )
+    game.socket.emit('system.aov', {
+      type: 'updateChar'
+    })
+    AOVUtilities.updateCharSheets(true)
   }
 
-    static updateCharSheets () {
+    static updateCharSheets (lock) {
     if (game.user.isGM) {
       for (const a of game.actors.contents) {
         if (a?.type === 'character' && a?.sheet && a?.sheet?.rendered) {
-          a.update({ 'system.flags.locked': true })
+          if (lock) {
+            a.update({ 'system.flags.locked': true })
+          }
           a.render(false)
         }
       }
     } else {
       for (const a of game.actors.contents) {
         if (a.isOwner) {
-          a.update({ 'system.flags.locked': true })
+          if (lock) {
+            a.update({ 'system.flags.locked': true })
+          }
           a.render(false)
         }
       }
     }
   }
+
+  static async getDataFromDropEvent(event, entityType = 'Item') {
+    if (event.originalEvent) return []
+    try {
+      const dataList = JSON.parse(event.dataTransfer.getData('text/plain'))
+      if (dataList.type === 'Folder' && dataList.documentName === entityType) {
+        const folder = await fromUuid(dataList.uuid)
+        if (!folder) return []
+        return folder.contents
+      } else if (dataList.type === entityType) {
+        const item = await fromUuid(dataList.uuid)
+        if (!item) return []
+        return [item]
+      } else {
+        return []
+      }
+    } catch (err) {
+      return []
+    }
+  }
+
+
 }

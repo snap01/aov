@@ -23,6 +23,7 @@ export class AOVSelectLists {
       "per": game.i18n.localize("AOV.skillCat.per"),
       "spi": game.i18n.localize("AOV.skillCat.spi"),
       "ste": game.i18n.localize("AOV.skillCat.ste"),
+      "zzz": game.i18n.localize("AOV.skillCat.zzz"),
     };
     return options;
   }
@@ -88,8 +89,9 @@ export class AOVSelectLists {
   }
 
   static async preLoadCategoriesCategories() {
+    //Preload best Weapon Categories, Passions, Skills and Weapons - used in Character Creation
     return new Promise(async (resolve, reject) => {
-      resolve(await game.aov.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i\.(weaponcat|passion|skill)\.'), type: 'i', showLoading: false }))
+      resolve(await game.aov.cid.fromCIDRegexBest({ cidRegExp: new RegExp('^i\.(weaponcat|passion|skill|weapon|devotion)\.'), type: 'i', showLoading: false }))
     })
   }
 
@@ -169,7 +171,7 @@ export class AOVSelectLists {
       "i": game.i18n.localize("AOV.DamType.i"),
       "s": game.i18n.localize("AOV.DamType.s"),
     };
-    return options;    
+    return options;
   }
 
   //Effect Options
@@ -321,7 +323,16 @@ export class AOVSelectLists {
       "h": game.i18n.localize("AOV.DamMod.h"),
       "n": game.i18n.localize("AOV.DamMod.n"),
     };
-    return options;    
+    return options;
+  }
+
+  //Select Gender
+  static async genderOptions() {
+    let options = {
+      "male": game.i18n.localize("AOV.male"),
+      "female": game.i18n.localize("AOV.female"),
+    };
+    return options;
   }
 
 }

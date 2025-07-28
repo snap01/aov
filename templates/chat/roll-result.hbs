@@ -16,12 +16,12 @@
                   {{#if (eq c.rollType 'DM')}}
                     <span class="tag">{{c.label}} ({{c.rollFormula}})</span>
                   {{else}}
-                    <span class="tag">{{c.label}} 
-                      {{#if (eq ../cardType 'FI')}}    
+                    <span class="tag">{{c.label}}
+                      {{#if (eq ../cardType 'FI')}}
                         [{{c.rawScore}} v {{c.oppRes}}]
-                      {{/if}}  
+                      {{/if}}
                     ({{c.targetScore}}) </span>
-                  {{/if}}  
+                  {{/if}}
                 </div>
               </div>
 
@@ -32,31 +32,31 @@
                 {{#if (eq c.resultLevel 4)}}
                   <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
                 {{/if}}
-              
+
                 {{#if (eq c.resultLevel 3)}}
                   <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
                 {{/if}}
-          
+
                 {{#if (eq c.resultLevel 2)}}
                   <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i>
                 {{/if}}
-              
+
                 {{#if (eq c.resultLevel 1)}}
                   <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-fail fas fa-skull"></i>
                 {{/if}}
-              
+
                 {{#if (eq c.resultLevel 0)}}
                   <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class=" result-fail fas fa-skull"></i><i class="result-fail fas fa-skull"></i>
-                {{/if}}     
-              {{/if}}  
+                {{/if}}
+              {{/if}}
             </span>
             </div>
           </li>
           <div class="actor-roll dice-tooltip">
             <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
               {{#if (eq c.rollType 'DM')}}
-                <div class="rollHidden">{{localize 'AOV.card.damType'}}: {{c.damTypeLabel}}</div>    
-                <div class="rollHidden">{{localize 'AOV.card.successLevel'}}: {{c.successLevelLabel}}</div>                              
+                <div class="rollHidden">{{localize 'AOV.card.damType'}}: {{c.damTypeLabel}}</div>
+                <div class="rollHidden">{{localize 'AOV.card.successLevel'}}: {{c.successLevelLabel}}</div>
               {{else}}
                 {{#if (eq rollType 'CH')}}
                   {{#if (eq ../cardType 'NO')}}
@@ -64,7 +64,7 @@
                   {{/if}}
                   {{#if (eq ../cardType 'FI')}}
                     <div class="rollHidden">{{localize 'AOV.card.oppRes'}}: {{c.oppRes}}</div>
-                  {{/if}}                  
+                  {{/if}}
                 {{/if}}
                 <div class="rollHidden">{{localize 'AOV.card.rawScore'}}: {{c.rawScore}}</div>
                 <div class="rollHidden"> {{localize 'AOV.card.bonus'}}:
@@ -74,13 +74,14 @@
                     +{{c.flatMod}}
                   {{/if}}
                 </div>
+                <div class="rollHidden"> {{localize 'AOV.encPenalty'}}: {{c.encPenalty}}</div>
               {{/if}}
               <div class="rollHidden">{{localize 'AOV.card.diceRolled'}}: {{c.diceRolled}}</div>
               <div class="rollHidden bottom-line">{{localize 'AOV.card.diceRoll'}}: {{c.rollResult}}</div>
-            </div>  
-          </div>  
-        </div>  
+            </div>
+          </div>
+        </div>
       {{/each}}
     </ol>
   </div>
-</form>  
+</form>

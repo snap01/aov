@@ -10,7 +10,15 @@
     <div class="new-row"></div>
     <br>
     <div class="new-row bold">{{localize 'AOV.gender'}}</div>
-    <input class="gear-input" name='system.gender' type='text' value='{{item.system.gender}}'/>
+    {{#if isSelectGender}}
+      <div class="centre">
+        <select class="gear-input" data-handle-change name="system.gender">
+          {{selectOptions genderOptions selected=item.system.gender}}
+        </select>
+      </div>
+    {{else}}
+      <input class="gear-input" name='system.gender' type='text' value='{{item.system.gender}}'/>
+    {{/if}}
     <div class="new-row"></div>
     <br>
     <div class="new-row bold">{{localize 'AOV.relationship'}}</div>
@@ -19,6 +27,16 @@
     <br>
     <div class="new-row bold">{{localize 'AOV.spiritAn'}}</div>
     <input class="gear-input" name='system.spiritAn' type='text' value='{{item.system.spiritAn}}'/>
+    <div class="new-row"></div>
+    <br>
+    <div class="new-row bold">{{localize 'AOV.dependent'}}</div>
+          <div class="centre" data-action="itemToggle" data-property="depend"><a class="icon16">
+            {{#if system.depend}}
+              <i class="fa-regular fa-square-check"></i>
+            {{else}}
+              <i class="fa-regular fa-square"></i>
+            {{/if}}
+          </a></div>
     <div class="new-row"></div>
     <br>
 

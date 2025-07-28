@@ -10,7 +10,15 @@
     <div class="new-row"></div>
     <br>
     <div class="new-row bold">{{localize 'AOV.gender'}}</div>
-    <input class="gear-input" name='system.gender' type='text' value='{{item.system.gender}}'/>
+    {{#if isSelectGender}}
+      <div class="centre">
+        <select class="gear-input" data-handle-change name="system.gender">
+          {{selectOptions genderOptions selected=item.system.gender}}
+        </select>
+      </div>
+    {{else}}
+      <input class="gear-input" name='system.gender' type='text' value='{{item.system.gender}}'/>
+    {{/if}}
     <div class="new-row"></div>
     <br>
 

@@ -13,6 +13,7 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     });
     schema.reputation = new fields.SchemaField({
       base: new fields.NumberField({ ...requiredInteger, initial: 5 }),
+      history: new fields.NumberField({ ...requiredInteger, initial: 0 }),
       xp: new fields.NumberField({ ...requiredInteger, initial: 0 }),
       effects: new fields.NumberField({ ...requiredInteger, initial: 0 }),
     });
@@ -32,6 +33,10 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     schema.weaponCats = new fields.SchemaField({});  //Blank array to hold weapon category bonuses
     schema.farms = new fields.ArrayField(new fields.ObjectField()); // Holds an Array of Farm Actor UUIDs
     schema.vadmal = new fields.NumberField({ ...requiredInteger, initial: 0 });
+    schema.species = new fields.StringField({ required: true, blank: true, initial: game.i18n.localize('AOV.human')}); //Manual entered species name
+    schema.home = new fields.StringField({ required: true, blank: true, initial: game.i18n.localize('AOV.iceland')}); //Manual entered homeland name
+    schema.grandparents = new fields.BooleanField({ initial: false }); //Is your grandparent dead
+    schema.parents = new fields.BooleanField({ initial: false }); //Is your parent dead
 
 
     return schema

@@ -20,7 +20,7 @@ export class AoVPassionSheet extends AoVItemSheet {
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
-    context.system.total = Number(context.system.base ?? 0) + Number(context.system.family ?? 0) + Number(context.system.xp ?? 0);
+    context.system.total = Number(context.system.base ?? 0) + Number(context.system.home ?? 0) + Number(context.system.history ?? 0) + Number(context.system.family ?? 0) + Number(context.system.xp ?? 0);
 
     return context
   }

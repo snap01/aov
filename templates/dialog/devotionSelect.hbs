@@ -1,0 +1,38 @@
+<section class="aov devotion-select" id="skill-select-form">
+  <br>
+  <div class='bold'>
+    <label class="skill-opt-label">{{ localize 'AOV.selectionsMade' }}:</label>
+    <span class="centre count">0</span>
+    <span class="centre">/</span>
+    <span class="centre">{{picks}}</span>
+  </div>
+  <br>
+
+
+  <div class="gear-detail-grid">
+
+    <div class="new-row bold" style="margin-bottom:5px;">{{localize 'AOV.devotionBonus' bonus=70 }}</div>
+    <div class="">
+      <select class="gear-input selector option-1" data-adj=70 data-handle-change name="option1">
+        {{selectOptions selectOptions valueAttr="id" labelAttr="name"}}
+      </select>
+    </div>
+
+    <div class="new-row bold" style="margin-bottom:5px;">{{localize 'AOV.devotionBonus' bonus=20}}</div>
+    <div class="">
+      <select class="gear-input selector option-2" data-adj=20 data-handle-change name="option2">
+        {{selectOptions selectOptions valueAttr="id" labelAttr="name"}}
+      </select>
+    </div>
+
+    <div class="new-row bold" style="margin-bottom:5px;">{{localize 'AOV.devotionBonus' bonus=10}}</div>
+    <div class="">
+      <select class="gear-input selector option-3" data-adj=10 data-handle-change name="option3">
+        {{selectOptions selectOptions valueAttr="id" labelAttr="name"}}
+      </select>
+    </div>
+
+    </div>
+  <br>
+
+</section>

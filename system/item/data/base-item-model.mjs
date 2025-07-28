@@ -9,6 +9,7 @@ export default class AOVItemBaseModel extends AOVDataModel {
 
     schema.description = new fields.StringField({ required: true, blank: true });
     schema.gmNotes = new fields.StringField({ required: true, blank: true });
+    schema.source = new fields.StringField({ required: true, blank: true, initial: "" });  //Source of item
 
     return schema;
   }

@@ -1,0 +1,38 @@
+<section id="name-options-form">
+
+  <div class = "diff-label bold">{{ localize 'AOV.charNameSelect'}}:</div>      
+  <br>
+
+    {{#unless oneTable}}
+      <div class="flexrow">
+        <div style="flex:2;">{{localize "AOV.firstName"}}</div>   
+        <input style="flex:0.25;" type="radio" id="mainName" name="mainName" value="male" checked>
+        <label for="male">{{localize 'AOV.male' }}</label><br>
+        <input style="flex:0.25;" type="radio" id="mainName" name="mainName" value="female">
+        <label for="female">{{localize 'AOV.female' }}</label><br>  
+      </div>
+      <br>
+    {{/unless}}
+
+    {{#unless oneTable}}
+      <div class="flexrow">
+        <div style="flex:2;">{{localize "AOV.patrionicName"}}</div>   
+        <input style="flex:0.25;" type="radio" id="patrionicName" name="patrionicName" value="male" checked>
+        <label for="male">{{localize 'AOV.male' }}</label><br>
+        <input style="flex:0.25;" type="radio" id="patrionicName" name="patrionicName" value="female">
+        <label for="female">{{localize 'AOV.female' }}</label><br>
+      </div>
+      <br>
+    {{/unless}}
+
+    <div class="flexrow">
+      <div style="flex:2;">{{localize "AOV.patrionicSuffix"}}</div>   
+        <input style="flex:0.25;" type="radio" id="suffix" name="suffix" value="son" checked>
+        <label for="son">{{localize 'AOV.son' }}</label><br>
+        <input style="flex:0.25;" type="radio" id="suffix" name="suffix" value="dottir">
+        <label for="dottir">{{localize 'AOV.dottir' }}</label><br>
+    </div>
+    <br>
+
+
+  </section>

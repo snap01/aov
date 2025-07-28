@@ -7,7 +7,7 @@
       <div class='header-fields actorName-grid'>
         <div class="bold" >{{localize 'AOV.name'}}</div>
         <div class='document-name'><input class="stat-input" name='name' type='text' value='{{actor.name}}' /></div>
-        <div class="bold">{{localize 'AOV.ship.shipType'}}</div>
+        <div class="bold new-row">{{localize 'AOV.ship.shipType'}}</div>
         <div class='document-name'><input class="stat-input" name='system.shipType' type='text'
             value='{{actor.system.shipType}}' /></div>
       </div>
@@ -246,13 +246,13 @@
       {{/if}}
       <div class="left new-row bold">{{localize 'AOV.ship.quarter'}}</div>
         <div class="stat-input centre">{{quarter}}</div>
-      <div class="left bold">{{localize 'AOV.ship.cruise'}}</div>        
+      <div class="left bold">{{localize 'AOV.ship.cruise'}}</div>
       {{#if isLocked}}
         <div class="stat-input centre">{{actor.system.row.cruise}}</div>
       {{else}}
         <input class="stat-input centre" name='system.row.cruise' type='number'
           value='{{actor.system.row.cruise}}' />
-      {{/if}}    
+      {{/if}}
       <div class="left new-row bold">{{localize 'AOV.ship.half'}}</div>
         <div class="stat-input centre">{{half}}</div>
       <div class="left bold">{{localize 'AOV.ship.race'}}</div>
@@ -261,22 +261,22 @@
       {{else}}
         <input class="stat-input centre" name='system.row.race' type='number'
           value='{{actor.system.row.race}}' />
-      {{/if}}    
+      {{/if}}
       <div class="left new-row bold">{{localize 'AOV.ship.head'}}</div>
         <div class="stat-input centre">{{head}}</div>
       <div class="left bold">{{localize 'AOV.ship.crew'}}</div>
       {{#if isLocked}}
         <div class="stat-input centre">{{actor.system.row.crew}}</div>
-      {{else}}      
+      {{else}}
         <input class="stat-input centre" name='system.row.crew' type='number'
           value='{{actor.system.row.crew}}' />
-      {{/if}}    
-      <div class="left bold">{{localize 'AOV.windSpeed'}}</div>    
+      {{/if}}
+      <div class="left bold">{{localize 'AOV.windSpeed'}}</div>
         <div class="" style="grid-column: 2 / 5;">
           <select class="stat-input" data-handle-change name="system.wind">
             {{selectOptions windTypes selected=actor.system.wind}}
           </select>
-        </div>      
+        </div>
     </div>
 
     <div class="ship-seige">
@@ -301,5 +301,5 @@
   <br>
 
 
-  
+
 </header>

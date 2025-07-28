@@ -22,3 +22,6 @@ export { default as AOVRuneModel} from "../item/data/item-rune-model.mjs";
 export { default as AOVRunescriptModel} from "../item/data/item-runescript-model.mjs";
 export { default as AOVSeidurModel} from "../item/data/item-seidur-model.mjs";
 export { default as AOVNPCPowerModel} from "../item/data/item-npcpower-model.mjs";
+export { default as AOVSpeciesModel} from "../item/data/item-species-model.mjs";
+export { default as AOVHomelandModel} from "../item/data/item-homeland-model.mjs";
+export { default as AOVHistoryModel} from "../item/data/item-history-model.mjs";

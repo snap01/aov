@@ -1,0 +1,47 @@
+<section class='item tab details draggable {{tab.cssClass}}' data-group='primary' data-tab='details'>
+  <br>
+  <div class="species-abilities-grid">
+    <div class="ability-cell bold">{{localize 'AOV.charAbbr'}}</div>
+    <div class="ability-cell bold centre">{{localize 'AOV.dice'}}</div>
+    <div class="ability-cell bold centre">{{localize 'AOV.min'}}</div>
+    <div class="ability-cell bold centre">{{localize 'AOV.max'}}</div>
+
+    {{#each system.abilities as |ability key|}}
+        <div class="ability-cell">{{ability.label}} </div>
+      {{#if ../canEdit}}
+        <div class="ability-cell centre"><input class="stat-input" name='system.abilities.{{key}}.formula' type='text' value='{{ability.formula}}' /></div>
+        <div class="ability-cell centre"><input class="stat-input" name='system.abilities.{{key}}.min' type='number' value='{{ability.min}}' /></div>
+        <div class="ability-cell centre"><input class="stat-input" name='system.abilities.{{key}}.max' type='number' value='{{ability.max}}' /></div>
+      {{else}}
+        <div class="ability-cell centre">{{ability.formula}}</div>
+        <div class="ability-cell centre">{{ability.min}}</div>
+        <div class="ability-cell centre">{{ability.max}}</div>        
+      {{/if}}
+    {{/each}}  
+  </div>
+  <br>
+
+  {{!-- Selected Hit Locations --}}
+  <div class="bold">{{ localize "AOV.hitLocations"}}</div>
+  <div class="horizontalboxed {{#if isGM}} droppable {{/if}}" data-drag="true">
+    <ol class="item-list">
+      {{#unless hasLocs}}
+        <div>{{localize 'AOV.dropHere' itemType=(localize "TYPES.Item.hitloc")}}</div>
+      {{/unless}}  
+      {{#each hitLocs as |item|}}
+        <li class="item flexrow" data-item-id="{{item.uuid}}" data-cid="{{item.cid}}">
+          <div class="item-name flexrow">
+            <div class="item-view font14" title="{{item.cid}}">{{item.name}}</div>
+          </div>
+          <div class="item-controls">
+            {{#if ../isGM}}
+              <a class="item-control item-delete" title="{{localize 'AOV.deleteDoc' type=(localize "TYPES.Item.hitloc")}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  </div>
+  <br>
+
+</section>

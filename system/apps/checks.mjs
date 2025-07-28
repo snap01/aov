@@ -30,7 +30,7 @@ export class RollResult {
   static SPECIAL = 3
   static CRITICAL = 4;
 }
-    
+
 export class AOVCheck {
   //Start to prepare the config
   static async _trigger(options = {}) {
@@ -99,14 +99,15 @@ export class AOVCheck {
       oppRes: 0,
       targetAdj: 0,
       augAdj: 0,
+      encPenalty: 0,
       checkDodge: false,
       flatMod: options.flatMod ?? 0,
       rollFormula: options.rollFormula ?? "1D100",
       resultLevel: options.resultLevel ?? 0,
-      shiftKey: options.shiftKey ?? false,  
-      userID: game.user._id,                     
+      shiftKey: options.shiftKey ?? false,
+      userID: game.user._id,
     }
-      
+
     //Adjust config based on ROLL TYPE
     //
     let tempItem = ""
@@ -120,33 +121,39 @@ export class AOVCheck {
       case RollType.SKILL:
       case RollType.PASSION:
         tempItem = await particActor.items.get(config.skillId)
-        config.label = tempItem.name 
+        config.label = tempItem.name
         if (tempItem.system.total) {
-          config.rawScore = tempItem.system.total  
+          config.rawScore = tempItem.system.total
         } else {
           config.rawScore = (tempItem.system.base ?? 0) + (tempItem.system.xp ?? 0) + (tempItem.system.home ?? 0) + (tempItem.system.pers ?? 0) + (tempItem.system.effects ?? 0)
-          if (config.rawScore > 0) {  
+          if (config.rawScore > 0) {
             config.rawScore = config.rawScore + particActor.system[tempItem.system.category] ?? 0
           }
         }
         //Check for specific Skill Options
         let skillFlag = tempItem.flags.aov?.cidFlag?.id
-        
+
         //If Dodge skill check to see if there is an open Combat
-        if (skillFlag === 'i.skill.dodge') { 
+        if (skillFlag === 'i.skill.dodge') {
           let checkData={cardType: 'CO'}
           let open = await AOVCheck.checkNewMsg(checkData)
-          if (open) {          
+          if (open) {
             config.checkDodge = true
           } else if (options.cardType === CardType.COMBAT) {
             config.checkDodge = false
             options.cardType = 'NO'
           }
-        }  
+        }
+        //Check to see if ENC Penalty applies
+        if (tempItem.type === 'skill') {
+          if (['agi','man','ste','cbt'].includes(tempItem.system.category)) {
+            config.encPenalty = particActor.system.encPenalty
+          }
+        }
         break;
       case RollType.DAMAGE:
         tempItem = await particActor.items.get(config.skillId)
-        config.label = tempItem.name 
+        config.label = tempItem.name
         config.rollFormula = tempItem.system.damage
         config.damType = tempItem.system.damType
         config.damTypeLabel = tempItem.system.damTypeLabel
@@ -154,7 +161,7 @@ export class AOVCheck {
         config.db = particActor.system.dmgBonus
         //Adjust Damage Bonus for Weapon Type
         if (tempItem.system.damMod === "h") {
-          config.db = particActor.system.dmgBonus + "/2"  
+          config.db = particActor.system.dmgBonus + "/2"
         } else if (tempItem.system.damMod === "n") {
           config.db = "0"
         }
@@ -163,13 +170,14 @@ export class AOVCheck {
         tempItem = await particActor.items.get(config.skillId)
         config.label = tempItem.name
         config.rawScore = tempItem.system.total
+        config.encPenalty = particActor.system.encPenalty
         break;
       default:
         ui.notifications.error(
           game.i18n.format("AOV.ErrorMsg.rollInvalid", {type: options.rollType})
         );
-        return false;  
-    }  
+        return false;
+    }
     config.difficulty = "simple";
     config.diffLabel = game.i18n.localize("AOV.rolls.simple")
     config.targetScore = config.rawScore
@@ -177,7 +185,7 @@ export class AOVCheck {
     //Adjust config based on CARD TYPE
     let cardCheck = await AOVCheck.checkCardType(options.cardType,config)
     if (!cardCheck) {return false}
-    return config  
+    return config
   }
 
 
@@ -206,10 +214,10 @@ export class AOVCheck {
           if (usage.dodgeCombat === 'yes') {
             config.cardType = CardType.COMBAT
             await AOVCheck.checkCardType(config.cardType,config)
-          }  
+          }
         }
       }
-    }      
+    }
 
     //Where difficulty used
     if (config.difficulty !="") {
@@ -229,18 +237,18 @@ export class AOVCheck {
           break;
         case "impossible":
           config.targetScore = Math.ceil(config.rawScore /10);
-          break;                                        
-      } 
+          break;
+      }
     }
 
-    //Adjust target Score for check Bonus, reflexive Modifier and calculate critBonus where target score > 20 or <0
-    config.targetScore = config.targetScore + config.flatMod
+    //Adjust target Score for check Bonus and ENC Penalty
+    config.targetScore = config.targetScore + config.flatMod + config.encPenalty
 
 
     //Adjust Target for Fixed Resistance Roll
     if (config.cardType === CardType.FIXED) {
       config.targetScore = config.targetScore - (5*config.oppRes) + 50
-      config.targetScore = Math.max(Math.min(config.targetScore, 95),5)  
+      config.targetScore = Math.max(Math.min(config.targetScore, 95),5)
       config.rawScore = config.rawScore/5;
     }
 
@@ -260,21 +268,21 @@ export class AOVCheck {
       config.successLevel = 2
     }
 
-    //For Critical and Special Successes 
+    //For Critical and Special Successes
     if (["3","4"].includes(config.successLevel)) {
         switch (config.damType) {
           case "i":
             config.rollFormula = config.rollFormula + "+" + config.rollFormula
             break;
           case "s":
-            config.rollFormula = config.rollFormula + "+" + config.rollFormula            
+            config.rollFormula = config.rollFormula + "+" + config.rollFormula
             break;
           case "c":
-          case "h":            
+          case "h":
             if (!['+0','0'].includes(config.db)) {
               let damRoll = new Roll (config.db)
               await damRoll.evaluateSync({maximize: true})
-              config.db = config.db + "+" + damRoll.total     
+              config.db = config.db + "+" + damRoll.total
             }
             break;
         }
@@ -283,10 +291,10 @@ export class AOVCheck {
     if (["4"].includes(config.successLevel)) {
       let maxDamRoll = new Roll(config.rollFormula)
       await maxDamRoll.evaluateSync({maximize: true})
-      config.rollFormula = maxDamRoll.total 
-    }  
+      config.rollFormula = maxDamRoll.total
+    }
 
-    //If there is a damage bonus add it  
+    //If there is a damage bonus add it
     if (!['+0','0'].includes(config.db)) {
       config.rollFormula = config.rollFormula + config.db;
     }
@@ -295,7 +303,7 @@ export class AOVCheck {
     //Make the Dice Roll - unless we are told to wait
     if (!config.wait) {
       await AOVCheck.makeRoll(config);
-    }  
+    }
 
     //Format the data so it's in the same format as will be held in the Chat Message when saved
     let chatMsgData = {
@@ -324,8 +332,9 @@ export class AOVCheck {
           diffLabel: game.i18n.localize("AOV.rolls." + config.difficulty),
           rollFormula: config.rollFormula,
           flatMod: config.flatMod,
+          encPenalty: config.encPenalty,
           targetAdj: config.targetAdj,
-          rollResult: config.rollResult,          
+          rollResult: config.rollResult,
           rollVal: config.rollVal,
           roll: config.roll,
           oppRes: config.oppRes,
@@ -411,7 +420,7 @@ export class AOVCheck {
     if (config.rollResult <= critical) {
       resultLevel = RollResult.CRITICAL;
     } else if (config.rollResult <= special) {
-      resultLevel = RollResult.SPECIAL;  
+      resultLevel = RollResult.SPECIAL;
     } else if (config.rollResult <= success) {
       resultLevel = RollResult.SUCCESS;
     } else if (config.rollResult >= fumble) {
@@ -423,7 +432,7 @@ export class AOVCheck {
     return resultLevel;
   }
 
-  
+
   // Prep the chat card
   static async startChat(chatMsgData) {
     let html = await foundry.applications.handlebars.renderTemplate(chatMsgData.chatTemplate, chatMsgData);
@@ -481,13 +490,13 @@ export class AOVCheck {
         config.state = "closed";
         config.chatTemplate =
           "systems/aov/templates/chat/roll-result.hbs";
-        config.shiftKey = false;  //always need to open dialog to get target  
-        break;    
+        config.shiftKey = false;  //always need to open dialog to get target
+        break;
       case CardType.RESISTANCE:
         config.wait = true;
         config.chatTemplate =
           "systems/aov/templates/chat/roll-resistance.hbs";
-        break;    
+        break;
       case CardType.OPPOSED:
         config.wait = true;
         config.chatTemplate =
@@ -497,27 +506,27 @@ export class AOVCheck {
         config.wait = true;
         config.chatTemplate =
           "systems/aov/templates/chat/roll-augment.hbs";
-        break;     
+        break;
       case CardType.COMBAT:
         config.wait = true;
         config.chatTemplate =
           "systems/aov/templates/chat/roll-combat.hbs";
-        break;           
+        break;
       default:
         ui.notifications.error(
           game.i18n.format("AOV.ErrorMsg.cardInvalid", {type: cardType})
         );
-        return false; 
-      } 
+        return false;
+      }
       return true
-    }    
+    }
 
 
 
   //Function to call the Modifier Dialog box
   static async RollDialog(options) {
     let diffOptions = await AOVSelectLists.difficultyOptions();
-    let dmgLevels = await AOVSelectLists.dmgLevels();    
+    let dmgLevels = await AOVSelectLists.dmgLevels();
     let ctOptions = await AOVSelectLists.cutThrust();
     let cardLabel = game.i18n.localize('AOV.card.'+options.cardType)
     let askFixed = false
@@ -623,7 +632,7 @@ export class AOVCheck {
     } else if(presetType === 'fumble-card') {
       await COCard.COFumble({ presetType, targetChatId, origin, originGM, event, dataset })
     } else {
-    //Otherwise check if a GM needs to  
+    //Otherwise check if a GM needs to
       if (game.user.isGM) {
         AOVCheck.handleChatButton({ presetType, targetChatId, origin, originGM, event, dataset })
       } else {
@@ -638,7 +647,7 @@ export class AOVCheck {
           ui.notifications.warn(game.i18n.localize('AOV.noAvailableGM'))
         }
       }
-    }  
+    }
   }
 
 
@@ -658,13 +667,13 @@ export class AOVCheck {
         break
       case "resolve-op-card":
         await OPCard.OPResolve(data)
-        break  
+        break
       case "resolve-au-card":
         await AUCard.AUResolve(data)
-        break  
+        break
       case "resolve-co-card":
         await COCard.COResolve(data)
-        break     
+        break
       default:
         return
     }
@@ -672,6 +681,6 @@ export class AOVCheck {
     await targetMsg.update({ content: pushhtml })
     return
   }
-  
-}  
+
+}
 

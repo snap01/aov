@@ -77,28 +77,51 @@
         <div class='centre'>{{localize 'AOV.base'}}</div>
         <div class='centre'>{{localize 'AOV.exp'}}</div>
         <div class='centre' title="{{localize 'AOV.homeland'}}">{{localize 'AOV.homelandAbbr'}}</div>
+        <div class='centre' title="{{localize 'TYPES.Item.hisotry'}}">{{localize 'AOV.historyAbbr'}}</div>
         <div class='centre' title="{{localize 'AOV.personal'}}">{{localize 'AOV.personalAbbr'}}</div>
+        <div class='centre' title="{{localize 'TYPES.Item.devotion'}}">{{localize 'AOV.devotionAbbr'}}</div>
         <div class='centre' title="{{localize 'AOV.effects'}}">{{localize 'AOV.effectsShort'}}</div>
         <div class='centre' title="{{localize 'AOV.category'}}">{{localize 'AOV.categoryAbbr'}}</div>
         <div class='centre'>{{localize 'AOV.total'}}</div>
       </div>
       {{#each devSkills as |item id|}}
-        <li class='item skillDev-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-          <div class="new-row gear-name left right-line truncate rollable" title='{{item.system.label}}'
-            data-action='viewDoc'>{{item.system.label}}</div>
-          <div class='gear-name centre right-line'>{{item.system.catLabel}}</div>
-          <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.base'
-            type='number' value='{{item.system.base}}' data-field="base"/></div>
-          <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.xp'
-            type='number' value='{{item.system.xp}}' data-field="xp"/></div>
-          <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.home'
-            type='number' value='{{item.system.home}}' data-field="home"/></div>
-          <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.pers'
-            type='number' value='{{item.system.pers}}' data-field="pers"/></div>
-          <div class='gear-name centre right-line terIcon'>{{item.system.effects}}</div>
-          <div class='gear-name centre right-line terIcon'>{{item.system.catBonus}}</div>
-          <div class='gear-name centre'>{{item.system.total}}</div>
-        </li>
+        {{#if ../isCreate}}
+          <li class='item skillDev-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+            <div class="new-row gear-name left right-line truncate rollable" title='{{item.system.label}}'
+              data-action='viewDoc'>{{item.system.label}}</div>
+            <div class='gear-name centre right-line truncate' title='{{item.system.catLabel}}'>{{item.system.catLabel}}</div>
+            <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.base'
+              type='number' value='{{item.system.base}}' data-field="base"/></div>
+            <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.xp'
+              type='number' value='{{item.system.xp}}' data-field="xp"/></div>
+            <div class='gear-name centre right-line skill-inline {{#unless (eq item.system.home 0)}}secBackCol{{/unless}}'><input class="skillDev-input centre" name='system.home'
+              type='number' value='{{item.system.home}}' data-field="home"/></div>
+            <div class='gear-name centre right-line skill-inline {{#unless (eq item.system.history 0)}}secBackCol{{/unless}}'><input class="skillDev-input centre" name='system.history'
+              type='number' value='{{item.system.history}}' data-field="history"/></div>
+            <div class='gear-name centre right-line skill-inline {{#unless (eq item.system.pers 0)}}secBackCol{{/unless}}'><input class="skillDev-input centre" name='system.pers'
+              type='number' value='{{item.system.pers}}' data-field="pers"/></div>
+            <div class='gear-name centre right-line skill-inline {{#unless (eq item.system.dev 0)}}secBackCol{{/unless}}'><input class="skillDev-input centre" name='system.dev'
+              type='number' value='{{item.system.dev}}' data-field="dev"/></div>
+            <div class='gear-name centre right-line terIcon'>{{item.system.effects}}</div>
+            <div class='gear-name centre right-line terIcon'>{{item.system.catBonus}}</div>
+            <div class='gear-name centre'>{{item.system.total}}</div>
+          </li>
+        {{else}}
+          <li class='item skillDev-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+            <div class="new-row gear-name left right-line truncate rollable {{#if item.system.xpCheck}}creation{{/if}}" title='{{item.system.label}}'
+              data-action='viewDoc'>{{item.system.label}}</div>
+            <div class='gear-name centre right-line truncate' title="{{item.system.catLabel}}">{{item.system.catLabel}}</div>
+            <div class='gear-name centre right-line'>{{item.system.base}}</div>
+            <div class='gear-name centre right-line skill-inline'><input class="skillDev-input centre" name='system.xp'
+              type='number' value='{{item.system.xp}}' data-field="xp"/></div>
+            <div class='gear-name centre right-line {{#unless (eq item.system.home 0)}}secBackCol{{/unless}}'>{{item.system.home}}</div>
+            <div class='gear-name centre right-line {{#unless (eq item.system.history 0)}}secBackCol{{/unless}}'>{{item.system.history}}</div>
+            <div class='gear-name centre right-line {{#unless (eq item.system.pers 0)}}secBackCol{{/unless}}'>{{item.system.pers}}</div>
+            <div class='gear-name centre right-line {{#unless (eq item.system.dev 0)}}secBackCol{{/unless}}'>{{item.system.dev}}</div>
+            <div class='gear-name centre right-line terIcon'>{{item.system.effects}}</div>
+            <div class='gear-name centre right-line terIcon'>{{item.system.catBonus}}</div>
+            <div class='gear-name centre'>{{item.system.total}}</div>
+        {{/if}}
       {{/each}}
     </ol>
   {{/unless}}

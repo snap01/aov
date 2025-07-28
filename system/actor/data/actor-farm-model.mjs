@@ -10,6 +10,10 @@ export default class AOVFarmModel extends AOVActorBaseModel {
     schema.farmType = new fields.StringField({ required: true, blank: true, initial: "" }); //Farm Type
     schema.value = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Farm Value
     schema.animals = new fields.StringField({ required: true, blank: true, initial: "" }); //Animals
+    schema.cattle = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Number of Cattle
+    schema.sheep = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Number of Sheep
+    schema.horses = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Number of |Horses
+
     schema.location = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Grid location of the farm
     schema.status = new fields.StringField({ required: true, blank: true, initial: "" }); //Farm status
     return schema

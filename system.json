@@ -3,7 +3,7 @@
     "title": "Age of Vikings",
     "description": "Age of Vikings by Chaosium Inc for Foundry VTT",
 
-    "version": "13.7",
+    "version": "13.8",
     "compatibility": {
       "minimum": 13,
       "verified": "13.346"
@@ -106,13 +106,16 @@
         "devotion": {"htmlFields": ["description","gmNotes"]},
         "family": {"htmlFields": ["description","gmNotes"]},
         "gear": {"htmlFields": ["description","gmNotes"]},
+        "history": {"htmlFields": ["description","gmNotes"]},
         "hitloc": {"htmlFields": ["description","gmNotes"]},
+        "homeland": {"htmlFields": ["description","gmNotes"]},
         "npcpower": {"htmlFields": ["description","gmNotes"]},
         "passion": {"htmlFields": ["description","gmNotes"]},
         "rune": {"htmlFields": ["description","gmNotes"]},
         "runescript": {"htmlFields": ["description","gmNotes"]},
         "seidur": {"htmlFields": ["description","gmNotes"]},
         "skill": {"htmlFields": ["description","gmNotes"]},
+        "species": {"htmlFields": ["description","gmNotes"]},
         "thrall": {"htmlFields": ["description","gmNotes"]},
         "weapon": {"htmlFields": ["description","gmNotes"]},
         "weaponcat": {},
@@ -139,7 +142,7 @@
     ],
 
     "manifest": "https://github.com/Genii-Locorum/aov/releases/latest/download/system.json",
-    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.7/system.zip",
+    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.8/system.zip",
     "url": "https://github.com/Genii-Locorum/aov",
     "license": "LICENSE.txt",
     "readme": "README.md",

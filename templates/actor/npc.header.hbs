@@ -145,9 +145,9 @@
             {{/if}}
             <div class="centre hit-loc-cell skill-inline"><input class="skillDev-input centre" name='system.npcDmg'
               type='number' value='{{item.system.npcDmg}}' data-field="npcDmg"/></div>
-            {{#if (eq item.system.locType 'general')}}            
+            {{#if (eq item.system.locType 'general')}}
               <div class="centre hit-loc-cell terIcon"></div>
-            {{else}}  
+            {{else}}
               <div class="centre hit-loc-cell terIcon">{{item.system.currHp}} / {{item.system.hpMax}}</div>
             {{/if}}
             <div class='hit-loc-cell gear-controls centre'>
@@ -243,7 +243,7 @@
                   type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
                 <div class="ability-cell centre"> / </div>
                 <div class="centre skill-inline"><input class="skillDev-input centre" name='system.maxHP'
-                  type='number' value='{{item.system.maxHP}}' data-field="maxHP"/></div>                                
+                  type='number' value='{{item.system.maxHP}}' data-field="maxHP"/></div>
               </div>
 
             {{/if}}
@@ -370,7 +370,7 @@
           <i class="fa-regular {{#if system.beserkerOpt}}fa-square-check{{else}}fa-square{{/if}}"></i>
         </a>
       </div>
-      <div class=" new-row indent">{{localize 'AOV.maxHPBonus'}}</div>      
+      <div class=" new-row indent">{{localize 'AOV.maxHPBonus'}}</div>
       <input class="stat-input" name='system.hp.bonus' type='number' value='{{system.hp.bonus}}'/>
     </div>
   {{/if}}
