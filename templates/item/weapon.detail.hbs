@@ -42,7 +42,7 @@
           {{selectOptions damModList selected=item.system.damMod}}
         </select>
       </div>
-      
+
       <div class="new-row"></div>
       <br>
       <div class="new-row bold">{{localize 'AOV.damageType'}}</div>
@@ -141,6 +141,13 @@
       <div class="new-row"></div>
       <br>
     {{/if}}
+
+    <div class="new-row bold" title="{{localize 'AOV.commonWeaponHint'}}">{{localize 'AOV.commonWeapon'}}</div>
+    <div class="centre" {{#if canEdit}}data-action="itemToggle"{{/if}} data-property="common">
+      <a class="icon16">
+        <i class="fa-regular {{#if system.common}}fa-square-check{{else}}fa-square{{/if}}"></i>
+      </a>
+    </div>
 
     {{#if hasOwner}}
       {{#if isChar}}

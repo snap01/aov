@@ -13,18 +13,13 @@
           </div>
         </li>
         </div>
-        {{#each results as |result key|}}
-          <div>
-            {{#if result.success}}
-              <span class="bold truncate">{{result.label}} ({{result.incVal}}) <i class="result-success fas fa-axe-battle"></i>
-            {{else}}
-              <span class="bold truncate">{{result.label}} <i class="result-fail fas fa-skull"></i>
-            {{/if}}
+        <div class="actor-roll">
+          <span class="pending">{{localize 'AOV.roll'}}: {{results.ageResult}} [{{results.points}} {{localize 'AOV.loss'}}] </span>
+        </div>
 
-            {{#if (gt result.rollResult -500)}}
-              {{result.rollResult}} v {{result.target}}
-            {{/if}}
-            </span>
+        {{#each results.lossRolls as |loss key|}}
+          <div>
+            <span class="bold truncate">{{loss.label}}: ({{loss.diceRoll}})</span>
           </div>
         {{/each}}
     </ol>

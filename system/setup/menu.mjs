@@ -56,7 +56,7 @@ export class AOVMenu {
         'actor-aov-id-best': {
           button: true,
           icon: 'fas fa-fingerprint',
-          order: 5,
+          order: 6,
           name: 'actor-aov-id-best',
           title: 'AOV.ActorCID.ItemsBest',
           onChange: async () => await AOVCIDActorUpdateItems.create()
@@ -80,6 +80,18 @@ export class AOVMenu {
           name: 'healing',
           title: 'AOV.healingPhase',
           onChange: async toggle => await AOVDamage.healingPhase(toggle)
+        },
+        victoryphase: {
+          toggle: true,
+          //TO DO - remove when module ready
+          visible: hasModule,
+          //TODO
+          icon: 'fas fa-sun-haze',
+          order: 5,
+          name: 'victoryphase',
+          active: game.settings.get('aov', 'victoryEnabled'),
+          title: 'AOV.victoryPhase',
+          onChange: async toggle => await AOVUtilities.toggleVictory(toggle)
         },
       }
     }

@@ -1,3 +1,6 @@
+import AOVDialog from "../setup/aov-dialog.mjs"
+import { COCard } from "../chat/combat-chat.mjs"
+
 export class AOVUtilities {
 
   static toKebabCase(s) {
@@ -107,11 +110,26 @@ export class AOVUtilities {
   static async toggleDevPhase (toggle) {
     let state = await game.settings.get('aov', 'developmentEnabled')
     await game.settings.set('aov', 'developmentEnabled', !state)
+    await game.settings.set('aov', 'createEnabled', false)
+    await game.settings.set('aov', 'victoryEnabled', false)
+    ui.controls.controls.aovmenu.tools.createphase.active = false
+    ui.controls.controls.aovmenu.tools.victoryphase.active = false
+    await ui.controls.render()
+
+
+
     ui.notifications.info(
       state
         ? game.i18n.localize('AOV.devPhaseDisabled')
         : game.i18n.localize('AOV.devPhaseEnabled')
     )
+    for (let actor of game.actors) {
+      if (actor.type != 'character') {continue}
+      await actor.update({
+        'system.expImprov': !state,
+        'system.improv': !state
+      })
+    }
     game.socket.emit('system.aov', {
       type: 'updateChar'
     })
@@ -121,6 +139,14 @@ export class AOVUtilities {
   static async toggleCreate (toggle) {
     let state = await game.settings.get('aov', 'createEnabled')
     await game.settings.set('aov', 'createEnabled', !state)
+    await game.settings.set('aov', 'developmentEnabled', false)
+    await game.settings.set('aov', 'victoryEnabled', false)
+    ui.controls.controls.aovmenu.tools.devphase.active = false
+    ui.controls.controls.aovmenu.tools.victoryphase.active = false
+    await ui.controls.render()
+
+
+
     ui.notifications.info(
       state
         ? game.i18n.localize('AOV.createDisabled')
@@ -130,6 +156,71 @@ export class AOVUtilities {
       type: 'updateChar'
     })
     AOVUtilities.updateCharSheets(true)
+  }
+
+  static async toggleVictory (toggle) {
+    let state = await game.settings.get('aov', 'victoryEnabled')
+    await game.settings.set('aov', 'victoryEnabled', !state)
+    await game.settings.set('aov', 'developmentEnabled', false)
+    await game.settings.set('aov', 'createEnabled', false)
+    ui.controls.controls.aovmenu.tools.devphase.active = false
+    ui.controls.controls.aovmenu.tools.createphase.active = false
+    await ui.controls.render()
+    ui.notifications.info(
+      state
+        ? game.i18n.localize('AOV.vicSacrificeDisabled')
+        : game.i18n.localize('AOV.vicSacrificeEnabled')
+    )
+    for (let actor of game.actors) {
+      if (actor.type != 'character') {continue}
+      await actor.update({
+        'system.expImprov': !state,
+        'system.improv': !state,
+        'system.worship' :!state,
+        'system.farming' :!state,
+        'system.vadprod' :!state,
+        'system.aging' :!state,
+        'system.family' :!state
+      })
+    }
+    game.socket.emit('system.aov', {
+      type: 'updateChar'
+    })
+    AOVUtilities.updateCharSheets(true)
+
+    if(state) {
+      const confirm = await AOVDialog.confirm({
+        window: { title: 'AOV.confirm' },
+        content: game.i18n.localize('AOV.increaseYear')
+      })
+      if (confirm) {
+        let year = game.settings.get('aov', 'gameYear') +1
+        await game.settings.set('aov', 'gameYear', year)
+        ui.notifications.info(game.i18n.format('AOV.yearIncreased', { year: year}))
+      }
+
+      let omenTable = (await game.aov.cid.fromCIDBest({ cid: 'rt..omens' }))[0]
+      if (!omenTable) {
+        ui.notifications.error(game.i18n.format('AOV.ErrorMsg.noTable', { tableCID: 'rt..omens' }))
+      return false
+    }
+     const omenConfirm = await AOVDialog.confirm({
+    window: { title: 'AOV.confirm' },
+      content: game.i18n.localize('AOV.rollOmens')
+    })
+    if (omenConfirm) {
+      const omenTableResults = await COCard.tableDiceRoll(omenTable)
+      let omenResult = await omenTableResults.results[0].name
+      let omen = omenResult.toLowerCase().replace("-", "")
+      if (["cursed","illfavoured","normal","good","blessed"].includes(omen)){
+        await game.settings.set('aov', 'omens', omen)
+        ui.notifications.info(game.i18n.format('AOV.newOmens', { omen: omenResult}))
+      } else {
+        ui.notifications.info(game.i18n.format('AOV.ErrorMsg.invalidOmen', { omen: omenResult}))
+      }
+      }
+    }
+
   }
 
     static updateCharSheets (lock) {

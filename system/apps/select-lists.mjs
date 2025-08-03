@@ -143,6 +143,18 @@ export class AOVSelectLists {
     return options;
   }
 
+  //Farm Circumstances Options
+  static async farmCircOptions() {
+    let options = {
+      "famine": game.i18n.localize("AOV.FarmCirc.famine"),
+      "bad": game.i18n.localize("AOV.FarmCirc.bad"),
+      "good": game.i18n.localize("AOV.FarmCirc.good"),
+      "excellent": game.i18n.localize("AOV.FarmCirc.excellent"),
+      "superlative": game.i18n.localize("AOV.FarmCirc.superlative"),
+    };
+    return options;
+  }
+
   //Damage Type Options
   static async dmgTypeOptions() {
     let options = {
@@ -334,6 +346,24 @@ export class AOVSelectLists {
     };
     return options;
   }
+
+  //Relationship Options
+  static async relationOptions() {
+    let options = {
+      "spouse": game.i18n.localize("AOV.Relation.spouse"),
+      "parent": game.i18n.localize("AOV.Relation.parent"),
+      "grandparent": game.i18n.localize("AOV.Relation.grandparent"),
+      "child": game.i18n.localize("AOV.Relation.child"),
+      "grandchild": game.i18n.localize("AOV.Relation.grandchild"),
+      "sibling": game.i18n.localize("AOV.Relation.sibling"),
+      "cousin": game.i18n.localize("AOV.Relation.cousin"),
+      "pibling": game.i18n.localize("AOV.Relation.pibling"),
+      "nibling": game.i18n.localize("AOV.Relation.nibling"),
+      "other": game.i18n.localize("AOV.Relation.other"),
+    };
+    return options;
+  }
+
 
 }
 

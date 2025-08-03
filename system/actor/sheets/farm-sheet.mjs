@@ -29,6 +29,8 @@ export class AoVFarmSheet extends AoVActorSheet {
     context.tabs = this._getTabs(options.parts);
     context.farmTypeOptions = await AOVSelectLists.farmTypeOptions()
     context.farmTypeName = game.i18n.localize("AOV.Farm."+context.system.farmType)
+    context.farmCircOptions = await AOVSelectLists.farmCircOptions()
+    context.farmCircName = game.i18n.localize("AOV.FarmCirc."+context.system.status)
     await this._prepareItems(context);
     return context
   }

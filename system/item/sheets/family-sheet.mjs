@@ -26,6 +26,7 @@ export class AoVFamilySheet extends AoVItemSheet {
     let context = await super._prepareContext(options)
     context.tabs = this._getTabs(options.parts);
     context.genderOptions = await AOVSelectLists.genderOptions()
+    context.relationOptions = await AOVSelectLists.relationOptions()
 
     return context
   }

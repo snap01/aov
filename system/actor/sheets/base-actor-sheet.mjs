@@ -56,6 +56,14 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       history: this._history,
       resethistory: this._resethistory,
       experience: this._expRoll,
+      training: this._trainingRoll,
+      research: this._researchRoll,
+      statimp: this._statImpRoll,
+      worship: this._worship,
+      farming: this._farming,
+      vadprod: this._vadprod,
+      aging: this._aging,
+      familyroll: this._familyroll,
     }
   }
 
@@ -96,6 +104,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       singleColour: game.settings.get('aov','singleColourBar'),
       isDevelop: game.settings.get('aov','developmentEnabled'),
       isCreate: game.settings.get('aov','createEnabled'),
+      isVictory: game.settings.get('aov','victoryEnabled'),
       isSelectGender: game.settings.get('aov','binaryGender'),
     };
   }
@@ -377,9 +386,66 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
 
   //Experience Rolls
   static async _expRoll (event, target) {
-    AOVCharDevelop.expRolls(this.actor)
+    if (this.actor.system.expImprov) {
+      AOVCharDevelop.expRolls(this.actor)
+    }
   }
 
+  //Training Roll
+  static async _trainingRoll (event, target) {
+    if (this.actor.system.improv) {
+      AOVCharDevelop.trainingRoll(this.actor,'training')
+    }
+  }
+
+  //Research Roll
+  static async _researchRoll (event, target) {
+    if (this.actor.system.improv) {
+      AOVCharDevelop.trainingRoll(this.actor,'research')
+    }
+  }
+
+  //Characteristic Improvement Roll
+  static async _statImpRoll (event, target) {
+    if (this.actor.system.improv) {
+      AOVCharDevelop.statImpRoll(this.actor)
+    }
+  }
+
+  //Worship Rolls
+  static async _worship (event, target) {
+    if (this.actor.system.worship) {
+      AOVCharDevelop.worshipRoll(this.actor)
+    }
+  }
+
+  //Farm Circumstance Rolls
+  static async _farming (event, target) {
+    if (this.actor.system.farming) {
+      AOVCharDevelop.farmCircRoll(this.actor)
+    }
+  }
+
+  //Vadmal Production
+  static async _vadprod (event, target) {
+    if (this.actor.system.vadprod) {
+      AOVCharDevelop.vadprod(this.actor)
+    }
+  }
+
+  //Aging
+  static async _aging (event, target) {
+    if (this.actor.system.aging) {
+      AOVCharDevelop.aging(this.actor)
+    }
+  }
+
+  //Family Rolls
+  static async _familyroll (event, target) {
+    if (this.actor.system.family) {
+      AOVCharDevelop.family(this.actor)
+    }
+  }
 
   //----------------
 

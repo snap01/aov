@@ -4,6 +4,50 @@ import { isCtrlKey } from "../apps/helper.mjs";
 
 export class AOVItem extends Item {
 
+constructor(data, context) {
+    if (typeof data.img === 'undefined') {
+      if (data.type === 'armour') {
+        data.img = 'systems/aov/art-assets/leather-armor.svg'
+      } else if (data.type === 'devotion') {
+        data.img = 'systems/aov/art-assets/viking-longhouse.svg'
+      } else if (data.type === 'family') {
+        data.img = 'systems/aov/art-assets/ages.svg'
+      } else if (data.type === 'gear') {
+        data.img = 'systems/aov/art-assets/knapsack.svg'
+      } else if (data.type === 'history') {
+        data.img = 'systems/aov/art-assets/scroll-unfurled.svg'
+      } else if (data.type === 'hitloc') {
+        data.img = 'systems/aov/art-assets/arm-bandage.svg'
+      } else if (data.type === 'homeland') {
+        data.img = 'systems/aov/art-assets/iceland.svg'
+      } else if (data.type === 'npcpower') {
+        data.img = 'systems/aov/art-assets/lightning-helix.svg'
+      } else if (data.type === 'passion') {
+        data.img = 'systems/aov/art-assets/shining-heart.svg'
+      } else if (data.type === 'rune') {
+        data.img = 'systems/aov/art-assets/rune-stone.svg'
+      } else if (data.type === 'runescript') {
+        data.img = 'systems/aov/art-assets/rune-sword.svg'
+      } else if (data.type === 'seidur') {
+        data.img = 'systems/aov/art-assets/magic-swirl.svg'
+      } else if (data.type === 'skill') {
+        data.img = 'systems/aov/art-assets/anvil.svg'
+      } else if (data.type === 'species') {
+        data.img = 'systems/aov/art-assets/embrassed-energy.svg'
+      } else if (data.type === 'thrall') {
+        data.img = 'systems/aov/art-assets/person.svg'
+      } else if (data.type === 'weapon') {
+        data.img = 'systems/aov/art-assets/axe-sword.svg'
+      } else if (data.type === 'weaponcat') {
+        data.img = 'systems/aov/art-assets/master-of-arms.svg'
+      } else if (data.type === 'wound') {
+        data.img = 'systems/aov/art-assets/cut-palm.svg'
+      }
+    }
+    super(data, context)
+  }
+
+
   prepareData() {
     super.prepareData();
   }
@@ -78,7 +122,7 @@ export class AOVItem extends Item {
   /** @override */
   static async _onCreateOperation(documents, operation, user) {
     super._onCreateOperation(documents, operation, user)
-    /* Copied from FoundryVTT v12 item.js replacing Actor with ActorDelta */
+    /* Copied from FoundryVTT v12 item.mjs replacing Actor with ActorDelta */
     if ( !(operation.parent instanceof ActorDelta) || !CONFIG.ActiveEffect.legacyTransferral || !user.isSelf ) return;
     const cls = getDocumentClass("ActiveEffect");
 

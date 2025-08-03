@@ -180,8 +180,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
     if (this.actor.system.persType === "") {context.persName = ""}
     context.dpOptions = await AOVSelectLists.dpOptions();
-    context.hasSpecies = context.system.speciesID
-    context.hasHome = context.system.homeID
+    context.hasSpecies = context.system.speciesID != null
+    context.hasHome = context.system.homeID !=null
     context.useRandom = game.settings.get('aov','randomDice')
     context.useAssign = game.settings.get('aov','allocatedDice')
     context.usePoints = game.settings.get('aov','allocatePoints')
@@ -307,7 +307,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
         }
       }
     }
-    context.thrallCount = thralls.length
+    context.thrallCount = (await thralls.filter(itm=>!itm.died)).length
 
     for (let itm of this.document.items) {
       if (itm.type === 'gear') {
@@ -332,12 +332,14 @@ export class AoVCharacterSheet extends AoVActorSheet {
         wounds.push(itm)
       } else if (itm.type === 'devotion') {
         devotions.push(itm)
+
       } else if (itm.type === 'family') {
         if (context.isSelectGender) {
           itm.system.genderLabel = game.i18n.localize('AOV.'+itm.system.gender)
         } else {
           itm.system.genderLabel = itm.system.gender
         }
+        itm.relationLabel = game.i18n.localize('AOV.Relation.' + itm.system.relationship)
         families.push(itm)
       } else if (itm.type === 'weapon') {
         itm.system.damTypeLabel = game.i18n.localize('AOV.DamType.'+ itm.system.damType)

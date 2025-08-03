@@ -1,0 +1,62 @@
+<form class="aov">
+  <div class="">
+    <ol class="op-list">
+      <div class="dice-roll" data-action="expandRoll">
+        <li class='actor-roll'>
+          <img class="open-actor" src="{{particImg}}" height="53" width="53" title="{{particName}}" />
+          <div class="roll-details">
+            <div class="header">
+              <div class='name'>
+                <span class="tag">{{particName}}</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      <div class="actor-roll">
+        {{#if (eq results.outcome 'superlative')}}
+          <span class="pending">{{results.label}}: {{results.mainRoll}} <i class="result-success fas fa-axe-battle"></i><i
+            class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
+        {{/if}}
+
+        {{#if (eq results.outcome 'excellent')}}
+          <span class="pending">{{results.label}}: {{results.mainRoll}} <i class="result-success fas fa-axe-battle"></i><i
+            class="result-success fas fa-axe-battle"></i>
+        {{/if}}
+
+        {{#if (eq results.outcome 'good')}}
+          <span class="pending">{{results.label}}: {{results.mainRoll}} <i class="result-success fas fa-axe-battle"></i>
+        {{/if}}
+
+        {{#if (eq results.outcome 'bad')}}
+          <span class="pending">{{results.label}}: {{results.mainRoll}} <i class="result-fail fas fa-skull"></i>
+        {{/if}}
+
+        {{#if (eq results.outcome 'famine')}}
+          <span class="pending">{{results.label}}: {{results.mainRoll}} <i class=" result-fail fas fa-skull"></i><i
+            class="result-fail fas fa-skull"></i>
+        {{/if}}
+
+        </span>
+        </div>
+        <div class="centre bold">{{results.statusLabel}}, {{results.cattleLabel}}, {{results.sheepLabel}}</div>
+      <div class="actor-roll dice-tooltip">
+        <div class="owner-only" data-partic-id="{{results.particId}}" data-partic-type="{{results.particType}}">
+          <div class="rollHidden">{{localize 'AOV.card.diceRoll'}}: {{results.rawRoll}}</div>
+          <div class="rollHidden"> {{localize 'AOV.card.omens'}}: {{results.omenAdj}}</div>
+          <div class="rollHidden"> {{localize 'AOV.card.farmPYCirc'}}: {{results.farmPYCirc}}</div>
+          <div class="rollHidden"> {{localize 'AOV.card.skyrBonus'}}: {{results.skyrAdj}}</div>
+          <div class="rollHidden"> {{localize 'AOV.card.farmType'}}: {{results.farmAdj}}</div>
+          <div class="rollHidden"> {{localize 'AOV.card.farmingRoll'}}: {{results.farmingBns}}</div>
+          <div class="rollHidden bottom-line">{{localize 'AOV.card.diceRoll'}}: {{results.mainRoll}}</div>
+          {{#if (gt results.farmAdjRoll 0)}}
+            <div class="rollHidden"> {{localize 'AOV.card.farmTypeRoll'}}: {{results.farmAdjRoll}}</div>
+          {{/if}}
+          <div class="rollHidden bottom-line"> {{localize 'AOV.card.farmingSkillRoll'}}: {{results.farmSkillRoll}}</div>
+
+        </div>
+      </div>
+    </ol>
+      </div>
+  </div>
+</form>

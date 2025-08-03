@@ -73,6 +73,14 @@ export async function registerSettings() {
     default: false
   })
 
+  game.settings.register('aov', 'victoryEnabled', {
+    name: 'Victory Sacrifice phase',
+    scope: 'world',
+    config: false,
+    type: Boolean,
+    default: false
+  })
+
   game.settings.register('aov', 'systemVersion', {
     name: 'AoV System Version',
     scope: 'world',

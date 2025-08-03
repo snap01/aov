@@ -45,6 +45,10 @@ export async function updateWorld({ bypassVersionCheck = false } = {}) {
     if (foundry.utils.isNewerVersion('13.8', currentVersion ?? '0')) {
       await updateDialog('systems/aov/templates/updates/update13.8.hbs')
     }
+    //Message if current system is less that Version 13.9
+    if (foundry.utils.isNewerVersion('13.9', currentVersion ?? '0')) {
+      await updateDialog('systems/aov/templates/updates/update13.9.hbs')
+    }
 
   }
 

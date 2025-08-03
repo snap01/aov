@@ -15,7 +15,7 @@ export default class AOVFarmModel extends AOVActorBaseModel {
     schema.horses = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Number of |Horses
 
     schema.location = new fields.NumberField({ ...requiredInteger, initial: 0 }); //Grid location of the farm
-    schema.status = new fields.StringField({ required: true, blank: true, initial: "" }); //Farm status
+    schema.status = new fields.StringField({ required: true, blank: true, initial: "good" }); //Farm status
     return schema
   }
 

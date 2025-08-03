@@ -37,7 +37,13 @@ export default class AOVCharacterModel extends AOVActorBaseModel {
     schema.home = new fields.StringField({ required: true, blank: true, initial: game.i18n.localize('AOV.iceland')}); //Manual entered homeland name
     schema.grandparents = new fields.BooleanField({ initial: false }); //Is your grandparent dead
     schema.parents = new fields.BooleanField({ initial: false }); //Is your parent dead
-
+    schema.expImprov = new fields.BooleanField({ initial: false });  //Can you make XP Improvement rolls
+    schema.improv = new fields.BooleanField({ initial: false });  //Can you make Other Improvement
+    schema.worship = new fields.BooleanField({ initial: false });  //Can you make Worship Rolls
+    schema.farming = new fields.BooleanField({ initial: false });  //Can you make Farm Circumstance Rolls
+    schema.vadprod = new fields.BooleanField({ initial: false });  //Can you make Vadmal Production
+    schema.aging = new fields.BooleanField({ initial: false });  //Can you make Aging rolls
+    schema.family = new fields.BooleanField({ initial: false });  //Can you make Family rolls
 
     return schema
   }

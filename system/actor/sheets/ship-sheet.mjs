@@ -7,7 +7,7 @@ export class AoVShipSheet extends AoVActorSheet {
   }
 
   static DEFAULT_OPTIONS = {
-    classes: ['ship'],
+    classes: ['ship','themed', 'theme-light'],
     position: {
       width: 700,
       height: 950
@@ -69,7 +69,7 @@ export class AoVShipSheet extends AoVActorSheet {
     context.before = context.system.sail[context.system.wind].before
     context.quarter = context.system.sail[context.system.wind].quarter
     context.half = context.system.sail[context.system.wind].half
-    context.head = context.system.sail[context.system.wind].head    
+    context.head = context.system.sail[context.system.wind].head
     await this._prepareItems(context);
     return context
   }

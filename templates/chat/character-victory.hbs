@@ -15,16 +15,7 @@
         </div>
         {{#each results as |result key|}}
           <div>
-            {{#if result.success}}
-              <span class="bold truncate">{{result.label}} ({{result.incVal}}) <i class="result-success fas fa-axe-battle"></i>
-            {{else}}
-              <span class="bold truncate">{{result.label}} <i class="result-fail fas fa-skull"></i>
-            {{/if}}
-
-            {{#if (gt result.rollResult -500)}}
-              {{result.rollResult}} v {{result.target}}
-            {{/if}}
-            </span>
+            <span class="bold">{{result.label}}</span>
           </div>
         {{/each}}
     </ol>

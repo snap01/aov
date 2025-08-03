@@ -44,6 +44,24 @@ const SETTINGS = {
     type: Boolean,
     default: true
   },
+
+  childDeath: {
+    name: "AOV.Settings.childDeath",
+    hint: "AOV.Settings.childDeathHint",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: true
+  },
+
+  showDiceRolls: {
+    name: "AOV.Settings.showDiceRolls",
+    hint: "AOV.Settings.showDiceRollsHint",
+    scope: "world",
+    config: false,
+    type: Boolean,
+    default: true
+  },
 }
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api

@@ -11,7 +11,7 @@
       <br>
       {{#each effectChanges as |effect|}}
         <div class="weapon-input active-effect-list active-effect-change-edit" style="align-items: center;" data-key="{{effect.key}}">
-          <div>{{localize effect.name}}</div>
+          <div class="truncate" title="{{localize effect.name}}">{{localize effect.name}}</div>
           <select>
             <option value="+">{{localize 'AOV.add'}}</option>
             <option value="-" {{#if effect.negative}} selected="selected" {{/if}}>{{localize 'AOV.subtract'}}</option>
@@ -34,7 +34,7 @@
   {{else}}
     {{#each effectChanges as |effect|}}
       <div class="weapon-input active-effect-list active-effect-change-edit" style="align-items: center;" data-key="{{effect.key}}">
-        <div>{{localize effect.name}}</div>
+        <div class="truncate" title="{{localize effect.name}}">{{localize effect.name}}</div>
         {{#if effect.negative}}
           <div>-{{effect.value}}</div>
         {{else}}

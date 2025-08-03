@@ -41,5 +41,21 @@
       <p class="settingNote">{{localize 'AOV.Settings.addThrallsHint'}}</p>
     </div>
 
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.childDeath'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked optSet.childDeath.value}} name="childDeath">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.childDeathHint'}}</p>
+    </div>
+
+    <div class="form-group">
+      <label class="bold">{{localize 'AOV.Settings.showDiceRolls'}}</label>
+      <div class="form-fields" style="flex: 1;">
+        <input type="checkbox" {{checked optSet.showDiceRolls.value}} name="showDiceRolls">
+      </div>
+      <p class="settingNote">{{localize 'AOV.Settings.showDiceRollsHint'}}</p>
+    </div>
+
     <br>
   </div>

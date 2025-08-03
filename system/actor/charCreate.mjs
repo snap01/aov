@@ -8,6 +8,7 @@ import { WeaponSelectDialog } from "./weapon-selector.mjs";
 import { AOVUtilities } from "../apps/utilities.mjs";
 import { AOVSelectLists } from "../apps/select-lists.mjs";
 import { AOVActorItemDrop } from "./actor-item-drop.mjs";
+import { AOVCharDevelop } from "./charDevelop.mjs"
 
 export class AOVCharCreate {
 
@@ -223,7 +224,9 @@ export class AOVCharCreate {
           }
         }
         results.push({ label: value.label, formula: value.formula, value: roll.total, dice: diceRolled })
-        rolls.push(roll)
+        if(game.settings.get('aov','showDiceRolls')) {
+          rolls.push(roll)
+        }
       }
     }
     let msgData = {
@@ -262,7 +265,9 @@ export class AOVCharCreate {
             dice.push({ value: roll.dice[diceRoll].values[thisDice], pick: "none", picked: 0 })
           }
         }
-        rolls.push(roll)
+        if(game.settings.get('aov','showDiceRolls')) {
+          rolls.push(roll)
+         }
       }
     }
     //Sort the dice rolled numerically
@@ -543,6 +548,7 @@ export class AOVCharCreate {
         }
         let ageRoll = new Roll(age)
         await ageRoll.evaluate()
+        await AOVCharDevelop.showDiceRoll(ageRoll);
         let currAge = ageRoll.total
         if (currAge % 2 == 0) {
           gender = 'male'
@@ -630,6 +636,7 @@ export class AOVCharCreate {
 
     let thrallRoll = new Roll('1D3');
     await thrallRoll.evaluate();
+    await AOVCharDevelop.showDiceRoll(thrallRoll);
     let thrallCount = thrallRoll.total
     let thrallFlag = true
     //Check if we add Thralls or Sheep
@@ -637,6 +644,7 @@ export class AOVCharCreate {
       for (let counter = 1; counter <= thrallCount; counter++) {
         let genderRoll = new Roll('1D2');
         await genderRoll.evaluate();
+        await AOVCharDevelop.showDiceRoll(genderRoll);
         let gender = "male"
         if (genderRoll.total === 2) {
           gender = "female"
@@ -646,6 +654,7 @@ export class AOVCharCreate {
         }
         let ageRoll = new Roll('2D6');
         await ageRoll.evaluate();
+        await AOVCharDevelop.showDiceRoll(ageRoll);
         let born = game.settings.get('aov', 'gameYear') - (16 + ageRoll.total)
 
         const docCls = getDocumentClass('Item');
@@ -699,7 +708,8 @@ export class AOVCharCreate {
   static async selectWeapons(actor) {
     let currentWpns = await actor.items.filter(itm => itm.system.source === 'weapons').map(itm => { return (itm.id) })
     let weaponList = await AOVSelectLists.preLoadCategoriesCategories()
-    weaponList = weaponList.filter(itm => itm.type === 'weapon').filter(itm => itm.system.weaponType != 'naturalWpn').map(itm => { return { id: itm._id, name: itm.name, cid: itm.flags.aov?.cidFlag?.id, skillCid: itm.system.skillCID, score: 0 } })
+    weaponList = weaponList.filter(itm => itm.type === 'weapon').filter(itm => itm.system.weaponType != 'naturalWpn').filter(itm=>itm.system.common).map(itm => { return { id: itm._id, name: itm.name, cid: itm.flags.aov?.cidFlag?.id, skillCid: itm.system.skillCID, score: 0 } })
+    weaponList = weaponList.sort(function (a, b) {return a.name.localeCompare(b.name)});
     weaponList.unshift({ id: "xxx", name: game.i18n.format('AOV.selectItem', { type: game.i18n.localize('TYPES.Item.weapon') }), score: 0 })
     let weaponsChosen = await WeaponSelectDialog.create(weaponList)
 

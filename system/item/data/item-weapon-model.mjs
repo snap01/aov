@@ -21,6 +21,7 @@ export default class AOVWeaponModel extends AOVItemBaseModel {
     schema.equipStatus = new fields.NumberField({ ...requiredInteger, initial: 1 });   //Equipped status
     schema.enc = new fields.NumberField({ required: true, nullable: false, initial: 0 });   //Encumbrance
     schema.range = new fields.NumberField({ ...requiredInteger, initial: 0 });   //Range
+    schema.common = new fields.BooleanField({ initial: true }); //Is this a common weapon (can be selected as a starter weapon)
     schema.npcBase = new fields.NumberField({ ...requiredInteger, initial: 0 });   //NPC Attack% - rather than linking to skill
     return schema
   }

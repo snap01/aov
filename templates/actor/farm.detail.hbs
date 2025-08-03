@@ -30,12 +30,25 @@
     <div class="new-row"></div>
     <br>
 
+    <div class="new-row bold">{{localize 'AOV.farmCirc'}}</div>
+    {{#if isGM}}
+      <div class="">
+        <select class="gear-input" data-handle-change name="system.status">
+          {{selectOptions farmCircOptions selected=actor.system.status}}
+        </select>
+      </div>
+    {{else}}
+      <div class="centre">{{farmCircName}}</div>
+    {{/if}}
+    <div class="new-row"></div>
+    <br>
 
 
     <div class="new-row bold">{{localize 'AOV.farmValue'}}</div>
     <input class="gear-input" name='system.value' type='number' value='{{actor.system.value}}'/>
     <div class="new-row"></div>
     <br>
+
 
   </div>
 </section>

@@ -1,0 +1,39 @@
+<form class="aov">
+  <div class="">
+    <ol class="op-list">
+      <div class="dice-roll" data-action="expandRoll">
+        <li class='actor-roll'>
+          <img class="open-actor" src="{{particImg}}" height="53" width="53" title="{{particName}}" />
+          <div class="roll-details">
+            <div class="header">
+              <div class='name'>
+                <span class="tag">{{particName}}</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      <div class="actor-roll">
+        {{#if (gt results.vadmal -1)}}
+          <span class="pending">{{localize 'AOV.surplusVadmal'}}: {{results.vadmal}} </span>
+        {{else}}
+          {{#if (lt results.status 0)}}
+            <span class="pending">{{localize 'AOV.lostStatus'}}: {{results.status}} </span>
+          {{else}}
+            <span class="pending">{{localize 'AOV.boughtVadmal'}}: {{results.vadmal}} </span>
+          {{/if}}
+        {{/if}}
+      </div>
+      <div class="actor-roll dice-tooltip">
+        <div class="owner-only" data-partic-id="{{results.particId}}" data-partic-type="{{results.particType}}">
+          <div class="rollHidden">{{localize 'AOV.sheep'}}: {{results.sheep}}</div>
+          <div class="rollHidden"> {{localize 'AOV.family'}}: -{{results.family}}</div>
+          <div class="rollHidden"> {{localize 'AOV.thralls'}}: -{{results.thralls}}</div>
+          <div class="rollHidden"> {{localize 'AOV.hero'}}: -1</div>
+          <div class="rollHidden bottom-line"> {{localize 'AOV.vadmal'}}: {{results.vadmal}}</div>
+        </div>
+      </div>
+    </ol>
+      </div>
+  </div>
+</form>

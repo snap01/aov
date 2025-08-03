@@ -260,7 +260,7 @@
     <br>
   {{/if}}
 
- {{!-- Character Creation Options --}}
+ {{!-- Character Development Phase --}}
   {{#if isDevelop}}
     <div class="effects-grid gear-header creation">
       <div style="grid-column: 1 / 4;">{{ localize 'AOV.devPhase' }}</div>
@@ -268,11 +268,69 @@
     <div class="statsgrid">
       <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.experience'}}</div>
       <div class="stat-val rollable centre">
-        <a class="icon20 secIcon"  data-action="experience" title="{{ localize 'AOV.experienceHint'}}"><i class="fas fa-dice-three"></i></a>
+        <a class="icon20 {{#if system.expImprov}}secIcon{{else}}priIcon fade{{/if}}"  data-action="experience" title="{{ localize 'AOV.experienceHint'}}"><i class="fas fa-dice-three"></i></a>
+      </div>
+
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.improvement'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.improv}}secIcon{{else}}priIcon fade{{/if}}"  data-action="training" title="{{ localize 'AOV.skillTrain'}}"><i class="fas fa-book-open"></i></a>
+      </div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.improv}}secIcon{{else}}priIcon fade{{/if}}"  data-action="research" title="{{ localize 'AOV.skillResearch'}}"><i class="fas fa-books"></i></a>
+      </div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.improv}}secIcon{{else}}priIcon fade{{/if}}"  data-action="statimp" title="{{ localize 'AOV.statImp'}}"><i class="fas fa-dumbbell"></i></a>
       </div>
     </div>
     <br>
   {{/if}}
+
+ {{!-- Victory Sacrifice Phase --}}
+  {{#if isVictory}}
+    <div class="effects-grid gear-header creation">
+      <div style="grid-column: 1 / 4;">{{ localize 'AOV.victoryPhase' }}</div>
+    </div>
+    <div class="statsgrid">
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.experience'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.expImprov}}secIcon{{else}}priIcon fade{{/if}}"  data-action="experience" title="{{ localize 'AOV.experienceHint'}}"><i class="fas fa-dice-three"></i></a>
+      </div>
+
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.improvement'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.improv}}secIcon{{else}}priIcon fade{{/if}}"  data-action="training" title="{{ localize 'AOV.skillTrain'}}"><i class="fas fa-book-open"></i></a>
+      </div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.improv}}secIcon{{else}}priIcon fade{{/if}}"  data-action="research" title="{{ localize 'AOV.skillResearch'}}"><i class="fas fa-books"></i></a>
+      </div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.improv}}secIcon{{else}}priIcon fade{{/if}}"  data-action="statimp" title="{{ localize 'AOV.statImp'}}"><i class="fas fa-dumbbell"></i></a>
+      </div>
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.worship'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.worship}}secIcon{{else}}priIcon fade{{/if}}" data-action="worship" title="{{ localize 'AOV.worshipHint'}}"><i class="fas fa-user-beard-bolt"></i></a>
+      </div>
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.farmCirc'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.farming}}secIcon{{else}}priIcon fade{{/if}}"  data-action="farming" title="{{ localize 'AOV.farmCircHint'}}"><i class="fas fa-cow"></i></a>
+      </div>
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.vadmalProd'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.vadprod}}secIcon{{else}}priIcon fade{{/if}}"  data-action="vadprod" title="{{ localize 'AOV.vadmalProdHint'}}"><i class="fas fa-sheep"></i></a>
+      </div>
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.aging'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.aging}}secIcon{{else}}priIcon fade{{/if}}"  data-action="aging" title="{{ localize 'agingHint'}}"><i class="fas fa-person-falling-burst"></i></a>
+      </div>
+      <div class="stat-val bold new-row" style="grid-column: 1 / 3;  padding-top:3px;">{{localize 'AOV.familyRolls'}}</div>
+      <div class="stat-val rollable centre">
+        <a class="icon20 {{#if system.family}}secIcon{{else}}priIcon fade{{/if}}"  data-action="familyroll" title="{{ localize 'AOV.familyRollsHint'}}"><i class="fas fa-family"></i></a>
+      </div>
+
+    </div>
+    <br>
+  {{/if}}
+
 
   {{!-- Active Effects --}}
   <ol class="gear-list">

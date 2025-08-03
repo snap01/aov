@@ -22,7 +22,11 @@
     <div class="new-row"></div>
     <br>
     <div class="new-row bold">{{localize 'AOV.relationship'}}</div>
-    <input class="gear-input" name='system.relation' type='text' value='{{item.system.relation}}'/>
+      <div class="centre">
+        <select class="gear-input" data-handle-change name="system.relationship">
+          {{selectOptions relationOptions selected=item.system.relationship}}
+        </select>
+      </div>
     <div class="new-row"></div>
     <br>
     <div class="new-row bold">{{localize 'AOV.spiritAn'}}</div>

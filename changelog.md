@@ -1,3 +1,11 @@
+## 13.9
+-  Effects are now excluded from the XP roll target
+-  XP Improvement rolls can now only be made once per character per Development Phase (the icon will grey out if rolls have already been made)
+-  You can now make a skill training, research and characteristic rolls under the Development Phase
+-  Ship sheets now have the proper background in Dark Mode so they are readable
+-  Newly created actors and items now have different default icons to help identify what you are looking at
+-  Family members relationship has been changed to a drop down menu rather than free text. Spouse ties in with family rolls under Victory Sacrifice
+
 ## 13.8
 -  Devotions now have the option to add a skill to them so that the relevant worship skill is added/set during character creation or if devotion added to character sheet
 -  Fixed an issue with current HP calculation

@@ -9,6 +9,21 @@ export class AOVActor extends Actor {
   }
 
   prepareBaseData() {
+    this.system.cidFlagItems = {}
+    for (const i of this.items) {
+      if (i.flags.aov?.cidFlag?.id) {
+        const parts = i.flags.aov?.cidFlag?.id.match(/^([^\.]+)\.([^\.]+)\.([^\.]+)$/)
+        if (parts) {
+          if (typeof this.system.cidFlagItems[parts[1]] === 'undefined') {
+            this.system.cidFlagItems[parts[1]] = {}
+          }
+          if (typeof this.system.cidFlagItems[parts[1]][parts[2]] === 'undefined') {
+            this.system.cidFlagItems[parts[1]][parts[2]] = {}
+          }
+          this.system.cidFlagItems[parts[1]][parts[2]][parts[3]] = i
+        }
+      }
+    }
   }
 
   prepareDerivedData() {
@@ -25,12 +40,17 @@ export class AOVActor extends Actor {
   async _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
     const systemData = actorData.system;
+    systemData.speciesID = ""
+    systemData.homeID = ""
     systemData.actualEnc = 0
     systemData.encPenalty = 0
     systemData.encPenaltyLabel = "0 " + game.i18n.localize('AOV.mrAbbr') +"/0%"
     systemData.lockedMP = 0
     let totDam = 0
-    systemData.dependents = await (actorData.items.filter(itm=>itm.type === 'family').filter(dItm=>dItm.system.depend).filter(fItm=>!fItm.system.died)).length
+    let birthYr = game.settings.get('aov','gameYear')-10
+    let familyList = await actorData.items.filter(itm=>itm.type === 'family').filter(dItm=>dItm.system.depend).filter(fItm=>!fItm.system.died)
+    let children = (await familyList.filter(itm=>itm.system.born > birthYr)).length
+    systemData.dependents = familyList.length - children + Math.floor(children/2)
     await this._prepStats(actorData)
     await this._prepDerivedStats(actorData)
 
@@ -320,6 +340,19 @@ _eNCPenalty (actorData) {
     }
 
 
+    switch (data.type) {
+      case 'farm':
+        data.img = 'systems/aov/art-assets/grain-bundle.svg'
+        break
+      case 'ship':
+        data.img = 'systems/aov/art-assets/drakkar.svg'
+        break
+      case 'npc':
+        data.img = 'systems/aov/art-assets/cultist.svg'
+        break
+    }
+
+
     if (data.type === 'character') {
       data.prototypeToken = foundry.utils.mergeObject({
         actorLink: true,
@@ -354,7 +387,7 @@ _eNCPenalty (actorData) {
     if (data.type === 'character') {
       //Get list of skills
       let skillList = await AOVSelectLists.preLoadCategoriesCategories()
-      skillList = skillList.filter(itm=>itm.type==='skill').filter(itm=>itm.system.common)
+      skillList = skillList.filter(itm=>itm.type==='skill').filter(itm=>itm.system.common).filter(itm=>itm.system.category !='zzz')
       let commonSkills=[];
       for (let thisItem of skillList) {
         //if (!thisItem.system.common) {continue}
