@@ -1,7 +1,6 @@
 <section class='character tab stats {{tab.cssClass}}' data-group='primary' data-tab='stats'>
 
 
-
   <ol class='gear-list'>
     {{!-- Stats Grid --}}
     <li class='gear-header primBackCol statsgrid'>
@@ -51,7 +50,7 @@
         <div class='stat-val centre terIcon'>/</div>
         <div class='stat-val centre terIcon'>{{ability.max}}</div>
       {{else}}
-        {{#if ../hasSpecies}}
+        {{#unless (eq ../system.speciesID "")}}
           <div class='stat-val centre terIcon'>{{ability.formula}}</div>
           <div class='stat-val centre terIcon'>{{ability.min}}</div>
           <div class='stat-val centre terIcon'>/</div>
@@ -67,7 +66,7 @@
           <div class='stat-val centre terIcon'>
              <input class="stat-val" name='system.abilities.{{key}}.max' type='number' value='{{ability.max}}'/>
           </div>
-        {{/if}}
+        {{/unless}}
       {{/if}}
     </li>
     {{/each}}
@@ -142,7 +141,7 @@
     {{!-- Species, Homeland --}}
     <li class="classList" data-item-id='{{system.speciesID}}' data-document-class='Item'>
       <div class="stat-val bold {{#if isCreate}}creation{{/if}}">{{localize 'TYPES.Item.species'}}</div>
-      {{#if hasSpecies}}
+      {{#unless (eq system.speciesID "")}}
         <div class="stat-val terIcon rollable" data-action='viewDoc'>{{system.speciesName}}
           {{#if isCreate}}
             <a class="secIcon" style="padding-left: 10px;" data-action="resetSpecies" title="{{ localize 'AOV.resetSpecies'}}"><i class="far fa-times-circle"></i></a>
@@ -154,12 +153,12 @@
         {{else}}
           <div class="stat-val"><input class="stat-input" style="text-align: left;" name="system.species" type="text" value="{{system.species}}"/></div>
         {{/if}}
-      {{/if}}
+      {{/unless}}
     </li>
 
     <li class="classList" data-item-id='{{system.homeID}}' data-document-class='Item'>
       <div class="stat-val bold {{#if isCreate}}creation{{/if}}">{{localize 'TYPES.Item.homeland'}}</div>
-      {{#if hasHome}}
+      {{#unless (eq system.homeID "")}}
         <div class="stat-val terIcon rollable" data-action='viewDoc'>{{system.homeName}}
           {{#if isCreate}}
             <a class="secIcon" style="padding-left: 10px;" data-action="resetHomeland" title="{{ localize 'AOV.resetHomeland'}}"><i class="far fa-times-circle"></i></a>
@@ -171,7 +170,7 @@
         {{else}}
           <div class="stat-val"><input class="stat-input" style="text-align: left;" name="system.home" type="text" value="{{system.home}}"/></div>
         {{/if}}
-      {{/if}}
+      {{/unless}}
     </li>
     {{/if}}
 

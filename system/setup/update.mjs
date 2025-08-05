@@ -9,6 +9,8 @@ export async function updateWorld({ bypassVersionCheck = false } = {}) {
   const currentVersion = game.settings.get("aov", "systemVersion");
   const targetVersion = game.system.version;
 
+  await charStartStats()
+  console.log("PING")
 
   if (currentVersion === "") {
     await updateDialog('systems/aov/templates/updates/welcome.hbs')
@@ -37,18 +39,32 @@ export async function updateWorld({ bypassVersionCheck = false } = {}) {
       }
       await damTypeUpdate()
     }
+
     //Message if current system is less that Version 13.7
     if (foundry.utils.isNewerVersion('13.7', currentVersion ?? '0')) {
       await updateDialog('systems/aov/templates/updates/update13.7.hbs')
     }
+
     //Message if current system is less that Version 13.8
     if (foundry.utils.isNewerVersion('13.8', currentVersion ?? '0')) {
       await updateDialog('systems/aov/templates/updates/update13.8.hbs')
     }
+
     //Message if current system is less that Version 13.9
     if (foundry.utils.isNewerVersion('13.9', currentVersion ?? '0')) {
       await updateDialog('systems/aov/templates/updates/update13.9.hbs')
     }
+
+    //Message if current system is less that Version 13.10
+    if (foundry.utils.isNewerVersion('13.10', currentVersion ?? '0')) {
+      let response = await updateDialog('systems/aov/templates/updates/update13.10.hbs')
+      if (!response) {
+        ui.notifications.warn("Item Migration to Version 13.10 cancelled");
+        return
+      }
+      await charStartStats()
+    }
+
 
   }
 
@@ -110,7 +126,31 @@ export async function damTypeUpdate() {
       }
     }
   }
-
   return
+}
+
+export async function charStartStats() {
+  //Update Items in World Actors
+  for (let actor of game.actors) {
+    if (actor.type != 'character') {continue}
+    let changes = {}
+    for (let [key, ability] of Object.entries(actor.system.abilities)) {
+      let formula = "3D6"
+      let min = 3
+      let max = 21
+      if (['int', 'siz'].includes(key)) {
+        formula = "2D6+6"
+        min = 8
+      }
+      if (actor.system.abilities[key].formula === "") {
+        changes = Object.assign(changes, {
+          [`system.abilities.${key}.formula`]: formula,
+          [`system.abilities.${key}.min`]: min,
+          [`system.abilities.${key}.max`]: max
+        })
+      }
+    }
+    await actor.update(changes)
+  }
 
 }

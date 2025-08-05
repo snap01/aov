@@ -27,4 +27,5 @@ export default function Ready() {
   if (needsUpdate) {
     updateWorld();
   }
+
 }

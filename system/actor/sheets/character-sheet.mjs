@@ -180,8 +180,6 @@ export class AoVCharacterSheet extends AoVActorSheet {
     context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
     if (this.actor.system.persType === "") {context.persName = ""}
     context.dpOptions = await AOVSelectLists.dpOptions();
-    context.hasSpecies = context.system.speciesID != null
-    context.hasHome = context.system.homeID !=null
     context.useRandom = game.settings.get('aov','randomDice')
     context.useAssign = game.settings.get('aov','allocatedDice')
     context.usePoints = game.settings.get('aov','allocatePoints')

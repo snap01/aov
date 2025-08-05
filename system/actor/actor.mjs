@@ -398,6 +398,23 @@ _eNCPenalty (actorData) {
         commonSkills.push(nItm)
       }
       let newSkills = await actor.createEmbeddedDocuments("Item", commonSkills);
+
+    let changes = {}
+    for (let [key, ability] of Object.entries(actor.system.abilities)) {
+      let formula = "3D6"
+      let min = 3
+      let max = 21
+      if (['int', 'siz'].includes(key)) {
+        formula = "2D6+6"
+        min = 8
+      }
+      changes = Object.assign(changes, {
+        [`system.abilities.${key}.formula`]: formula,
+        [`system.abilities.${key}.min`]: min,
+        [`system.abilities.${key}.max`]: max
+      })
+    }
+    await actor.update(changes)
     }
 
 

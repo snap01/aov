@@ -112,8 +112,11 @@ export class AOVUtilities {
     await game.settings.set('aov', 'developmentEnabled', !state)
     await game.settings.set('aov', 'createEnabled', false)
     await game.settings.set('aov', 'victoryEnabled', false)
-    ui.controls.controls.aovmenu.tools.createphase.active = false
-    ui.controls.controls.aovmenu.tools.victoryphase.active = false
+    //TODO - remove when module released
+    if (game.modules.get('aov-core-rulebook')?.active) {
+      ui.controls.controls.aovmenu.tools.createphase.active = false
+      ui.controls.controls.aovmenu.tools.victoryphase.active = false
+    }
     await ui.controls.render()
 
 

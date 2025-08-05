@@ -1,3 +1,10 @@
+## 13.10
+-  Fixing a bug whereby characters suddenly had Characteristic values of 0 even though the stats tab showed values
+-  Migration sript adds character formulae and min/max values
+-  Newly created characters will have base formula and min/max values added
+-  Unlocking the characters sheet will let you edit these
+-  My apologies for introducing the bug
+
 ## 13.9
 -  Effects are now excluded from the XP roll target
 -  XP Improvement rolls can now only be made once per character per Development Phase (the icon will grey out if rolls have already been made)
