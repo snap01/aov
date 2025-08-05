@@ -9,9 +9,6 @@ export async function updateWorld({ bypassVersionCheck = false } = {}) {
   const currentVersion = game.settings.get("aov", "systemVersion");
   const targetVersion = game.system.version;
 
-  await charStartStats()
-  console.log("PING")
-
   if (currentVersion === "") {
     await updateDialog('systems/aov/templates/updates/welcome.hbs')
   } else {
