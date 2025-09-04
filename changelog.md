@@ -1,3 +1,8 @@
+## 13.11
+-  Changed default journal font colour so it is visible in Dark Mode
+-  You can manually add <div class="aovJnl"> at the start of a journal and </div> at the end to use some inbuilt format options that look like the rulebook (see the aov-journal.css file for what's available)
+
+
 ## 13.10
 -  Fixing a bug whereby characters suddenly had Characteristic values of 0 even though the stats tab showed values
 -  Migration sript adds character formulae and min/max values

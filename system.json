@@ -6,7 +6,7 @@
     "version": "13.10",
     "compatibility": {
       "minimum": 13,
-      "verified": "13.346"
+      "verified": "13.348"
     },
 
     "authors": [
@@ -129,7 +129,6 @@
     },
 
     "primaryTokenAttribute": "hp",
-    "secondaryTokenAttribute": "mp",
 
     "socket": true,
 
@@ -142,7 +141,7 @@
     ],
 
     "manifest": "https://github.com/Genii-Locorum/aov/releases/latest/download/system.json",
-    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.10/system.zip",
+    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.11/system.zip",
     "url": "https://github.com/Genii-Locorum/aov",
     "license": "LICENSE.txt",
     "readme": "README.md",

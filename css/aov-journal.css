@@ -1,5 +1,10 @@
-.journal-entry-content, .journal-entry-page {
+.journal-entry-content, .journal-entry-page, .journal-entry-pages {
   background-image: url('../art-assets/parchment-white.jpg');
+    color: var(--aov-jnl-main-col);
+}
+
+.journal-page-header h1 {
+  color: var(--aov-jnl-main-col);
 }
 
 .aov.journal-sheet,
@@ -97,14 +102,14 @@
         font-size:18px;
       }
       h3 {
-        color: var(--aov-jnl-ter-col); 
+        color: var(--aov-jnl-ter-col);
         text-align: center;
-        text-transform:uppercase;               
+        text-transform:uppercase;
       }
       h4 {
       color: var(--aov-jnl-ter-col);
       font-family: var(--aov-secondary-font);
-      font-size: 18px;        
+      font-size: 18px;
       }
     }
 
@@ -164,7 +169,7 @@
     table.mob tbody tr:first-child {
       background-color: var(--aov-title-font-colour);
       color: white;
-    } 
+    }
 
     table tbody tr:nth-child(odd) {
       background-color: var(--table-row-color-even);
