@@ -1,0 +1,12 @@
+## Data Models
+Add data model in relevant actor/data or item/data folder
+Add to the system/data/_module.mjs file
+Add to the system/hooks/init.mjs file
+
+## New Item sub-type
+Define in the system.json file
+Add name and translation to the TYPES.Item section of the lang/en.json file (and any other language files)
+Add new file in item/sheets folder
+Add new tab detail template hbs file in templates/item
+Add details to the system/setup/register-sheets.mjs file
+If you want the item to be removed from the Create Item menu add the item type to the invalid list in createDialog function in item.mjs

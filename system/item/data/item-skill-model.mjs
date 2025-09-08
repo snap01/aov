@@ -18,6 +18,7 @@ export default class AOVSkillModel extends AOVItemBaseModel {
     schema.xpCheck = new fields.BooleanField({ initial: false }); //Has skill got an XP check
     schema.specSkill = new fields.BooleanField({ initial: false }); //Can this skill have a specialisation
     schema.category = new fields.StringField({ required: true, blank: true, initial: "agi" }); //Skill Category of this skill
+    schema.mainName = new fields.StringField({ required: true, blank: true, initial: "" }); //Main name of skill
     schema.specialisation = new fields.StringField({ required: true, blank: true, initial: "" }); //Name of skill specialisation
     schema.weaponType = new fields.StringField({ required: true, blank: true, initial: "" }); //Weapon Type
     schema.realm = new fields.StringField({ required: true, blank: true, initial: "mind" }); //Seidur realm

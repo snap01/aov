@@ -62,6 +62,16 @@ export async function updateWorld({ bypassVersionCheck = false } = {}) {
       await charStartStats()
     }
 
+    //Message if current system is less that Version 13.12
+    if (foundry.utils.isNewerVersion('13.12', currentVersion ?? '0')) {
+      let response = await updateDialog('systems/aov/templates/updates/update13.12.hbs')
+      if (!response) {
+        ui.notifications.warn("Item Migration to Version 13.12 cancelled");
+        return
+      }
+      await skillNameUpdate()
+    }
+
 
   }
 
@@ -149,5 +159,38 @@ export async function charStartStats() {
     }
     await actor.update(changes)
   }
+}
+
+export async function skillNameUpdate() {
+  console.log("Skill Name Update")
+  //Update Items in World
+  for (let item of game.items) {
+    if (item.type != 'skill') {continue}
+    if (item.system.mainName != "") {continue}
+      console.log(item.name)
+      item.update ({'system.mainName': item.name})
+  }
+  //Update Skills in Actors
+  for (let actor of game.actors) {
+    for (let item of actor.items) {
+      if (item.type != 'skill') {continue}
+      if (item.system.mainName != "") {continue}
+        console.log(item.name)
+        item.update ({'system.mainName': item.name})
+    }
+  }
+  // Update Items in  Scenes [Token] Actors
+  for (const scene of game.scenes) {
+    for (const token of scene.tokens) {
+      if (token.actorLink) { continue }
+      for (let item of token.delta.items) {
+        if (item.type != 'skill') { continue }
+        if (item.system.mainName != "") {continue}
+          console.log(item.name)
+          item.update ({'system.mainName': item.name})
+      }
+    }
+  }
 
 }
+

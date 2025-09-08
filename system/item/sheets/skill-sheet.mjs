@@ -18,7 +18,7 @@ export class AoVSkillSheet extends AoVItemSheet {
   }
 
   static PARTS = {
-    header: { template: 'systems/aov/templates/item/item.header.hbs' },
+    header: { template: 'systems/aov/templates/item/skill.header.hbs' },
     tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
     details: {
       template: 'systems/aov/templates/item/skill.detail.hbs',
@@ -155,6 +155,7 @@ export class AoVSkillSheet extends AoVItemSheet {
     this.#dragDrop.forEach((d) => d.bind(this.element))
     this.element.querySelectorAll('.item-delete').forEach(n => n.addEventListener("dblclick", this.#onItemDelete.bind(this)))
     this.element.querySelectorAll('.item-view').forEach(n => n.addEventListener("click", this.#onItemView.bind(this)))
+    this.element.querySelectorAll('.changeName').forEach(n => n.addEventListener("change", AoVItemSheet.skillChangeName(this.item)))
   }
 
 
@@ -205,7 +206,6 @@ export class AoVSkillSheet extends AoVItemSheet {
     let tempItem = (await game.aov.cid.fromCIDBest({ cid: cid }))[0]
     if (tempItem) { tempItem.sheet.render(true) };
   }
-
 
   //-----------------------ACTIONS-----------------------------------
 
@@ -279,8 +279,5 @@ export class AoVSkillSheet extends AoVItemSheet {
       return new foundry.applications.ux.DragDrop.implementation(d);
     });
   }
-
-
-
 
 }

@@ -1,0 +1,20 @@
+<header class='item sheet-header'>
+  <div class="item-header">
+    <div class='document-name' style="margin-top:16px">
+      {{#if item.system.specSkill}}
+        {{#if canEdit}}
+          <div class="skill-header">
+            <div title='{{localize "AOV.mainName" }}'><input  class="changeName" name='system.mainName' type='text' value='{{item.system.mainName}}'/></div>
+            <div class="centre">/</div>
+            <div class="centre" title='{{localize "AOV.specialisation" }}'><input class="centre changeName" name='system.specialisation' type='text' value='{{item.system.specialisation}}'/></div>
+          </div>
+        {{else}}
+          <div class="secIcon" title='{{localize "AOV.mainName" }}'>{{item.name}}</div>
+        {{/if}}
+      {{else}}
+        <div title='{{localize "AOV.mainName" }}'><input class="changeName" name='system.mainName' type='text' value='{{item.system.mainName}}'/></div>
+      {{/if}}
+    </div>
+    <img class='item-img' src='{{item.img}}' data-edit='img' data-action='onEditImage' title='{{item.name}}' height='60' width='60'/>
+  </div>
+</header>

@@ -87,15 +87,8 @@ export class AOVActor extends Actor {
         if (itm.system.total > 0) {
           itm.system.total += itm.system.catBonus
         }
-        //Item label combining specialism
+        //Item label combining specialism - consider removing this and replacing all places of system.label for skills
         itm.system.label = itm.name
-        if (itm.system.specSkill) {
-          if (itm.system.specialisation === "") {
-            itm.system.label = itm.system.label + " (" + game.i18n.localize('AOV.specify') + ")"
-          } else {
-            itm.system.label = itm.system.label + " (" + itm.system.specialisation + ")"
-          }
-        }
         //Build up Weapon Category Max Values
         if (itm.system.category === "cbt") {
           let catName = itm.system.weaponCat
@@ -189,6 +182,23 @@ export class AOVActor extends Actor {
         }
         let catScore = actorData.system.weaponCats[catName] ?? 0
         itm.system.total = Math.max(weaponScore,Math.ceil(catScore/2))
+      }
+
+      if (itm.type === 'devotion') {
+        itm.system.dpMax = 0
+        if (itm.system.skills.length>0) {
+          let worshipSkill = await actorData.items.filter(i=>i.flags.aov?.cidFlag?.id === itm.system.skills[0].cid)
+          if(worshipSkill) {
+            let worshipSkillVal = worshipSkill[0].system.total
+            if (worshipSkillVal >= 60) {
+              itm.system.dpMax = 3
+            } else if (worshipSkillVal >= 30) {
+              itm.system.dpMax = 2
+            } else if (worshipSkillVal >= 10) {
+              itm.system.dpMax = 1
+            }
+          }
+        }
       }
     }
 
@@ -335,21 +345,23 @@ _eNCPenalty (actorData) {
   static async create(data, options = {}) {
     //If dropping from compendium check to see if the actor already exists in game.actors and if it does then get the game.actors details rather than create a copy
     if (options.fromCompendium) {
-      let tempActor = await (game.actors.filter(actr => actr.flags?.aov?.cidFlag?.id === data.flags?.aov?.cidFlag?.id && actr.flags?.aov?.cidFlag?.priority === data.flags?.aov?.cidFlag?.priority))[0]
+      let tempActor = await (game.actors.filter(actr => actr.flags?.aov?.cidFlag?.id === data.flags?.aov?.cidFlag?.id))[0]
       if (tempActor) { return tempActor }
     }
 
 
-    switch (data.type) {
-      case 'farm':
-        data.img = 'systems/aov/art-assets/grain-bundle.svg'
-        break
-      case 'ship':
-        data.img = 'systems/aov/art-assets/drakkar.svg'
-        break
-      case 'npc':
-        data.img = 'systems/aov/art-assets/cultist.svg'
-        break
+    if (typeof data.img === 'undefined') {
+      switch (data.type) {
+        case 'farm':
+          data.img = 'systems/aov/art-assets/grain-bundle.svg'
+          break
+        case 'ship':
+          data.img = 'systems/aov/art-assets/drakkar.svg'
+          break
+        case 'npc':
+          data.img = 'systems/aov/art-assets/cultist.svg'
+          break
+      }
     }
 
 
@@ -368,11 +380,12 @@ _eNCPenalty (actorData) {
     //Add CID based on actor name if the game setting is flagged.
     if (game.settings.get('aov', "actorCID")) {
       let tempID = await CID.guessId(actor)
+      let priority = data.flags?.aov?.cidFlag?.priority ?? 0
       if (tempID) {
         await actor.update({
           'flags.aov.cidFlag.id': tempID,
           'flags.aov.cidFlag.lang': game.i18n.lang,
-          'flags.aov.cidFlag.priority': 0
+          'flags.aov.cidFlag.priority': priority
         })
         const html = $(actor.sheet.element).find('header.window-header .edit-cid-warning,header.window-header .edit-cid-exisiting')
         if (html.length) {

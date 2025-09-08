@@ -522,6 +522,12 @@ export class AoVCharacterSheet extends AoVActorSheet {
     let newVal = Number(event.target.value);
     const field = "system." + event.target.dataset.field
     const item = this.actor.items.get(itemId);
+    if (item.type==='devotion') {
+      newVal = Math.min(item.system.dpMax, newVal)
+      await item.update({ [field]: newVal });
+      this.render(true)
+      return
+      }
     await item.update({ [field]: newVal });
   }
 

@@ -1,3 +1,10 @@
+## 13.12
+- Skill now have a main name as well as a specialisation name (if appropriate) and the skill name is created automatically from these.
+- There is a migration script to update all skills in the game world, on actors or tokens.  PLEASE BACKUP YOUR WORLD BEFORE UPDATING THIS
+- There is no migration for compendia - you may want to import your compendia in to the game world before doing the update.
+- Although Dedication Points (now renamed from Devotion Points - oops) are changed with a drop down menu showing 0-3 DP, the value selected will be capped based on the relevant Worship skill
+- You can no longer alter the DP from the DP item sheet - it can only be done from the character sheet.
+
 ## 13.11
 -  Changed default journal font colour so it is visible in Dark Mode
 -  You can manually add <div class="aovJnl"> at the start of a journal and </div> at the end to use some inbuilt format options that look like the rulebook (see the aov-journal.css file for what's available)

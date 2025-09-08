@@ -157,10 +157,36 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
     } else { return }
 
     this.item.update(checkProp)
+
+    if (prop === 'specSkill') {
+      AoVItemSheet.skillChangeName(this.item)
+    }
   }
 
-
-
+  //Update Skill Name
+  static async skillChangeName(skill) {
+    let newName = ""
+    let specialName = skill.system.specialisation
+    if (skill.system.mainName === "") {
+      await skill.update({
+      'system.mainName': skill.name
+    })
+    }
+    if (skill.system.specSkill) {
+      if (specialName === "") {
+        specialName = game.i18n.localize('AOV.specify')
+      }
+      newName = skill.system.mainName + " (" + specialName + ")"
+    } else {
+      newName = skill.system.mainName
+    }
+    if (skill.name != newName || skill.system.specialisation != specialName) {
+      await skill.update({
+        'name': newName,
+        'system.specialisation': specialName
+      })
+    }
+  }
 
   //Implement Game Settings for Colours etc
   static renderSheet(sheet, html) {

@@ -471,7 +471,7 @@ export class AOVCharCreate {
 
   //Create Family
   static async family(actor) {
-    //Check Marital Status Table exists
+    //Adjust Age for an older/younger character
     let ageAdj = Math.max(actor.system.age - 22, 0)
     let family = []
 
@@ -624,6 +624,7 @@ export class AOVCharCreate {
       name: farmName,
       type: "farm",
       ownership: owners,
+      img: 'systems/aov/art-assets/grain-bundle.svg',
       system: {
         farmType: farm.system.farmType,
         sheep: farm.system.sheep,
