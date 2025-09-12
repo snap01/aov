@@ -175,6 +175,11 @@ constructor(data, context) {
           cardType = CardType.OPPOSED
         }
         break
+      case 'weapon':
+        rollType = RollType.WEAPON;
+        skillId = item._id;
+        cardType = CardType.COMBAT
+        break
       default:
         item.sheet.render(true);
         return

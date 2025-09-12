@@ -14,6 +14,14 @@ export default class AOVNPCModel extends AOVActorBaseModel {
     schema.movement = new fields.StringField({ required: true, blank: true, initial: "10" });
     schema.persType = new fields.StringField({ required: true, blank: true });
     schema.tabView = new fields.StringField({ required: true, blank: true, initial: "1" });
+    schema.noteView = new fields.BooleanField({ initial: false }); //Show NPC notes tab
+    schema.skillView = new fields.BooleanField({ initial: true }); //Expand NPC skills
+    schema.hitlocView = new fields.BooleanField({ initial: true }); //Expand NPC hitlocations
+    schema.weaponView = new fields.BooleanField({ initial: true }); //Expand NPC weapons
+    schema.powerView = new fields.BooleanField({ initial: true }); //Expand NPC powers
+    schema.equipView = new fields.BooleanField({ initial: true }); //Expand NPC equipment
+    schema.passionView = new fields.BooleanField({ initial: true }); //Expand NPC passions
+    schema.devotionView = new fields.BooleanField({ initial: true }); //Expand NPC devotions
     schema.spiritAn = new fields.StringField({ required: true, blank: true });
     return schema
   }

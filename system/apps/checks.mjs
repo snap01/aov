@@ -83,6 +83,9 @@ export class AOVCheck {
       particType,
       actorType,
       particImg,
+      targetId: options.targetId ?? "",
+      targetType: options.targetType ?? "",
+      targetLoc: options.targetLoc ?? "",
       origID: options.origID,
       characteristic: options.characteristic ?? false,
       skillId: options.skillId ?? false,
@@ -100,8 +103,10 @@ export class AOVCheck {
       targetAdj: 0,
       augAdj: 0,
       encPenalty: 0,
+      mqPenalty: 0,
       checkDodge: false,
       flatMod: options.flatMod ?? 0,
+      damBonus: options.damBonus ?? 0,
       rollFormula: options.rollFormula ?? "1D100",
       resultLevel: options.resultLevel ?? 0,
       shiftKey: options.shiftKey ?? false,
@@ -144,13 +149,19 @@ export class AOVCheck {
             options.cardType = 'NO'
           }
         }
+        //If Move Quietly skill apply MQ penalty
+        if (skillFlag === 'i.skill.move-quietly') {
+          config.mqPenalty = particActor.system.mqPenalty
+        }
         //Check to see if ENC Penalty applies
         if (tempItem.type === 'skill') {
           if (['agi','man','ste','cbt'].includes(tempItem.system.category)) {
-            config.encPenalty = particActor.system.encPenalty
+            config.encPenalty = (particActor.system.encPenalty ?? 0)
           }
         }
         break;
+
+
       case RollType.DAMAGE:
         tempItem = await particActor.items.get(config.skillId)
         config.label = tempItem.name
@@ -210,6 +221,7 @@ export class AOVCheck {
           config.damTypeLabel = game.i18n.localize('AOV.DamType.'+config.damType)
         }
         config.oppRes = usage.oppRes
+        config.damBonus = usage.damBonus ?? 0;
         if (usage.dodgeCombat) {
           if (usage.dodgeCombat === 'yes') {
             config.cardType = CardType.COMBAT
@@ -241,8 +253,8 @@ export class AOVCheck {
       }
     }
 
-    //Adjust target Score for check Bonus and ENC Penalty
-    config.targetScore = config.targetScore + config.flatMod + config.encPenalty
+    //Adjust target Score for check Bonus, ENC Penalty and Move Quietly Penalty
+    config.targetScore = config.targetScore + config.flatMod + config.encPenalty + config.mqPenalty
 
 
     //Adjust Target for Fixed Resistance Roll
@@ -324,6 +336,9 @@ export class AOVCheck {
           particName: config.particName,
           particImg: config.particImg,
           actorType: config.actorType,
+          targetId: config.targetId,
+          targetType: config.targetType,
+          targetLoc: config.targetLoc,
           characteristic: config.characteristic ?? false,
           label: config.label,
           targetScore: config.targetScore,
@@ -333,12 +348,14 @@ export class AOVCheck {
           rollFormula: config.rollFormula,
           flatMod: config.flatMod,
           encPenalty: config.encPenalty,
+          mqPenalty: config.mqPenalty,
           targetAdj: config.targetAdj,
           rollResult: config.rollResult,
           rollVal: config.rollVal,
           roll: config.roll,
           oppRes: config.oppRes,
           damTypeLabel: config.damTypeLabel,
+          damBonus: config.damBonus,
           successLevel: config.successLevel,
           successLevelLabel: config.successLevelLabel,
           augAdj: config.augAdj,
@@ -396,6 +413,7 @@ export class AOVCheck {
 
     //Don't need success levels in some cases
     if ([RollType.DAMAGE].includes(config.rollType)) {
+      config.rollVal = config.rollVal + config.damBonus
       return;
     }
     //Get the level of Success
@@ -476,6 +494,7 @@ export class AOVCheck {
       chatData.rolls = [chatMsgData.rolls];
     }
     let msg = await ChatMessage.create(chatData);
+    ui.chat.render();  //Sometimes chat messages weren't showing - hopefully this solves it
     return msg._id;
   }
 
@@ -483,6 +502,10 @@ export class AOVCheck {
     switch (cardType) {
       case CardType.UNOPPOSED:
         config.state = "closed";
+        //If this is a damage card and there is a target then make status open
+        if (config.rollType === 'DM' && config.targetId !="") {
+          config.state = "open";
+        }
         config.chatTemplate =
           "systems/aov/templates/chat/roll-result.hbs";
         break;
@@ -533,11 +556,13 @@ export class AOVCheck {
     let askDiff = false
     let askSuccess = false
     let askDamType = false
+    let askDamBonus = false
     let askBonus = true
     let askDodge = options.checkDodge
     if (options.rollType === 'DM') {
       cardLabel = game.i18n.localize('AOV.rolls.DM')
       askBonus = false
+      askDamBonus = true
       if (options.successLevel === "99") {
         askSuccess = true
       }
@@ -552,23 +577,20 @@ export class AOVCheck {
       askDiff = true
     }
 
-
-    //If this is a Damage Card and we are not asking about Success Level or Damage Type then don't call it
-    if (options.rollType === 'DM' && !askSuccess && !askDamType) {return}
-
-
     const data = {
       cardType: options.cardType,
       cardLabel,
       label: options.label,
       rollType: options.rollType,
       flatMod: options.flatMod,
+      damBonus: options.damBonus,
       damType: options.damType,
       dmgLevels,
       askFixed,
       askDiff,
       askSuccess,
       askDamType,
+      askDamBonus,
       askBonus,
       askDodge,
       diffOptions,
@@ -673,6 +695,9 @@ export class AOVCheck {
         break
       case "resolve-co-card":
         await COCard.COResolve(data)
+        break
+      case "roll-hitloc-card":
+        await COCard.COHitLoc(data)
         break
       default:
         return

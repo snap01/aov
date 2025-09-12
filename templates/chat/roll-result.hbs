@@ -27,7 +27,6 @@
 
               {{#if (eq c.rollType 'DM')}}
                 <span class="pending">{{localize 'AOV.damage'}}: {{c.rollVal}}
-
               {{else}}
                 {{#if (eq c.resultLevel 4)}}
                   <span class="pending">{{c.resultLabel}}: {{c.rollVal}} <i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i><i class="result-success fas fa-axe-battle"></i>
@@ -57,6 +56,7 @@
               {{#if (eq c.rollType 'DM')}}
                 <div class="rollHidden">{{localize 'AOV.card.damType'}}: {{c.damTypeLabel}}</div>
                 <div class="rollHidden">{{localize 'AOV.card.successLevel'}}: {{c.successLevelLabel}}</div>
+                <div class="rollHidden">{{localize 'AOV.card.attackDamBonus'}}: {{c.damBonus}}</div>
               {{else}}
                 {{#if (eq rollType 'CH')}}
                   {{#if (eq ../cardType 'NO')}}
@@ -74,6 +74,9 @@
                     +{{c.flatMod}}
                   {{/if}}
                 </div>
+                {{#unless (eq c.mqPenalty 0)}}
+                  <div class="rollHidden"> {{localize 'AOV.moveQuietlyAbbr'}}: {{c.mqPenalty}}</div>
+                {{/unless}}
                 <div class="rollHidden"> {{localize 'AOV.encPenalty'}}: {{c.encPenalty}}</div>
               {{/if}}
               <div class="rollHidden">{{localize 'AOV.card.diceRolled'}}: {{c.diceRolled}}</div>
@@ -84,4 +87,21 @@
       {{/each}}
     </ol>
   </div>
+
+  {{#if (eq state 'open')}}
+    {{#each chatCard as |c key|}}
+    {{#if (eq c.rollType 'DM')}}
+      <div class="owner-only" data-partic-id="{{c.particId}}" data-partic-type="{{c.particType}}">
+        <button class='resolve cardbutton' data-preset='roll-hitloc-card' data-card={{key}} type="button">{{localize 'AOV.card.rollHitLoc'}}</button>
+      </div>
+    {{/if}}
+    {{/each}}
+  {{else}}
+    {{#each chatCard as |c key|}}
+      {{#unless (eq c.targetLoc "")}}
+        <div class="combat-result">{{c.targetLoc}}</div>
+      {{/unless}}
+    {{/each}}
+  {{/if}}
+
 </form>

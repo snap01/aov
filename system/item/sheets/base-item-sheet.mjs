@@ -187,38 +187,4 @@ export class AoVItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemShee
       })
     }
   }
-
-  //Implement Game Settings for Colours etc
-  static renderSheet(sheet, html) {
-    if (game.settings.get('aov', 'primaryFontColour')) {
-      document.body.style.setProperty('--primary-font-colour', game.settings.get('aov', 'primaryFontColour'));
-    }
-
-    if (game.settings.get('aov', 'secondaryFontColour')) {
-      document.body.style.setProperty('--aov-secondary-font-colour', game.settings.get('aov', 'secondaryFontColour'));
-    }
-
-    if (game.settings.get('aov', 'primaryBackColour')) {
-      document.body.style.setProperty('--primary-back-colour', game.settings.get('aov', 'primaryBackColour'));
-    }
-
-    if (game.settings.get('aov', 'secondaryBackColour')) {
-      document.body.style.setProperty('--secondary-back-colour', game.settings.get('aov', 'secondaryBackColour'));
-    }
-
-    if (game.settings.get('aov', 'primaryFont')) {
-      let fontSource = "url(/" + game.settings.get('aov', 'primaryFont') + ")"
-      const primaryFont = new FontFace(
-        'primaryFont',
-        fontSource
-      )
-      primaryFont
-        .load()
-        .then(function (loadedFace) { document.fonts.add(loadedFace) })
-        .catch(function (error) {
-          ui.notifications.error(error)
-        })
-      document.body.style.setProperty('--primary-font', 'primaryFont');
-    }
-  }
 }

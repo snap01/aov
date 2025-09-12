@@ -31,6 +31,9 @@ export class AOVActor extends Actor {
     const systemData = actorData.system;
     const flags = actorData.flags.aov || {};
 
+    systemData.mqPenalty = 0
+    systemData.encPenalty = 0
+
     //Prepare data for different actor types
     this._prepareCharacterData(actorData);
     this._prepareNPCData(actorData);
@@ -43,7 +46,6 @@ export class AOVActor extends Actor {
     systemData.speciesID = ""
     systemData.homeID = ""
     systemData.actualEnc = 0
-    systemData.encPenalty = 0
     systemData.encPenaltyLabel = "0 " + game.i18n.localize('AOV.mrAbbr') +"/0%"
     systemData.lockedMP = 0
     let totDam = 0
@@ -111,6 +113,12 @@ export class AOVActor extends Actor {
       } else if (['gear','weapon','armour'].includes(itm.type)) {
         if (itm.system.equipStatus === 1 ) {
           itm.system.actlEnc = itm.system.enc * (itm.system.quantity ?? 1)
+          //Calc Move Quietly Penalty for Armour
+          if (itm.type==='armour') {
+            if (itm.system.mqPenalty < systemData.mqPenalty) {
+              systemData.mqPenalty = itm.system.mqPenalty
+            }
+          }
         } else {
           itm.system.actlEnc = 0
         }
@@ -231,6 +239,8 @@ export class AOVActor extends Actor {
         itm.system.total = (itm.system.base ?? 0) + (itm.system.effects ?? 0)
       } else if (itm.type === 'weapon') {
         itm.system.total = (itm.system.npcBase ?? 0) + (itm.system.effects ?? 0)
+      } else if (itm.type === 'passion'){
+        itm.system.total = (itm.system.base ?? 0) + (itm.system.effects ?? 0)
       }
     }
 

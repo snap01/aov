@@ -22,11 +22,12 @@
 }
 
 .aov.npc {
+  overflow: visible;
   .window-content {
     font-family: var(--aov-primary-font);
     color: var(--aov-primary-font-colour);
     font-size: var(--aov-primary-font-size);
-    background-image: url('../art-assets/npcSheetv2.jpg');
+    background-image: url('../art-assets/lightstone.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0px;
@@ -61,7 +62,7 @@
 
   .npc-header {
     display: grid;
-    grid-template-columns: 265px 180px;
+    grid-template-columns: 265px 150px 26px;
     grid-column-gap: 4px;
   }
 
@@ -75,6 +76,10 @@
   .charNameHeader {
     padding-left: 14px;
     padding-top: 26px;
+  }
+
+  .npcNameHeader {
+    padding-left: 10px;
   }
 
 }
@@ -112,8 +117,8 @@
   }
 
   .hit-loc-cell {
-    border-right:1px solid slategrey;
-    border-bottom:1px solid slategrey;
+    border-right:1px solid var(--aov-primary-font-colour);
+    border-bottom:1px solid var(--aov-primary-font-colour);
   }
 
 
@@ -348,4 +353,25 @@
   width: 305px;
   margin-left: 5px;
   grid-template-columns: 75px 75px 50px 50px 50px ;
+}
+
+.aov .npc-notes-section {
+  position: absolute;
+  min-width: 355px;
+  min-height: 603px;
+  border: 1px solid black;
+  top: 36px;
+  right: -355px;
+  background-image: url('../art-assets/lightstone.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.aov .hide-npc-notes {
+  display: none;
+}
+
+.aov .npc-icons-grid {
+  display: grid;
+  grid-template-columns: 45px 140px;
 }

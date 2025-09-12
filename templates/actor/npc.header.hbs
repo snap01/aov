@@ -3,11 +3,11 @@
   <div class="npc-header">
 
     {{!Character Name}}
-    <div class="charNameHeader">
+    <div class="npcNameHeader">
       <div class='header-fields npcName-grid'>
         <div class="bold">{{localize 'AOV.name'}}</div>
         <div class='document-name'><input class="stat-input" name='name' type='text' value='{{actor.name}}' /></div>
-        <div class="left">
+        <div class="new-row left" style="padding-top: 10px;">
           {{#if system.beserkerOpt}}
             <a class="{{#unless system.beserkerStat}}fade{{/unless}} secIcon" title="{{ localize 'AOV.npcOptions.beserker' }}" data-action="toggleActor" data-property="beserkerStat">
               <i class="mediumIcon fas fa-axe-battle"></i>
@@ -16,37 +16,49 @@
 
         </div>
 
-        <div class="right">
-          {{#unless isLocked}}
-            <a class="secIcon" title="{{ localize 'AOV.TokenCreationRoll.ButtonRoll' }}" data-action="randomStats"> <i class="mediumIcon fas fa-dice"></i></a>
-            <a class="secIcon" title="{{ localize 'AOV.TokenCreationRoll.ButtonAverage' }}" data-action="averageStats"> <i class="mediumIcon fas fa-scale-balanced"></i> </a>
-            <a style="color: transparent; text-shadow:none;"><i class="fas fa-dice"></i></a>
-          {{/unless}}
-          <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewStat' }}"  data-tabval="1"> <i class="mediumIcon fas fas fa-user"></i></a>
-          <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewBaseStat' }}" data-tabval="3"> <i class="mediumIcon fas fa-user-magnifying-glass"></i></a>
+        <div class="npc-icons-grid" style="padding-top: 10px;">
+          <div class="left">
+            <a class="secIcon" title="{{ localize 'AOV.expandAll' }}"  data-action="npcSections" data-property="expand"> <i class="mediumIcon fas fa-chevrons-down"></i></a>
+            <a class="secIcon" title="{{ localize 'AOV.collapseAll' }}"  data-action="npcSections" data-property="collapse"> <i class="mediumIcon fas fa-chevrons-up"></i></a>
+          </div>
+          <div class="right">
+            {{#unless isLocked}}
+              <a class="secIcon" title="{{ localize 'AOV.TokenCreationRoll.ButtonRoll' }}" data-action="randomStats"> <i class="mediumIcon fas fa-dice"></i></a>
+              <a class="secIcon" title="{{ localize 'AOV.TokenCreationRoll.ButtonAverage' }}" data-action="averageStats"> <i class="mediumIcon fas fa-scale-balanced"></i> </a>
+              <a style="color: transparent; text-shadow:none;"><i class="fas fa-dice"></i></a>
+            {{/unless}}
+            <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewStat' }}"  data-tabval="1"> <i class="mediumIcon fas fas fa-user"></i></a>
+            <a class="tab-toggle secIcon" title="{{ localize 'AOV.viewBaseStat' }}" data-tabval="3"> <i class="mediumIcon fas fa-user-magnifying-glass"></i></a>
+            <a class="note-toggle secIcon" title="{{ localize 'AOV.viewNotes' }}" data-tabval="2"> <i class="{{#unless actor.system.noteView}}fade{{/unless}} mediumIcon fas fa-scroll"></i></a>
 
+          </div>
         </div>
       </div>
+    </div>
+
+    {{!Logo}}
+    <div>
+      <img class="img-centre" src='systems/aov/art-assets/npc_logo.png' width="150" />
     </div>
 
     {{!Icons}}
     <div class="right">
       {{#if isLocked}}
-        <div><a class="icon17 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.unlock"}}'>
+        <div><a class="icon15 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.unlock"}}'>
           <i class="fas fa-lock"></i>
         </a></div>
       {{else}}
-        <div><a class="icon17 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.lock"}}'>
+        <div><a class="icon15 terIcon" data-action="toggleActor" data-property="locked" title='{{localize "AOV.lock"}}'>
           <i class="fas fa-lock-open"></i>
         </a></div>
       {{/if}}
       {{#if isLinked}}
-        <div><a class="icon17 terIcon" title='{{localize "AOV.linked"}}'><i class="fas fa-link"></i></a></div>
+        <div><a class="icon15 terIcon" title='{{localize "AOV.linked"}}'><i class="fas fa-link"></i></a></div>
       {{else}}
-        <div><a class="icon17 terIcon" title='{{localize "AOV.unlinked"}}'><i class="fas fa-link-slash"></i></a></div>
+        <div><a class="icon15 terIcon" title='{{localize "AOV.unlinked"}}'><i class="fas fa-link-slash"></i></a></div>
       {{/if}}
       {{#if isSynth}}
-        <div><a class="icon17 terIcon" title='{{localize "AOV.synth"}}'><i class="fas fa-people-group"></i></a></div>
+        <div><a class="icon15 terIcon" title='{{localize "AOV.synth"}}'><i class="fas fa-people-group"></i></a></div>
       {{/if}}
     </div>
   </div>
@@ -108,14 +120,20 @@
     {{!Hit Locations Section}}
     <ol class='hit-loc-grid'>
       <div class='hit-loc-row primBackCol'>
-        <div class="indent hit-loc-cell bold">{{localize 'AOV.hitLocation'}}</div>
+        <div class="indent hit-loc-cell bold rollable" data-action="toggleActor" data-property="hitlocView">{{localize 'AOV.hitLocation'}}
+          {{#if system.hitlocView}}
+            <a class='' title='{{localize "AOV.collapseSection"}}'><i class='fas fa-chevrons-up'></i></a>
+          {{else}}
+            <a class='' title='{{localize "AOV.expandSection"}}'><i class='fas fa-chevrons-down'></i></a>
+          {{/if}}
+        </div>
         <div class="centre hit-loc-cell bold">{{localize 'AOV.d20'}}</div>
         <div class="centre hit-loc-cell bold">{{localize 'AOV.armourPointsAbbr'}}</div>
         <div class="centre hit-loc-cell bold">{{localize 'AOV.damageAbbr'}}</div>
         <div class="centre hit-loc-cell bold">{{localize 'AOV.hpAbbr'}}</div>
         <div class="centre hit-loc-cell bold">
           {{#if isLocked}}
-            <div class="centre hit-loc-cell">&nbsp</div>
+            <div></div>
           {{else}}
             <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.hitloc")}}'
               data-action='createDoc' data-document-class='Item' data-type='hitloc'>
@@ -125,47 +143,55 @@
         </div>
       </div>
 
-      {{#each hitLocs as |item id|}}
-          <li class='item hit-loc-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-            <div class="indent hit-loc-cell rollable" data-action='viewDoc'>{{item.name}}</div>
-            {{#if (eq item.system.locType 'general')}}
-              <div class="hit-loc-cell"></div>
-            {{else}}
-              <div class="centre hit-loc-cell terIcon">{{item.system.label}}</div>
-            {{/if}}
-            {{#if (eq item.system.locType 'general')}}
+      {{#if system.hitlocView}}
+        {{#each hitLocs as |item id|}}
+            <li class='item hit-loc-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+              <div class="indent hit-loc-cell rollable" data-action='viewDoc'>{{item.name}}</div>
+              {{#if (eq item.system.locType 'general')}}
                 <div class="hit-loc-cell"></div>
-            {{else}}
-              {{#if ../isLocked}}
-                <div class="centre hit-loc-cell terIcon">{{item.system.npcAP}}</div>
               {{else}}
-                <div class="centre hit-loc-cell skill-inline"><input class="skillDev-input centre" name='system.npcAP'
-                  type='number' value='{{item.system.npcAP}}' data-field="npcAP"/></div>
+                <div class="centre hit-loc-cell terIcon">{{item.system.label}}</div>
               {{/if}}
-            {{/if}}
-            <div class="centre hit-loc-cell skill-inline"><input class="skillDev-input centre" name='system.npcDmg'
-              type='number' value='{{item.system.npcDmg}}' data-field="npcDmg"/></div>
-            {{#if (eq item.system.locType 'general')}}
-              <div class="centre hit-loc-cell terIcon"></div>
-            {{else}}
-              <div class="centre hit-loc-cell terIcon">{{item.system.currHp}} / {{item.system.hpMax}}</div>
-            {{/if}}
-            <div class='hit-loc-cell gear-controls centre'>
-              {{#unless ../isLocked}}
-                <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
-                  data-action="deleteDoc">
-                  <i class='fas fa-trash'></i>
-                </a>
-              {{/unless}}
-            </div>
-          </li>
-        {{/each}}
+              {{#if (eq item.system.locType 'general')}}
+                  <div class="hit-loc-cell"></div>
+              {{else}}
+                {{#if ../isLocked}}
+                  <div class="centre hit-loc-cell terIcon">{{item.system.npcAP}}</div>
+                {{else}}
+                  <div class="centre hit-loc-cell skill-inline"><input class="skillDev-input centre" name='system.npcAP'
+                    type='number' value='{{item.system.npcAP}}' data-field="npcAP"/></div>
+                {{/if}}
+              {{/if}}
+              <div class="centre hit-loc-cell skill-inline"><input class="skillDev-input centre" name='system.npcDmg'
+                type='number' value='{{item.system.npcDmg}}' data-field="npcDmg"/></div>
+              {{#if (eq item.system.locType 'general')}}
+                <div class="centre hit-loc-cell terIcon"></div>
+              {{else}}
+                <div class="centre hit-loc-cell terIcon">{{item.system.currHp}} / {{item.system.hpMax}}</div>
+              {{/if}}
+              <div class='hit-loc-cell gear-controls centre'>
+                {{#unless ../isLocked}}
+                  <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
+                    data-action="deleteDoc">
+                    <i class='fas fa-trash'></i>
+                  </a>
+                {{/unless}}
+              </div>
+            </li>
+          {{/each}}
+        {{/if}}
       </ol>
 
     {{!Skills Section}}
     <ol class='npc-skill-grid'>
       <div class='npc-skill-row primBackCol'>
-        <div class="bold">{{localize 'AOV.skills'}}</div>
+        <div class="bold indent rollable" data-action="toggleActor" data-property="skillView">{{localize 'AOV.skills'}}
+          {{#if system.skillView}}
+            <a class='' title='{{localize "AOV.collapseSection"}}'><i class='fas fa-chevrons-up'></i></a>
+          {{else}}
+            <a class='' title='{{localize "AOV.expandSection"}}'><i class='fas fa-chevrons-down'></i></a>
+          {{/if}}
+        </div>
         <div class="centre">%</div>
         <div class="centre">
           {{#if @root.editable}}
@@ -176,32 +202,40 @@
           {{/if}}
         </div>
       </div>
-      {{#each skills as |item id|}}
-          <li class='item npc-skill-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-            {{#if ../isLocked}}
-              <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
-              <div class="centre rollable terIcon" data-action="diceroll" data-property="skill" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.skillRoll">{{item.system.total}}</div>
-            {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
-                type='text' value='{{item.name}}' data-field="itemName"></div>
-              <div class="centre skill-inline"><input class="skillDev-input centre" name='system.base'
-                type='number' value='{{item.system.base}}' data-field="base"/></div>
-            {{/if}}
-            {{#unless ../isLocked}}
-                <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.skill")}}'
-                  data-action="deleteDoc">
-                  <i class='fas fa-trash'></i>
-                </a>
-            {{/unless}}
-          </div>
-        </li>
-      {{/each}}
+      {{#if system.skillView}}
+        {{#each skills as |item id|}}
+            <li class='item npc-skill-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+              {{#if ../isLocked}}
+                <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
+                <div class="centre rollable terIcon" data-action="diceroll" data-property="skill" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.skillRoll">{{item.system.total}}</div>
+              {{else}}
+                <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                  type='text' value='{{item.name}}' data-field="itemName"></div>
+                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.base'
+                  type='number' value='{{item.system.base}}' data-field="base"/></div>
+              {{/if}}
+              {{#unless ../isLocked}}
+                  <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.skill")}}'
+                    data-action="deleteDoc">
+                    <i class='fas fa-trash'></i>
+                  </a>
+              {{/unless}}
+            </div>
+          </li>
+        {{/each}}
+      {{/if}}
     </ol>
 
     {{!Weapons Section}}
     <ol class='npc-weapon-grid'>
       <div class='npc-weapon-row primBackCol'>
-        <div class="bold">{{localize 'TYPES.Item.weapon'}}</div>
+        <div class="bold indent rollable" data-action="toggleActor" data-property="weaponView">{{localize 'TYPES.Item.weapon'}}
+          {{#if system.weaponView}}
+            <a class='' title='{{localize "AOV.collapseSection"}}'><i class='fas fa-chevrons-up'></i></a>
+          {{else}}
+            <a class='' title='{{localize "AOV.expandSection"}}'><i class='fas fa-chevrons-down'></i></a>
+          {{/if}}
+        </div>
         <div class="centre bold">%</div>
         <div class="centre bold">{{localize 'AOV.damage'}}</div>
         <div class="centre bold">{{localize 'AOV.dmgBonusAbbr'}}</div>
@@ -215,132 +249,233 @@
           {{/if}}
         </div>
       </div>
-      {{#each weapons as |item id|}}
-          <li class='item npc-weapon-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-            {{#if ../isLocked}}
-              <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
-              <div class="centre terIcon rollable" data-action="diceroll" data-property="combat" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.combatRoll">{{item.system.total}}</div>
-              <div class="centre rollable" data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
-              <div class="centre" title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
-              <div class="centre npc-weapon-hp">
-                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
-                  type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
-                <div class="centre"> / </div>
-                <div class="centre terIcon">{{item.system.maxHP}}</div>
-              </div>
+      {{#if system.weaponView}}
+        {{#each weapons as |item id|}}
+            <li class='item npc-weapon-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+              {{#if ../isLocked}}
+                <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
+                <div class="centre terIcon rollable" data-action="diceroll" data-property="combat" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.combatRoll">{{item.system.total}}</div>
+                <div class="centre rollable" data-action="diceroll" data-property="damage" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.damageRoll">{{item.system.damage}}</div>
+                <div class="centre" title="{{item.system.damTypeLabel}}">{{item.system.dbLabel}}</div>
+                <div class="centre npc-weapon-hp">
+                  <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
+                    type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
+                  <div class="centre"> / </div>
+                  <div class="centre terIcon">{{item.system.maxHP}}</div>
+                </div>
 
 
-            {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
-                type='text' value='{{item.name}}' data-field="itemName"></div>
-              <div class="centre skill-inline"><input class="skillDev-input centre" name='system.npcBase'
-                type='number' value='{{item.system.npcBase}}' data-field="npcBase"/></div>
-              <div class="centre skill-inline" title="{{item.system.damTypeLabel}}"><input class="skillDev-input centre" name='system.damage'
-                type='text' value='{{item.system.damage}}' data-field="damage"/></div>
-              <div class="centre">{{item.system.dbLabel}}</div>
-              <div class="centre npc-weapon-hp">
-                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
-                  type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
-                <div class="ability-cell centre"> / </div>
-                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.maxHP'
-                  type='number' value='{{item.system.maxHP}}' data-field="maxHP"/></div>
-              </div>
+              {{else}}
+                <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                  type='text' value='{{item.name}}' data-field="itemName"></div>
+                <div class="centre skill-inline"><input class="skillDev-input centre" name='system.npcBase'
+                  type='number' value='{{item.system.npcBase}}' data-field="npcBase"/></div>
+                <div class="centre skill-inline" title="{{item.system.damTypeLabel}}"><input class="skillDev-input centre" name='system.damage'
+                  type='text' value='{{item.system.damage}}' data-field="damage"/></div>
+                <div class="centre">{{item.system.dbLabel}}</div>
+                <div class="centre npc-weapon-hp">
+                  <div class="centre skill-inline"><input class="skillDev-input centre" name='system.currHP'
+                    type='number' value='{{item.system.currHP}}' data-field="currHP"/></div>
+                  <div class="ability-cell centre"> / </div>
+                  <div class="centre skill-inline"><input class="skillDev-input centre" name='system.maxHP'
+                    type='number' value='{{item.system.maxHP}}' data-field="maxHP"/></div>
+                </div>
 
-            {{/if}}
-            {{#unless ../isLocked}}
-                <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
-                  data-action="deleteDoc">
-                  <i class='fas fa-trash'></i>
-                </a>
-            {{/unless}}
-          </div>
-        </li>
-      {{/each}}
-    </ol>
-
-    {{!Powers Section}}
-    <ol class='npc-weapon-grid'>
-      <div class='npc-power-row primBackCol'>
-        <div class="bold">{{localize 'TYPES.Item.npcpower'}}</div>
-        <div class="bold">{{localize 'AOV.description'}}</div>
-        <div class="centre bold">
-          {{#if @root.editable}}
-            <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.npcpower")}}'
-              data-action='createDoc' data-document-class='Item' data-type='npcpower'>
-              <i class='fas fa-plus'></i>
-            </a>
-          {{/if}}
-        </div>
-      </div>
-      {{#each powers as |item id|}}
-          <li class='item npc-power-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-            {{#if ../isLocked}}
-              <div class="rollable truncate" title="{{item.name}}" data-action='viewDoc'>{{item.name}}</div>
-              <div class="truncate" title ="{{item.system.description}}">{{item.system.description}}</div>
-            {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
-                type='text' value='{{item.name}}' data-field="itemName"></div>
-              <div class="skill-inline"><input class="skillDev-input" name='system.powerDescription'
-                type='text' value='{{item.system.description}}' data-field="powerDescription"/></div>
-            {{/if}}
-            {{#unless ../isLocked}}
-                <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
-                  data-action="deleteDoc">
-                  <i class='fas fa-trash'></i>
-                </a>
-            {{/unless}}
-          </div>
-        </li>
-      {{/each}}
-    </ol>
-
-
-    {{!Gear Section}}
-    <ol class='npc-skill-grid'>
-      <div class='npc-gear-row primBackCol'>
-        <div class="bold">{{localize 'TYPES.Item.gear'}}</div>
-          {{#if @root.editable}}
-            <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.gear")}}'
-              data-action='createDoc' data-document-class='Item' data-type='gear'>
-              <i class='fas fa-plus'></i>
-            </a>
-          {{/if}}
-        </div>
-      </div>
-      {{#each gears as |item id|}}
-          <li class='item npc-gear-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-            {{#if ../isLocked}}
-              <div class="rollable truncate" title="{{item.name}}" data-action='viewDoc'>{{item.name}}</div>
-            {{else}}
-              <div class="skill-inline"><input class="skillDev-input left" name='itemName'
-                type='text' value='{{item.name}}' data-field="itemName"></div>
-            {{/if}}
-            <div>
+              {{/if}}
               {{#unless ../isLocked}}
-                  <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.gear")}}'
+                  <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
                     data-action="deleteDoc">
                     <i class='fas fa-trash'></i>
                   </a>
               {{/unless}}
             </div>
-          </div>
-        </li>
-      {{/each}}
+          </li>
+        {{/each}}
+      {{/if}}
     </ol>
 
-    {{!Notes Section}}
-    <div class="bold" style="margin: 10px 0px 0px 10px;">{{localize 'AOV.notes'}}</div>
-    <div class="npc-notes" style="margin: 10px 0px 0px 10px;">
-      {{#if editable}}
-        <prose-mirror name="system.description" data-document-u-u-i-d="{{actor.uuid}}" value="{{system.description}}"
-          collaborate="true" toggled="true">
-          {{{enrichedDescription}}}
-        </prose-mirror>
-      {{else}}
-        {{{enrichedDescription}}}
-      {{/if}}
-    </div>
+    {{!Powers Section}}
+    {{#if showPowers}}
+      <ol class='npc-weapon-grid'>
+        <div class='npc-power-row primBackCol'>
+          <div class="bold indent rollable" data-action="toggleActor" data-property="powerView">{{localize 'TYPES.Item.npcpower'}}
+            {{#if system.powerView}}
+              <a class='' title='{{localize "AOV.collapseSection"}}'><i class='fas fa-chevrons-up'></i></a>
+            {{else}}
+              <a class='' title='{{localize "AOV.expandSection"}}'><i class='fas fa-chevrons-down'></i></a>
+            {{/if}}
+          </div>
+          <div class="bold">{{localize 'AOV.description'}}</div>
+          <div class="centre bold">
+            {{#if @root.editable}}
+              <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.npcpower")}}'
+                data-action='createDoc' data-document-class='Item' data-type='npcpower'>
+                <i class='fas fa-plus'></i>
+              </a>
+            {{/if}}
+          </div>
+        </div>
+        {{#if system.powerView}}
+          {{#each powers as |item id|}}
+              <li class='item npc-power-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+                {{#if ../isLocked}}
+                  <div class="rollable truncate" title="{{item.name}}" data-action='viewDoc'>{{item.name}}</div>
+                  <div class="truncate" title ="{{item.system.description}}">{{item.system.description}}</div>
+                {{else}}
+                  <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                    type='text' value='{{item.name}}' data-field="itemName"></div>
+                  <div class="skill-inline"><input class="skillDev-input" name='system.powerDescription'
+                    type='text' value='{{item.system.description}}' data-field="powerDescription"/></div>
+                {{/if}}
+                {{#unless ../isLocked}}
+                    <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
+                      data-action="deleteDoc">
+                      <i class='fas fa-trash'></i>
+                    </a>
+                {{/unless}}
+              </div>
+            </li>
+          {{/each}}
+        {{/if}}
+      </ol>
+    {{/if}}
 
+    {{!Passions Section}}
+    {{#if showPassions}}
+      <ol class='npc-skill-grid'>
+        <div class='npc-skill-row primBackCol'>
+          <div class="bold indent rollable" data-action="toggleActor" data-property="passionView">{{localize 'AOV.passions'}}
+            {{#if system.passionView}}
+              <a class='' title='{{localize "AOV.collapseSection"}}'><i class='fas fa-chevrons-up'></i></a>
+            {{else}}
+              <a class='' title='{{localize "AOV.expandSection"}}'><i class='fas fa-chevrons-down'></i></a>
+            {{/if}}
+          </div>
+          <div class="centre">%</div>
+          <div class="centre">
+            {{#if @root.editable}}
+              <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.passion")}}'
+                data-action='createDoc' data-document-class='Item' data-type='passion'>
+                <i class='fas fa-plus'></i>
+              </a>
+            {{/if}}
+          </div>
+        </div>
+        {{#if system.passionView}}
+          {{#each passions as |item id|}}
+              <li class='item npc-skill-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+                {{#if ../isLocked}}
+                  <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
+                  <div class="centre rollable terIcon" data-action="diceroll" data-property="passion" data-skill-id="{{item._id}}" data-tooltip="AOV.rolls.passionRoll">{{item.system.total}}</div>
+                {{else}}
+                  <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                    type='text' value='{{item.name}}' data-field="itemName"></div>
+                  <div class="centre skill-inline"><input class="skillDev-input centre" name='system.base'
+                    type='number' value='{{item.system.base}}' data-field="base"/></div>
+                {{/if}}
+                {{#unless ../isLocked}}
+                    <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.passion")}}'
+                      data-action="deleteDoc">
+                      <i class='fas fa-trash'></i>
+                    </a>
+                {{/unless}}
+              </div>
+            </li>
+          {{/each}}
+        {{/if}}
+      </ol>
+    {{/if}}
+
+    {{!Devotions Section}}
+    {{#if showDevotions}}
+      <ol class='npc-skill-grid'>
+        <div class='npc-skill-row primBackCol'>
+          <div class="bold indent rollable" data-action="toggleActor" data-property="devotionView">{{localize 'AOV.devotions'}}
+            {{#if system.devotionView}}
+              <a class='' title='{{localize "AOV.collapseSection"}}'><i class='fas fa-chevrons-up'></i></a>
+            {{else}}
+              <a class='' title='{{localize "AOV.expandSection"}}'><i class='fas fa-chevrons-down'></i></a>
+            {{/if}}
+          </div>
+          <div class="centre">%</div>
+          <div class="centre">
+            {{#if @root.editable}}
+              <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.devotion")}}'
+                data-action='createDoc' data-document-class='Item' data-type='devotion'>
+                <i class='fas fa-plus'></i>
+              </a>
+            {{/if}}
+          </div>
+        </div>
+        {{#if system.devotionView}}
+          {{#each devotions as |item id|}}
+              <li class='item npc-skill-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+                {{#if ../isLocked}}
+                  <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
+                  <div class="centre terIcon">{{item.system.dp}}</div>
+                {{else}}
+                  <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                    type='text' value='{{item.name}}' data-field="itemName"></div>
+                  <div class="centre skill-inline"><input class="skillDev-input centre" name='system.dp'
+                    type='number' value='{{item.system.dp}}' data-field="dp"/></div>
+                {{/if}}
+                {{#unless ../isLocked}}
+                    <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.devotion")}}'
+                      data-action="deleteDoc">
+                      <i class='fas fa-trash'></i>
+                    </a>
+                {{/unless}}
+              </div>
+            </li>
+          {{/each}}
+        {{/if}}
+      </ol>
+    {{/if}}
+
+
+
+    {{!Gear Section}}
+    {{#if showGear}}
+      <ol class='npc-skill-grid'>
+        <div class='npc-gear-row primBackCol'>
+          <div class="bold indent rollable" data-action="toggleActor" data-property="equipView">{{localize 'TYPES.Item.gear'}}
+            {{#if system.equipView}}
+              <a class='' title='{{localize "AOV.collapseSection"}}'><i class='fas fa-chevrons-up'></i></a>
+            {{else}}
+              <a class='' title='{{localize "AOV.expandSection"}}'><i class='fas fa-chevrons-down'></i></a>
+            {{/if}}
+          </div>
+            {{#if @root.editable}}
+              <a class='item-control item-create' title='{{localize "AOV.createDoc" type=(localize "TYPES.Item.gear")}}'
+                data-action='createDoc' data-document-class='Item' data-type='gear'>
+                <i class='fas fa-plus'></i>
+              </a>
+            {{/if}}
+          </div>
+        </div>
+        {{#if system.equipView}}
+          {{#each gears as |item id|}}
+              <li class='item npc-gear-row' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
+                {{#if ../isLocked}}
+                  <div class="rollable truncate" title="{{item.name}}" data-action='viewDoc'>{{item.name}}</div>
+                {{else}}
+                  <div class="skill-inline"><input class="skillDev-input left" name='itemName'
+                    type='text' value='{{item.name}}' data-field="itemName"></div>
+                {{/if}}
+                <div>
+                  {{#unless ../isLocked}}
+                      <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.gear")}}'
+                        data-action="deleteDoc">
+                        <i class='fas fa-trash'></i>
+                      </a>
+                  {{/unless}}
+                </div>
+              </div>
+            </li>
+          {{/each}}
+        {{/if}}
+      </ol>
+    {{/if}}
   {{/if}}
 
   {{!Tab View 3 - NPC base stats}}

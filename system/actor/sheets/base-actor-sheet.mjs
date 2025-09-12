@@ -64,6 +64,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       vadprod: this._vadprod,
       aging: this._aging,
       familyroll: this._familyroll,
+      npcSections: this._npcSections,
     }
   }
 
@@ -169,7 +170,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     event.stopPropagation();
     let checkProp={}
     let prop = target.dataset.property
-    if (['locked', 'uncommon', 'alphaSkills','showRunes','beserkerOpt','beserkerStat'].includes(prop)) {
+    if (['locked', 'uncommon', 'alphaSkills','showRunes','beserkerOpt','beserkerStat','hitlocView','skillView','weaponView','powerView','equipView','passionView','devotionView'].includes(prop)) {
       checkProp = { [`system.${prop}`]: !this.actor.system[prop] }
     } else {
       return
@@ -447,40 +448,23 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
     }
   }
 
-  //----------------
-
-  //Implement Game Settings for Colours etc
-  static renderSheet(sheet, html) {
-    if (game.settings.get('aov', 'primaryFontColour')) {
-      document.body.style.setProperty('--aov-primary-font-colour', game.settings.get('aov', 'primaryFontColour'));
+  //Expand-Collapse NPC sections
+  static async _npcSections (event, target) {
+    let prop = target.dataset.property
+    let status = true
+    if (prop === 'collapse') {
+      status = false
     }
+    await this.actor.update ({
+      'system.hitlocView': status,
+      'system.skillView': status,
+      'system.weaponView': status,
+      'system.powerView': status,
+      'system.equipView': status,
+      'system.passionView': status,
+      'system.devotionView': status,
+    })
 
-    if (game.settings.get('aov', 'secondaryFontColour')) {
-      document.body.style.setProperty('--aov-secondary-font-colour', game.settings.get('aov', 'secondaryFontColour'));
-    }
-
-    if (game.settings.get('aov', 'primaryBackColour')) {
-      document.body.style.setProperty('--primary-back-colour', game.settings.get('aov', 'primaryBackColour'));
-    }
-
-    if (game.settings.get('aov', 'secondaryBackColour')) {
-      document.body.style.setProperty('--secondary-back-colour', game.settings.get('aov', 'secondaryBackColour'));
-    }
-
-    if (game.settings.get('aov', 'primaryFont')) {
-      let fontSource = "url(/" + game.settings.get('aov', 'primaryFont') + ")"
-      const primaryFont = new FontFace(
-        'aov-primaryFont',
-        fontSource
-      )
-      primaryFont
-        .load()
-        .then(function (loadedFace) { document.fonts.add(loadedFace) })
-        .catch(function (error) {
-          ui.notifications.error(error)
-        })
-      document.body.style.setProperty('--primary-font', 'primaryFont');
-    }
   }
 
   //-------------Drag and Drop--------------

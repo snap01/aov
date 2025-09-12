@@ -6,9 +6,9 @@
 
 .npc-notes .prosemirror,
 .npc-notes prose-mirror {
-  min-height: 185px;
+  min-height: 550px;
   height: 100%;
-  width: 435px
+  width: 335px
 }
 
 .ship-notes .prosemirror,

@@ -72,6 +72,10 @@ export async function updateWorld({ bypassVersionCheck = false } = {}) {
       await skillNameUpdate()
     }
 
+    //Message if current system is less that Version 13.13
+    if (foundry.utils.isNewerVersion('13.13', currentVersion ?? '0')) {
+      await updateDialog('systems/aov/templates/updates/update13.13.hbs')
+    }
 
   }
 

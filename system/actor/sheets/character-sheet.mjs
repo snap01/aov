@@ -19,7 +19,7 @@ export class AoVCharacterSheet extends AoVActorSheet {
   static PARTS = {
     header: { template: 'systems/aov/templates/actor/character.header.hbs' },
     tabs: { template: 'systems/aov/templates/actor/character-tab.hbs' },
-//    tabs: { template: 'systems/aov/templates/generic/tab-navigation.hbs' },
+
     notes: {
       template: 'systems/aov/templates/actor/character.notes.hbs',
       scrollable: [''],

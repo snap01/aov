@@ -1,3 +1,15 @@
+## 13.13
+- NPCs now have a "notes" section that appears to the right of the NPC sheet and can be shown/hidden using the "scroll" icon on the NPC sheet
+- NPCs also display Passions and Devotions
+- Each section in the NPC sheet can be expanded or collapsed, and there are "collapse all" and "expand all" icons at the top
+- When an NPC sheet is locked - the powers, passions, devotions and equipment sections are only shown if they have items.  Unlock the sheet to see all the sections
+- Most display settings options have been removed as they do not work.  This may be revisited in future.  The Single Colour Bar option remains.
+- When making damage rolls (either directly or as follow on from combat) you can enter a damage bonus value that is added to the rolled result
+- You can now drag a weapon to the hotbar which generates a combat roll macro
+- Move Quietly penalty for worn armour is now automatically applied to the skill rolls if the skill has the CID "i.skill.move-quietly".  If appropriate the penalty is shown in the chat card detail
+- Fixed a bug on NPCs and rolls where skill value was returning Not a Number due to missing ENC Penalty
+- When making a damage roll following a combat roll with two parties the system knows who the target is and therefore will offer the person rolling damage the option to roll the hit location of the target that's struck.
+
 ## 13.12
 - Skill now have a main name as well as a specialisation name (if appropriate) and the skill name is created automatically from these.
 - There is a migration script to update all skills in the game world, on actors or tokens.  PLEASE BACKUP YOUR WORLD BEFORE UPDATING THIS

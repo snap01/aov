@@ -1,51 +1,5 @@
 const SETTINGS = {
 
-  primaryFontColour: {
-    name: "AOV.Settings.primaryFontColour",
-    hint: "AOV.Settings.primaryFontColourHint",
-    scope: "world",
-    config: false,
-    type: String,
-    default: ""
-  },
-
-  secondaryFontColour: {
-    name: "AOV.Settings.secondaryFontColour",
-    hint: "AOV.Settings.secondaryFontColourHint",
-    scope: "world",
-    config: false,
-    type: String,
-    default: ""
-  },
-
-  primaryBackColour: {
-    name: "AOV.Settings.primaryBackColour",
-    hint: "AOV.Settings.primaryBackColourHint",
-    scope: "world",
-    config: false,
-    type: String,
-    default: ""
-  },
-
-  secondaryBackColour: {
-    name: "AOV.Settings.secondaryBackColour",
-    hint: "AOV.Settings.secondaryBackColourHint",
-    scope: "world",
-    config: false,
-    type: String,
-    default: ""
-  },
-
-  primaryFont: {
-    name: "AOV.Settings.primaryFont",
-    hint: "AOV.Settings.primaryFontHint",
-    scope: "world",
-    config: false,
-    type: String,
-    filePicker: 'Other',
-    default: "",
-  },
-
   singleColourBar: {
     name: "AOV.Settings.singleColourBar",
     hint: "AOV.Settings.singleColourBarHint",

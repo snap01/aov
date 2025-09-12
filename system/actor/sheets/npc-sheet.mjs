@@ -13,7 +13,10 @@ export class AoVNPCSheet extends AoVActorSheet {
     classes: ['npc'],
     position: {
       width: 500,
-      height: 840
+      height: 640
+    },
+    window: {
+      resizable: false,
     },
   }
 
@@ -21,14 +24,21 @@ export class AoVNPCSheet extends AoVActorSheet {
     header: {
       template: 'systems/aov/templates/actor/npc.header.hbs',
       scrollable: ['']
-     }
+     },
+     notes: {
+      template: 'systems/aov/templates/actor/npc.notes.hbs',
+      scrollable: [''],
+    },
   }
 
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
     //Common parts to the character - this is the order they are show on the sheet
-    options.parts = ['header'];
+    options.parts = ['header','notes'];
   }
+
+
+
 
   _getTabs(parts) {
   }
@@ -38,6 +48,7 @@ export class AoVNPCSheet extends AoVActorSheet {
     //context.tabs = this._getTabs(options.parts);
     context.persTypeOptions = await AOVSelectLists.persType();
     context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
+    context.displayNotes = this.actor.system.noteView;
     context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       this.actor.system.description,
       {
@@ -74,11 +85,17 @@ export class AoVNPCSheet extends AoVActorSheet {
     const hitLocs = [];
     const weapons = [];
     const powers = [];
-
+    const passions = [];
+    const devotions = [];
+    context.showGear = !context.system.locked;
+    context.showPowers = !context.system.locked ;
+    context.showPassions = !context.system.locked;
+    context.showDevotions = !context.system.locked;
 
     for (let itm of this.document.items) {
       if (itm.type === 'gear') {
         gears.push(itm);
+        context.showGear = true;
       } else if (itm.type === 'skill') {
           skills.push(itm)
       } else if (itm.type === 'hitloc') {
@@ -96,6 +113,13 @@ export class AoVNPCSheet extends AoVActorSheet {
         weapons.push(itm)
       } else if (itm.type === 'npcpower') {
           powers.push(itm)
+          context.showPowers = true ;
+      } else if (itm.type === 'passion') {
+          passions.push(itm)
+          context.showPassions = true;
+      } else if (itm.type === 'devotion') {
+          devotions.push(itm)
+          context.showDevotions = true;
       }
 
     }
@@ -128,6 +152,8 @@ export class AoVNPCSheet extends AoVActorSheet {
     context.hitLocs = hitLocs;
     context.weapons = weapons.sort(function (a, b) {return a.name.localeCompare(b.name)});
     context.powers = powers;
+    context.passions = passions.sort(function (a, b) {return a.name.localeCompare(b.name)});
+    context.devotions = devotions.sort(function (a, b) {return a.name.localeCompare(b.name)});
   }
 
 
@@ -137,6 +163,7 @@ export class AoVNPCSheet extends AoVActorSheet {
     this._dragDrop.forEach((d) => d.bind(this.element));
     this.element.querySelectorAll('.skill-inline').forEach(n => n.addEventListener("change", this.#skillInline.bind(this)))
     this.element.querySelectorAll('.tab-toggle').forEach(n => n.addEventListener("click", this.#tabView.bind(this)))
+    this.element.querySelectorAll('.note-toggle').forEach(n => n.addEventListener("click", this.#noteView.bind(this)))
   }
 
 
@@ -171,5 +198,13 @@ export class AoVNPCSheet extends AoVActorSheet {
     event.stopImmediatePropagation();
     let tabval = event.currentTarget.dataset.tabval
     await this.actor.update({'system.tabView' : tabval})
+  }
+
+  //Change Note View for NPC
+  async #noteView(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    await this.actor.update({'system.noteView' : !this.actor.system.noteView})
+    this.render["notes"]
   }
 }

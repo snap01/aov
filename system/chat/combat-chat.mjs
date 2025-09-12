@@ -33,7 +33,9 @@ export class COCard {
     let newchatCards = []
     let card = ""
     let successLevelLabel = ""
+    let counter = -1
     for (let i of chatCards) {
+      counter ++
       i.targetAdj = targetAdj
       let revisedtargetScore = i.targetScore + targetAdj
 
@@ -64,10 +66,21 @@ export class COCard {
       i.rollDamage = false
       if (resultLevel === 0) { i.rollFumble = true }
       i.resultLevel = resultLevel
-
-
       i.resultLabel = game.i18n.localize('AOV.resultLevel.' + i.resultLevel)
       await OPCard.showDiceRoll(i)
+
+      i.targetId = ""
+      i.targetType = ""
+      //If there is more than 1 participant then set the other party as the target
+      if (chatCards.length > 1) {
+        if (counter === 0) {
+          i.targetId = chatCards[1].particId
+          i.targetType = chatCards[1].particType
+        } else {
+          i.targetId = chatCards[0].particId
+          i.targetType = chatCards[0].particType
+        }
+      }
       newchatCards.push(i)
     }
 
@@ -141,7 +154,7 @@ export class COCard {
         }
         break;
 
-      //Special Damage for Attacker  
+      //Special Damage for Attacker
       case "WP43":
       case "WP42":
       case "WP32":
@@ -160,7 +173,7 @@ export class COCard {
         }
         break;
 
-      //Critical Damage for Attacker  
+      //Critical Damage for Attacker
       case "WP41":
       case "WP40":
       case "SK42":
@@ -203,7 +216,7 @@ export class COCard {
         }
         break;
 
-      //No Damage from either party  
+      //No Damage from either party
       case "WP11":
       case "WP01":
       case "WP00":
@@ -319,6 +332,8 @@ export class COCard {
       token: particActor.token,
       characteristic: false,
       skillId: chatCard.skillId,
+      targetId: chatCard.targetId,
+      targetType: chatCard.targetType,
       successLevel: (chatCard.successLevel).toString(),
       origID: chatCard.origID
     })
@@ -374,6 +389,45 @@ export class COCard {
     })
     const pushhtml = await AOVCheck.startChat(targetMsg.flags.aov)
     await targetMsg.update({ content: pushhtml })
+  }
+
+
+  static async COHitLoc(config) {
+    let targetMsg = await game.messages.get(config.targetChatId)
+    let chatCards = targetMsg.flags.aov.chatCard
+    let chatCard = chatCards[0]
+    let newChatCards = []
+    let thisUser = game.users.get(chatCard.origID)
+    let targetActor = await AOVactorDetails._getParticipant(
+      chatCard.targetId,
+      chatCard.targetType,
+    );
+    if (targetActor) {
+      let locList = await targetActor.items.filter(itm=>itm.type==='hitloc')
+      let roll = new Roll('1D20');
+      await roll.evaluate();
+      game.dice3d.showForRoll(roll, thisUser, true, null, false)
+      let locRR = roll.total;
+      let locName = ""
+      for (let locItem of locList) {
+        if (locRR >= locItem.system.lowRoll && locRR <= locItem.system.highRoll) {
+          locName = locItem.name +" (" + locItem.system.lowRoll
+          if (locItem.system.lowRoll != locItem.system.highRoll) {
+            locName = locName + "-" + locItem.system.highRoll
+          }
+          locName = locName + ") " + game.i18n.localize('AOV.roll') +": " + locRR
+        }
+      }
+      chatCard.targetLoc = locName
+      chatCard.targetId = ""
+      newChatCards.push(chatCard)
+      await targetMsg.update({
+        'flags.aov.chatCard': newChatCards,
+        'flags.aov.state': 'closed'
+      })
+      const pushhtml = await AOVCheck.startChat(targetMsg.flags.aov)
+      await targetMsg.update({ content: pushhtml })
+    }
   }
 
 
