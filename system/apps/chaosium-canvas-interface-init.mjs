@@ -1,12 +1,16 @@
-import { ChaosiumCanvasInterfaceOpenDocument } from "./chaosium-canvas-interface-open-document.mjs";
-import { ChaosiumCanvasInterfaceToScene } from "./chaosium-canvas-interface-to-scene.mjs";
-import { ChaosiumCanvasInterface } from "./chaosium-canvas-interface.mjs";
+import ChaosiumCanvasInterfaceMapPinToggle from "./chaosium-canvas-interface-map-pin-toggle.mjs";
+import ChaosiumCanvasInterfaceOpenDocument from "./chaosium-canvas-interface-open-document.mjs";
+import ChaosiumCanvasInterfaceToScene from "./chaosium-canvas-interface-to-scene.mjs";
+import ChaosiumCanvasInterfaceTileToggle from "./chaosium-canvas-interface-tile-toggle.mjs";
+import ChaosiumCanvasInterface from "./chaosium-canvas-interface.mjs";
 
-export class ChaosiumCanvasInterfaceInit extends ChaosiumCanvasInterface {
+export default class ChaosiumCanvasInterfaceInit extends ChaosiumCanvasInterface {
   static initSelf () {
     const known = [
+      ChaosiumCanvasInterfaceMapPinToggle,
       ChaosiumCanvasInterfaceOpenDocument,
-      ChaosiumCanvasInterfaceToScene
+      ChaosiumCanvasInterfaceToScene,
+      ChaosiumCanvasInterfaceTileToggle
     ]
 
     super.initSelf()

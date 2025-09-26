@@ -205,6 +205,7 @@
     "mapLocHint": "Double click on land to place the farm",
     "married": "Success - you got married",
     "notMarried":"You did not get married",
+    "mapNoteNoBackground": "Hide background",
     "material": "Material",
     "max": "Max",
     "maxEffects": "Maximum Effects",
@@ -460,6 +461,42 @@
     },
 
     "ChaosiumCanvasInterface": {
+      "MapPinToggle": {
+        "Toggle": {
+          "Title": "Show",
+          "Hint": "Should this show or hide the the map pin and documents"
+        },
+        "Document": {
+          "Title": "Select Documents",
+          "Hint": ""
+        },
+        "Note": {
+          "Title": "Scene Notes",
+          "Hint": ""
+        },
+        "PermissionShow": {
+          "Title": "Show Permission",
+          "Hint": ""
+        },
+        "PermissionHide": {
+          "Title": "Hide Permisison",
+          "Hint": ""
+        }
+      },
+      "OpenDocument": {
+        "Permission": {
+          "Title": "Can click if",
+          "Hint": ""
+        },
+        "Document": {
+          "Title": "Select Document",
+          "Hint": ""
+        },
+        "Anchor": {
+          "Title": "Optional Anchor",
+          "Hint": "If loading a JournalEntryPage jump to anchor"
+        }
+      },
       "Permission": {
         "Always": "Always",
         "Document": "See Document",
@@ -480,18 +517,38 @@
           "Hint": "Select Tile that must be visible"
         }
       },
-      "OpenDocument": {
-        "Permission": {
-          "Title": "Can click if",
+      "TileToggle": {
+        "Toggle": {
+          "Title": "Show",
+          "Hint": "Should this show or hide the the map pin and documents"
+        },
+        "Tile": {
+          "Title": "Select Tile",
           "Hint": ""
         },
-        "Document": {
-          "Title": "Select Document",
+        "JournalEntry": {
+          "Title": "Select Journal Entries",
           "Hint": ""
         },
-        "Anchor": {
-          "Title": "Optional Anchor",
-          "Hint": "If loading a JournalEntryPage jump to anchor"
+        "JournalEntryPage": {
+          "Title": "Select Journal Entry Pages",
+          "Hint": ""
+        },
+        "RegionBehavior": {
+          "Title": "Select Region Behaviors",
+          "Hint": ""
+        },
+        "PermissionDocument": {
+          "Title": "Permission for Documents",
+          "Hint": ""
+        },
+        "PermissionPage": {
+          "Title": "Permission for Journal Entry Pages",
+          "Hint": ""
+        },
+        "RegionUuids": {
+          "Title": "Then trigger these CCI Regions on Right Click",
+          "Hint": ""
         }
       }
     },
@@ -1091,8 +1148,10 @@
       "wound": "Wound"
     },
     "RegionBehavior": {
+      "ChaosiumCanvasInterfaceMapPinToggle": "CCI: Map Pin Toggle",
       "ChaosiumCanvasInterfaceOpenDocument": "CCI: Open Document",
-      "ChaosiumCanvasInterfaceToScene": "CCI: To Scene"
+      "ChaosiumCanvasInterfaceToScene": "CCI: To Scene",
+      "ChaosiumCanvasInterfaceTileToggle": "CCI: Tile Toggle"
     }
   }
 }

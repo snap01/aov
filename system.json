@@ -122,8 +122,10 @@
         "wound": {}
       },
       "RegionBehavior": {
+        "ChaosiumCanvasInterfaceMapPinToggle": {},
         "ChaosiumCanvasInterfaceOpenDocument": {},
-        "ChaosiumCanvasInterfaceToScene": {}
+        "ChaosiumCanvasInterfaceToScene": {},
+        "ChaosiumCanvasInterfaceTileToggle": {}
       }
     },
 

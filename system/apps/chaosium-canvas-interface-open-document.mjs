@@ -1,6 +1,6 @@
-import { ChaosiumCanvasInterface } from "./chaosium-canvas-interface.mjs";
+import ChaosiumCanvasInterface from "./chaosium-canvas-interface.mjs";
 
-export class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasInterface {
+export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasInterface {
   static get PERMISSIONS () {
     return {
       ALWAYS: 'AOV.ChaosiumCanvasInterface.Permission.Always',

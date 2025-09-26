@@ -1,4 +1,4 @@
-export class ChaosiumCanvasInterface extends foundry.data.regionBehaviors.RegionBehaviorType {
+export default class ChaosiumCanvasInterface extends foundry.data.regionBehaviors.RegionBehaviorType {
   static initSelf () {
     const oldOnClickLeft = foundry.canvas.layers.TokenLayer.prototype._onClickLeft
     foundry.canvas.layers.TokenLayer.prototype._onClickLeft = function (event) {
@@ -53,5 +53,23 @@ export class ChaosiumCanvasInterface extends foundry.data.regionBehaviors.Region
         }
       }
     })
+  }
+
+  static async ClickRegionLeftUuid (docUuid) {
+    const doc = await fromUuid(docUuid)
+    if (doc) {
+      doc.behaviors.filter(b => !b.disabled).filter(b => b.system instanceof ChaosiumCanvasInterface).map(async (b) => { if (await b.system._handleMouseOverEvent() === true && typeof b.system._handleLeftClickEvent === 'function') { await b.system._handleLeftClickEvent() } })
+    } else {
+      console.error('RegionUuid ' + docUuid + ' not loaded')
+    }
+  }
+
+  static async ClickRegionRightUuid (docUuid) {
+    const doc = await fromUuid(docUuid)
+    if (doc) {
+      doc.behaviors.filter(b => !b.disabled).filter(b => b.system instanceof ChaosiumCanvasInterface).map(async (b) => { if (await b.system._handleMouseOverEvent() === true && typeof b.system._handleRightClickEvent === 'function') { await b.system._handleRightClickEvent() } })
+    } else {
+      console.error('RegionUuid ' + docUuid + ' not loaded')
+    }
   }
 }
