@@ -1,6 +1,7 @@
 import { AOV } from "../setup/config.mjs";
 import { AOVActor } from "../actor/actor.mjs";
 import { AOVItem } from "../item/item.mjs";
+import { ChaosiumCanvasInterfaceInit } from '../apps/chaosium-canvas-interface-init.mjs'
 import { CID } from '../cid/cid.mjs'
 import { handlebarsHelper } from '../setup/handlebar-helpers.mjs';
 import { registerSettings } from '../settings/register-settings.mjs'
@@ -52,6 +53,7 @@ export default function Init() {
   CONFIG.Item.dataModels.homeland = models.AOVHomelandModel
   CONFIG.Item.dataModels.history = models.AOVHistoryModel
 
+  ChaosiumCanvasInterfaceInit.initSelf()
   CID.init()
   registerSheets()
 

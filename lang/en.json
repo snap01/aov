@@ -459,6 +459,43 @@
       "targetScore": "Success Chance"
     },
 
+    "ChaosiumCanvasInterface": {
+      "Permission": {
+        "Always": "Always",
+        "Document": "See Document",
+        "GM": "Keeper",
+        "SeeTile": "See Tile"
+      },
+      "ToScene": {
+        "Permission": {
+          "Title": "Can click if",
+          "Hint": ""
+        },
+        "Scene": {
+          "Title": "Select Scene",
+          "Hint": ""
+        },
+        "Tile": {
+          "Title": "Select Tile",
+          "Hint": "Select Tile that must be visible"
+        }
+      },
+      "OpenDocument": {
+        "Permission": {
+          "Title": "Can click if",
+          "Hint": ""
+        },
+        "Document": {
+          "Title": "Select Document",
+          "Hint": ""
+        },
+        "Anchor": {
+          "Title": "Optional Anchor",
+          "Hint": "If loading a JournalEntryPage jump to anchor"
+        }
+      }
+    },
+
     "CIDFlag": {
       "documents-in-compendiums": "{count} documents in compendiums",
       "documents-in-world": "{count} documents in the world",
@@ -1052,6 +1089,10 @@
       "weapon": "Weapon",
       "weaponcat": "Weapon Category",
       "wound": "Wound"
+    },
+    "RegionBehavior": {
+      "ChaosiumCanvasInterfaceOpenDocument": "CCI: Open Document",
+      "ChaosiumCanvasInterfaceToScene": "CCI: To Scene"
     }
   }
 }
