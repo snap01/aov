@@ -120,6 +120,12 @@
         "weapon": {"htmlFields": ["description","gmNotes"]},
         "weaponcat": {},
         "wound": {}
+      },
+      "RegionBehavior": {
+        "ChaosiumCanvasInterfaceMapPinToggle": {},
+        "ChaosiumCanvasInterfaceOpenDocument": {},
+        "ChaosiumCanvasInterfaceToScene": {},
+        "ChaosiumCanvasInterfaceTileToggle": {}
       }
     },
 
