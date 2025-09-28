@@ -303,7 +303,7 @@ body.theme-dark .application.aov.sheet,
 
 .aov .gear-grid {
   display: grid;
-  grid-template-columns: 25px 400px 50px 50px 35px 30px;
+  grid-template-columns: 430px 50px 50px 35px 30px;
   grid-column-gap: 5px;
   padding-left: 5px;
 }

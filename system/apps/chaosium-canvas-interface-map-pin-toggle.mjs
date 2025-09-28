@@ -23,15 +23,6 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
         label: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Toggle.Title',
         hint: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Toggle.Hint'
       }),
-      documentUuids: new fields.SetField(
-        new fields.DocumentUUIDField({
-          initial: undefined
-        }),
-        {
-          label: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Document.Title',
-          hint: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Document.Hint'
-        }
-      ),
       noteUuids: new fields.SetField(
         new fields.DocumentUUIDField({
           initial: undefined,
@@ -40,6 +31,15 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
         {
           label: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Note.Title',
           hint: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Note.Hint'
+        }
+      ),
+      documentUuids: new fields.SetField(
+        new fields.DocumentUUIDField({
+          initial: undefined
+        }),
+        {
+          label: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Document.Title',
+          hint: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Document.Hint'
         }
       ),
       permissionShow: new fields.NumberField({
@@ -77,7 +77,6 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
     }
     for (const uuid of this.noteUuids) {
       const doc = await fromUuid(uuid)
-      console.log('B', uuid, doc)
       if (doc) {
         const texture = (this.toggle ? 'systems/aov/art-assets/map-pin.svg' : 'systems/aov/art-assets/map-pin-dark.svg')
         await doc.update({ 'texture.src': texture })

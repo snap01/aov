@@ -1,3 +1,9 @@
+## 13.14
+- The Chaosium Canvas Interface was designed for the Call of Cthulhu system, but thanks to James B (who created the CCI) it has been ported it over to Age of Vikings.
+- James has kindly simplified the user interface so it needs less technical know-how to set up the options, but it does mean it may be slightly more limiting than the Call of Cthulhu version.
+- Instructions are over on the wiki - https://github.com/Genii-Locorum/aov/wiki/Chaosium-Canvas-Interface-%E2%80%90CCI
+- Added an instructions journal in the system which points users to the wiki
+
 ## 13.13
 - NPCs now have a "notes" section that appears to the right of the NPC sheet and can be shown/hidden using the "scroll" icon on the NPC sheet
 - NPCs also display Passions and Devotions

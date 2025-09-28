@@ -3,7 +3,7 @@
     "title": "Age of Vikings",
     "description": "Age of Vikings by Chaosium Inc for Foundry VTT",
 
-    "version": "13.13",
+    "version": "13.14",
     "compatibility": {
       "minimum": 13,
       "verified": "13.348"
@@ -42,7 +42,7 @@
         "type": "Item",
         "system": "aov",
         "ownership": {
-          "PLAYER": "NONE",
+          "PLAYER": "OBSERVER",
           "ASSISTANT": "OWNER"
         }
       },
@@ -53,7 +53,7 @@
         "type": "Item",
         "system": "aov",
         "ownership": {
-          "PLAYER": "NONE",
+          "PLAYER": "OBSERVER",
           "ASSISTANT": "OWNER"
         }
       },
@@ -64,7 +64,7 @@
         "type": "Item",
         "system": "aov",
         "ownership": {
-          "PLAYER": "NONE",
+          "PLAYER": "OBSERVER",
           "ASSISTANT": "OWNER"
         }
       },
@@ -75,7 +75,7 @@
         "type": "Item",
         "system": "aov",
         "ownership": {
-          "PLAYER": "NONE",
+          "PLAYER": "OBSERVER",
           "ASSISTANT": "OWNER"
         }
       },
@@ -86,10 +86,22 @@
         "type": "Item",
         "system": "aov",
         "ownership": {
-          "PLAYER": "NONE",
+          "PLAYER": "OBSERVER",
           "ASSISTANT": "OWNER"
         }
-      }
+      },
+      {
+        "name": "instructions",
+        "label": "Instructions",
+        "path": "./packs/instructions",
+        "type": "JournalEntry",
+        "system": "aov",
+        "ownership": {
+          "PLAYER": "OBSERVER",
+          "ASSISTANT": "OWNER"
+        }
+      }  
+
     ],
 
     "packFolders": [],
@@ -147,7 +159,7 @@
     ],
 
     "manifest": "https://github.com/Genii-Locorum/aov/releases/latest/download/system.json",
-    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.13/system.zip",
+    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.14/system.zip",
     "url": "https://github.com/Genii-Locorum/aov",
     "license": "LICENSE.txt",
     "readme": "README.md",

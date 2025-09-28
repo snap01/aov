@@ -464,14 +464,14 @@
       "MapPinToggle": {
         "Toggle": {
           "Title": "Show",
-          "Hint": "Should this show or hide the the map pin and documents"
+          "Hint": "Should this show or hide the the map note and documents"
         },
         "Document": {
           "Title": "Select Documents",
           "Hint": ""
         },
         "Note": {
-          "Title": "Scene Notes",
+          "Title": "Map Notes",
           "Hint": ""
         },
         "PermissionShow": {
@@ -500,7 +500,7 @@
       "Permission": {
         "Always": "Always",
         "Document": "See Document",
-        "GM": "Keeper",
+        "GM": "GM",
         "SeeTile": "See Tile"
       },
       "ToScene": {
@@ -539,7 +539,7 @@
           "Hint": ""
         },
         "PermissionDocument": {
-          "Title": "Permission for Documents",
+          "Title": "Permission for Journal Entries",
           "Hint": ""
         },
         "PermissionPage": {
@@ -1148,7 +1148,7 @@
       "wound": "Wound"
     },
     "RegionBehavior": {
-      "ChaosiumCanvasInterfaceMapPinToggle": "CCI: Map Pin Toggle",
+      "ChaosiumCanvasInterfaceMapPinToggle": "CCI: Map Note Toggle",
       "ChaosiumCanvasInterfaceOpenDocument": "CCI: Open Document",
       "ChaosiumCanvasInterfaceToScene": "CCI: To Scene",
       "ChaosiumCanvasInterfaceTileToggle": "CCI: Tile Toggle"

@@ -4,8 +4,7 @@
   {{!--Equipment List--}}
   <ol class='gear-list'>
     <li class='item gear-header primBackCol gear-grid'>
-      <div class='item-image'></div>
-      <div class='left'>{{localize 'AOV.name'}}</div>
+      <div class='left'>{{localize 'TYPES.Item.gear'}}</div>
       <div class='centre' title="{{localize 'AOV.encumbrance'}}">{{localize 'AOV.encumbranceAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.quantity'}}">{{localize 'AOV.quantityAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.equippedHint'}}">{{localize 'AOV.equippedAbbr'}}</div>
@@ -20,7 +19,6 @@
     </li>
     {{#each gear as |item id|}}
     <li class='item gear-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
-      <div class='item-image' title='{{item.name}}'><a><img src='{{item.img}}' width='24' height='24' /> </a></div>
       <div class="gear-name left rollable" title='{{localize "AOV.viewDoc" type=(localize "TYPES.Item.gear")}}'
         data-action='viewDoc'>{{item.name}}</div>
       <div class='gear-name terIcon centre'>{{item.system.actlEnc}}</div>
@@ -53,7 +51,7 @@
 
   {{!--Armour Section--}}
   <li class='item gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} armour-grid'>
-      <div class='left'>{{localize 'AOV.name'}}</div>
+      <div class='left'>{{localize 'TYPES.Item.armour'}}</div>
       <div class='centre'>{{localize 'AOV.hitLocations'}}</div>
       <div class='centre' title="{{localize 'AOV.armourPoints'}}">{{localize 'AOV.armourPointsAbbr'}}</div>
       <div class='centre' title="{{localize 'AOV.encumbrance'}}">{{localize 'AOV.encumbranceAbbr'}}</div>
