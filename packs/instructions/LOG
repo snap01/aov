@@ -1,1 +1,5 @@
-2025/09/28-16:47:25.499 5d3c Delete type=3 #1
+2025/09/28-17:11:08.469 3ba8 Recovering log #3
+2025/09/28-17:11:08.469 3ba8 Level-0 table #5: started
+2025/09/28-17:11:08.479 3ba8 Level-0 table #5: 4358 bytes OK
+2025/09/28-17:11:08.482 3ba8 Delete type=0 #3
+2025/09/28-17:11:08.482 3ba8 Delete type=3 #2
