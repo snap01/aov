@@ -1,6 +1,6 @@
 <section class='character tab skills {{tab.cssClass}}' data-group='primary' data-tab='skills'>
   {{#unless isDevelop}}
-    <div class="skill-grid-header">
+    <ol class="skill-list">
       <div class='gear-header primBackCol skill-grid'>
         <div class='new-row left'>{{localize 'AOV.name'}}</div>
         <div class='centre' title="{{localize 'AOV.xpAbbrHint'}}">{{localize 'AOV.xpAbbr'}}</div>
@@ -29,7 +29,7 @@
           </a>
         </div>
       </div>
-    </div>
+    </ol>
 
     <ol class='skill-list'>
       {{#each skills as |item id|}}

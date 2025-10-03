@@ -406,7 +406,9 @@ export class COCard {
       let locList = await targetActor.items.filter(itm=>itm.type==='hitloc')
       let roll = new Roll('1D20');
       await roll.evaluate();
-      game.dice3d.showForRoll(roll, thisUser, true, null, false)
+      if (game.modules.get('dice-so-nice')?.active) {
+        game.dice3d.showForRoll(roll, thisUser, true, null, false)
+      }
       let locRR = roll.total;
       let locName = ""
       for (let locItem of locList) {

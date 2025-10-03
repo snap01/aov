@@ -310,7 +310,7 @@ body.theme-dark .application.aov.sheet,
 
 .aov .skill-grid-header {
   display: grid;
-  grid-template-columns: 313px 313px;
+  grid-template-columns: 313px auto;
   grid-column-gap: 10px;
 
 }
@@ -628,7 +628,6 @@ body.theme-dark .application.aov.sheet,
   display: grid;
   grid-template-columns: 70px 100px 210px;
   grid-column-gap: 20px;
-  padding-left: 10px;
 }
 
 .aov .characteristics {
@@ -689,7 +688,7 @@ body.theme-dark .application.aov.sheet,
 }
 
 .aov .character.tab{
-    max-height: 600px;
+    max-height: 100%;
     overflow-x: scroll;
 }
 
@@ -723,9 +722,9 @@ nav.aov.sheet-tabs.tabs {
   border: none;
   position: absolute;
   left: 0;
-  top: 806px;
+  top: 600px;
   z-index: -5;
-  width: 950px;
+  width: 730px;
   height: 160px;
   transform: rotate(-90deg);
   transform-origin: bottom left;
@@ -872,9 +871,8 @@ nav.aov.sheet-tabs.tabs {
 }
 
 .aov .effects-grid {
-  width: 635px;
   display: grid;
-  grid-template-columns: 240px 260px 70px 50px;
+  grid-template-columns: 240px auto 70px 50px;
   padding-left: 5px;
 }
 

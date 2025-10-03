@@ -148,17 +148,15 @@ export class AOVUtilities {
     ui.controls.controls.aovmenu.tools.victoryphase.active = false
     await ui.controls.render()
 
-
-
     ui.notifications.info(
       state
         ? game.i18n.localize('AOV.createDisabled')
         : game.i18n.localize('AOV.createEnabled')
     )
     game.socket.emit('system.aov', {
-      type: 'updateChar'
+      type: 'updateCharCreate'
     })
-    AOVUtilities.updateCharSheets(true)
+    AOVUtilities.updateCharCreate()
   }
 
   static async toggleVictory (toggle) {
@@ -247,6 +245,31 @@ export class AOVUtilities {
       }
     }
   }
+
+    static async updateCharCreate () {
+    let state = await game.settings.get('aov', 'createEnabled')
+    if (game.user.isGM) {
+      for (const a of game.actors.contents) {
+        if (a?.type === 'character' && a?.sheet && a?.sheet?.rendered) {
+          if (state) {
+            a.sheet.tabGroups.primary = 'stats'
+          }
+          a.render()
+        }
+      }
+    } else {
+      for (const a of game.actors.contents) {
+        if (a.isOwner && a?.sheet && a?.sheet?.rendered) {
+          if (state) {
+            a.sheet.tabGroups.primary = 'stats'
+          }
+          a.render()
+        }
+      }
+    }
+  }
+
+
 
   static async getDataFromDropEvent(event, entityType = 'Item') {
     if (event.originalEvent) return []

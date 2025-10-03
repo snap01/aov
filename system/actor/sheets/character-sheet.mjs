@@ -12,7 +12,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
     classes: ['character','themed', 'theme-light'],
     position: {
       width: 700,
-      height: 950
+      height: 950,
+      left: 250
     },
   }
 
@@ -87,7 +88,14 @@ export class AoVCharacterSheet extends AoVActorSheet {
     // If you have sub-tabs this is necessary to change
     const tabGroup = 'primary';
     // Default tab for first time it's rendered this session
-    if (!this.tabGroups[tabGroup]) this.tabGroups[tabGroup] = 'combat';
+    if (!this.tabGroups[tabGroup]) {
+      let createState = game.settings.get('aov', 'createEnabled')
+      if (createState) {
+        this.tabGroups[tabGroup] = 'stats';
+      }  else {
+        this.tabGroups[tabGroup] = 'combat';
+      }
+    }
     let singleColour = game.settings.get('aov','singleColourBar')
     return parts.reduce((tabs, partId) => {
       const tab = {

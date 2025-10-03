@@ -13,6 +13,9 @@ export class AOVSystemSocket {
       case 'updateChar':
         AOVUtilities.updateCharSheets(true);  //True locks the character sheet
         break;
+      case 'updateCharCreate':
+        AOVUtilities.updateCharCreate();
+        break;
       case 'healChar' :
         AOVUtilities.updateCharSheets(false);  //False doesn't lock the character sheet
       case 'REAdd':

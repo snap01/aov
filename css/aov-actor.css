@@ -14,7 +14,7 @@
     font-family: var(--aov-primary-font);
     color: var(--aov-primary-font-colour);
     font-size: var(--aov-primary-font-size);
-    background-image: url('../art-assets/charSheetV2.jpg');
+    background-image: url('../art-assets/lightstone.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0px;
@@ -48,16 +48,17 @@
 
   .character-header {
     display: grid;
-    grid-template-columns: 450px 200px;
+    grid-template-columns: auto 150px 46px;
     grid-column-gap: 4px;
   }
 
   .actorName-grid {
     font-size: var(--aov-title-font-size);
     display: grid;
-    grid-template-columns: 80px 325px 20px;
+    grid-template-columns: 80px auto 20px;
     grid-column-gap: 5px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
   }
 
   .npc-header {
@@ -74,8 +75,7 @@
   }
 
   .charNameHeader {
-    padding-left: 14px;
-    padding-top: 26px;
+    padding-top: 5px;
   }
 
   .npcNameHeader {
@@ -272,7 +272,7 @@
   background-image: url('../art-assets/warrior.png');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 70%;
+  background-size: initial;
   grid-template-columns: 100px 100px 100px;
   grid-column-gap: 5px;
   grid-row-gap: 5px;

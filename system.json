@@ -3,7 +3,7 @@
     "title": "Age of Vikings",
     "description": "Age of Vikings by Chaosium Inc for Foundry VTT",
 
-    "version": "13.14",
+    "version": "13.15",
     "compatibility": {
       "minimum": 13,
       "verified": "13.348"
@@ -19,7 +19,8 @@
       }
     ],
 
-    "esmodules": ["aov.mjs"],
+    "esmodules": ["aov.mjs",
+                  "system/setup/load.mjs"],
     "styles": [
       "css/aov.css",
       "css/aov-actor.css",
@@ -34,6 +35,22 @@
         "path": "lang/en.json"
       }
     ],
+  "packFolders": [
+    {
+      "name": "AoV System",
+      "sorting": "m",
+      "color": "#291e47",
+      "packs": [
+        "hit-locations",
+        "passions",
+        "skills",
+        "weapon-categories",
+        "weapon-skills",
+        "instructions"
+      ],
+      "folders": []
+    }
+  ],
     "packs": [
       {
         "name": "hit-locations",
@@ -100,11 +117,9 @@
           "PLAYER": "OBSERVER",
           "ASSISTANT": "OWNER"
         }
-      }  
+      }
 
     ],
-
-    "packFolders": [],
 
     "documentTypes": {
       "Actor": {
@@ -157,9 +172,10 @@
         "thumbnail": "systems/aov/art-assets/aov_logo.jpg"
       }
     ],
+    "background": "systems/aov/art-assets/vikings-launch_small.jpg",
 
     "manifest": "https://github.com/Genii-Locorum/aov/releases/latest/download/system.json",
-    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.14/system.zip",
+    "download": "https://github.com/Genii-Locorum/aov/releases/download/v13.15/system.zip",
     "url": "https://github.com/Genii-Locorum/aov",
     "license": "LICENSE.txt",
     "readme": "README.md",

@@ -1,3 +1,11 @@
+## 13.15
+- Some tweaks to the character sheet so it is easier to resize and view.
+- Character sheet tabs are more closely spaced together and swhould be easier to select
+- On creating a new world you get a default scene with Age of Vikings cover art
+- Fixed an issue with rolling Hit Locations not working if you don't have Dice So Nice activated (now works without DsN)
+- Fixed an issue that the proper character sheet background wasnt showing on Linux systems
+- A few housekeeping things in preparation for a later update
+
 ## 13.14
 - The Chaosium Canvas Interface was designed for the Call of Cthulhu system, but thanks to James B (who created the CCI) it has been ported it over to Age of Vikings.
 - James has kindly simplified the user interface so it needs less technical know-how to set up the options, but it does mean it may be slightly more limiting than the Call of Cthulhu version.

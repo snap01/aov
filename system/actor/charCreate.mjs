@@ -755,6 +755,8 @@ export class AOVCharCreate {
   }
 
   static async features(actor) {
+
+    let rollResult = ""
     //Check Table and roll on it
     let table = (await game.aov.cid.fromCIDBest({ cid: 'rt..distinctive-features' }))[0]
     if (!table) {
@@ -770,13 +772,28 @@ export class AOVCharCreate {
         return
       }
       features = features + result.name
+      rollResult = rollResult + tableResults.roll.total
       if (counter < 3) {
         features = features + ", "
+        rollResult = rollResult + ", "
       }
     }
 
     if (features.length > 0) {
       await actor.update({ 'system.distFeatures': features })
+      let rolls={}
+      let msgData = {
+      particName: actor.name,
+      particImg: actor.img,
+      features: features,
+      rollResult: rollResult
+    }
+
+    //Create Chat Message
+
+    let html = await foundry.applications.handlebars.renderTemplate("systems/aov/templates/chat/create-features.hbs", msgData);
+    let msg = await AOVCharCreate.showStats(html, rolls, game.i18n.localize('AOV.distFeatures'), actor._id)
+
       ui.notifications.warn(game.i18n.localize('AOV.featuresSelected'))
     }
   }

@@ -66,7 +66,7 @@ export class PersSkillSelectDialog extends AOVDialog {
               return resolve(button.form.elements)
               }
             }
-          }],
+          }]
         }
       )
 
