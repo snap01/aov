@@ -43,6 +43,13 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
           hint: 'AOV.ChaosiumCanvasInterface.TileToggle.JournalEntry.Hint'
         }
       ),
+      permissionDocument: new fields.NumberField({
+        choices: Object.keys(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS).reduce((c, k) => { c[k] = game.i18n.localize(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS[k]); return c }, {}),
+        initial: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+        label: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionDocument.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionDocument.Hint',
+        required: true
+      }),
       journalEntryPageUuids: new fields.SetField(
         new fields.DocumentUUIDField({
           initial: undefined,
@@ -53,6 +60,13 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
           hint: 'AOV.ChaosiumCanvasInterface.TileToggle.JournalEntryPage.Hint'
         }
       ),
+      permissionPage: new fields.NumberField({
+        choices: Object.keys(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS).reduce((c, k) => { c[k] = game.i18n.localize(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS[k]); return c }, {}),
+        initial: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+        label: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionPage.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionPage.Hint',
+        required: true
+      }),
       regionBehaviorUuids: new fields.SetField(
         new fields.DocumentUUIDField({
           initial: undefined,
@@ -63,20 +77,6 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
           hint: 'AOV.ChaosiumCanvasInterface.TileToggle.RegionBehavior.Hint'
         }
       ),
-      permissionDocument: new fields.NumberField({
-        choices: Object.keys(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS).reduce((c, k) => { c[k] = game.i18n.localize(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS[k]); return c }, {}),
-        initial: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-        label: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionDocument.Title',
-        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionDocument.Hint',
-        required: true
-      }),
-      permissionPage: new fields.NumberField({
-        choices: Object.keys(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS).reduce((c, k) => { c[k] = game.i18n.localize(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS[k]); return c }, {}),
-        initial: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-        label: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionPage.Title',
-        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionPage.Hint',
-        required: true
-      }),
       regionUuids: new fields.SetField(
         new fields.DocumentUUIDField({
           initial: undefined,
