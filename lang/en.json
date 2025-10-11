@@ -464,7 +464,7 @@
       "DrawingToggle": {
         "Toggle": {
           "Title": "Show",
-          "Hint": "Should this show or hide the the drawing and documents"
+          "Hint": "Should this show or hide the drawing and documents"
         },
         "Drawing": {
           "Title": "Select Drawing",
@@ -498,7 +498,7 @@
       "MapPinToggle": {
         "Toggle": {
           "Title": "Show",
-          "Hint": "Should this show or hide the the map note and documents"
+          "Hint": "Should this show or hide the map note and documents"
         },
         "Document": {
           "Title": "Select Documents",
@@ -554,7 +554,7 @@
       "TileToggle": {
         "Toggle": {
           "Title": "Show",
-          "Hint": "Should this show or hide the the tile and documents"
+          "Hint": "Should this show or hide the tile and documents"
         },
         "Tile": {
           "Title": "Select Tile",
@@ -763,7 +763,7 @@
       "others": "Other documents with this CID and language (excluding documents in other actors and items)",
       "priority": "Chaosium ID Priority",
       "priorShrt": "Priority",
-      "summary": "Set a group identifier that can be used to find the the most up to date version of this {type}. The Chaosium ID should use the English translation of the {type} to support localization across all languages.",
+      "summary": "Set a group identifier that can be used to find the most up to date version of this {type}. The Chaosium ID should use the English translation of the {type} to support localization across all languages.",
       "title": "Edit Chaosium ID (CID)"
     },
 
