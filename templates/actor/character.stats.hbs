@@ -82,7 +82,7 @@
       <div class='centre'>{{localize 'AOV.total'}}</div>
     </li>
 
-
+    {{!-- Reputation --}}
     <li class='statsgrid'>
       <div class="stat-val bold left new-row">{{localize 'AOV.reput'}}</div>
       {{#if allowEdit}}
@@ -110,6 +110,7 @@
       <div class='stat-val centre terIcon'>{{system.reputation.total}}</div>
     </li>
 
+    {{!-- Status --}}
     <li class='statsgrid'>
       <div class="stat-val bold left new-row">{{localize 'AOV.status'}}</div>
       {{#if allowEdit}}
@@ -137,7 +138,7 @@
 
     <br>
 
-    {{#if hasModule}}
+
     {{!-- Species, Homeland --}}
     <li class="classList" data-item-id='{{system.speciesID}}' data-document-class='Item'>
       <div class="stat-val bold {{#if isCreate}}creation{{/if}}">{{localize 'TYPES.Item.species'}}</div>
@@ -154,8 +155,20 @@
           <div class="stat-val"><input class="stat-input" style="text-align: left;" name="system.species" type="text" value="{{system.species}}"/></div>
         {{/if}}
       {{/unless}}
+      <div></div>
+      <div class="stat-val bold">{{localize 'AOV.social'}}</div>
+      {{#if isLocked}}
+        <div class="stat-input centre">{{socialName}}</div>
+      {{else}}
+        <div class="centre">
+          <select class="stat-input" data-handle-change name="system.social">
+            {{selectOptions socialOptions selected=actor.system.social}}
+          </select>
+        </div>
+      {{/if}}
     </li>
 
+    {{!-- Homeland --}}
     <li class="classList" data-item-id='{{system.homeID}}' data-document-class='Item'>
       <div class="stat-val bold {{#if isCreate}}creation{{/if}}">{{localize 'TYPES.Item.homeland'}}</div>
       {{#unless (eq system.homeID "")}}
@@ -171,12 +184,11 @@
           <div class="stat-val"><input class="stat-input" style="text-align: left;" name="system.home" type="text" value="{{system.home}}"/></div>
         {{/if}}
       {{/unless}}
-    </li>
-    {{/if}}
+
+    <div></div>
 
     {{!-- Vaðmál --}}
-    <li class='statsgrid'>
-      <div class="stat-val bold left new-row">{{localize 'AOV.vadmal'}}</div>
+      <div class="stat-val bold left">{{localize 'AOV.vadmal'}}</div>
       <div class='stat-val centre'>
         <input class="stat-input" name='system.vadmal' type='number' value='{{system.vadmal}}'/>
       </div>

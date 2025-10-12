@@ -67,7 +67,7 @@ const SETTINGS = {
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 export class AOVCreateSettings extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
-    classes: ['aov', 'sheet', 'settings'],
+    classes: ['aov', 'sheet', 'settings', 'themed', 'theme-light'],
     id: 'create-settings',
     actions: {
       reset: AOVCreateSettings.onResetDefaults,

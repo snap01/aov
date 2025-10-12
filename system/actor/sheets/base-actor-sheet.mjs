@@ -65,6 +65,7 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       aging: this._aging,
       familyroll: this._familyroll,
       npcSections: this._npcSections,
+      addWound: this._addWound,
     }
   }
 
@@ -464,7 +465,40 @@ export class AoVActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSh
       'system.passionView': status,
       'system.devotionView': status,
     })
+  }
 
+  //Add a Wound from a hit location
+  static async _addWound (event, target) {
+    const hitLocId = target.closest('li').dataset.itemId;
+    const docCls = getDocumentClass('Item');
+    const docData = {
+      name: docCls.defaultName({
+        type: 'wound',
+        parent: this.actor
+      }),
+      type: 'wound',
+      system: {
+        hitLocId: hitLocId
+      }
+    };
+    // Loop through the dataset and add it to our docData
+    for (const [dataKey, value] of Object.entries(target.dataset)) {
+      // Ignore data attributes that are reserved for action handling
+      if (['action', 'documentClass'].includes(dataKey)) continue;
+      foundry.utils.setProperty(docData, dataKey, value);
+    }
+    // Create the embedded document
+    const newItem = await docCls.create(docData, { parent: this.actor });
+
+    if (game.settings.get('aov', "actorItemCID")) {
+      let key = await game.aov.cid.guessId(newItem)
+      await newItem.update({
+        'flags.aov.cidFlag.id': key,
+        'flags.aov.cidFlag.lang': game.i18n.lang,
+        'flags.aov.cidFlag.priority': 0
+      })
+    }
+      newItem.sheet.render(true);
   }
 
   //-------------Drag and Drop--------------

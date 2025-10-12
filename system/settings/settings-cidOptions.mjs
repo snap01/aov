@@ -22,7 +22,7 @@ const SETTINGS = {
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 export class AOVCIDSettings extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
-    classes: ['aov', 'sheet', 'settings'],
+    classes: ['aov', 'sheet', 'settings', 'themed', 'theme-light'],
     id: 'cid-settings',
     actions: {
       reset: AOVCIDSettings.onResetDefaults,
@@ -93,4 +93,4 @@ export class AOVCIDSettings extends HandlebarsApplicationMixin(ApplicationV2) {
     )
   }
 
-}    
+}

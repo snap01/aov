@@ -21,7 +21,7 @@
       text-align: start;
     }
 
-    h3 {
+    h3, .secTitle {
       color: var(--aov-jnl-pri-col);
       font-family: var(--aov-secondary-font);
       font-size: 20px;
@@ -154,6 +154,7 @@
       margin-left:10px;
       width: calc(100% - 20px);
       color: var(--aov-jnl-main-col);
+      background-color: rgba(0,0,0,0);
     }
 
     table td {
@@ -172,11 +173,11 @@
     }
 
     table tbody tr:nth-child(odd) {
-      background-color: var(--table-row-color-even);
+      background-color: var(--aov-table-row-colour-even);
     }
 
     table tbody tr:nth-child(even) {
-      background-color: var(--table-row-color-odd);
+      background-color: var(--aov-table-row-colour-odd);
     }
 
     .glossary p{

@@ -78,9 +78,19 @@ export class AOVActorItemDrop {
         }
       }
 
-      //Check for duplicate skills, but not specialised skills
+      //If a specialised skill then ask for specialisation
       if (['skill'].includes(nItm.type)) {
-        if (!nItm.system.specSkill) {
+        if (nItm.system.specSkill && (nItm.system.specialisation === "" || nItm.system.specialisation === game.i18n.localize('AOV.specify'))) {
+          nItm = await this._getSpecialism(nItm, actor)
+          nItmCidFlag = nItm.flags.aov?.cidFlag?.id
+        }
+      }
+
+      //Check for duplicate skills, but not specialised skills that have a specialisation name added
+      if (['skill'].includes(nItm.type)) {
+        console.log(nItm.system.specSkill, nItm.system.specialisation)
+        if (!nItm.system.specSkill || (nItm.system.specSkill && (nItm.system.specialisation != "" && nItm.system.specialisation != game.i18n.localize('AOV.specify')))) {
+          console.log(nItm.cidFlag)
           let currentList = await actor.items.filter(i => i.flags.aov?.cidFlag?.id === nItmCidFlag)
           if (currentList.length > 0) {
             ui.notifications.warn(game.i18n.format('AOV.ErrorMsg.dupItem', { itemName: (nItm.name + "(" + nItmCidFlag + ")") }));
@@ -132,7 +142,7 @@ export class AOVActorItemDrop {
         await AOVActorItemDrop._dropSpecies(nItm, actor)
       }
 
-      //If it's a homeland then set passions to 60, adding any that aren't on the actor sheet.
+      //If it's a homeland then add additional relevant items.
       if (nItm.type === 'homeland') {
         let addHome = await AOVActorItemDrop._dropHomeland(nItm, actor)
         if (!addHome) {
@@ -262,7 +272,7 @@ export class AOVActorItemDrop {
     for (let nItm of skillList) {
 
       //If a specialism skill and specialism is blank
-      if (nItm.system.specSkill && nItm.system.specialisation === "") {
+      if (nItm.system.specSkill && (nItm.system.specialisation === "" || nItm.system.specialisation === game.i18n.localize('AOV.specify'))) {
         nItm = await this._getSpecialism(nItm, actor)
       }
 
@@ -321,8 +331,9 @@ export class AOVActorItemDrop {
     );
     if (dlg) {
       newSkill.system.specialisation = dlg.entry
-      let cidName = newSkill.name + ' (' + dlg.entry + ')'
+      let cidName = newSkill.system.mainName + ' (' + dlg.entry + ')'
       newSkill.flags.aov.cidFlag.id = "i.skill." + await AOVUtilities.toKebabCase(cidName)
+      newSkill.name = cidName
     }
     return newSkill
   }

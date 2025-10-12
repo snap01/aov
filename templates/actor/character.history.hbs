@@ -4,7 +4,7 @@
   {{!--Equipment List--}}
   <ol class='gear-list'>
     <li class='item gear-header primBackCol history-grid'>
-      <div class='lfet'>{{localize 'AOV.year'}}</div>
+      <div class='centre'>{{localize 'AOV.year'}}</div>
       <div class='left'>{{localize 'AOV.name'}}</div>
       <div class='centre'>{{localize 'AOV.description'}}</div>
       <div class='centre'>
@@ -16,6 +16,8 @@
         {{/if}}
       </div>
     </li>
+  </ol>
+    <ol class='history-list'>
     {{#each histories as |item id|}}
     <li class='item history-grid' data-item-id='{{item._id}}' data-drag='true' data-document-class='Item'>
       <div class='gear-name terIcon centre'>{{item.system.year}}</div>

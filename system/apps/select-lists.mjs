@@ -21,7 +21,6 @@ export class AOVSelectLists {
       "man": game.i18n.localize("AOV.skillCat.man"),
       "myt": game.i18n.localize("AOV.skillCat.myt"),
       "per": game.i18n.localize("AOV.skillCat.per"),
-      "spi": game.i18n.localize("AOV.skillCat.spi"),
       "ste": game.i18n.localize("AOV.skillCat.ste"),
       "zzz": game.i18n.localize("AOV.skillCat.zzz"),
     };
@@ -364,6 +363,18 @@ export class AOVSelectLists {
     return options;
   }
 
+  //Social Rank List
+  static async getSocialRank() {
+    let options = {
+      "outlaw": game.i18n.localize("AOV.outlaw"),
+      "freedman": game.i18n.localize("AOV.freedman"),
+      "tenant": game.i18n.localize("AOV.tenant"),
+      "householder": game.i18n.localize("AOV.householder"),
+      "godi": game.i18n.localize("AOV.godi"),
+      "lawspeaker": game.i18n.localize("AOV.lawspeaker"),
+    };
+    return options;
+  }
 
 }
 

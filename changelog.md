@@ -1,3 +1,20 @@
+## 13.16
+- There is now a GM Tool for "Character Creation Phase" - which will allow some automation of character creation - you don't have to use it, you can still enter details manually.
+- A short demo is available at https://www.youtube.com/watch?v=4WiwFc4DVgE
+- There are three new item types - Species, Homeland and History Items
+- A species is used to set the Dice for rolling Stats along with the Min and Max, plus hit locations.  You can either add a Species item to a character, or enter the info manually
+- Homeland is used to etermine starting skills, passions, equipment and Family History options.
+- History items are used in conjunction with Rollable Tables (which are added to Homelands) to help with automated character creation.
+- Please see the wiki for more detailed instructions on how to create the various items and how to use the Creation Phase.
+- There is a new setting under display options for small screens - it uses a smaller version of the character sheet.
+- Added a new CCI Drawing Toggle plus minor tweak to CCI Tile Toggle Layout and hints along (thanks James)
+- There is a social status attribute now on the Stats tab that can be edited.
+- Age of Vikings settings windows now use Light Mode only to make them more visible.
+- Steadfast personality no longer adds the +20% bonus to weapons
+- Spirit Animal skill and category have been removed following rules clarifications
+- You can add a wound directly to a Character's hit location by clicking on the "AP/HP" section of the hit location (except in Development mode).
+- Dropping specialised skills on the character now asks for a specialisation if it's not already on the skill
+
 ## 13.15
 - Some tweaks to the character sheet so it is easier to resize and view.
 - Character sheet tabs are more closely spaced together and swhould be easier to select

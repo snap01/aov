@@ -9,12 +9,22 @@ const SETTINGS = {
     default: false
   },
 
+    smallScreen: {
+    name: "AOV.Settings.smallScreen",
+    hint: "AOV.Settings.smallScreen",
+    scope: "client",
+    config: false,
+    type: Boolean,
+    default: false,
+    requiresReload: true,
+  },
+
 }
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 export class AOVDisplaySettings extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
-    classes: ['aov', 'sheet', 'settings'],
+    classes: ['aov', 'sheet', 'settings', 'themed', 'theme-light'],
     id: 'display-settings',
     actions: {
       reset: AOVDisplaySettings.onResetDefaults,

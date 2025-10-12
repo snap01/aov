@@ -426,7 +426,6 @@ export class AOVCheck {
   // Calculate Success Level
   static async successLevel(config) {
 
-    //TODO: Revisit when erratta released - some small differences to the published table.
     let critical = Math.max(Math.round(config.targetScore/20),1)
     let special = Math.max(Math.round(config.targetScore/5),1)
     let fumble = Math.min(96+Math.round(config.targetScore/20),100)

@@ -36,6 +36,8 @@ src: url('../art-assets/FarnhamText-Regular.otf') format('woff2');
   --aov-chat-fail: rgb(163, 16, 8);
   --aov-chat-other: rgb(237, 181, 37);
   --aov-title-font-colour: rgb(68, 111, 94);
+  --aov-table-row-colour-even: rgba(0,0,0,0.1);
+  --aov-table-row-colour-odd: transparent;
 }
 
 body.theme-light .application.aov,
@@ -60,6 +62,8 @@ body.theme-light.application .aov{
   --character-sheet-tab-green: url('../art-assets/ribbon-green.svg');
   --character-sheet-tab-red: url('../art-assets/ribbon-red.svg');
   --character-sheet-tab-yellow: url('../art-assets/ribbon-yellow.svg');
+  --aov-table-row-colour-even: rgba(0,0,0,0.1);
+  --aov-table-row-colour-odd: transparent;
 }
 
 
@@ -85,6 +89,8 @@ body.theme-dark.application .aov {
   --character-sheet-tab-green: url('../art-assets/ribbon-green.svg');
   --character-sheet-tab-red: url('../art-assets/ribbon-red.svg');
   --character-sheet-tab-yellow: url('../art-assets/ribbon-yellow.svg');
+  --aov-table-row-colour-even: rgba(0,0,0,0.1);
+  --aov-table-row-colour-odd: transparent;
 }
 
 
@@ -319,7 +325,8 @@ body.theme-dark .application.aov.sheet,
   display: grid;
   grid-template-columns: 50px 150px 360px 30px;
   grid-column-gap: 5px;
-  padding-left: 5px;
+  padding: 2px 0px 2px 5px;
+  margin-bottom: 0px;
 }
 
 .aov .history-item {
@@ -654,12 +661,6 @@ body.theme-dark .application.aov.sheet,
   grid-column-gap: 5px;
 }
 
-.aov .derivedStats {
-  display: grid;
-  grid-template-columns: 40px 60px;
-
-}
-
 .aov .personalSecGrid {
   display: grid;
   grid-template-columns: auto;
@@ -714,123 +715,6 @@ nav.aov.sheet-tabs.tabs {
   padding-left: 10px;
   padding-right: 10px;
 }
-
-
-
-/*Character Sheet Tabs*/
-.aov.character.tabs {
-  border: none;
-  position: absolute;
-  left: 0;
-  top: 600px;
-  z-index: -5;
-  width: 730px;
-  height: 160px;
-  transform: rotate(-90deg);
-  transform-origin: bottom left;
-  overflow: hidden;
-  pointer-events: none;
-  /*background: none;*/
-
-  .tab {
-    color: #fcf7f1;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    cursor: pointer;
-    background-size: cover;
-    flex: 1;
-    position: relative;
-    bottom: -15px;
-    background-repeat: no-repeat;
-    margin: 1rem 0.4rem 0 0;
-    pointer-events: auto;
-
-    &:has(.active), &:hover {
-      transform: scale(1.2);
-      transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
-      transition-duration: 0.1s;
-      bottom: -6px;
-    }
-
-    &.tab-blue {
-      background: var(--character-sheet-tab-blue);
-      flex: 0 0 50px;
-      height:130px;
-    }
-
-    &.tab-green {
-      background: var(--character-sheet-tab-green);
-      flex: 0 0 50px;
-      height:130px;
-    }
-
-    &.tab-red {
-      background: var(--character-sheet-tab-red);
-      flex: 0 0 50px;
-      height:130px;
-    }
-
-    &.tab-yellow {
-      background: var(--character-sheet-tab-yellow);
-      flex: 0 0 50px;
-      height:130px;
-    }
-
-    &:has(.tab-label.active) {
-      margin-top: 0;
-      bottom: -12px;
-    }
-
-    .tab-label {
-      /*text-transform: uppercase;*/
-      font-family: var(--aov-title-font);
-      transform: rotate(90deg);
-      width: 100%;
-      height: 65%;
-      padding-top:50px;
-      max-width: 76px;
-      overflow: hidden;
-      display: inline-block;
-      text-shadow: 2px 2px 4px #000000;
-      box-sizing: content-box;
-      color: cornsilk;
-
-      &.active {
-        text-shadow: 2px 2px 15px white;
-        color: cornsilk;
-      }
-    }
-
-    &.small-ribbon {
-      flex: 0 0 48px;
-      height: 61px;
-      margin-left: 1.8rem;
-
-      &~.small-ribbon {
-        margin-left: 0rem;
-      }
-
-      &:has(.active),
-      &:hover {
-        transform: scale(1.3);
-        transition-timing-function: cubic-bezier(0.2, 0.4, 0.7, 0.8);
-        transition-duration: 0.1s;
-
-        .tab-label {
-          font-size: 2rem;
-        }
-      }
-
-      .tab-label {
-        margin-top: -10px;
-        font-size: 1.8rem;
-      }
-    }
-  }
-}
-
-
 
 .aov.farm .farm-map-grid {
   display: grid;

@@ -98,12 +98,6 @@ constructor(data, context) {
     //Enter the document types you want to remove from the side bar create option - 'base' is removed in the super
     const invalid = ["wound", "family", "runescript", "seidur", "thrall","npcpower"];
 
-    //TODO - remove when module ready
-    if (!game.modules.get('aov-core-rulebook')?.active) {
-      invalid.push('species','homeland','history')
-    }
-    //TODO
-
     if (!types) types = this.TYPES.filter(type => !invalid.includes(type));
     else types = types.filter(type => !invalid.includes(type));
     return super.createDialog(data, createOptions, { types, ...options });

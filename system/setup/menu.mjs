@@ -19,9 +19,6 @@ class AOVMenuLayer extends (foundry.canvas?.layers?.InteractionLayer ?? Interact
 export class AOVMenu {
   static getButtons(controls) {
     canvas.aovgmtools = new AOVMenuLayer()
-    //TO DO - remove when module ready
-    const hasModule = game.modules.get('aov-core-rulebook')?.active
-    //TODO
     const isGM = game.user.isGM
     const menu = {
       name: 'aovmenu',
@@ -63,9 +60,6 @@ export class AOVMenu {
         },
         createphase: {
           toggle: true,
-          //TO DO - remove when module ready
-          visible: hasModule,
-          //TODO
           icon: 'fas fa-user',
           order: 4,
           name: 'createphase',
@@ -83,9 +77,6 @@ export class AOVMenu {
         },
         victoryphase: {
           toggle: true,
-          //TO DO - remove when module ready
-          visible: hasModule,
-          //TODO
           icon: 'fas fa-sun-haze',
           order: 5,
           name: 'victoryphase',

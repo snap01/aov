@@ -22,7 +22,7 @@ const SETTINGS = {
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 export class AOVGameYearSettings extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
-    classes: ['aov', 'sheet', 'settings'],
+    classes: ['aov', 'sheet', 'settings', 'themed', 'theme-light'],
     id: 'gameYear-settings',
     actions: {
       reset: AOVGameYearSettings.onResetDefaults,

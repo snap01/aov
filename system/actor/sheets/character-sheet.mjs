@@ -19,7 +19,9 @@ export class AoVCharacterSheet extends AoVActorSheet {
 
   static PARTS = {
     header: { template: 'systems/aov/templates/actor/character.header.hbs' },
+    headerSmall: { template: 'systems/aov/templates/actor/character.header.small.hbs' },
     tabs: { template: 'systems/aov/templates/actor/character-tab.hbs' },
+    tabsSmall: { template: 'systems/aov/templates/actor/character-tab-small.hbs' },
 
     notes: {
       template: 'systems/aov/templates/actor/character.notes.hbs',
@@ -65,23 +67,23 @@ export class AoVCharacterSheet extends AoVActorSheet {
 
   _configureRenderOptions(options) {
     super._configureRenderOptions(options);
+
     //Common parts to the character - this is the order they are show on the sheet
-    options.parts = ['header'];
-    options.parts.push('tabs')
+    options.parts=[]
+    if (!game.settings.get('aov','smallScreen')){
+      options.parts.push('header','tabs')
+    }
     //GM only tabs
     if (game.user.isGM) {
       options.parts.push('gmTab');
     }
     //Last tab is at the top of the list on the character sheet
-    options.parts.push('stats','notes')
+    options.parts.push('stats','notes','history','family', 'gear', 'devotions', 'runes', 'combat', 'skills')
 
-    //TODO - remove when module ready
-    if (game.modules.get('aov-core-rulebook')?.active) {
-      options.parts.push('history')
+    if (game.settings.get('aov','smallScreen')){
+      options.parts.push('tabsSmall','headerSmall')
+      options.parts.reverse()
     }
-    //TODO
-
-    options.parts.push('family', 'gear', 'devotions', 'runes', 'combat', 'skills');
   }
 
   _getTabs(parts) {
@@ -108,6 +110,8 @@ export class AoVCharacterSheet extends AoVActorSheet {
       switch (partId) {
         case 'header':
         case 'tabs':
+        case 'headerSmall':
+        case 'tabsSmall':
           return tabs;
         case 'skills':
           tab.id = 'skills';
@@ -180,31 +184,41 @@ export class AoVCharacterSheet extends AoVActorSheet {
     }, {});
   }
 
+
   async _prepareContext(options) {
     let context = await super._prepareContext(options)
+
+    //If game setting is for small screen and this is first render set the character sheet size
+    if (game.settings.get('aov','smallScreen') && options.isFirstRender){
+      options.position.height = 600
+    } else if (!game.settings.get('aov','smallScreen') && options.isFirstRender){
+      options.position.height = 950
+    }
+
     context.tabs = this._getTabs(options.parts);
     context.persTypeOptions = await AOVSelectLists.persType();
     context.persTypeOptions = Object.assign({"":""},context.persTypeOptions)
     context.persName = game.i18n.localize('AOV.Personality.' + this.actor.system.persType)
     if (this.actor.system.persType === "") {context.persName = ""}
     context.dpOptions = await AOVSelectLists.dpOptions();
-    context.useRandom = game.settings.get('aov','randomDice')
-    context.useAssign = game.settings.get('aov','allocatedDice')
-    context.usePoints = game.settings.get('aov','allocatePoints')
+    context.useRandom = game.settings.get('aov','randomDice');
+    context.useAssign = game.settings.get('aov','allocatedDice');
+    context.usePoints = game.settings.get('aov','allocatePoints');
+    context.isSmall = game.settings.get('aov','smallScreen');
     context.genderOptions = await AOVSelectLists.genderOptions();
-    context.genderOptions = Object.assign({"":""},context.genderOptions)
-    context.genderName = game.i18n.localize('AOV.' + context.system.gender)
+    context.genderOptions = Object.assign({"":""},context.genderOptions);
+    context.genderName = game.i18n.localize('AOV.' + context.system.gender);
+    context.socialOptions = await AOVSelectLists.getSocialRank();
+    context.socialName = game.i18n.localize('AOV.' + context.system.social);
     if (context.system.gender === "") {context.genderName = ""}
     if (!context.usePoints && !context.useAssign) {
       context.useRandom = true
     }
-    //TODO - remove when module ready
+
     context.allowEdit = false;
-    if (context.isCreate || (!game.modules.get('aov-core-rulebook')?.active && !context.isLocked)) {
+    if (context.isCreate || !context.isLocked) {
       context.allowEdit = true;
     }
-    context.hasModule = game.modules.get('aov-core-rulebook')?.active
-    //TODO
 
 
     await this._prepareItems(context);
@@ -379,7 +393,6 @@ export class AoVCharacterSheet extends AoVActorSheet {
         { name: game.i18n.localize('AOV.skillCat.man'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.man'), total: this.actor.system.man, category: 'man' } },
         { name: game.i18n.localize('AOV.skillCat.myt'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.myt'), total: this.actor.system.myt, category: 'myt' } },
         { name: game.i18n.localize('AOV.skillCat.per'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.per'), total: this.actor.system.per, category: 'per' } },
-        { name: game.i18n.localize('AOV.skillCat.spi'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.spi'), total: this.actor.system.spi, category: 'spi' } },
         { name: game.i18n.localize('AOV.skillCat.ste'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.ste'), total: this.actor.system.ste, category: 'ste' } },
         { name: game.i18n.localize('AOV.skillCat.cbt'), isType: true, system: { label: game.i18n.localize('AOV.skillCat.cbt'), total: this.actor.system.cbt, category: 'cbt' } },
       );

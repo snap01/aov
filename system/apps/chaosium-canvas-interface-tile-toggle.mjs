@@ -134,7 +134,10 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
   async _handleRightClickEvent () {
     await this._handleLeftClickEvent()
     for (const uuid of this.regionUuids) {
-      game.aov.ClickRegionLeftUuid(uuid)
+      setTimeout(() => {
+        game.aov.ClickRegionLeftUuid(uuid)
+      }, 100)
     }
   }
+
 }

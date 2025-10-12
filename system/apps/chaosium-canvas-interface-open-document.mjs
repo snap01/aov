@@ -25,9 +25,13 @@ export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasI
         required: true
       }),
       documentUuid: new fields.DocumentUUIDField({
-        initial: undefined,
         label: 'AOV.ChaosiumCanvasInterface.OpenDocument.Document.Title',
         hint: 'AOV.ChaosiumCanvasInterface.OpenDocument.Document.Hint'
+      }),
+      pageId: new fields.DocumentIdField({
+        initial: undefined,
+        label: 'AOV.ChaosiumCanvasInterface.OpenDocument.Page.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.OpenDocument.Page.Hint'
       }),
       anchor: new fields.StringField({
         initial: '',
@@ -54,9 +58,15 @@ export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasI
     return false
   }
 
-  async _handleLeftClickEvent () {
+async _handleLeftClickEvent () {
     if (this.documentUuid) {
-      const doc = await fromUuid(this.documentUuid)
+      let doc = await fromUuid(this.documentUuid)
+      if (this.pageId) {
+        const page = doc.pages.get(this.pageId)
+        if (page) {
+          doc = page
+        }
+      }
       if (doc?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER)) {
         if (doc instanceof JournalEntryPage) {
           doc.parent.sheet.render(true, { pageId: doc.id, anchor: this.anchor })
@@ -68,4 +78,5 @@ export default class ChaosiumCanvasInterfaceOpenDocument extends ChaosiumCanvasI
       }
     }
   }
+
 }

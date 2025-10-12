@@ -3,9 +3,18 @@
 
   {{!--Hit Locations--}}
   <div class="skill-grid-header">
-      <div class='gear-header primBackCol skill-grid'>
-        <div class='centre' style="grid-column: 1 / span4;">{{localize 'AOV.hitLocations'}}</div>
-      </div>
+      {{#if isSmall}}
+        <div class='gear-header primBackCol hitLocHeaderSmall'>
+          <div class=''>{{localize 'AOV.hitLocation'}}</div>
+          <div class='centre'>{{localize 'AOV.d20'}}</div>
+          <div class='centre'>{{localize 'AOV.armourPointsAbbr'}}</div>
+          <div class='centre'style="grid-column: 4 / span3;">{{localize 'AOV.hpAbbr'}}</div>
+        </div>
+      {{else}}
+        <div class='gear-header primBackCol skill-grid'>
+          <div class='centre' style="grid-column: 1 / span4;">{{localize 'AOV.hitLocations'}}</div>
+        </div>
+      {{/if}}
       <div class='gear-header {{#if singleColour}}primBackCol{{else}}secBackCol{{/if}} wounds-grid'>
         <div class='new-row left'>{{localize 'TYPES.Item.wound'}}</div>
         <div class='centre'>{{localize 'AOV.damage'}}</div>
@@ -21,64 +30,89 @@
       </div>
 
     {{#unless isDevelop}}
-      <ol class="charHitLoc">
-        <div class="hitLocGrid">
-
-          {{#each hitLocs as |item id|}}
-            {{#unless (eq item.system.locType 'general')}}
-              {{#if (eq item.name 'blank')}}
-                <div></div>
-              {{else}}
-                <li class="item hitlocCell" data-item-id='{{item._id}}' data-document-class='Item'>
-                  <div class="upper rollable" data-action='viewDoc'>{{item.name}}</div>
-                  {{#if ../isLocked}}
-                    <div>{{item.system.label}}</div>
-                  {{else}}
-                    <div class='gear-controls centre'>
-                      <a class='item-delete centre' ='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
-                        data-action="deleteDoc">
-                        <i class='fas fa-trash'></i>
-                      </a>
-                    </div>
-                  {{/if}}
-                  <div class="hitLocCellAtt">
-                    <div>{{localize 'AOV.armourPointsAbbr'}}</div>
-                    <div class="centre terIcon"></div>
-                    <div class="centre terIcon"></div>
+      {{#if isSmall}}
+        <ol class="charHitLoc">
+          <div class="hitLocDev">
+            {{#each devHitLocs as |item id|}}
+              {{#unless (eq item.system.locType 'general')}}
+                <li class="hitLocGridSmall" data-item-id='{{item._id}}' data-document-class='Item'>
+                  <div class="rollable" data-action='viewDoc'>{{item.name}}</div>
+                  <div class="addWndSmall" title="{{localize 'AOV.addWound'}}" data-action='addWound'>
+                    <div class="centre">{{item.system.label}}</div>
                     <div class="centre terIcon">{{item.system.map}}</div>
-                    <div class="new-row">{{localize 'AOV.hpAbbr'}}</div>
-                    <div class="terIcon">{{item.system.currHp}}</div>
-                    <div>/</div>
-                    <div class="terIcon">{{item.system.hpMax}}</div>
+                    <div class="centre terIcon">{{item.system.currHp}}</div>
+                    <div class="centre">/</div>
+                    <div class="centre terIcon">{{item.system.hpMax}}</div>
+                  </div>
+                  {{#unless ../isLocked}}
+                  <div class='gear-controls centre'>
+                    <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
+                      data-action="deleteDoc">
+                      <i class='fas fa-trash'></i>
+                    </a>
+                  </div>
+                  {{/unless}}
+                </li>
+              {{/unless}}
+            {{/each}}
+          </div>
+        </ol>
+      {{else}}
+        <ol class="charHitLoc">
+          <div class="hitLocGrid">
+            {{#each hitLocs as |item id|}}
+              {{#unless (eq item.system.locType 'general')}}
+                {{#if (eq item.name 'blank')}}
+                  <div></div>
+                {{else}}
+                  <li class="item hitlocCell" data-item-id='{{item._id}}' data-document-class='Item'>
+                    <div class="upper rollable" data-action='viewDoc'>{{item.name}}</div>
+                    {{#if ../isLocked}}
+                      <div>{{item.system.label}}</div>
+                    {{else}}
+                      <div class='gear-controls centre'>
+                        <a class='item-delete centre' ='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
+                          data-action="deleteDoc">
+                          <i class='fas fa-trash'></i>
+                        </a>
+                      </div>
+                    {{/if}}
+                    <div class="hitLocCellAtt" title="{{localize 'AOV.addWound'}}" data-action='addWound'>
+                      <div>{{localize 'AOV.armourPointsAbbr'}}</div>
+                      <div class="centre terIcon"></div>
+                      <div class="centre terIcon"></div>
+                      <div class="centre terIcon">{{item.system.map}}</div>
+                      <div class="new-row">{{localize 'AOV.hpAbbr'}}</div>
+                      <div class="terIcon">{{item.system.currHp}}</div>
+                      <div>/</div>
+                      <div class="terIcon">{{item.system.hpMax}}</div>
+                    </div>
+                  </li>
+                {{/if}}
+              {{/unless}}
+            {{/each}}
+          </div>
+        </ol>
+      {{/if}}
+    {{else}}
+        <ol class="charHitLoc">
+          <div class="hitLocDev">
+            {{#each devHitLocs as |item id|}}
+              {{#unless (eq item.name 'blank')}}
+                <li class="hitLocGridDev" data-item-id='{{item._id}}' data-document-class='Item'>
+                  <div class="upper rollable" data-action='viewDoc'>{{item.name}}</div>
+                  <div>{{item.system.label}}</div>
+                  <div class='gear-controls centre'>
+                    <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
+                      data-action="deleteDoc">
+                      <i class='fas fa-trash'></i>
+                    </a>
                   </div>
                 </li>
-              {{/if}}
-            {{/unless}}
-          {{/each}}
-        </div>
-      </ol>
-    {{else}}
-
-      <ol class="charHitLoc">
-        <div class="hitLocDev">
-          {{#each devHitLocs as |item id|}}
-            {{#unless (eq item.name 'blank')}}
-              <li class="hitLocGridDev" data-item-id='{{item._id}}' data-document-class='Item'>
-                <div class="upper rollable" data-action='viewDoc'>{{item.name}}</div>
-                <div>{{item.system.label}}</div>
-                <div class='gear-controls centre'>
-                  <a class='item-delete centre' title='{{localize "AOV.deleteDoc" type=(localize "TYPES.Item.hitloc")}}'
-                    data-action="deleteDoc">
-                    <i class='fas fa-trash'></i>
-                  </a>
-                </div>
-              </li>
-            {{/unless}}
-          {{/each}}
-        </div>
-      </ol>
-
-
+              {{/unless}}
+            {{/each}}
+          </div>
+        </ol>
     {{/unless}}
 
     {{!-- Wounds--}}

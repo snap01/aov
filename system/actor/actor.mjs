@@ -309,7 +309,6 @@ export class AOVActor extends Actor {
       systemData.myt = AOVActor._skillCatMyt(systemData);
       systemData.per = AOVActor._skillCatPer(systemData);
       systemData.ste = AOVActor._skillCatSte(systemData);
-      systemData.spi = 0;
       systemData.cbt = systemData.man;
 
       //Personality Type Bonus
@@ -320,7 +319,7 @@ export class AOVActor extends Actor {
             break;
           case "steadfast":
             systemData.man += 20;
-            systemData.cbt += 20;
+            //systemData.cbt += 20;
             break;
           case "spiritual":
             systemData.myt += 20;

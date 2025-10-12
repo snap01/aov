@@ -532,6 +532,7 @@ export class AOVCharCreate {
           'flags.aov.cidFlag.priority': 0,
           'system.born': actor.system.birthYear,
           'system.relation': spouseLabel,
+          'system.relationship': 'spouse',
           'system.gender': gender,
         })
         family.push({ name: newItem.name, relation: spouseLabel, gender: genderLabel, age: actor.system.age })
@@ -572,7 +573,8 @@ export class AOVCharCreate {
           'flags.aov.cidFlag.lang': game.i18n.lang,
           'flags.aov.cidFlag.priority': 0,
           'system.born': born,
-          'system.relation': childLabel,
+          'system.relation': 'childLabel',
+          'system.relationship': 'child',
           'system.gender': gender,
         })
         family.push({ name: newItem.name, relation: childLabel, gender: genderLabel, age: currAge })
@@ -669,7 +671,6 @@ export class AOVCharCreate {
             born: born,
             gender: gender
           }
-
         };
         const newThrall = await docCls.create(docData, { parent: newFarm });
       }

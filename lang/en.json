@@ -4,6 +4,7 @@
     "active": "Active",
     "activeAbbr": "Ac",
     "add": "Add",
+    "addWound": "Click location to add a wound",
     "age": "Age",
     "ageAbbr": "Age",
     "aging": "Aging",
@@ -104,6 +105,7 @@
     "distFeatures": "Distictive Features",
     "distFeaturesAbbr": "Features",
     "distFeaturesHint": "Roll Distictive Features, this will overwrite current features",
+    "distFeaturesAbbrShort": "Feat",
     "dmgBonus": "Damage Modifier",
     "dmgBonusAbbr": "DM",
     "dodge": "Dodge",
@@ -146,6 +148,7 @@
     "fixed": "Fixed",
     "fixedVal": "Fixed {val}",
     "fixedXP": "Choose improvements to get fixed +3%",
+    "freedman": "Freedman",
     "gear": "Equipment",
     "gender": "Gender",
     "genderAbbr": "Gender",
@@ -154,6 +157,7 @@
     "gmPermission": "GM Approval",
     "gmTab": "GM Tab",
     "gmTools": "GM Tools",
+    "godi": "Goði",
     "grandparent":"Grandparent",
     "gridPos": "Grid Position",
     "gridPosHint": "Choose a number from 1-12 to position the hit location on the character sheet",
@@ -178,6 +182,7 @@
     "homeland": "Homeland",
     "homelandAbbr": "Home",
     "horses": "Horses",
+    "householder": "Householder",
     "hp": "Hit Points",
     "hpAbbr": "HP",
     "hpCurr": "Current/Max HP",
@@ -191,6 +196,7 @@
     "inactive": "Inactive",
     "increaseYear": "Increase Year by 1",
     "invalid": "Invalid",
+    "lawspeaker": "Lawspeaker",
     "length": "Length",
     "linked": "The token is not linked to the actor",
     "lock": "Click to lock the sheet",
@@ -250,6 +256,7 @@
     "noXPHint": "If ticked, these skills can not be improved via experience",
     "oddRunes": "Valid Runescript",
     "options": "Options",
+    "outlaw": "Outlaw/Vagrant",
     "packed": "Packed",
     "parent": "Parent",
     "parryBonus": "Parry Bonus",
@@ -266,6 +273,7 @@
     "persSkillsSelected": "Personal Skills Selected",
     "persType": "Personality Type",
     "persTypeAbbr": "Personality",
+    "persTypeAbbrShort": "Pers",
     "picks": "Number of Optional Skills",
     "pointsAllocated": "Stat Points Allocated",
     "prepared": "Prepared",
@@ -276,6 +284,8 @@
     "range": "Range",
     "recalcBase": "Recalculate non-fixed Base Scores",
     "relationship": "Relationship",
+    "repStat": "R/S",
+    "repStatHint": "Reputation / Status",
     "reput": "Reputation",
     "reputAbbr": "Rep",
     "reputBonus": "Reputation Bonus",
@@ -304,6 +314,7 @@
     "skillSelect":"Choose any six skills",
     "skillTrain": "Train a skill",
     "slowed": "Slowed",
+    "social": "Social Rank",
     "son": "son",
     "sourceItem": "Active Effects - Source",
     "spec": "Specialised Skill",
@@ -313,7 +324,7 @@
     "specify": "Specify",
     "spendVadmal": "Spend {amount} of Vaðmál to avoid Status loss",
     "spiritAn": "Spirit Animal",
-    "spiritAnAbbr": "Spirit Animal",
+    "spiritAnAbbr": "Spirit",
     "spouse": "Spouse",
     "spouseChoice": "Do you want to get married?",
     "statImp":"Improve a Characteristic",
@@ -325,6 +336,7 @@
     "subtract": "Subtract",
     "surplusVadmal": "Surplus Vaðmál",
     "synth": "This is a synthetic actor",
+    "tenant": "Tenant",
     "thrall": "Thrall",
     "thrallHint": "Tick this if the person is a thrall rather than a relative",
     "thralls": "Thralls",
@@ -526,6 +538,10 @@
           "Title": "Select Document",
           "Hint": ""
         },
+        "Page": {
+          "Title": "Enter Page",
+          "Hint": "This is the Journal Entry Page from the UUID"
+        },
         "Anchor": {
           "Title": "Optional Anchor",
           "Hint": "If loading a JournalEntryPage jump to anchor"
@@ -554,7 +570,7 @@
       "TileToggle": {
         "Toggle": {
           "Title": "Show",
-          "Hint": "Should this show or hide the tile and documents"
+          "Hint": "Should this show or hide the map pin and documents"
         },
         "Tile": {
           "Title": "Select Tile",
@@ -679,7 +695,6 @@
         "i.skill.sling": "Sling",
         "i.skill.speak-other-language": "Speak Own Language",
         "i.skill.speak-own-language": "Speak Other Language",
-        "i.skill.spirit-animal": "Spirit Animal",
         "i.skill.spot-hidden": "Spot Hidden",
         "i.skill.survival": "Survival",
         "i.skill.swim": "Swim",
@@ -1043,6 +1058,8 @@
       "showDiceRollsHint": "Show dice rolls in Creation/Development/Victory Sacrifice phases",
       "singleColourBar": "Single Colour Bars",
       "singleColourBarHint": "Mutliple header bars on the same tab will be the same colour",
+      "smallScreen": "Small Screen",
+      "smallScreenHint": "Use the smaller character sheet if you have a small screen",
       "tokenDropMode": "When creating NPC :",
       "tokenDropModeAsk": "Ask",
       "tokenDropModeAverage": "Average",
@@ -1099,7 +1116,6 @@
       "man": "Manipulation",
       "myt": "Mythic",
       "per": "Perception",
-      "spi": "Spirit Animal",
       "ste": "Stealth",
       "zzz": "Group Skill"
     },
