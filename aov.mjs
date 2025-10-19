@@ -6,6 +6,7 @@ import RenderNoteConfig from './system/hooks/render-note-config.js'
 import RenderRollTableSheet from './system/hooks/render-roll-table-sheet.mjs'
 import CreateToken from './system/hooks/create-token.mjs'
 import RenderChatMessageHTML from './system/hooks/render-chat-message.mjs'
+import RenderRegionConfig from './system/hooks/render-region-config.mjs'
 
 import Init from './system/hooks/init.mjs';
 import Ready from './system/hooks/ready.mjs';
@@ -20,4 +21,4 @@ Hooks.on('renderNoteConfig', RenderNoteConfig)
 Hooks.on('renderRollTableSheet', RenderRollTableSheet);
 Hooks.on('renderChatMessageHTML', RenderChatMessageHTML);
 Hooks.on('createToken', CreateToken);
-
+Hooks.on('renderRegionConfig', RenderRegionConfig);
