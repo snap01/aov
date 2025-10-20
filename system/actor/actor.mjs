@@ -515,13 +515,13 @@ _eNCPenalty (actorData) {
   }
 
   //Negative Primary Skill Cat
-  static _skillCatNeg(score) {
+  static _skillCatPriNeg(score) {
     let bonus = (Math.ceil(score / 4) - 3) * 5
     return -bonus
   }
 
   //Negative Secondary Skill Cat
-  static _skillCatNeg(score) {
+  static _skillCatSecNeg(score) {
     let bonus = (Math.ceil(score / 4) - 3) * 5
     if (bonus < 0) {
       bonus += 5
@@ -535,7 +535,7 @@ _eNCPenalty (actorData) {
   static _skillCatAgi(systemData) {
     let bonus = 0
     bonus += AOVActor._skillCatSec(systemData.abilities.str.total)
-    bonus += AOVActor._skillCatNeg(systemData.abilities.siz.total)
+    bonus += AOVActor._skillCatSecNeg(systemData.abilities.siz.total)
     bonus += AOVActor._skillCatPri(systemData.abilities.dex.total)
     bonus += AOVActor._skillCatSec(systemData.abilities.pow.total)
     return bonus
@@ -587,10 +587,10 @@ _eNCPenalty (actorData) {
   //Stealth Skill Cat
   static _skillCatSte(systemData) {
     let bonus = 0
-    bonus += AOVActor._skillCatSec(systemData.abilities.str.total)
+    bonus += AOVActor._skillCatPri(systemData.abilities.int.total)
     bonus += AOVActor._skillCatPri(systemData.abilities.dex.total)
-    bonus += AOVActor._skillCatNeg(systemData.abilities.siz.total)
-    bonus += AOVActor._skillCatNeg(systemData.abilities.pow.total)
+    bonus += AOVActor._skillCatPriNeg(systemData.abilities.siz.total)
+    bonus += AOVActor._skillCatSec(systemData.abilities.pow.total)
     return bonus
   }
 

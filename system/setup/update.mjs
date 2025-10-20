@@ -92,6 +92,11 @@ export async function updateWorld({ bypassVersionCheck = false } = {}) {
       await updateDialog('systems/aov/templates/updates/update13.16.hbs')
     }
 
+    //Message if current system is less that Version 13.17
+    if (foundry.utils.isNewerVersion('13.17', currentVersion ?? '0')) {
+      await updateDialog('systems/aov/templates/updates/update13.17.hbs')
+    }
+
   }
 
   await game.settings.set("aov", "systemVersion", targetVersion);

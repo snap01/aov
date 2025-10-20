@@ -1,9 +1,13 @@
+## 13.17
+- Correction to the Stealth Skill Category Bonus
+- Additional Chaosium Canvas Interface options added
+
 ## 13.16
 - There is now a GM Tool for "Character Creation Phase" - which will allow some automation of character creation - you don't have to use it, you can still enter details manually.
 - A short demo is available at https://www.youtube.com/watch?v=4WiwFc4DVgE
 - There are three new item types - Species, Homeland and History Items
 - A species is used to set the Dice for rolling Stats along with the Min and Max, plus hit locations.  You can either add a Species item to a character, or enter the info manually
-- Homeland is used to etermine starting skills, passions, equipment and Family History options.
+- Homeland is used to determine starting skills, passions, equipment and Family History options.
 - History items are used in conjunction with Rollable Tables (which are added to Homelands) to help with automated character creation.
 - Please see the wiki for more detailed instructions on how to create the various items and how to use the Creation Phase.
 - There is a new setting under display options for small screens - it uses a smaller version of the character sheet.
