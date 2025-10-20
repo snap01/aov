@@ -15,9 +15,27 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
     return 'fa-solid fa-cubes'
   }
 
+  static get triggerButtons () {
+    const buttons = super.triggerButtons
+    buttons[ChaosiumCanvasInterfaceTileToggle.triggerButton.Both] = 'AOV.ChaosiumCanvasInterface.Buttons.Both'
+    return buttons
+  }
+
+  static get triggerButton () {
+    const button = super.triggerButton
+    button.Both = 20
+    return button
+  }
+
   static defineSchema () {
     const fields = foundry.data.fields
     return {
+      triggerButton: new fields.NumberField({
+        choices: ChaosiumCanvasInterfaceTileToggle.triggerButtons,
+        initial: ChaosiumCanvasInterfaceTileToggle.triggerButton.Left,
+        label: 'AOV.ChaosiumCanvasInterface.TileToggle.Button.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.Button.Hint'
+      }),
       toggle: new fields.BooleanField({
         initial: false,
         label: 'AOV.ChaosiumCanvasInterface.TileToggle.Toggle.Title',
@@ -25,7 +43,6 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
       }),
       tileUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'Tile'
         }),
         {
@@ -35,7 +52,6 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
       ),
       journalEntryUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'JournalEntry'
         }),
         {
@@ -50,9 +66,15 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
         hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionDocument.Hint',
         required: true
       }),
+      permissionDocumentHide: new fields.NumberField({
+        choices: Object.keys(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS).reduce((c, k) => { c[k] = game.i18n.localize(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS[k]); return c }, {}),
+        initial: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE,
+        label: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionDocumentHide.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionDocumentHide.Hint',
+        required: true
+      }),
       journalEntryPageUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'JournalEntryPage'
         }),
         {
@@ -67,9 +89,15 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
         hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionPage.Hint',
         required: true
       }),
+      permissionPageHide: new fields.NumberField({
+        choices: Object.keys(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS).reduce((c, k) => { c[k] = game.i18n.localize(ChaosiumCanvasInterfaceTileToggle.PERMISSIONS[k]); return c }, {}),
+        initial: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE,
+        label: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionPageHide.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.PermissionPageHide.Hint',
+        required: true
+      }),
       regionBehaviorUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'RegionBehavior'
         }),
         {
@@ -77,24 +105,42 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
           hint: 'AOV.ChaosiumCanvasInterface.TileToggle.RegionBehavior.Hint'
         }
       ),
+      regionButton: new fields.NumberField({
+        choices: ChaosiumCanvasInterface.triggerButtons,
+        initial: ChaosiumCanvasInterface.triggerButton.Right,
+        label: 'AOV.ChaosiumCanvasInterface.TileToggle.TriggerButton.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.TriggerButton.Hint'
+      }),
       regionUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'Region'
         }),
         {
-          label: 'AOV.ChaosiumCanvasInterface.TileToggle.RegionUuids.Title',
-          hint: 'AOV.ChaosiumCanvasInterface.TileToggle.RegionUuids.Hint'
+          label: 'AOV.ChaosiumCanvasInterface.TileToggle.TriggerRegionUuids.Title',
+          hint: 'AOV.ChaosiumCanvasInterface.TileToggle.TriggerRegionUuids.Hint'
         }
       ),
+      triggerAsButton: new fields.NumberField({
+        choices: ChaosiumCanvasInterface.triggerButtons,
+        initial: ChaosiumCanvasInterface.triggerButton.Left,
+        label: 'AOV.ChaosiumCanvasInterface.TileToggle.TriggerAsButton.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.TileToggle.TriggerAsButton.Hint'
+      }),
     }
+  }
+
+  static migrateData (source) {
+    if (typeof source.triggerButton === 'undefined' && source.regionUuids?.length) {
+      source.triggerButton = ChaosiumCanvasInterfaceTileToggle.triggerButton.Both
+    }
+    return source
   }
 
   async _handleMouseOverEvent () {
     return game.user.isGM
   }
 
-  async _handleLeftClickEvent () {
+  async #handleClickEvent (button) {
     for (const uuid of this.tileUuids) {
       const doc = await fromUuid(uuid)
       if (doc) {
@@ -103,8 +149,8 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
         console.error('Tile ' + uuid + ' not loaded')
       }
     }
-    const permissionDocument = (!this.toggle ? CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE : this.permissionDocument)
-    const permissionPage = (!this.toggle ? CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE : this.permissionPage)
+    const permissionDocument = (!this.toggle ? this.permissionDocumentHide : this.permissionDocument)
+    const permissionPage = (!this.toggle ? this.permissionPageHide : this.permissionPage)
     for (const uuid of this.journalEntryUuids) {
       const doc = await fromUuid(uuid)
       if (doc) {
@@ -129,15 +175,30 @@ export default class ChaosiumCanvasInterfaceTileToggle extends ChaosiumCanvasInt
         console.error('Region Behavior ' + uuid + ' not loaded')
       }
     }
-  }
-
-  async _handleRightClickEvent () {
-    await this._handleLeftClickEvent()
-    for (const uuid of this.regionUuids) {
-      setTimeout(() => {
-        game.aov.ClickRegionLeftUuid(uuid)
-      }, 100)
+    if (this.triggerButton === ChaosiumCanvasInterfaceTileToggle.triggerButton.Both) {
+      for (const uuid of this.regionUuids) {
+        setTimeout(() => {
+          if (button === this.regionButton) {
+            if (this.triggerAsButton === ChaosiumCanvasInterface.triggerButton.Right) {
+              game.aov.ClickRegionRightUuid(uuid)
+            } else if (this.triggerAsButton === ChaosiumCanvasInterface.triggerButton.Left) {
+              game.aov.ClickRegionLeftUuid(uuid)
+            }
+          }
+        }, 100)
+      }
     }
   }
 
+  async _handleLeftClickEvent() {
+    if ([ChaosiumCanvasInterfaceTileToggle.triggerButton.Both, ChaosiumCanvasInterface.triggerButton.Left].includes(this.triggerButton)) {
+      this.#handleClickEvent(ChaosiumCanvasInterface.triggerButton.Left)
+    }
+  }
+
+  async _handleRightClickEvent() {
+    if ([ChaosiumCanvasInterfaceTileToggle.triggerButton.Both, ChaosiumCanvasInterface.triggerButton.Right].includes(this.triggerButton)) {
+      this.#handleClickEvent(ChaosiumCanvasInterface.triggerButton.Right)
+    }
+  }
 }

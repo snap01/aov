@@ -18,6 +18,12 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
   static defineSchema () {
     const fields = foundry.data.fields
     return {
+      triggerButton: new fields.NumberField({
+        choices: ChaosiumCanvasInterface.triggerButtons,
+        initial: ChaosiumCanvasInterface.triggerButton.Left,
+        label: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Button.Title',
+        hint: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Button.Hint'
+      }),
       toggle: new fields.BooleanField({
         initial: false,
         label: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Toggle.Title',
@@ -25,7 +31,6 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
       }),
       noteUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined,
           type: 'Note'
         }),
         {
@@ -35,7 +40,6 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
       ),
       documentUuids: new fields.SetField(
         new fields.DocumentUUIDField({
-          initial: undefined
         }),
         {
           label: 'AOV.ChaosiumCanvasInterface.MapPinToggle.Document.Title',
@@ -63,7 +67,7 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
     return game.user.isGM
   }
 
-  async _handleLeftClickEvent () {
+  async #handleClickEvent () {
     game.socket.emit('system.aov', { type: 'toggleMapNotes', toggle: true })
     game.settings.set('core', foundry.canvas.layers.NotesLayer.TOGGLE_SETTING, true)
     for (const uuid of this.documentUuids) {
@@ -83,6 +87,18 @@ export default class ChaosiumCanvasInterfaceMapPinToggle extends ChaosiumCanvasI
       } else {
         console.error('Note ' + uuid + ' not loaded')
       }
+    }
+  }
+
+  async _handleLeftClickEvent () {
+    if (this.triggerButton === ChaosiumCanvasInterface.triggerButton.Left) {
+      this.#handleClickEvent()
+    }
+  }
+
+  async _handleRightClickEvent () {
+    if (this.triggerButton === ChaosiumCanvasInterface.triggerButton.Right) {
+      this.#handleClickEvent()
     }
   }
 }
