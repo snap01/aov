@@ -1,3 +1,7 @@
+## 13.18
+- Additional CCI option, Ambient Light toggle added
+- All CCI show/hide options have become show/hide/toggle
+
 ## 13.17
 - Correction to the Stealth Skill Category Bonus
 - Additional Chaosium Canvas Interface options added
